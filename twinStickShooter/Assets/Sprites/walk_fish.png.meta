@@ -1,0 +1,174 @@
+fileFormatVersion: 2
+guid: d0176e08a6753194a9914d8c6b194c6e
+timeCreated: 1473343301
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: walk_fish_0
+    21300002: walk_fish_1
+    21300004: walk_fish_2
+    21300006: walk_fish_3
+    21300008: walk_fish_4
+    21300010: walk_fish_5
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 50
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: walk_fish_0
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 9
+        width: 48
+        height: 51
+      alignment: 9
+      pivot: {x: 0.5, y: -0.0062563466}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -14, y: 51.319073}
+        - {x: -24, y: 34.319073}
+        - {x: -24, y: 0.31907272}
+        - {x: 24, y: 0.31907272}
+        - {x: 24, y: 49.319073}
+        - {x: 15, y: 51.319073}
+    - name: walk_fish_1
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 15
+        width: 54
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5072444, y: -0.14384669}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.391197, y: 54.90464}
+        - {x: -27.391197, y: 43.90464}
+        - {x: -27.391197, y: 6.90464}
+        - {x: 26.608803, y: 6.90464}
+        - {x: 26.608803, y: 49.90464}
+        - {x: 11.608803, y: 54.90464}
+    - name: walk_fish_2
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 9
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5035741, y: -0.029224366}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.171555, y: 49.40277}
+        - {x: -24.171555, y: 47.40277}
+        - {x: -24.171555, y: 9.402769}
+        - {x: -21.171555, y: 1.4027691}
+        - {x: 22.828445, y: 1.4027691}
+        - {x: 23.828445, y: 2.402769}
+        - {x: 23.828445, y: 47.40277}
+        - {x: 15.828445, y: 49.40277}
+    - name: walk_fish_3
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 9
+        width: 45
+        height: 51
+      alignment: 9
+      pivot: {x: 0.49130723, y: -0.0119990185}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -22.108826, y: 0.6119499}
+        - {x: 10.891174, y: 0.6119499}
+        - {x: 22.891174, y: 5.61195}
+        - {x: 22.891174, y: 46.61195}
+        - {x: 21.891174, y: 51.61195}
+        - {x: -16.108826, y: 51.61195}
+        - {x: -22.108826, y: 47.61195}
+    - name: walk_fish_4
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 15
+        width: 45
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: -0.14171107}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 12.5, y: 54.80213}
+        - {x: -14.5, y: 54.80213}
+        - {x: -22.5, y: 44.80213}
+        - {x: -22.5, y: 14.802132}
+        - {x: -15.5, y: 7.8021317}
+        - {x: -9.5, y: 6.8021317}
+        - {x: 13.5, y: 6.8021317}
+        - {x: 22.5, y: 16.802132}
+        - {x: 22.5, y: 42.80213}
+        - {x: 21.5, y: 47.80213}
+    - name: walk_fish_5
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 9
+        width: 45
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.018716792}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -14.5, y: 47.101593}
+        - {x: -22.5, y: 40.101593}
+        - {x: -22.5, y: 0.10159302}
+        - {x: -19.5, y: -0.898407}
+        - {x: 14.5, y: -0.898407}
+        - {x: 22.5, y: 5.101593}
+        - {x: 22.5, y: 37.101593}
+        - {x: 18.5, y: 47.101593}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

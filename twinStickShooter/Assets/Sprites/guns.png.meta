@@ -1,0 +1,165 @@
+fileFormatVersion: 2
+guid: bdd3e1260889f6d449176d88a6218bd6
+timeCreated: 1473346582
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: guns_0
+    21300002: guns_2
+    21300004: guns_4
+    21300006: guns_5
+    21300008: guns_6
+    21300010: guns_7
+    21300012: guns_9
+    21300014: guns_10
+    21300016: guns_11
+    21300018: guns_12
+    21300020: guns_13
+    21300022: guns_14
+    21300024: guns_16
+    21300026: guns_17
+    21300028: guns_18
+    21300030: guns_19
+    21300032: guns_20
+    21300034: guns_21
+    21300036: guns_22
+    21300038: guns_23
+    21300040: guns_24
+    21300042: guns_25
+    21300044: guns_26
+    21300046: guns_27
+    21300048: guns_28
+    21300050: guns_29
+    21300052: guns_30
+    21300054: guns_31
+    21300056: guns_32
+    21300058: guns_33
+    21300060: guns_34
+    21300062: guns_35
+    21300064: guns_36
+    21300066: guns_37
+    21300068: guns_38
+    21300070: guns_39
+    21300072: guns_40
+    21300074: guns_41
+    21300076: guns_42
+    21300078: guns_43
+    21300080: guns_44
+    21300082: guns_45
+    21300084: guns_46
+    21300086: guns_47
+    21300088: guns_48
+    21300090: guns_49
+    21300092: guns_50
+    21300094: guns_51
+    21300096: guns_52
+    21300098: guns_53
+    21300100: guns_54
+    21300102: guns_55
+    21300104: guns_56
+    21300106: guns_57
+    21300108: guns_58
+    21300110: guns_59
+    21300112: guns_60
+    21300114: guns_61
+    21300116: guns_62
+    21300118: guns_63
+    21300120: guns_64
+    21300122: guns_65
+    21300124: guns_66
+    21300126: guns_67
+    21300128: guns_68
+    21300130: guns_69
+    21300132: guns_70
+    21300134: guns_71
+    21300136: guns_72
+    21300138: guns_73
+    21300140: guns_74
+    21300142: guns_75
+    21300144: guns_76
+    21300146: guns_77
+    21300148: guns_78
+    21300150: guns_79
+    21300152: guns_80
+    21300154: guns_81
+    21300156: guns_82
+    21300158: guns_83
+    21300160: guns_84
+    21300162: guns_85
+    21300164: guns_86
+    21300166: guns_87
+    21300168: guns_88
+    21300170: guns_89
+    21300172: guns_90
+    21300174: guns_91
+    21300176: guns_92
+    21300178: guns_93
+    21300180: guns_94
+    21300182: guns_95
+    21300184: guns_96
+    21300186: guns_97
+    21300188: guns_98
+    21300190: guns_99
+    21300192: guns_100
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 15
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: guns_0
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 182
+        width: 20
+        height: 7
+      alignment: 9
+      pivot: {x: 0.15576915, y: 0.7305015}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
