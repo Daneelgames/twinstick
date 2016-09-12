@@ -14,32 +14,29 @@ public class WeaponController : MonoBehaviour {
     float curReload = 0f;
 
 	void Update () {
-        if (curReload <= 0)
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                Shot();
-            }
-        }
-        else
+
+        if (curReload > 0)
         {
             curReload -= Time.deltaTime;
         }
 	}
 
-    void Shot()
+    public void Shot()
     {
-        curReload = reloadTime;
-        for (int i = 0; i < bullets.Count; i++)
+        if (curReload <= 0)
         {
-            GameObject newBullet = Instantiate(bullets[i], shotHolder.transform.position, Quaternion.identity) as GameObject;
-            BulletController newBulletController = newBullet.GetComponent<BulletController>();
+            curReload = reloadTime;
+            for (int i = 0; i < bullets.Count; i++)
+            {
+                GameObject newBullet = Instantiate(bullets[i], shotHolder.transform.position, Quaternion.identity) as GameObject;
+                BulletController newBulletController = newBullet.GetComponent<BulletController>();
 
-            Vector2 bulletDirection = shotHolder.transform.position - transform.position;
-            float randomH = Random.Range(-maxBulletOffset, maxBulletOffset);
-            float randomV = Random.Range(-maxBulletOffset, maxBulletOffset);
-            bulletDirection = new Vector2(bulletDirection.x + randomH, bulletDirection.y + randomV);
-            newBulletController.SetDirection(bulletDirection);
+                Vector2 bulletDirection = shotHolder.transform.position - transform.position;
+                float randomH = Random.Range(-maxBulletOffset, maxBulletOffset);
+                float randomV = Random.Range(-maxBulletOffset, maxBulletOffset);
+                bulletDirection = new Vector2(bulletDirection.x + randomH, bulletDirection.y + randomV);
+                newBulletController.SetDirection(bulletDirection);
+            }
         }
     }
 }

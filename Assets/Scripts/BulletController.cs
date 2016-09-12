@@ -43,7 +43,7 @@ public class BulletController : MonoBehaviour {
 
     void OnTriggerEnter2D (Collider2D coll)
     {
-        print("COLLISION");
+        //print("COLLISION");
         HealthController collHealth = coll.gameObject.GetComponent<HealthController>() as HealthController;
         if (collHealth != null)
         {

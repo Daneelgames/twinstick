@@ -3,18 +3,34 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
-
-    public GameObject player;
+    
+    public GameObject playerPrefab;
     public List<GameObject> weapons;
 
-	// Use this for initialization
-	void Start () {
-        GameObject newPlayer = Instantiate(player, Vector3.zero, Quaternion.identity) as GameObject;
+    public static GameManager instance = null;
+
+    public GameObject playerInGame;
+
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+
+        else if (instance != this)
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+    // Use this for initialization
+    void Start () {
+        GameObject newPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
         newPlayer.name = "Player";
+        playerInGame = newPlayer;
         GameObject newWeapon = Instantiate (weapons[0], Vector3.zero, Quaternion.identity) as GameObject;
         newWeapon.transform.SetParent(newPlayer.transform);
         newWeapon.name = "Weapon";
-        newWeapon.transform.localPosition = new Vector3(0, 0.5f, -1f);
+        newWeapon.transform.localPosition = new Vector3(0f, 0f, -1f);
         newPlayer.GetComponent<PlayerMovement>().SetWeapon(newWeapon);
     }
 }

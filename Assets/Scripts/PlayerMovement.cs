@@ -4,6 +4,9 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 6f;
+
+    WeaponController weaponController;
+
     [SerializeField]
     Animator anim;
     [SerializeField]
@@ -28,18 +31,27 @@ public class PlayerMovement : MonoBehaviour
     {
         Aiming();
         Animate();
+        Shooting();
+    }
+
+    void Shooting()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            weaponController.Shot();
+        }
     }
 
     void Move()
     {
         movement.Set(inputH, inputV, 0f);
-        movement = movement.normalized * speed * Time.deltaTime
-            ;
+        movement = movement.normalized * speed * Time.deltaTime;
         rb.MovePosition(transform.position + movement);
     }
 
     public void SetWeapon(GameObject wpn)
     {
+        weaponController = wpn.GetComponent<WeaponController>();
         weapon = wpn.transform;
     }
 
