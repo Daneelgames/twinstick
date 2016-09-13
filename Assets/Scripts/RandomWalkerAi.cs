@@ -62,10 +62,10 @@ public class RandomWalkerAi : MonoBehaviour {
     {
         if (walkTime > 0)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(inputH, inputV), 0.75f);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(inputH, inputV), 1.25f, 1 << 9);
             if (hit.collider != null)
             {
-               if (hit.collider.gameObject.tag == "Solid")
+              // if (hit.collider.gameObject.tag == "Solid")
                 {
                     SetDirection();
                     print(hit.collider.gameObject.name);

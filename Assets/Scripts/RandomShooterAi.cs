@@ -57,7 +57,7 @@ public class RandomShooterAi : MonoBehaviour {
 
     void Aiming()
     {
-        if (weaponController != null)
+        if (weaponController != null && _npcController.activeTarget != null)
         {
             Vector3 target_pos = _npcController.activeTarget.transform.position - transform.position;
 

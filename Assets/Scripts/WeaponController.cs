@@ -35,7 +35,8 @@ public class WeaponController : MonoBehaviour {
                 float randomH = Random.Range(-maxBulletOffset, maxBulletOffset);
                 float randomV = Random.Range(-maxBulletOffset, maxBulletOffset);
                 bulletDirection = new Vector2(bulletDirection.x + randomH, bulletDirection.y + randomV);
-                newBulletController.SetDirection(bulletDirection);
+                
+                newBulletController.SetDirection(transform.eulerAngles.z);
             }
         }
     }
