@@ -31,13 +31,18 @@ public class BulletController : MonoBehaviour {
     {
         if (lifeTime > 0)
         {
-            transform.Translate(Vector2.right * speed * Time.deltaTime, Space.Self);
+            //transform.Translate(Vector2.right * speed * Time.deltaTime, Space.Self);
 
             curLifeTime += Time.deltaTime;
 
             if (curLifeTime >= lifeTime)
                 DestroyBullet();
         }
+    }
+
+    void FixedUpdate()
+    {
+        _rb.velocity = ((Vector2)transform.TransformDirection(Vector3.right)).normalized * speed;
     }
     
     void OnCollisionEnter2D (Collision2D coll)
