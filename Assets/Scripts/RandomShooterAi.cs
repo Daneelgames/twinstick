@@ -12,6 +12,9 @@ public class RandomShooterAi : MonoBehaviour {
 
     public WeaponController weaponController;
 
+    public SpriteRenderer unitSprite;
+    public SpriteRenderer weaponSprite;
+
     void Update()
     {
         if (waitTime > 0)
@@ -20,6 +23,8 @@ public class RandomShooterAi : MonoBehaviour {
         }
 
         Aiming();
+
+        unitSprite.sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
     }
 
     void FixedUpdate()
@@ -37,7 +42,7 @@ public class RandomShooterAi : MonoBehaviour {
                         Shoot();
                     }
                     else
-                        print(hit.collider.gameObject.name); // ЖОПА
+                        print(hit.collider.gameObject.name); // ass
                 }
             }
         }
@@ -72,6 +77,15 @@ public class RandomShooterAi : MonoBehaviour {
             else if (weaponController.transform.localRotation.z >= -0.75f || weaponController.transform.localRotation.z <= 0.75f)
             {
                 weaponController.transform.localScale = new Vector3(1, 1, 1);
+            }
+            // weapon sorting
+            if (weaponController.transform.localRotation.z > 0) // weapon behind
+            {
+                weaponSprite.sortingOrder = unitSprite.sortingOrder - 1;
+            }
+            else if (weaponController.transform.localRotation.z < 0) // weapon in front
+            {
+                weaponSprite.sortingOrder = unitSprite.sortingOrder + 1;
             }
         }
     }

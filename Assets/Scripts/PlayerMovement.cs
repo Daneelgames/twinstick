@@ -19,6 +19,9 @@ public class PlayerMovement : MonoBehaviour
     float inputH = 0;
     float inputV = 0;
 
+    public SpriteRenderer unitSprite;
+    public SpriteRenderer weaponSprite;
+
     void FixedUpdate()
     {
         inputH = Input.GetAxisRaw("Horizontal");
@@ -32,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
         Aiming();
         Animate();
         Shooting();
+
+        unitSprite.sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
     }
 
     void Shooting()
@@ -53,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
     {
         weaponController = wpn.GetComponent<WeaponController>();
         weapon = wpn.transform;
+
+        weaponSprite = wpn.GetComponentInChildren<SpriteRenderer>();
     }
 
     void Animate()
@@ -76,15 +83,24 @@ public class PlayerMovement : MonoBehaviour
             weapon.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
             // FLIP SPRITES BASED ON ROTATION
-            if (weapon.localRotation.z < -0.75f || weapon.localRotation.z > 0.75f)
+            if (weapon.localRotation.z < -0.75f || weapon.localRotation.z > 0.75f) // left
             {
                 weapon.localScale = new Vector3(1, -1, 1);
                 anim.transform.localScale = new Vector3(-1, 1, 1);
             }
-            else if (weapon.localRotation.z >= -0.75f || weapon.localRotation.z <= 0.75f)
+            else if (weapon.localRotation.z >= -0.75f || weapon.localRotation.z <= 0.75f) // right
             {
                 weapon.localScale = new Vector3(1, 1, 1);
                 anim.transform.localScale = new Vector3(1, 1, 1);
+            }
+            // weapon sorting
+            if (weapon.localRotation.z > 0) // weapon behind
+            {
+                weaponSprite.sortingOrder = unitSprite.sortingOrder - 1;
+            }
+            else if (weapon.localRotation.z < 0) // weapon in front
+            {
+                weaponSprite.sortingOrder = unitSprite.sortingOrder + 1;
             }
         }
     }

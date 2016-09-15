@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour {
         GameObject newWeapon = Instantiate (weapons[0], Vector3.zero, Quaternion.identity) as GameObject;
         newWeapon.transform.SetParent(newPlayer.transform);
         newWeapon.name = "Weapon";
-        newWeapon.transform.localPosition = new Vector3(0f, 0f, -1f);
+        newWeapon.transform.localPosition = Vector3.zero;
         newPlayer.GetComponent<PlayerMovement>().SetWeapon(newWeapon);
     }
 }

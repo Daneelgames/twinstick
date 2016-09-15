@@ -11,6 +11,7 @@ public class WeaponController : MonoBehaviour {
 
     public List<GameObject> bullets;
 
+
     float curReload = 0f;
 
 	void Update () {
