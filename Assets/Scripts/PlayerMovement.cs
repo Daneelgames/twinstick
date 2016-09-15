@@ -5,6 +5,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 6f;
 
+    float curSpeed = 6f;
+
     WeaponController weaponController;
 
     [SerializeField]
@@ -22,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     public SpriteRenderer unitSprite;
     public SpriteRenderer weaponSprite;
 
+    bool rolling = false;
+
     void FixedUpdate()
     {
         inputH = Input.GetAxisRaw("Horizontal");
@@ -37,6 +41,26 @@ public class PlayerMovement : MonoBehaviour
         Shooting();
 
         unitSprite.sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
+
+        //reduce roll speed
+        if (rolling)
+        {
+            curSpeed = Mathf.Lerp(curSpeed, speed, 0.075f);
+        }
+    }
+    
+    public void Roll(bool roll, float rollSpeed)
+    {
+        rolling = roll;
+
+        if (roll == true)
+        {
+            curSpeed = rollSpeed;
+        }
+        else
+        {
+            curSpeed = speed;
+        }
     }
 
     void Shooting()
@@ -49,8 +73,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        movement.Set(inputH, inputV, 0f);
-        movement = movement.normalized * speed * Time.deltaTime;
+        if (!rolling)
+            movement.Set(inputH, inputV, 0f);
+
+        movement = movement.normalized * curSpeed * Time.deltaTime;
         rb.MovePosition(transform.position + movement);
     }
 

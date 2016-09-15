@@ -41,8 +41,8 @@ public class RandomShooterAi : MonoBehaviour {
                     {
                         Shoot();
                     }
-                    else
-                        print(hit.collider.gameObject.name); // ass
+                   // else
+                   //     print(hit.collider.gameObject.name); // ass
                 }
             }
         }
