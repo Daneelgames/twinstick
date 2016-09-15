@@ -59,12 +59,9 @@ public class BulletController : MonoBehaviour {
             if (coll.gameObject.tag == "Solid" || coll.gameObject.tag == "Bullet")
             {
                 healthController.Damage(1);
-
-                // CAST RAY
                 ContactPoint2D contact = coll.contacts[0];
-                Vector2 mVect = Vector2.Reflect(transform.position, contact.normal);
-                float rot = Mathf.Atan2(mVect.x, mVect.y) * Mathf.Rad2Deg;
-                rot = rot + Random.Range(-5f, 5f);
+                Vector2 mVect = Vector2.Reflect((Vector2)transform.TransformDirection(Vector3.right), contact.normal);
+                var rot = Mathf.Rad2Deg*Mathf.Atan2(mVect.y, mVect.x) + Random.Range(-5f, 5f);
                 SetDirection(rot);
             }
             else
