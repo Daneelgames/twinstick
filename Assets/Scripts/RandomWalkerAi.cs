@@ -68,7 +68,7 @@ public class RandomWalkerAi : MonoBehaviour {
               // if (hit.collider.gameObject.tag == "Solid")
                 {
                     SetDirection();
-                    print(hit.collider.gameObject.name);
+                    //print(hit.collider.gameObject.name);
                 }
             }
         }

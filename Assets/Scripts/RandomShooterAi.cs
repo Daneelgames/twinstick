@@ -15,37 +15,43 @@ public class RandomShooterAi : MonoBehaviour {
     public SpriteRenderer unitSprite;
     public SpriteRenderer weaponSprite;
 
+    public LineRenderer line;
+
+    RaycastHit2D targetHit;
+    float tragetDistance = 0;
+
     void Update()
     {
-        if (waitTime > 0)
+        if (GameManager.instance.playerInGame != null)
         {
-            waitTime -= Time.deltaTime;
+            tragetDistance = Vector2.Distance(transform.position, GameManager.instance.playerInGame.transform.position);
+            if (tragetDistance < 17f)
+            {
+                line.SetPosition(0, transform.position);
+                line.SetPosition(1, GameManager.instance.playerInGame.transform.position);
+                if (targetHit)
+                {
+                    line.SetPosition(1, targetHit.point);
+                }
+                else
+                {
+                    Aiming();
+                    waitTime -= Time.deltaTime;
+
+                    if (waitTime <= 0)
+                        Shoot();
+                }
+                // else
+                //     print(hit.collider.gameObject.name); // ass
+            }
         }
-
-        Aiming();
-
         unitSprite.sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
     }
 
     void FixedUpdate()
     {
-        if (waitTime <= 0)
-        {
-            if (GameManager.instance.playerInGame != null)
-            {
-                float distance = Vector2.Distance(transform.position, GameManager.instance.playerInGame.transform.position);
-                if (distance < 17f)
-                {
-                    RaycastHit2D hit = Physics2D.Raycast(transform.position, GameManager.instance.playerInGame.transform.position, distance, 1 << 9);
-                    if (!hit)
-                    {
-                        Shoot();
-                    }
-                   // else
-                   //     print(hit.collider.gameObject.name); // ass
-                }
-            }
-        }
+        if (GameManager.instance.playerInGame != null)
+            targetHit = Physics2D.Raycast(transform.position, GameManager.instance.playerInGame.transform.position, tragetDistance, 1 << 9);
     }
 
     void SetWaitTime()
@@ -68,25 +74,24 @@ public class RandomShooterAi : MonoBehaviour {
 
             float angle = Mathf.Atan2(target_pos.y, target_pos.x) * Mathf.Rad2Deg;
             weaponController.transform.localEulerAngles = new Vector3(0, 0, angle);
-
-            // FLIP SPRITES BASED ON ROTATION
-            if (weaponController.transform.localRotation.z < -0.75f || weaponController.transform.localRotation.z > 0.75f)
-            {
-                weaponController.transform.localScale = new Vector3(1, -1, 1);
-            }
-            else if (weaponController.transform.localRotation.z >= -0.75f || weaponController.transform.localRotation.z <= 0.75f)
-            {
-                weaponController.transform.localScale = new Vector3(1, 1, 1);
-            }
-            // weapon sorting
-            if (weaponController.transform.localRotation.z > 0) // weapon behind
-            {
-                weaponSprite.sortingOrder = unitSprite.sortingOrder - 1;
-            }
-            else if (weaponController.transform.localRotation.z < 0) // weapon in front
-            {
-                weaponSprite.sortingOrder = unitSprite.sortingOrder + 1;
-            }
+        }
+        // FLIP SPRITES BASED ON ROTATION
+        if (weaponController.transform.localRotation.z < -0.75f || weaponController.transform.localRotation.z > 0.75f)
+        {
+            weaponController.transform.localScale = new Vector3(1, -1, 1);
+        }
+        else if (weaponController.transform.localRotation.z >= -0.75f || weaponController.transform.localRotation.z <= 0.75f)
+        {
+            weaponController.transform.localScale = new Vector3(1, 1, 1);
+        }
+        // weapon sorting
+        if (weaponController.transform.localRotation.z > 0) // weapon behind
+        {
+            weaponSprite.sortingOrder = unitSprite.sortingOrder - 1;
+        }
+        else if (weaponController.transform.localRotation.z < 0) // weapon in front
+        {
+            weaponSprite.sortingOrder = unitSprite.sortingOrder + 1;
         }
     }
 }

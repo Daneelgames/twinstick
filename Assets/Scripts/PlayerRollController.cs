@@ -20,7 +20,10 @@ public class PlayerRollController : MonoBehaviour {
     {
         if (Input.GetButtonDown("Fire2") && !roll && cooldown <= 0)
         {
-            StartCoroutine("Roll");
+            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+            {
+                StartCoroutine("Roll");
+            }
         }
 
         if (cooldown > 0)
