@@ -40,7 +40,9 @@ public class PlayerMovement : MonoBehaviour
         Animate();
         Shooting();
 
+        // SORTING
         unitSprite.sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
+
 
         //reduce roll speed
         if (rolling)

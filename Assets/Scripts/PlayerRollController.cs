@@ -64,7 +64,10 @@ public class PlayerRollController : MonoBehaviour {
         _anim.SetBool("Roll", rollOn);
 
         if (rollOn == false)
+        {
             cooldown = rollCooldown;
+            rollParticles.Stop();
+        }
         else
             rollParticles.Play();
     }
