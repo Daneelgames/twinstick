@@ -29,9 +29,11 @@ public class RandomShooterAi : MonoBehaviour {
             {
                 line.SetPosition(0, transform.position);
                 line.SetPosition(1, GameManager.instance.playerInGame.transform.position);
+
                 if (targetHit)
                 {
                     line.SetPosition(1, targetHit.point);
+                    print(targetHit.point);
                 }
                 else
                 {
@@ -51,7 +53,7 @@ public class RandomShooterAi : MonoBehaviour {
     void FixedUpdate()
     {
         if (GameManager.instance.playerInGame != null)
-            targetHit = Physics2D.Raycast(transform.position, GameManager.instance.playerInGame.transform.position, tragetDistance, 1 << 9);
+            targetHit = Physics2D.Raycast(transform.position, GameManager.instance.playerInGame.transform.position - transform.position, tragetDistance, 1 << 9);
     }
 
     void SetWaitTime()

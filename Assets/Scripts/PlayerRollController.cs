@@ -51,6 +51,7 @@ public class PlayerRollController : MonoBehaviour {
         }
     }
 
+    /*
     void OnCollisionStay2D(Collision2D coll)
     {
         if (coll.gameObject.tag == "Solid" && roll)
@@ -58,6 +59,7 @@ public class PlayerRollController : MonoBehaviour {
             SetRoll(false);
         }
     }
+    */
 
     void SetRoll(bool rollOn)
     {

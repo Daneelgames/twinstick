@@ -13,8 +13,8 @@ public class PlayerMovement : MonoBehaviour
     Animator anim;
     [SerializeField]
     Transform weapon;
-    [SerializeField]
-    Rigidbody2D rb;
+
+    public Rigidbody2D rb;
 
     // The vector to store the direction of the player's movement.
     Vector3 movement;
