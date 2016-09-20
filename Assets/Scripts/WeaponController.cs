@@ -23,6 +23,7 @@ public class WeaponController : MonoBehaviour {
         if (!hands)
         {
             transform.SetParent(null);
+            transform.localEulerAngles = new Vector3(0, 0, Random.Range(0, 360));
         }
         inHands = hands;
 

@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 
     float curSpeed = 6f;
 
-    WeaponController weaponController;
+    public WeaponController weaponController;
 
     [SerializeField]
     Animator anim;
@@ -89,9 +89,33 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(transform.position + movement);
     }
 
-    public void SetWeapon(GameObject wpn)
+    public void SetWeapon(GameObject wpn, bool newWeapon)
     {
+        if (newWeapon)
+        {
+            if (GameManager.instance.playerWeapons.Count == 1)
+            {
+                if (weaponController != null) // if have weapon in hands
+                {
+                    weaponController.gameObject.SetActive(false);
+                }
+            }
+            else if (GameManager.instance.playerWeapons.Count == 2)
+            {
+                GameManager.instance.RemovePlayerWeapon(weaponController.gameObject);
+                weaponController.SwitchInhands(false);
+                weaponController = null;
+            }
+
+            GameManager.instance.AddPlayerWeapon(wpn);
+        }
+        else
+        {
+            weaponController.gameObject.SetActive(false);
+        }
+
         weaponController = wpn.GetComponent<WeaponController>();
+        weaponController.gameObject.SetActive(true);
         weapon = wpn.transform;
 
         weaponSprite = wpn.GetComponentInChildren<SpriteRenderer>();
