@@ -20,10 +20,16 @@ public class RandomShooterAi : MonoBehaviour {
     RaycastHit2D targetHit;
     float tragetDistance = 0;
 
-    void Update()
+    void Start()
+    {
+        InvokeRepeating("ReadyToShoot", 1, 0.1f);
+    }
+
+    void ReadyToShoot()
     {
         if (GameManager.instance.playerInGame != null)
         {
+            targetHit = Physics2D.Raycast(transform.position, GameManager.instance.playerInGame.transform.position - transform.position, tragetDistance, 1 << 9);
             tragetDistance = Vector2.Distance(transform.position, GameManager.instance.playerInGame.transform.position);
             if (tragetDistance < 17f)
             {
@@ -48,12 +54,6 @@ public class RandomShooterAi : MonoBehaviour {
             }
         }
         unitSprite.sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
-    }
-
-    void FixedUpdate()
-    {
-        if (GameManager.instance.playerInGame != null)
-            targetHit = Physics2D.Raycast(transform.position, GameManager.instance.playerInGame.transform.position - transform.position, tragetDistance, 1 << 9);
     }
 
     void SetWaitTime()

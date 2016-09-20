@@ -25,6 +25,17 @@ public class PlayerMovement : MonoBehaviour
     public SpriteRenderer weaponSprite;
 
     bool rolling = false;
+    
+    void Start()
+    {
+        InvokeRepeating("Sort", 1, 0.1f);
+    }
+
+    void Sort()
+    {
+        // SORTING
+        unitSprite.sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
+    }
 
     void FixedUpdate()
     {
@@ -39,10 +50,6 @@ public class PlayerMovement : MonoBehaviour
         Aiming();
         Animate();
         Shooting();
-
-        // SORTING
-        unitSprite.sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
-
 
         //reduce roll speed
         if (rolling)
