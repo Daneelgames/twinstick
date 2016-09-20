@@ -7,7 +7,9 @@ public class RandomShooterAi : MonoBehaviour {
 
     public float minWaitTime = 0.5f;
     public float maxWaitTime = 7f;
-    
+
+    public float shootDistance = 10f;
+
     float waitTime = 0;
 
     public WeaponController weaponController;
@@ -15,7 +17,7 @@ public class RandomShooterAi : MonoBehaviour {
     public SpriteRenderer unitSprite;
     public SpriteRenderer weaponSprite;
 
-    public LineRenderer line;
+    //public LineRenderer line;
 
     RaycastHit2D targetHit;
     float tragetDistance = 0;
@@ -31,15 +33,15 @@ public class RandomShooterAi : MonoBehaviour {
         {
             targetHit = Physics2D.Raycast(transform.position, GameManager.instance.playerInGame.transform.position - transform.position, tragetDistance, 1 << 9);
             tragetDistance = Vector2.Distance(transform.position, GameManager.instance.playerInGame.transform.position);
-            if (tragetDistance < 17f)
+            if (tragetDistance < shootDistance)
             {
-                line.SetPosition(0, transform.position);
-                line.SetPosition(1, GameManager.instance.playerInGame.transform.position);
+               // line.SetPosition(0, transform.position);
+               // line.SetPosition(1, GameManager.instance.playerInGame.transform.position);
 
                 if (targetHit)
                 {
-                    line.SetPosition(1, targetHit.point);
-                    print(targetHit.point);
+                   // line.SetPosition(1, targetHit.point);
+                    //print(targetHit.point);
                 }
                 else
                 {

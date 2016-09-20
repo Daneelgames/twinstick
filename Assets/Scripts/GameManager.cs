@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
 
     public GameObject playerInGame;
 
+    public int playerExp = 0;
+
     void Awake()
     {
         if (instance == null)
@@ -32,5 +34,10 @@ public class GameManager : MonoBehaviour {
         newWeapon.name = "Weapon";
         newWeapon.transform.localPosition = Vector3.zero;
         newPlayer.GetComponent<PlayerMovement>().SetWeapon(newWeapon);
+    }
+
+    public void GetExp()
+    {
+        playerExp += 1;
     }
 }

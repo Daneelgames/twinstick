@@ -14,6 +14,8 @@ public class BulletController : MonoBehaviour {
     public float lifeTime = 0;
     public float curLifeTime = 0;
 
+    public float maxBulletOffset = 5f;
+
     public HealthController healthController;
 
 
@@ -24,7 +26,9 @@ public class BulletController : MonoBehaviour {
 
     public void SetDirection(float rot)
     {
-        transform.eulerAngles = new Vector3(0, 0, rot);
+        float random = Random.Range(-maxBulletOffset, maxBulletOffset);
+
+        transform.eulerAngles = new Vector3(0, 0, rot + random);
     }
 
     void Update()

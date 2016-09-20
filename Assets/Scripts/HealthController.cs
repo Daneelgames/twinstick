@@ -7,6 +7,8 @@ public class HealthController : MonoBehaviour {
 
     public bool invisible = false;
 
+    public DropOnDeathController dropController;
+
     public void SetInvisible(bool invs)
     {
         invisible = invs;
@@ -23,6 +25,9 @@ public class HealthController : MonoBehaviour {
 
     void Death()
     {
+        if (dropController != null)
+            dropController.DeathDrop();
+
         Destroy(gameObject);
     }
 }

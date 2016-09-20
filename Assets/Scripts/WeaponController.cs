@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class WeaponController : MonoBehaviour {
 
     public float reloadTime = 0.25f;
-    public float maxBulletOffset = 5f;
 
     public GameObject shotHolder;
 
@@ -31,11 +30,6 @@ public class WeaponController : MonoBehaviour {
             {
                 GameObject newBullet = Instantiate(bullets[i], shotHolder.transform.position, Quaternion.identity) as GameObject;
                 BulletController newBulletController = newBullet.GetComponent<BulletController>();
-
-                Vector2 bulletDirection = shotHolder.transform.position - transform.position;
-                float randomH = Random.Range(-maxBulletOffset, maxBulletOffset);
-                float randomV = Random.Range(-maxBulletOffset, maxBulletOffset);
-                bulletDirection = new Vector2(bulletDirection.x + randomH, bulletDirection.y + randomV);
                 
                 newBulletController.SetDirection(transform.eulerAngles.z);
             }
