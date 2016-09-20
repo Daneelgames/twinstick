@@ -3,23 +3,57 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class WeaponController : MonoBehaviour {
-
+    
     public float reloadTime = 0.25f;
 
     public GameObject shotHolder;
 
     public List<GameObject> bullets;
-
-
+    
     float curReload = 0f;
 
-	void Update () {
+    bool canPick = false;
+    bool inHands = false;
+
+
+    public void SwitchInhands(bool hands)
+    {
+        canPick = false;
+
+        if (!hands)
+        {
+            transform.SetParent(null);
+        }
+        inHands = hands;
+
+    }
+
+    void OnTriggerStay2D(Collider2D coll)
+    {
+        if (coll.tag == "Player" && !canPick && !inHands)
+        {
+            GameManager.instance.WeaponToPick(gameObject);
+            canPick = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D coll)
+    {
+        if (coll.tag == "Player")
+        {
+            GameManager.instance.WeaponToPick(null);
+            canPick = false;
+        }
+    }
+
+    void Update () {
 
         if (curReload > 0)
         {
             curReload -= Time.deltaTime;
         }
-	}
+        
+    }
 
     public void Shot()
     {

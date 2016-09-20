@@ -95,6 +95,11 @@ public class PlayerMovement : MonoBehaviour
         weapon = wpn.transform;
 
         weaponSprite = wpn.GetComponentInChildren<SpriteRenderer>();
+
+        wpn.GetComponent<WeaponController>().SwitchInhands(true);
+        wpn.name = "Weapon";
+        wpn.transform.SetParent(transform);
+        wpn.transform.localPosition = Vector3.zero;
     }
 
     void Animate()

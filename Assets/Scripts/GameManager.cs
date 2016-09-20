@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour {
 
     public int playerExp = 0;
 
+    public GameObject weaponToPick = null;
+
     void Awake()
     {
         if (instance == null)
@@ -30,14 +32,25 @@ public class GameManager : MonoBehaviour {
         newPlayer.name = "Player";
         playerInGame = newPlayer;
         GameObject newWeapon = Instantiate (weapons[0], Vector3.zero, Quaternion.identity) as GameObject;
-        newWeapon.transform.SetParent(newPlayer.transform);
-        newWeapon.name = "Weapon";
-        newWeapon.transform.localPosition = Vector3.zero;
-        newPlayer.GetComponent<PlayerMovement>().SetWeapon(newWeapon);
-    }
 
+        playerInGame.GetComponent<PlayerMovement>().SetWeapon(newWeapon);
+    }
+    
     public void GetExp()
     {
         playerExp += 1;
+    }
+
+    public void WeaponToPick(GameObject weapon)
+    {
+        weaponToPick = weapon;
+    }
+
+    void Update()
+    {
+        if (Input.GetButtonDown("Submit"))
+        {
+            playerInGame.GetComponent<PlayerMovement>().SetWeapon(weaponToPick);
+        }
     }
 }
