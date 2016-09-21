@@ -19,23 +19,25 @@ public class HealthController : MonoBehaviour {
 
     public void Damage(int dmg)
     {
-        if(!invisible)
-            health -= dmg;
-        
-        if (health <= 0)
+        if (dmg > 0)
         {
-            health = 0;
-            Death();
+            if (!invisible)
+                health -= dmg;
+
+            if (health <= 0)
+            {
+                health = 0;
+                Death();
+            }
+
+            if (player)
+            {
+                if (health > 0)
+                    StartCoroutine("PlayerInvisibleFrames");
+
+                GameManager.instance.gui.SetHealth();
+            }
         }
-
-        if (player)
-        {
-            if (health > 0)
-                StartCoroutine("PlayerInvisibleFrames");
-
-            GameManager.instance.gui.SetHealth();
-        }
-
     }
 
     IEnumerator PlayerInvisibleFrames()

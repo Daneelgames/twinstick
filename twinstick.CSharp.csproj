@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\PlayerRollController.cs" />
     <Compile Include="Assets\Scripts\RandomShooterAi.cs" />
     <Compile Include="Assets\Scripts\RandomWalkerAi.cs" />
+    <Compile Include="Assets\Scripts\WalkerToPlayerAi.cs" />
     <Compile Include="Assets\Scripts\WeaponController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
