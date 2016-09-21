@@ -116,8 +116,9 @@ public class PlayerMovement : MonoBehaviour
             if (canShoot)
             {
                 weaponController.Shot();
-                GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -1);
+                GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -1); 
                 GameManager.instance.gui.SetAmmo(weaponController.weaponAmmoType);
+                GameManager.instance.gui.SetWeapon( );
             }
         }
     }
