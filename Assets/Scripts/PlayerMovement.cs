@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     float curSpeed = 6f;
 
     public WeaponController weaponController;
+    public HealthController playerHealth;
 
     [SerializeField]
     Animator anim;
@@ -35,6 +36,16 @@ public class PlayerMovement : MonoBehaviour
     {
         // SORTING
         unitSprite.sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
+
+        // weapon sorting
+        if (weapon.localRotation.z > 0) // weapon behind
+        {
+            weaponSprite.sortingOrder = unitSprite.sortingOrder - 2;
+        }
+        else if (weapon.localRotation.z < 0) // weapon in front
+        {
+            weaponSprite.sortingOrder = unitSprite.sortingOrder + 2;
+        }
     }
 
     void FixedUpdate()
@@ -74,9 +85,40 @@ public class PlayerMovement : MonoBehaviour
 
     void Shooting()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && weaponController.curReload <= 0)
         {
-            weaponController.Shot();
+            bool canShoot = false;
+
+            switch (weaponController.weaponAmmoType)
+            {
+                case WeaponController.Type.Bullet:
+                    if (GameManager.instance.bullets > 0)
+                        canShoot = true;
+                    else
+                        canShoot = false;
+                    break;
+
+                case WeaponController.Type.Shell:
+                    if (GameManager.instance.shells > 0)
+                        canShoot = true;
+                    else
+                        canShoot = false;
+                    break;
+
+                case WeaponController.Type.Explosive:
+                    if (GameManager.instance.explosive > 0)
+                        canShoot = true;
+                    else
+                        canShoot = false;
+                    break;
+            }
+
+            if (canShoot)
+            {
+                weaponController.Shot();
+                GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -1);
+                GameManager.instance.gui.SetAmmo(weaponController.weaponAmmoType);
+            }
         }
     }
 
@@ -107,7 +149,11 @@ public class PlayerMovement : MonoBehaviour
                 weaponController = null;
             }
 
+            print(wpn.name + " add");
             GameManager.instance.AddPlayerWeapon(wpn);
+            GameManager.instance.gui.SetAmmo(WeaponController.Type.Bullet);
+            GameManager.instance.gui.SetAmmo(WeaponController.Type.Shell);
+            GameManager.instance.gui.SetAmmo(WeaponController.Type.Explosive);
         }
         else
         {
@@ -124,6 +170,8 @@ public class PlayerMovement : MonoBehaviour
         wpn.name = "Weapon";
         wpn.transform.SetParent(transform);
         wpn.transform.localPosition = Vector3.zero;
+
+        GameManager.instance.gui.SetWeapon();
     }
 
     void Animate()
@@ -156,15 +204,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 weapon.localScale = new Vector3(1, 1, 1);
                 anim.transform.localScale = new Vector3(1, 1, 1);
-            }
-            // weapon sorting
-            if (weapon.localRotation.z > 0) // weapon behind
-            {
-                weaponSprite.sortingOrder = unitSprite.sortingOrder - 1;
-            }
-            else if (weapon.localRotation.z < 0) // weapon in front
-            {
-                weaponSprite.sortingOrder = unitSprite.sortingOrder + 1;
             }
         }
     }

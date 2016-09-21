@@ -6,8 +6,10 @@ public class GameManager : MonoBehaviour {
     
     public static GameManager instance = null;
 
+    public GuiController gui;
+
     public GameObject playerInGame;
-    PlayerMovement playerController;
+    public PlayerMovement playerController;
     public List<GameObject> playerWeapons;
 
     public int playerExp = 0;
@@ -16,6 +18,15 @@ public class GameManager : MonoBehaviour {
 
     public List<GameObject> weapons;
     public GameObject playerPrefab;
+
+    public int bullets = 50;
+    public int bulletsMax = 240;
+
+    public int shells = 20;
+    public int shellsMax = 100;
+
+    public int explosive = 15;
+    public int explosiveMax = 50;
 
     void Awake()
     {
@@ -37,6 +48,8 @@ public class GameManager : MonoBehaviour {
         GameObject newWeapon = Instantiate (weapons[0], Vector3.zero, Quaternion.identity) as GameObject;
 
         playerController.SetWeapon(newWeapon, true);
+
+        gui.SetHealth();
     }
     
     public void GetExp()
@@ -57,7 +70,7 @@ public class GameManager : MonoBehaviour {
             WeaponToPick(null);
         }
 
-        if (Input.GetButtonDown("ChangeWeapon") && playerWeapons.Count > 0)
+        if (Input.GetButtonDown("ChangeWeapon") && playerWeapons.Count > 1)
         {
             if (playerController.weaponController.gameObject == playerWeapons[0])
             {
@@ -69,6 +82,8 @@ public class GameManager : MonoBehaviour {
                 print("change weapon to 0");
                 playerController.SetWeapon(playerWeapons[0], false);
             }
+
+            gui.SetWeapon();
         }
     }
 
@@ -79,5 +94,29 @@ public class GameManager : MonoBehaviour {
     public void RemovePlayerWeapon(GameObject weapon)
     {
         playerWeapons.Remove(weapon);
+    }
+
+    public void SetAmmo (WeaponController.Type type, int amount)
+    {
+        switch (type)
+        {
+            case WeaponController.Type.Bullet:
+                bullets += amount;
+                if (bullets > bulletsMax)
+                    bullets = bulletsMax;
+                break;
+
+            case WeaponController.Type.Shell:
+                shells += amount;
+                if (shells > shellsMax)
+                    shells = shellsMax;
+                break;
+
+            case WeaponController.Type.Explosive:
+                explosive += amount;
+                if (explosive > explosiveMax)
+                    explosive = explosiveMax;
+                break;
+        }
     }
 }

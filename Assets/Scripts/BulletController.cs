@@ -4,6 +4,7 @@ using System.Collections;
 public class BulletController : MonoBehaviour {
 
     public Rigidbody2D _rb;
+    public Collider2D _coll;
     public bool ricochet = false;
     public float bulletRicochetCooldown = 0.3f;
     public bool shotThrough = false;
@@ -56,10 +57,8 @@ public class BulletController : MonoBehaviour {
         if (!ricochet && !shotThrough)
         {
             DamageColl(coll);
-            DestroyBullet();
         }
-
-        if (ricochet)
+        else if (ricochet)
         {
 
             if (coll.gameObject.tag == "Solid")
@@ -78,19 +77,38 @@ public class BulletController : MonoBehaviour {
             else
             {
                 DamageColl(coll);
-                DestroyBullet();
             }
         }
     }
 
     void DamageColl(Collision2D coll)
     {
-        //print("COLLISION");
+        //print(gameObject.name + " COLLISION " + coll.gameObject.name);
         HealthController collHealth = coll.gameObject.GetComponent<HealthController>() as HealthController;
         if (collHealth != null)
         {
-            collHealth.Damage(damage);
+            if (!collHealth.invisible)
+            {
+                collHealth.Damage(damage);
+                DestroyBullet();
+            }
+            else
+            {
+                Physics2D.IgnoreCollision(coll.collider, _coll, true);
+                StartCoroutine("EnableCollision", coll.collider);
+            }
         }
+        else
+        {
+            DestroyBullet();
+        }
+    }
+
+    IEnumerator EnableCollision(Collider2D coll)
+    {
+        yield return new WaitForSeconds(0.3f);
+        if (coll != null && _coll != null)
+            Physics2D.IgnoreCollision(coll, _coll, false);
     }
 
     void Ricochet(Collision2D coll)

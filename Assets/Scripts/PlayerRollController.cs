@@ -16,6 +16,8 @@ public class PlayerRollController : MonoBehaviour {
 
     public ParticleSystem rollParticles;
 
+    public HealthController playerHealth;
+
     void Update()
     {
         if (Input.GetButtonDown("Fire2") && !roll && cooldown <= 0)
@@ -65,6 +67,7 @@ public class PlayerRollController : MonoBehaviour {
     {
         //print("roll " + rollOn);
         pm.Roll(rollOn, rollSpeed);
+        playerHealth.SetInvisible(rollOn);
         roll = rollOn;
         _anim.SetBool("Roll", rollOn);
 

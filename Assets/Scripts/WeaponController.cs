@@ -3,17 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class WeaponController : MonoBehaviour {
-    
+
+    public enum Type {Bullet, Shell, Explosive};
+
     public float reloadTime = 0.25f;
 
     public GameObject shotHolder;
 
     public List<GameObject> bullets;
-    
-    float curReload = 0f;
+
+    public float curReload = 0f;
 
     bool canPick = false;
     bool inHands = false;
+
+    public Type weaponAmmoType = Type.Bullet;
 
 
     public void SwitchInhands(bool hands)
