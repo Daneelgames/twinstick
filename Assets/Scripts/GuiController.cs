@@ -33,16 +33,10 @@ public class GuiController : MonoBehaviour {
 
         for (int i = 0; i < GameManager.instance.playerWeapons.Count; i ++)
         {
-            if (GameManager.instance.playerWeapons[i] == null)
-            {
-                weapons[i].sprite = null;
-                weaponCounters[i].text = "";
-            }
-
-
             if (GameManager.instance.playerWeapons.Count > i)
             {
                 weapons[i].sprite = GameManager.instance.playerWeapons[i].GetComponent<SpriteRenderer>().sprite;
+                weapons[i].color = Color.white;
                 weapons[i].SetNativeSize();
 
                 string ammo = "0";
@@ -64,9 +58,21 @@ public class GuiController : MonoBehaviour {
                 weaponCounters[i].text = ammo;
             }
 
-            // set weapons ammo counters
         }
 
+        switch(GameManager.instance.playerWeapons.Count) // hide inactive weapon icons
+        {
+            case 0:
+                weapons[0].color = Color.clear;
+                weaponCounters[0].text = "";
+                break;
+            case 1:
+                weapons[1].color = Color.clear;
+                weaponCounters[1].text = "";
+                break;
+        }
+
+        // set weapons ammo counters
         if (GameManager.instance.playerWeapons.Count > 0)
         {
             if (GameManager.instance.playerController.weaponController.gameObject == GameManager.instance.playerWeapons[0])

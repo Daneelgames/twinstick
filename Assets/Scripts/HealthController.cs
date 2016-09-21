@@ -21,12 +21,42 @@ public class HealthController : MonoBehaviour {
     {
         if(!invisible)
             health -= dmg;
+        
+        if (health <= 0)
+        {
+            health = 0;
+            Death();
+        }
 
         if (player)
-            GameManager.instance.gui.SetHealth();
+        {
+            if (health > 0)
+                StartCoroutine("PlayerInvisibleFrames");
 
-        if (health <= 0)
-            Death();
+            GameManager.instance.gui.SetHealth();
+        }
+
+    }
+
+    IEnumerator PlayerInvisibleFrames()
+    {
+        invisible = true;
+
+        GameManager.instance.playerController.unitSprite.color = Color.clear;
+        yield return new WaitForSeconds(0.1f);
+        GameManager.instance.playerController.unitSprite.color = Color.white;
+        yield return new WaitForSeconds(0.1f);
+        GameManager.instance.playerController.unitSprite.color = Color.clear;
+        yield return new WaitForSeconds(0.1f);
+        GameManager.instance.playerController.unitSprite.color = Color.white;
+        yield return new WaitForSeconds(0.1f);
+        GameManager.instance.playerController.unitSprite.color = Color.clear;
+        yield return new WaitForSeconds(0.1f);
+
+        GameManager.instance.playerController.unitSprite.color = Color.white;
+
+        if (invisible)
+            invisible = false;
     }
 
     void Death()
@@ -34,6 +64,7 @@ public class HealthController : MonoBehaviour {
         if (dropController != null)
             dropController.DeathDrop();
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        //Destroy(gameObject);
     }
 }

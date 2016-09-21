@@ -29,7 +29,7 @@ public class RandomShooterAi : MonoBehaviour {
 
     void ReadyToShoot()
     {
-        if (GameManager.instance.playerInGame != null)
+        if (GameManager.instance.playerInGame != null && _npcController.health.health > 0)
         {
             targetHit = Physics2D.Raycast(transform.position, GameManager.instance.playerInGame.transform.position - transform.position, tragetDistance, 1 << 9);
             tragetDistance = Vector2.Distance(transform.position, GameManager.instance.playerInGame.transform.position);

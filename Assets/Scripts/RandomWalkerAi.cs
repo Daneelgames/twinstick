@@ -3,6 +3,8 @@ using System.Collections;
 
 public class RandomWalkerAi : MonoBehaviour {
 
+    public NpcController _npcController;
+
     public Rigidbody2D _rb;
     public float speed = 1;
 
@@ -31,20 +33,23 @@ public class RandomWalkerAi : MonoBehaviour {
 
     void Update()
     {
-        if (walkTime > 0)
+        if (_npcController.health.health > 0)
         {
-            walkTime -= Time.deltaTime;
-            Move();
-        }
-        else
-        {
-            if (waitTime > 0)
+            if (walkTime > 0)
             {
-                waitTime -= Time.deltaTime;
+                walkTime -= Time.deltaTime;
+                Move();
             }
             else
             {
-                SetWalkTime();
+                if (waitTime > 0)
+                {
+                    waitTime -= Time.deltaTime;
+                }
+                else
+                {
+                    SetWalkTime();
+                }
             }
         }
     }
@@ -65,7 +70,7 @@ public class RandomWalkerAi : MonoBehaviour {
 
     void CheckWall()
     {
-        if (walkTime > 0)
+        if (walkTime > 0 && _npcController.health.health > 0)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(inputH, inputV), 1.25f, 1 << 9);
             if (hit.collider != null)

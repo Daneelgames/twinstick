@@ -11,6 +11,7 @@ public class BulletController : MonoBehaviour {
 
     public Vector2 direction;
     public float speed;
+    public float deceleration = 0f;
     public int damage = 1;
 
     public float lifeTime = 0;
@@ -19,6 +20,7 @@ public class BulletController : MonoBehaviour {
     public float maxBulletOffset = 5f;
 
     public HealthController healthController;
+    public GameObject explosion;
     
     void Start()
     {
@@ -45,6 +47,9 @@ public class BulletController : MonoBehaviour {
         }
         if (bulletRicochetCooldown > 0)
             bulletRicochetCooldown -= Time.deltaTime;
+
+        if (speed > 0 && deceleration > 0)
+            speed -= deceleration * Time.deltaTime;
     }
 
     void FixedUpdate()
@@ -90,7 +95,12 @@ public class BulletController : MonoBehaviour {
             if (!collHealth.invisible)
             {
                 collHealth.Damage(damage);
-                DestroyBullet();
+                if (ricochet && coll.gameObject.tag == "Solid")
+                {
+                    // ricochet
+                }
+                else
+                    DestroyBullet();
             }
             else
             {
@@ -100,7 +110,12 @@ public class BulletController : MonoBehaviour {
         }
         else
         {
-            DestroyBullet();
+            if (ricochet && coll.gameObject.tag == "Solid")
+            {
+                // ricochet
+            }
+            else
+                DestroyBullet();
         }
     }
 
@@ -122,6 +137,9 @@ public class BulletController : MonoBehaviour {
 
     void DestroyBullet()
     {
+        if (explosion != null)
+            Instantiate(explosion, transform.position, transform.rotation);
+
         Destroy(gameObject);
     }
 }

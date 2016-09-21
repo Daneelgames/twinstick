@@ -50,22 +50,28 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        inputH = Input.GetAxisRaw("Horizontal");
-        inputV = Input.GetAxisRaw("Vertical");
+        if (playerHealth.health > 0)
+        {
+            inputH = Input.GetAxisRaw("Horizontal");
+            inputV = Input.GetAxisRaw("Vertical");
 
-        Move();
+            Move();
+        }
     }
 
     void Update()
     {
-        Aiming();
-        Animate();
-        Shooting();
-
-        //reduce roll speed
-        if (rolling)
+        if (playerHealth.health > 0)
         {
-            curSpeed = Mathf.Lerp(curSpeed, speed, 0.075f);
+            Aiming();
+            Animate();
+            Shooting();
+
+            //reduce roll speed
+            if (rolling)
+            {
+                curSpeed = Mathf.Lerp(curSpeed, speed, 0.075f);
+            }
         }
     }
     
@@ -118,7 +124,45 @@ public class PlayerMovement : MonoBehaviour
                 weaponController.Shot();
                 GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -1); 
                 GameManager.instance.gui.SetAmmo(weaponController.weaponAmmoType);
-                GameManager.instance.gui.SetWeapon( );
+                GameManager.instance.gui.SetWeapon();
+            }
+        }
+
+        if (Input.GetButton("Fire1") && weaponController.curReload <= 0 && weaponController.automatic)
+        {
+
+            bool canShoot = false;
+
+            switch (weaponController.weaponAmmoType)
+            {
+                case WeaponController.Type.Bullet:
+                    if (GameManager.instance.bullets > 0)
+                        canShoot = true;
+                    else
+                        canShoot = false;
+                    break;
+
+                case WeaponController.Type.Shell:
+                    if (GameManager.instance.shells > 0)
+                        canShoot = true;
+                    else
+                        canShoot = false;
+                    break;
+
+                case WeaponController.Type.Explosive:
+                    if (GameManager.instance.explosive > 0)
+                        canShoot = true;
+                    else
+                        canShoot = false;
+                    break;
+            }
+
+            if (canShoot)
+            {
+                weaponController.Shot();
+                GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -1);
+                GameManager.instance.gui.SetAmmo(weaponController.weaponAmmoType);
+                GameManager.instance.gui.SetWeapon();
             }
         }
     }

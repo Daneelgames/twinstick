@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class NpcController : MonoBehaviour
 {
     public GameObject activeTarget;
+    public HealthController health;
 
     void Update()
     {

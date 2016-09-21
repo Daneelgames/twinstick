@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: bdd3e1260889f6d449176d88a6218bd6
-timeCreated: 1474380713
+timeCreated: 1474467863
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
@@ -102,6 +102,8 @@ TextureImporter:
     21300190: guns_99
     21300192: guns_100
     21300194: guns_revolver
+    21300196: guns_machinegun
+    21300198: guns_grenade_launcher
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -168,6 +170,28 @@ TextureImporter:
         height: 7
       alignment: 9
       pivot: {x: -0.3794077, y: 0.5644793}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: guns_machinegun
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 163
+        width: 19
+        height: 6
+      alignment: 9
+      pivot: {x: 0.13136558, y: 0.5082321}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: guns_grenade_launcher
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 181
+        width: 20
+        height: 8
+      alignment: 9
+      pivot: {x: 0.109738156, y: 0.5321655}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
     outline: []

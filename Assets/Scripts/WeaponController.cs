@@ -6,6 +6,8 @@ public class WeaponController : MonoBehaviour {
 
     public enum Type {Bullet, Shell, Explosive};
 
+    public bool automatic = false;
+
     public float reloadTime = 0.25f;
 
     public GameObject shotHolder;
