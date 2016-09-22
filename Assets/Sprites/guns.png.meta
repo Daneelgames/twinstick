@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: bdd3e1260889f6d449176d88a6218bd6
-timeCreated: 1474467863
+timeCreated: 1474545032
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
@@ -104,6 +104,8 @@ TextureImporter:
     21300194: guns_revolver
     21300196: guns_machinegun
     21300198: guns_grenade_launcher
+    21300200: guns_screwdriver
+    21300202: guns_melee_tail
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -192,6 +194,17 @@ TextureImporter:
         height: 8
       alignment: 9
       pivot: {x: 0.109738156, y: 0.5321655}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: guns_melee_tail
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 170
+        width: 21
+        height: 13
+      alignment: 9
+      pivot: {x: 0.015064058, y: 0.49400213}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
     outline: []

@@ -78,6 +78,8 @@
     <Compile Include="Assets\Scripts\RandomWalkerAi.cs" />
     <Compile Include="Assets\Scripts\WalkerToPlayerAi.cs" />
     <Compile Include="Assets\Scripts\WeaponController.cs" />
+    <Compile Include="Assets\Scripts\WeaponMeleeController.cs" />
+    <Compile Include="Assets\TouchDamage.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

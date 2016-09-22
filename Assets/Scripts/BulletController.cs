@@ -56,32 +56,39 @@ public class BulletController : MonoBehaviour {
     {
         _rb.velocity = ((Vector2)transform.TransformDirection(Vector3.right)).normalized * speed;
     }
-    
-    void OnCollisionEnter2D (Collision2D coll)
-    {
-        if (!ricochet && !shotThrough)
-        {
-            DamageColl(coll);
-        }
-        else if (ricochet)
-        {
 
-            if (coll.gameObject.tag == "Solid")
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag == "Melee")
+        {
+            Ricochet(coll);
+        }
+        else
+        {
+            if (!ricochet && !shotThrough)
             {
                 DamageColl(coll);
-                Ricochet(coll);
             }
-            else if (coll.gameObject.tag == "Bullet")
+            else if (ricochet)
             {
-                if (bulletRicochetCooldown <= 0)
+
+                if (coll.gameObject.tag == "Solid")
                 {
                     DamageColl(coll);
                     Ricochet(coll);
                 }
-            }
-            else
-            {
-                DamageColl(coll);
+                else if (coll.gameObject.tag == "Bullet")
+                {
+                    if (bulletRicochetCooldown <= 0)
+                    {
+                        DamageColl(coll);
+                        Ricochet(coll);
+                    }
+                }
+                else
+                {
+                    DamageColl(coll);
+                }
             }
         }
     }
@@ -128,7 +135,9 @@ public class BulletController : MonoBehaviour {
 
     void Ricochet(Collision2D coll)
     {
-        healthController.Damage(1);
+        if (coll.gameObject.tag != "Melee")
+            healthController.Damage(1);
+
         ContactPoint2D contact = coll.contacts[0];
         Vector2 mVect = Vector2.Reflect((Vector2)transform.TransformDirection(Vector3.right), contact.normal);
         var rot = Mathf.Rad2Deg * Mathf.Atan2(mVect.y, mVect.x) + Random.Range(-5f, 5f);

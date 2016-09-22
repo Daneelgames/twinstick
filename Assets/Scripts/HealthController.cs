@@ -12,6 +12,8 @@ public class HealthController : MonoBehaviour {
 
     public DropOnDeathController dropController;
 
+    public SpriteRenderer _sprite;
+
     public void SetInvisible(bool invs)
     {
         invisible = invs;
@@ -32,27 +34,39 @@ public class HealthController : MonoBehaviour {
 
             if (player)
             {
-                if (health > 0)
+                if (health > 0 && gameObject.activeInHierarchy)
                     StartCoroutine("PlayerInvisibleFrames");
 
                 GameManager.instance.gui.SetHealth();
             }
+            else
+            {
+                if (gameObject.activeInHierarchy)
+                    StartCoroutine("MobDamaged");
+            }
         }
+    }
+
+    IEnumerator MobDamaged()
+    {
+        _sprite.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        _sprite.color = Color.white;
     }
 
     IEnumerator PlayerInvisibleFrames()
     {
         invisible = true;
 
-        GameManager.instance.playerController.unitSprite.color = Color.clear;
+        _sprite.color = Color.clear;
         yield return new WaitForSeconds(0.1f);
-        GameManager.instance.playerController.unitSprite.color = Color.white;
+        _sprite.color = Color.white;
         yield return new WaitForSeconds(0.1f);
-        GameManager.instance.playerController.unitSprite.color = Color.clear;
+        _sprite.color = Color.clear;
         yield return new WaitForSeconds(0.1f);
-        GameManager.instance.playerController.unitSprite.color = Color.white;
+        _sprite.color = Color.white;
         yield return new WaitForSeconds(0.1f);
-        GameManager.instance.playerController.unitSprite.color = Color.clear;
+        _sprite.color = Color.clear;
         yield return new WaitForSeconds(0.1f);
 
         GameManager.instance.playerController.unitSprite.color = Color.white;

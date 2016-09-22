@@ -20,7 +20,7 @@ public class PlayerRollController : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire2") && !roll && cooldown <= 0)
+        if (Input.GetButtonDown("Roll") && !roll && cooldown <= 0)
         {
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
             {

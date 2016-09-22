@@ -17,7 +17,7 @@ public class ExplosionController : MonoBehaviour {
         if (collHealth != null)
         {
             float distanceDamage = damage - Vector2.Distance(transform.position, coll.transform.position) * 3;
-            collHealth.Damage(damage);
+            collHealth.Damage(Mathf.RoundToInt(distanceDamage));
         }
     }
 }

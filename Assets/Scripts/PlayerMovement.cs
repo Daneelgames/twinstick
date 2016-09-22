@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     float curSpeed = 6f;
 
     public WeaponController weaponController;
+    public WeaponMeleeController weaponMeleeController;
     public HealthController playerHealth;
 
     [SerializeField]
@@ -66,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
             Aiming();
             Animate();
             Shooting();
+            Melee();
 
             //reduce roll speed
             if (rolling)
@@ -74,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    
+
     public void Roll(bool roll, float rollSpeed)
     {
         rolling = roll;
@@ -89,9 +91,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void Melee()
+    {
+        if (Input.GetButtonDown("Fire2") && weaponMeleeController.curReload <= 0)
+        {
+            weaponMeleeController.Attack();
+        }
+    }
+
     void Shooting()
     {
-        if (Input.GetButtonDown("Fire1") && weaponController.curReload <= 0)
+        if (Input.GetButtonDown("Fire1") && weaponController.curReload <= 0 && !weaponController.automatic)
         {
             bool canShoot = false;
 
@@ -238,16 +248,19 @@ public class PlayerMovement : MonoBehaviour
             mouse_pos.y = mouse_pos.y - object_pos.y;
             float angle = Mathf.Atan2(mouse_pos.y, mouse_pos.x) * Mathf.Rad2Deg;
             weapon.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+            weaponMeleeController.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
             // FLIP SPRITES BASED ON ROTATION
             if (weapon.localRotation.z < -0.75f || weapon.localRotation.z > 0.75f) // left
             {
                 weapon.localScale = new Vector3(1, -1, 1);
+                weaponMeleeController.gameObject.transform.localScale = new Vector3(1, -1, 1);
                 anim.transform.localScale = new Vector3(-1, 1, 1);
             }
             else if (weapon.localRotation.z >= -0.75f || weapon.localRotation.z <= 0.75f) // right
             {
                 weapon.localScale = new Vector3(1, 1, 1);
+                weaponMeleeController.gameObject.transform.localScale = new Vector3(1, 1, 1);
                 anim.transform.localScale = new Vector3(1, 1, 1);
             }
         }
