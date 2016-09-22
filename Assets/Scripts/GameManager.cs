@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour {
     
     public static GameManager instance = null;
 
+    public Animator camAnim;
+
     public GuiController gui;
 
     public GameObject playerInGame;

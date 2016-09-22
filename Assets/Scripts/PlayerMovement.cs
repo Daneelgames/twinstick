@@ -96,7 +96,15 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Fire2") && weaponMeleeController.curReload <= 0)
         {
             weaponMeleeController.Attack();
+            StartCoroutine("CamShakeShort", Random.Range(0.15f, 0.3f));
         }
+    }
+
+    IEnumerator CamShakeShort(float amount)
+    {
+        GameManager.instance.camAnim.SetFloat("ShakeAmount", amount);
+        yield return new WaitForSeconds(0.2f);
+        GameManager.instance.camAnim.SetFloat("ShakeAmount", 0);
     }
 
     void Shooting()
@@ -104,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && weaponController.curReload <= 0 && !weaponController.automatic)
         {
             bool canShoot = false;
+            StartCoroutine("CamShakeShort", Random.Range(0.2f, 0.4f));
 
             switch (weaponController.weaponAmmoType)
             {
@@ -140,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButton("Fire1") && weaponController.curReload <= 0 && weaponController.automatic)
         {
+            StartCoroutine("CamShakeShort", Random.Range(0.1f, 0.3f));
 
             bool canShoot = false;
 
