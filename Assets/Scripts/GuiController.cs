@@ -19,6 +19,8 @@ public class GuiController : MonoBehaviour {
     public Image shellsAmmo;
     public Image explosiveAmmo;
 
+    public Text exp;
+
     public void SetHealth()
     {
         healthCounter.text = GameManager.instance.playerController.playerHealth.health + " / " + GameManager.instance.playerController.playerHealth.maxHealth;
@@ -26,6 +28,11 @@ public class GuiController : MonoBehaviour {
 
         fill = GameManager.instance.playerController.playerHealth.health * 1.0f / GameManager.instance.playerController.playerHealth.maxHealth * 1.0f;
         healthbar.fillAmount = fill;
+    }
+
+    public void SetExp()
+    {
+        exp.text = "" + GameManager.instance.playerExp;
     }
 
     public void SetWeapon()

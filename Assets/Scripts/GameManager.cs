@@ -16,8 +16,6 @@ public class GameManager : MonoBehaviour {
 
     public int playerExp = 0;
 
-    public GameObject weaponToPick = null;
-
     public List<GameObject> weapons;
     public GameObject playerPrefab;
 
@@ -29,6 +27,14 @@ public class GameManager : MonoBehaviour {
 
     public int explosive = 15;
     public int explosiveMax = 50;
+
+    public CampfireController startCampfire;
+    public CampfireController lastCampfire;
+
+    public List<MobSpawnerController> spawners;
+
+    public GameObject weaponToPick = null;
+    public CampfireController campfireToInteract = null;
 
     void Awake()
     {
@@ -47,16 +53,64 @@ public class GameManager : MonoBehaviour {
         newPlayer.name = "Player";
         playerInGame = newPlayer;
         playerController = playerInGame.GetComponent<PlayerMovement>();
+
+        startCampfire.SpawnPlayer();
+        lastCampfire = startCampfire;
+
         GameObject newWeapon = Instantiate (weapons[0], Vector3.zero, Quaternion.identity) as GameObject;
 
         playerController.SetWeapon(newWeapon, true);
 
         gui.SetHealth();
+
+        List<GameObject> spwnrs = new List<GameObject>(GameObject.FindGameObjectsWithTag("Spawner"));
+        foreach (GameObject i in spwnrs)
+        {
+            spawners.Add(i.GetComponent<MobSpawnerController>());
+        }
+
+        RespawnMobs();
     }
     
+    public void PlayerDead()
+    {
+        StartCoroutine("RespawnPlayer");
+    }
+
+    IEnumerator RespawnPlayer()
+    {
+        playerController.playerHealth.dropController.expAmount = playerExp;
+        playerController.playerHealth.dropController.DeathDrop(true);
+        playerExp = 0;
+        gui.SetExp();
+
+        yield return new WaitForSeconds(1f);
+        playerInGame.SetActive(true);
+        lastCampfire.SpawnPlayer();
+        RespawnMobs();
+    }
+
+    public void RespawnMobs()
+    {
+        //destroy exp drop
+        List<GameObject> expDrop = new List<GameObject>(GameObject.FindGameObjectsWithTag("ExpDrop"));
+        foreach(GameObject i in expDrop)
+        {
+            i.GetComponent<ExpDropController>().DestroyOnRespawn();
+        }
+
+
+        foreach (MobSpawnerController i in spawners)
+        {
+            i.DestroyMob();
+            i.Spawn();
+        }
+    }
+
     public void GetExp()
     {
         playerExp += 1;
+        gui.SetExp();
     }
 
     public void WeaponToPick(GameObject weapon)
@@ -64,12 +118,26 @@ public class GameManager : MonoBehaviour {
         weaponToPick = weapon;
     }
 
+    public void CampfireToInteract(CampfireController campfire)
+    {
+        campfireToInteract = campfire;
+    }
+
     void Update()
     {
-        if (Input.GetButtonDown("Submit") && weaponToPick != null)
+        if (Input.GetButtonDown("Submit"))
         {
-            playerController.SetWeapon(weaponToPick, true);
-            WeaponToPick(null);
+            if (weaponToPick != null)
+            {
+                playerController.SetWeapon(weaponToPick, true);
+                WeaponToPick(null);
+            }
+            else if (campfireToInteract != null)
+            {
+                lastCampfire = campfireToInteract;
+                playerController.playerHealth.Heal(playerController.playerHealth.maxHealth);
+                RespawnMobs();
+            }
         }
 
         if (Input.GetButtonDown("ChangeWeapon") && playerWeapons.Count > 1)

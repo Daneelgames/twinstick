@@ -214,7 +214,6 @@ public class PlayerMovement : MonoBehaviour
                 weaponController = null;
             }
 
-            print(wpn.name + " add");
             GameManager.instance.AddPlayerWeapon(wpn);
             GameManager.instance.gui.SetAmmo(WeaponController.Type.Bullet);
             GameManager.instance.gui.SetAmmo(WeaponController.Type.Shell);

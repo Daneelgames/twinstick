@@ -68,6 +68,16 @@ public class HealthController : MonoBehaviour {
         yield return new WaitForSeconds(0.1f);
         _sprite.color = Color.clear;
         yield return new WaitForSeconds(0.1f);
+        _sprite.color = Color.white;
+        yield return new WaitForSeconds(0.1f);
+        _sprite.color = Color.clear;
+        yield return new WaitForSeconds(0.1f);
+        _sprite.color = Color.white;
+        yield return new WaitForSeconds(0.1f);
+        _sprite.color = Color.clear;
+        yield return new WaitForSeconds(0.1f);
+        _sprite.color = Color.white;
+        yield return new WaitForSeconds(0.1f);
 
         GameManager.instance.playerController.unitSprite.color = Color.white;
 
@@ -77,10 +87,25 @@ public class HealthController : MonoBehaviour {
 
     void Death()
     {
-        if (dropController != null)
-            dropController.DeathDrop();
+        if (dropController != null && !player)
+            dropController.DeathDrop(false);
 
         gameObject.SetActive(false);
-        //Destroy(gameObject);
+
+        if (player)
+        {
+            GameManager.instance.PlayerDead();
+        }
+    }
+
+    public void Heal (int amount)
+    {
+        health += amount;
+
+        if (health > maxHealth)
+            health = maxHealth;
+
+        if (player)
+            GameManager.instance.gui.SetHealth();
     }
 }

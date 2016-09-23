@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: 7f910dbf2023c7e41b7f11bb607d10bd
-timeCreated: 1474643230
+guid: 5038be8a66101054eb7a8770f661f90b
+timeCreated: 1474639507
 licenseType: Pro
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - expPrefab: {fileID: 149690, guid: c5740e39bddc054488861e55070cd2da, type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
