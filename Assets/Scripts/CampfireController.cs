@@ -5,6 +5,7 @@ public class CampfireController : MonoBehaviour
 {
     public Transform spawnTransform;
 
+    public SkillShopController skillShop;
 
     public void SpawnPlayer()
     {

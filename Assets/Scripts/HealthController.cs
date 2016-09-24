@@ -3,6 +3,10 @@ using System.Collections;
 
 public class HealthController : MonoBehaviour {
 
+    public enum Type { Unit, Projectile}
+
+    public Type objectType = Type.Unit;
+
     public int maxHealth = 1;
     public int health = 1;
 
@@ -90,12 +94,27 @@ public class HealthController : MonoBehaviour {
         if (dropController != null && !player)
             dropController.DeathDrop(false);
 
-        gameObject.SetActive(false);
+        switch (objectType)
+        {
+            case Type.Unit:
+                gameObject.SetActive(false);
+                break;
+
+            case Type.Projectile:
+                DestroyObject();
+                break;
+        }
 
         if (player)
         {
             GameManager.instance.PlayerDead();
         }
+    }
+
+    void DestroyObject()
+    {
+        // use for destroying bullets
+        Destroy(gameObject);
     }
 
     public void Heal (int amount)

@@ -36,6 +36,10 @@ public class GameManager : MonoBehaviour {
     public GameObject weaponToPick = null;
     public CampfireController campfireToInteract = null;
 
+    public bool pointerOverMenu = false;
+
+    public SkillList _skillList;
+
     void Awake()
     {
         if (instance == null)
@@ -109,7 +113,17 @@ public class GameManager : MonoBehaviour {
 
     public void GetExp()
     {
-        playerExp += 1;
+        if (playerExp < 99)
+            playerExp += 1;
+
+        gui.SetExp();
+    }
+
+    public void RemoveExp(int amount)
+    {
+        if (amount >= playerExp)
+            playerExp -= amount;
+
         gui.SetExp();
     }
 
@@ -137,6 +151,7 @@ public class GameManager : MonoBehaviour {
                 lastCampfire = campfireToInteract;
                 playerController.playerHealth.Heal(playerController.playerHealth.maxHealth);
                 RespawnMobs();
+                lastCampfire.skillShop.ShopToggle(true);
             }
         }
 
@@ -188,5 +203,10 @@ public class GameManager : MonoBehaviour {
                     explosive = explosiveMax;
                 break;
         }
+    }
+
+    public void PointerOverMenu(bool entered)
+    {
+        pointerOverMenu = entered;
     }
 }

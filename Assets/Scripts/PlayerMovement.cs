@@ -66,8 +66,12 @@ public class PlayerMovement : MonoBehaviour
         {
             Aiming();
             Animate();
-            Shooting();
-            Melee();
+
+            if (!GameManager.instance.pointerOverMenu)
+            {
+                Shooting();
+                Melee();
+            }
 
             //reduce roll speed
             if (rolling)
