@@ -11,5 +11,15 @@ public class SkillList : MonoBehaviour {
     public void AddPlayerSkill(SkillController skill)
     {
         playerSkills.Add(skill);
+        skill.StartEffect();
+    }
+
+    public void LoseAllSkills()
+    {
+        foreach (SkillController skill in playerSkills)
+        {
+            skill.EndEffect();
+        }
+        playerSkills.Clear();
     }
 }

@@ -12,7 +12,7 @@ public class WeaponMeleeController : MonoBehaviour {
 
     public float reloadTime = 0.25f;
     public float curReload = 0f;
-
+    public bool meleeBounce = false;
 
     void Update()
     {
@@ -23,8 +23,10 @@ public class WeaponMeleeController : MonoBehaviour {
         }
     }
 
-    public void Attack()
+    public void Attack(bool bounce)
     {
+        meleeBounce = bounce;
+
         if (curReload <= 0)
         {
             curReload = reloadTime;

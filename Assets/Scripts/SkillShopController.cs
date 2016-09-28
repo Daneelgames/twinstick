@@ -5,8 +5,10 @@ using System.Collections.Generic;
 
 public class SkillShopController : MonoBehaviour {
 
-    public Animator anim;
+    public List<SkillController> skillsList;
 
+    public Animator anim;
+    
     public GameObject skillSelector;
     public int activeSkillNumber = 0;
     public List<SkillController> skills;
@@ -17,27 +19,19 @@ public class SkillShopController : MonoBehaviour {
     public Text skillCost;
 
     public GameObject buyButton;
-
+    
     void Start()
     {
-        SetSkills();
+        GameManager.instance.AddShopToList(this);
     }
 
     public void SetSkills()
     {
-        List<SkillController> skillsTemp = new List<SkillController>(GameManager.instance._skillList.gameSkills);
+        skills.Clear();
 
-        //print(skillsTemp.Count + "after init");
-
-        for (int i = 0; i < 4; i++)
+        foreach (SkillController skill in skillsList)
         {
-            int random = Random.Range(0, skillsTemp.Count);
-            skills.Add(skillsTemp[random]);
-            skillsTemp.RemoveAt(random);
-
-            //print(skillsTemp.Count + "after delete");
-            //skillsTemp.Sort();
-            //print(skillsTemp.Count + "after sort");
+            skills.Add(skill);
         }
     }
 
@@ -121,12 +115,24 @@ public class SkillShopController : MonoBehaviour {
 
     public void Buy()
     {
-        if (GameManager.instance.playerExp >= skills[activeSkillNumber].skillCost)
+        bool alreadyHave = false;
+
+        foreach (SkillController skill in GameManager.instance._skillList.playerSkills)
         {
-            GameManager.instance.RemoveExp(skills[activeSkillNumber].skillCost);
-            GameManager.instance._skillList.AddPlayerSkill(skills[activeSkillNumber]);
-            skills.RemoveAt(activeSkillNumber);
-            ShopToggle(true);
+            if (skill == skills[activeSkillNumber])
+            {
+                alreadyHave = true;
+            }
+        }
+        if (!alreadyHave)
+        {
+            if (GameManager.instance.playerExp >= skills[activeSkillNumber].skillCost)
+            {
+                GameManager.instance.RemoveExp(skills[activeSkillNumber].skillCost);
+                GameManager.instance._skillList.AddPlayerSkill(skills[activeSkillNumber]);
+                skills.RemoveAt(activeSkillNumber);
+                ShopToggle(true);
+            }
         }
     }
 }

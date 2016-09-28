@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public WeaponController weaponController;
     public WeaponMeleeController weaponMeleeController;
     public HealthController playerHealth;
+    public PlayerRollController playerRoll;
 
     [SerializeField]
     Animator anim;
@@ -27,7 +28,10 @@ public class PlayerMovement : MonoBehaviour
     public SpriteRenderer weaponSprite;
 
     bool rolling = false;
-    
+
+    float weaponCooldownPercentageBonus = 0f;
+    public bool meleeBounce;
+
     void Start()
     {
         InvokeRepeating("Sort", 1, 0.1f);
@@ -94,16 +98,7 @@ public class PlayerMovement : MonoBehaviour
             curSpeed = speed;
         }
     }
-
-    void Melee()
-    {
-        if (Input.GetButtonDown("Fire2") && weaponMeleeController.curReload <= 0)
-        {
-            weaponMeleeController.Attack();
-            StartCoroutine("CamShakeShort", Random.Range(0.15f, 0.3f));
-        }
-    }
-
+    
     IEnumerator CamShakeShort(float amount)
     {
         GameManager.instance.camAnim.SetFloat("ShakeAmount", amount);
@@ -111,12 +106,20 @@ public class PlayerMovement : MonoBehaviour
         GameManager.instance.camAnim.SetFloat("ShakeAmount", 0);
     }
 
+    void Melee()
+    {
+        if (Input.GetButtonDown("Fire2") && weaponMeleeController.curReload - weaponMeleeController.reloadTime/100 * weaponCooldownPercentageBonus <= 0)
+        {
+            weaponMeleeController.Attack(meleeBounce);
+            StartCoroutine("CamShakeShort", Random.Range(0.15f, 0.3f));
+        }
+    }
+
     void Shooting()
     {
-        if (Input.GetButtonDown("Fire1") && weaponController.curReload <= 0 && !weaponController.automatic)
+        if (Input.GetButtonDown("Fire1") && weaponController.curReload - weaponController.reloadTime / 100 * weaponCooldownPercentageBonus <= 0 && !weaponController.automatic)
         {
             bool canShoot = false;
-            StartCoroutine("CamShakeShort", Random.Range(0.2f, 0.4f));
 
             switch (weaponController.weaponAmmoType)
             {
@@ -144,6 +147,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (canShoot)
             {
+                StartCoroutine("CamShakeShort", Random.Range(0.2f, 0.4f));
                 weaponController.Shot();
                 GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -1); 
                 GameManager.instance.gui.SetAmmo(weaponController.weaponAmmoType);
@@ -151,10 +155,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetButton("Fire1") && weaponController.curReload <= 0 && weaponController.automatic)
+        if (Input.GetButton("Fire1") && weaponController.curReload - weaponController.reloadTime / 100 * weaponCooldownPercentageBonus <= 0 && weaponController.automatic)
         {
-            StartCoroutine("CamShakeShort", Random.Range(0.1f, 0.3f));
-
             bool canShoot = false;
 
             switch (weaponController.weaponAmmoType)
@@ -183,6 +185,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (canShoot)
             {
+                StartCoroutine("CamShakeShort", Random.Range(0.1f, 0.3f));
                 weaponController.Shot();
                 GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -1);
                 GameManager.instance.gui.SetAmmo(weaponController.weaponAmmoType);
@@ -277,5 +280,33 @@ public class PlayerMovement : MonoBehaviour
                 anim.transform.localScale = new Vector3(1, 1, 1);
             }
         }
+    }
+
+    public void SetSpeed(float amount)
+    {
+        speed = amount;
+    }
+
+    public void SetWeaponCooldownPercentageBonus(float amount)
+    {
+        weaponCooldownPercentageBonus = amount;
+    }
+
+    public void SetMeleeBounce(bool bounce)
+    {
+        meleeBounce = bounce;
+    }
+
+    public void SetRegen(bool regen)
+    {
+        if (regen)
+            InvokeRepeating("Regen", 30, 30);
+        else
+            CancelInvoke("Regen");
+    }
+
+    void Regen()
+    {
+        playerHealth.Heal(1);
     }
 }

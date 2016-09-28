@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour {
 
     public SkillList _skillList;
 
+    public List<SkillShopController> shops;
+
     void Awake()
     {
         if (instance == null)
@@ -49,10 +51,7 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
-    }
-
-    // Use this for initialization
-    void Start () {
+        
         GameObject newPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
         newPlayer.name = "Player";
         playerInGame = newPlayer;
@@ -61,7 +60,7 @@ public class GameManager : MonoBehaviour {
         startCampfire.SpawnPlayer();
         lastCampfire = startCampfire;
 
-        GameObject newWeapon = Instantiate (weapons[0], Vector3.zero, Quaternion.identity) as GameObject;
+        GameObject newWeapon = Instantiate(weapons[0], Vector3.zero, Quaternion.identity) as GameObject;
 
         playerController.SetWeapon(newWeapon, true);
 
@@ -72,13 +71,30 @@ public class GameManager : MonoBehaviour {
         {
             spawners.Add(i.GetComponent<MobSpawnerController>());
         }
+        
+    }
 
-        RespawnMobs();
+    void Start()
+    {
+        PlayerDead();
     }
     
+    public void AddShopToList(SkillShopController shop)
+    {
+        shops.Add(shop);
+    }
+
     public void PlayerDead()
     {
         StartCoroutine("RespawnPlayer");
+    }
+
+    void ResetShops()
+    {
+        foreach (SkillShopController shop in shops)
+        {
+            shop.SetSkills();
+        }
     }
 
     IEnumerator RespawnPlayer()
@@ -86,12 +102,14 @@ public class GameManager : MonoBehaviour {
         playerController.playerHealth.dropController.expAmount = playerExp;
         playerController.playerHealth.dropController.DeathDrop(true);
         playerExp = 0;
+        _skillList.LoseAllSkills();
         gui.SetExp();
 
         yield return new WaitForSeconds(1f);
         playerInGame.SetActive(true);
         lastCampfire.SpawnPlayer();
         RespawnMobs();
+        ResetShops();
     }
 
     public void RespawnMobs()
@@ -111,19 +129,15 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void GetExp()
+    public void GetExp(int amount)
     {
-        if (playerExp < 99)
-            playerExp += 1;
-
+        playerExp += amount;
         gui.SetExp();
     }
 
     public void RemoveExp(int amount)
     {
-        if (amount >= playerExp)
-            playerExp -= amount;
-
+        playerExp -= amount;
         gui.SetExp();
     }
 

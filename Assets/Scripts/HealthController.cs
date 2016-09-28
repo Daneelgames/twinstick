@@ -51,6 +51,15 @@ public class HealthController : MonoBehaviour {
         }
     }
 
+    public void AddToMaxHealth(int amount)
+    {
+        maxHealth += amount;
+        Heal(maxHealth);
+
+        if (player)
+            GameManager.instance.gui.SetHealth();
+    }
+
     IEnumerator MobDamaged()
     {
         _sprite.color = Color.red;

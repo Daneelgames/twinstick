@@ -3,6 +3,8 @@ using System.Collections;
 
 public class ExpDropController : MonoBehaviour {
 
+    public int expAmount = 1;
+
     public float explosionForce = 5f;
     public Rigidbody2D rb;
 
@@ -17,7 +19,7 @@ public class ExpDropController : MonoBehaviour {
     {
         if (coll.gameObject.tag == "Player")
         {
-            GameManager.instance.GetExp();
+            GameManager.instance.GetExp(expAmount);
             Destroy(gameObject);
         }
     }

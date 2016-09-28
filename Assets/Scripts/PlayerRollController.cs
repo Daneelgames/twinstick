@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class PlayerRollController : MonoBehaviour {
+    
+    public bool invisibleWhileRolling = false;
 
     public Animator _anim;
 
@@ -10,7 +12,7 @@ public class PlayerRollController : MonoBehaviour {
     public bool roll = false;
 
     public PlayerMovement pm;
-
+    
     public float rollCooldown = 0.1f;
     float cooldown = 0;
 
@@ -63,11 +65,19 @@ public class PlayerRollController : MonoBehaviour {
     }
     */
 
+    public void SetRollInvisible(bool invs)
+    {
+        invisibleWhileRolling = invs;
+    }
+
     void SetRoll(bool rollOn)
     {
         //print("roll " + rollOn);
         pm.Roll(rollOn, rollSpeed);
-        playerHealth.SetInvisible(rollOn);
+
+        if (invisibleWhileRolling)
+            playerHealth.SetInvisible(rollOn);
+
         roll = rollOn;
         _anim.SetBool("Roll", rollOn);
 

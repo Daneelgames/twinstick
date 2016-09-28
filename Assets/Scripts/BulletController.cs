@@ -61,7 +61,10 @@ public class BulletController : MonoBehaviour {
     {
         if (coll.gameObject.tag == "Melee")
         {
-            Ricochet(coll);
+            if(coll.gameObject.GetComponent<WeaponMeleeController>().meleeBounce)
+                Ricochet(coll);
+            else
+                healthController.Damage(1);
         }
         else
         {
