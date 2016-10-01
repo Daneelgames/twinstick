@@ -99,7 +99,13 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator RespawnPlayer()
     {
-        playerController.playerHealth.dropController.expAmount = playerExp;
+        int skillsExp = 0;
+
+        foreach (SkillController skill in _skillList.playerSkills)
+        {
+            skillsExp += skill.skillCost;
+        }
+        playerController.playerHealth.dropController.expAmount = playerExp + skillsExp;
         playerController.playerHealth.dropController.DeathDrop(true);
         playerExp = 0;
         _skillList.LoseAllSkills();
