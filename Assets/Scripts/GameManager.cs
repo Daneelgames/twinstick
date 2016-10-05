@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -35,6 +36,10 @@ public class GameManager : MonoBehaviour {
 
     public GameObject weaponToPick = null;
     public CampfireController campfireToInteract = null;
+    public InteractiveObject npcToInteract = null;
+
+    public Animator dialogAnimator;
+    public Text dialogText;
 
     public bool pointerOverMenu = false;
 
@@ -157,6 +162,11 @@ public class GameManager : MonoBehaviour {
         campfireToInteract = campfire;
     }
 
+    public void NpcToInteract(InteractiveObject npc)
+    {
+        npcToInteract = npc;
+    }
+
     void Update()
     {
         if (Input.GetButtonDown("Submit"))
@@ -172,6 +182,10 @@ public class GameManager : MonoBehaviour {
                 playerController.playerHealth.Heal(playerController.playerHealth.maxHealth);
                 RespawnMobs();
                 lastCampfire.skillShop.ShopToggle(true);
+            }
+            else if (npcToInteract != null)
+            {
+                npcToInteract.Talk();
             }
         }
 

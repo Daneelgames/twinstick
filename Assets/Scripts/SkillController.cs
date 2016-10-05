@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SkillController : MonoBehaviour {
 
-    public enum Type {HellRoller, FatSkin, ExtraFeet, Teleport, Psycho, Baseball, Regen};
+    public enum Type {HellRoller, FatSkin, ExtraFeet, Psycho, Baseball, Regen};
 
     public string skillName;
     public string skillDescription;
@@ -27,10 +27,6 @@ public class SkillController : MonoBehaviour {
             case Type.ExtraFeet: // +25% speed
                 float playerSpeed = GameManager.instance.playerController.speed;
                 GameManager.instance.playerController.SetSpeed(playerSpeed + playerSpeed * 0.25f);
-                break;
-
-            case Type.Teleport: // Teleport between known firecamps.
-
                 break;
 
             case Type.Psycho: // -10% weapon cooldown
@@ -62,10 +58,6 @@ public class SkillController : MonoBehaviour {
             case Type.ExtraFeet: // +25% speed
                 float playerSpeed = GameManager.instance.playerController.speed;
                 GameManager.instance.playerController.SetSpeed(playerSpeed - playerSpeed * 0.25f);
-                break;
-
-            case Type.Teleport: // teleport ability
-
                 break;
 
             case Type.Psycho: // -10% weapon cooldown

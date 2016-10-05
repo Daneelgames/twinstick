@@ -68,6 +68,11 @@ public class PlayerRollController : MonoBehaviour {
     public void SetRollInvisible(bool invs)
     {
         invisibleWhileRolling = invs;
+
+        if (invs)
+            rollCooldown = 0.25f;
+        else
+            rollCooldown = 0.1f;
     }
 
     void SetRoll(bool rollOn)
