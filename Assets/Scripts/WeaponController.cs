@@ -17,9 +17,11 @@ public class WeaponController : MonoBehaviour {
     public float curReload = 0f;
 
     bool canPick = false;
-    bool inHands = false;
+    public bool inHands = false;
 
     public Type weaponAmmoType = Type.Bullet;
+
+    public HoleInteractor holeInteractor; 
 
 
     public void SwitchInhands(bool hands)

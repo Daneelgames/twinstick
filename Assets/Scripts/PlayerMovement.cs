@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public WeaponMeleeController weaponMeleeController;
     public HealthController playerHealth;
     public PlayerRollController playerRoll;
+    public HoleInteractor holeInteractor;
 
     [SerializeField]
     Animator anim;
@@ -31,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     float weaponCooldownPercentageBonus = 0f;
     public bool meleeBounce;
-
+    
     void Start()
     {
         InvokeRepeating("Sort", 1, 0.1f);
