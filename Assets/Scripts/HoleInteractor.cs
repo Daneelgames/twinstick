@@ -5,6 +5,7 @@ public class HoleInteractor : MonoBehaviour {
 
     public HealthController unitHealth;
     public WeaponController weapon;
+    public Animator anim;
 
 
     public float fallTimeMax = 1f;
