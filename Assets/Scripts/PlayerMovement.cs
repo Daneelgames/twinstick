@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
 
     float curSpeed = 6f;
 
+    public float turnSmooth = 50f;
+
     public WeaponController weaponController;
     public HealthController playerHealth;
 
@@ -28,11 +30,6 @@ public class PlayerMovement : MonoBehaviour
     float weaponCooldownPercentageBonus = 0f;
     public bool meleeBounce;
     
-    void Start()
-    {
-        curSpeed = speed;
-    }
-
     void FixedUpdate()
     {
         if (playerHealth.health > 0)
@@ -46,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        curSpeed = speed;
+
         if (playerHealth.health > 0)
         {
             Aiming();
@@ -147,10 +146,24 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        movement.Set(inputH, 0f, inputV);
+        if (!Input.GetButton("Aim"))
+        {
+            movement.Set(inputH, 0f, inputV);
+            movement = movement.normalized * curSpeed * Time.deltaTime;
+            rb.MovePosition(transform.position + movement);
 
-        movement = movement.normalized * curSpeed * Time.deltaTime;
-        rb.MovePosition(transform.position + movement);
+            if (inputH != 0 || inputV != 0)
+            {
+
+                Vector3 playerToTarget = (transform.position + movement) - transform.position;
+
+                playerToTarget.y = 0f;
+
+                Quaternion newRotation = Quaternion.LookRotation(playerToTarget);
+                newRotation = Quaternion.Slerp(newRotation, transform.rotation, Time.deltaTime * turnSmooth);
+                rb.MoveRotation(newRotation);
+            }
+        }
     }
 
     public void SetWeapon(GameObject wpn, bool newWeapon)
@@ -217,25 +230,18 @@ public class PlayerMovement : MonoBehaviour
 
             Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            // Create a RaycastHit variable to store information about what was hit by the ray.
             RaycastHit floorHit;
 
-            // Perform the raycast and if it hits something on the floor layer...
             if (Physics.Raycast(camRay, out floorHit, 30f, aimLayers))
             {
-                // Create a vector from the player to the point on the floor the raycast from the mouse hit.
                 Vector3 playerToMouse = floorHit.point - transform.position;
 
-                // Ensure the vector is entirely along the floor plane.
                 playerToMouse.y = 0f;
 
-                // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
                 Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-                
-                // Set the player's rotation to this new rotation.
+                newRotation = Quaternion.Slerp(newRotation, transform.rotation, Time.deltaTime * turnSmooth);
                 rb.MoveRotation(newRotation);
             }
-
         }
     }
 

@@ -55,14 +55,14 @@ public class InteractiveObject : MonoBehaviour {
         inDialog = false;
     }
 
-    void OnTriggerEnter2D(Collider2D coll)
+    void OnTriggerEnter(Collider coll)
     {
         if (coll.gameObject.tag == "Player" && GameManager.instance.playerController.playerHealth.health > 0)
         {
             GameManager.instance.NpcToInteract(this);
         }
     }
-    void OnTriggerExit2D(Collider2D coll)
+    void OnTriggerExit(Collider coll)
     {
         if (coll.gameObject.tag == "Player" && GameManager.instance.playerController.playerHealth.health > 0)
         {
