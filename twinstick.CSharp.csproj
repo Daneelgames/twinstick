@@ -66,8 +66,6 @@
     <Compile Include="Assets\Scripts\BulletController.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\CampfireController.cs" />
-    <Compile Include="Assets\Scripts\DropOnDeathController.cs" />
-    <Compile Include="Assets\Scripts\ExpDropController.cs" />
     <Compile Include="Assets\Scripts\ExplosionController.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GuiController.cs" />
@@ -76,12 +74,8 @@
     <Compile Include="Assets\Scripts\MobSpawnerController.cs" />
     <Compile Include="Assets\Scripts\NpcController.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
-    <Compile Include="Assets\Scripts\PlayerRollController.cs" />
     <Compile Include="Assets\Scripts\RandomShooterAi.cs" />
     <Compile Include="Assets\Scripts\RandomWalkerAi.cs" />
-    <Compile Include="Assets\Scripts\SkillController.cs" />
-    <Compile Include="Assets\Scripts\SkillList.cs" />
-    <Compile Include="Assets\Scripts\SkillShopController.cs" />
     <Compile Include="Assets\Scripts\TouchDamage.cs" />
     <Compile Include="Assets\Scripts\WalkerToPlayerAi.cs" />
     <Compile Include="Assets\Scripts\WeaponController.cs" />

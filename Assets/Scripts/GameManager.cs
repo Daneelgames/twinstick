@@ -15,8 +15,6 @@ public class GameManager : MonoBehaviour {
     public PlayerMovement playerController;
     public List<GameObject> playerWeapons;
 
-    public int playerExp = 0;
-
     public List<GameObject> weapons;
     public GameObject playerPrefab;
 
@@ -43,9 +41,6 @@ public class GameManager : MonoBehaviour {
 
     public bool pointerOverMenu = false;
 
-    public SkillList _skillList;
-
-    public List<SkillShopController> shops;
 
     void Awake()
     {
@@ -84,72 +79,27 @@ public class GameManager : MonoBehaviour {
         PlayerDead();
     }
     
-    public void AddShopToList(SkillShopController shop)
-    {
-        shops.Add(shop);
-    }
-
     public void PlayerDead()
     {
         StartCoroutine("RespawnPlayer");
     }
 
-    void ResetShops()
-    {
-        foreach (SkillShopController shop in shops)
-        {
-            shop.SetSkills();
-        }
-    }
 
     IEnumerator RespawnPlayer()
     {
-        int skillsExp = 0;
-
-        foreach (SkillController skill in _skillList.playerSkills)
-        {
-            skillsExp += skill.skillCost;
-        }
-        playerController.playerHealth.dropController.expAmount = playerExp + skillsExp;
-        playerController.playerHealth.dropController.DeathDrop(true);
-        playerExp = 0;
-        _skillList.LoseAllSkills();
-        gui.SetExp();
-
         yield return new WaitForSeconds(1f);
         playerInGame.SetActive(true);
         lastCampfire.SpawnPlayer();
         RespawnMobs();
-        ResetShops();
     }
 
     public void RespawnMobs()
     {
-        //destroy exp drop
-        List<GameObject> expDrop = new List<GameObject>(GameObject.FindGameObjectsWithTag("ExpDrop"));
-        foreach(GameObject i in expDrop)
-        {
-            i.GetComponent<ExpDropController>().DestroyOnRespawn();
-        }
-
-
         foreach (MobSpawnerController i in spawners)
         {
             i.DestroyMob();
             i.Spawn();
         }
-    }
-
-    public void GetExp(int amount)
-    {
-        playerExp += amount;
-        gui.SetExp();
-    }
-
-    public void RemoveExp(int amount)
-    {
-        playerExp -= amount;
-        gui.SetExp();
     }
 
     public void WeaponToPick(GameObject weapon)
@@ -181,7 +131,6 @@ public class GameManager : MonoBehaviour {
                 lastCampfire = campfireToInteract;
                 playerController.playerHealth.Heal(playerController.playerHealth.maxHealth);
                 RespawnMobs();
-                lastCampfire.skillShop.ShopToggle(true);
             }
             else if (npcToInteract != null)
             {

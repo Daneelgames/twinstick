@@ -35,7 +35,7 @@ public class WeaponController : MonoBehaviour {
 
     }
 
-    void OnTriggerStay2D(Collider2D coll)
+    void OnTriggerStay(Collider coll)
     {
         if (coll.tag == "Player" && !canPick && !inHands)
         {
@@ -44,7 +44,7 @@ public class WeaponController : MonoBehaviour {
         }
     }
 
-    void OnTriggerExit2D(Collider2D coll)
+    void OnTriggerExit(Collider coll)
     {
         if (coll.tag == "Player")
         {
@@ -54,12 +54,10 @@ public class WeaponController : MonoBehaviour {
     }
 
     void Update () {
-
         if (curReload > 0)
         {
             curReload -= Time.deltaTime;
         }
-        
     }
 
     public void Shot()

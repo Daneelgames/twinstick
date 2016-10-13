@@ -5,8 +5,6 @@ public class CampfireController : MonoBehaviour
 {
     public Transform spawnTransform;
 
-    public SkillShopController skillShop;
-
     public void SpawnPlayer()
     {
         GameManager.instance.playerInGame.transform.position = spawnTransform.position;

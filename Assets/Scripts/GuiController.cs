@@ -30,11 +30,6 @@ public class GuiController : MonoBehaviour {
         healthbar.fillAmount = fill;
     }
 
-    public void SetExp()
-    {
-        exp.text = "" + GameManager.instance.playerExp;
-    }
-
     public void SetWeapon()
     {
 

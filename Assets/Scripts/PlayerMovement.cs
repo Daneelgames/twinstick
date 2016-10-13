@@ -8,49 +8,29 @@ public class PlayerMovement : MonoBehaviour
     float curSpeed = 6f;
 
     public WeaponController weaponController;
-    public WeaponMeleeController weaponMeleeController;
     public HealthController playerHealth;
-    public PlayerRollController playerRoll;
+
+    public LayerMask aimLayers;
 
     [SerializeField]
     Animator anim;
     [SerializeField]
     Transform weapon;
 
-    public Rigidbody2D rb;
+    public Rigidbody rb;
 
     // The vector to store the direction of the player's movement.
     Vector3 movement;
     float inputH = 0;
     float inputV = 0;
 
-    public SpriteRenderer unitSprite;
-    public SpriteRenderer weaponSprite;
-
-    bool rolling = false;
 
     float weaponCooldownPercentageBonus = 0f;
     public bool meleeBounce;
     
     void Start()
     {
-        InvokeRepeating("Sort", 1, 0.1f);
-    }
-
-    void Sort()
-    {
-        // SORTING
-        unitSprite.sortingOrder = Mathf.RoundToInt(transform.position.y * 100f) * -1;
-
-        // weapon sorting
-        if (weapon.localRotation.z > 0) // weapon behind
-        {
-            weaponSprite.sortingOrder = unitSprite.sortingOrder - 2;
-        }
-        else if (weapon.localRotation.z < 0) // weapon in front
-        {
-            weaponSprite.sortingOrder = unitSprite.sortingOrder + 2;
-        }
+        curSpeed = speed;
     }
 
     void FixedUpdate()
@@ -74,45 +54,16 @@ public class PlayerMovement : MonoBehaviour
             if (!GameManager.instance.pointerOverMenu)
             {
                 Shooting();
-                Melee();
             }
 
-            //reduce roll speed
-            if (rolling)
-            {
-                curSpeed = Mathf.Lerp(curSpeed, speed, 0.075f);
-            }
         }
     }
 
-    public void Roll(bool roll, float rollSpeed)
-    {
-        rolling = roll;
-
-        if (roll == true)
-        {
-            curSpeed = rollSpeed;
-        }
-        else
-        {
-            curSpeed = speed;
-        }
-    }
-    
     IEnumerator CamShakeShort(float amount)
     {
         GameManager.instance.camAnim.SetFloat("ShakeAmount", amount);
         yield return new WaitForSeconds(0.2f);
         GameManager.instance.camAnim.SetFloat("ShakeAmount", 0);
-    }
-
-    void Melee()
-    {
-        if (Input.GetButtonDown("Fire2") && weaponMeleeController.curReload - weaponMeleeController.reloadTime/100 * weaponCooldownPercentageBonus <= 0)
-        {
-            weaponMeleeController.Attack(meleeBounce);
-            StartCoroutine("CamShakeShort", Random.Range(0.15f, 0.3f));
-        }
     }
 
     void Shooting()
@@ -196,8 +147,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        if (!rolling)
-            movement.Set(inputH, inputV, 0f);
+        movement.Set(inputH, 0f, inputV);
 
         movement = movement.normalized * curSpeed * Time.deltaTime;
         rb.MovePosition(transform.position + movement);
@@ -235,8 +185,6 @@ public class PlayerMovement : MonoBehaviour
         weaponController.gameObject.SetActive(true);
         weapon = wpn.transform;
 
-        weaponSprite = wpn.GetComponentInChildren<SpriteRenderer>();
-
         wpn.GetComponent<WeaponController>().SwitchInhands(true);
         wpn.name = "Weapon";
         wpn.transform.SetParent(transform);
@@ -255,8 +203,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Aiming()
     {
-        if (weapon != null)
+        if (weapon != null && Input.GetButton("Aim"))
         {
+            /*
             Vector3 mouse_pos = Input.mousePosition;
             mouse_pos.z = 5.23f; //The distance between the camera and object
             Vector3 object_pos = Camera.main.WorldToScreenPoint(weapon.position);
@@ -264,21 +213,29 @@ public class PlayerMovement : MonoBehaviour
             mouse_pos.y = mouse_pos.y - object_pos.y;
             float angle = Mathf.Atan2(mouse_pos.y, mouse_pos.x) * Mathf.Rad2Deg;
             weapon.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-            weaponMeleeController.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+            */
 
-            // FLIP SPRITES BASED ON ROTATION
-            if (weapon.localRotation.z < -0.75f || weapon.localRotation.z > 0.75f) // left
+            Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            // Create a RaycastHit variable to store information about what was hit by the ray.
+            RaycastHit floorHit;
+
+            // Perform the raycast and if it hits something on the floor layer...
+            if (Physics.Raycast(camRay, out floorHit, 30f, aimLayers))
             {
-                weapon.localScale = new Vector3(1, -1, 1);
-                weaponMeleeController.gameObject.transform.localScale = new Vector3(1, -1, 1);
-                anim.transform.localScale = new Vector3(-1, 1, 1);
+                // Create a vector from the player to the point on the floor the raycast from the mouse hit.
+                Vector3 playerToMouse = floorHit.point - transform.position;
+
+                // Ensure the vector is entirely along the floor plane.
+                playerToMouse.y = 0f;
+
+                // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
+                Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
+                
+                // Set the player's rotation to this new rotation.
+                rb.MoveRotation(newRotation);
             }
-            else if (weapon.localRotation.z >= -0.75f || weapon.localRotation.z <= 0.75f) // right
-            {
-                weapon.localScale = new Vector3(1, 1, 1);
-                weaponMeleeController.gameObject.transform.localScale = new Vector3(1, 1, 1);
-                anim.transform.localScale = new Vector3(1, 1, 1);
-            }
+
         }
     }
 
