@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
     public WeaponMeleeController weaponMeleeController;
     public HealthController playerHealth;
     public PlayerRollController playerRoll;
-    public HoleInteractor holeInteractor;
 
     [SerializeField]
     Animator anim;

@@ -21,8 +21,6 @@ public class WeaponController : MonoBehaviour {
 
     public Type weaponAmmoType = Type.Bullet;
 
-    public HoleInteractor holeInteractor; 
-
 
     public void SwitchInhands(bool hands)
     {
