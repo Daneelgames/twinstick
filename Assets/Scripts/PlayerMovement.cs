@@ -26,10 +26,11 @@ public class PlayerMovement : MonoBehaviour
     float inputH = 0;
     float inputV = 0;
 
-
     float weaponCooldownPercentageBonus = 0f;
     public bool meleeBounce;
-    
+
+    public bool realoading = false;
+
     void FixedUpdate()
     {
         if (playerHealth.health > 0)
@@ -37,7 +38,8 @@ public class PlayerMovement : MonoBehaviour
             inputH = Input.GetAxisRaw("Horizontal");
             inputV = Input.GetAxisRaw("Vertical");
 
-            Move();
+            if(!realoading)
+                Move();
         }
     }
 
@@ -47,13 +49,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerHealth.health > 0)
         {
-            Aiming();
-            Animate();
-
-            if (!GameManager.instance.pointerOverMenu)
+            if (!realoading)
             {
+                Aiming();
                 Shooting();
             }
+
+            Reloading();
+
+            Animate();
 
         }
     }
@@ -67,7 +71,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Shooting()
     {
-        if (Input.GetButtonDown("Fire1") && weaponController.curReload - weaponController.reloadTime / 100 * weaponCooldownPercentageBonus <= 0 && !weaponController.automatic)
+        // !auto
+        if (weaponController.ammo > 0 && Input.GetButtonDown("Fire1") && Input.GetButton("Aim") && weaponController.curCooldown - weaponController.cooldownTime / 100 * weaponCooldownPercentageBonus <= 0 && !weaponController.automatic)
         {
             bool canShoot = false;
 
@@ -99,13 +104,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 StartCoroutine("CamShakeShort", Random.Range(0.2f, 0.4f));
                 weaponController.Shot();
-                GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -1); 
+                //GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -1); 
                 GameManager.instance.gui.SetAmmo(weaponController.weaponAmmoType);
                 GameManager.instance.gui.SetWeapon();
             }
         }
 
-        if (Input.GetButton("Fire1") && weaponController.curReload - weaponController.reloadTime / 100 * weaponCooldownPercentageBonus <= 0 && weaponController.automatic)
+        //auto
+        if (weaponController.ammo > 0 && Input.GetButton("Fire1") && Input.GetButton("Aim") && weaponController.curCooldown - weaponController.cooldownTime / 100 * weaponCooldownPercentageBonus <= 0 && weaponController.automatic)
         {
             bool canShoot = false;
 
@@ -137,11 +143,72 @@ public class PlayerMovement : MonoBehaviour
             {
                 StartCoroutine("CamShakeShort", Random.Range(0.1f, 0.3f));
                 weaponController.Shot();
-                GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -1);
+                //GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -1);
                 GameManager.instance.gui.SetAmmo(weaponController.weaponAmmoType);
                 GameManager.instance.gui.SetWeapon();
             }
         }
+    }
+
+    void Reloading()
+    {
+        if (weaponController.curCooldown <= 0 && weaponController.ammo < weaponController.ammoCap)
+        {
+            if (Input.GetButtonDown("Reload"))
+            {
+
+                bool canReload = false;
+                int reloadAmount = reloadAmount = weaponController.ammoCap - weaponController.ammo;
+
+                switch (weaponController.weaponAmmoType)
+                {
+                    case WeaponController.Type.Bullet:
+                        if (GameManager.instance.bullets > 0)
+                        {
+                            canReload = true;
+                            if (reloadAmount > GameManager.instance.bullets)
+                                reloadAmount = GameManager.instance.bullets;
+                        }
+                        else
+                            canReload = false;
+                        break;
+
+                    case WeaponController.Type.Shell:
+                        if (GameManager.instance.shells > 0)
+                        {
+                            canReload = true;
+                            if (reloadAmount > GameManager.instance.shells)
+                                reloadAmount = GameManager.instance.shells;
+                        }
+                        else
+                            canReload = false;
+                        break;
+
+                    case WeaponController.Type.Explosive:
+                        if (GameManager.instance.explosive > 0)
+                        {
+                            canReload = true;
+                            if (reloadAmount > GameManager.instance.explosive)
+                                reloadAmount = GameManager.instance.explosive;
+                        }
+                        else
+                            canReload = false;
+                        break;
+                }
+                if (canReload)
+                {
+                    ReloadWeapon(reloadAmount);
+                }
+            }
+        }
+    }
+
+    void ReloadWeapon(int reloadAmount)
+    {
+        weaponController.Reload(reloadAmount);
+        GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -reloadAmount); 
+        GameManager.instance.gui.SetAmmo(weaponController.weaponAmmoType);
+        GameManager.instance.gui.SetWeapon();
     }
 
     void Move()

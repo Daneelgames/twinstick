@@ -42,18 +42,19 @@ public class GuiController : MonoBehaviour {
                 weapons[i].SetNativeSize();
 
                 string ammo = "0";
-                switch (GameManager.instance.playerWeapons[i].GetComponent<WeaponController>().weaponAmmoType)
+                WeaponController wpn = GameManager.instance.playerWeapons[i].GetComponent<WeaponController>();
+                switch (wpn.weaponAmmoType)
                 {
                     case WeaponController.Type.Bullet:
-                        ammo = "" + GameManager.instance.bullets;
+                        ammo = wpn.ammo +"/" + GameManager.instance.bullets;
                         break;
 
                     case WeaponController.Type.Shell:
-                        ammo = "" + GameManager.instance.shells;
+                        ammo = wpn.ammo + "/" + GameManager.instance.shells;
                         break;
 
                     case WeaponController.Type.Explosive:
-                        ammo = "" + GameManager.instance.explosive;
+                        ammo = wpn.ammo + "/" + GameManager.instance.explosive;
                         break;
                 }
 
