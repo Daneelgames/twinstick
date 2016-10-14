@@ -152,7 +152,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Reloading()
     {
-        if (weaponController.curCooldown <= 0 && weaponController.ammo < weaponController.ammoCap)
+        if (weaponController.curCooldown <= 0 && weaponController.ammo < weaponController.ammoCap && !GameManager.instance.gui.reloadController.reload)
         {
             if (Input.GetButtonDown("Reload"))
             {
@@ -205,15 +205,12 @@ public class PlayerMovement : MonoBehaviour
 
     void ReloadWeapon(int reloadAmount)
     {
-        weaponController.Reload(reloadAmount);
-        GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -reloadAmount); 
-        GameManager.instance.gui.SetAmmo(weaponController.weaponAmmoType);
-        GameManager.instance.gui.SetWeapon();
+        GameManager.instance.gui.reloadController.StartReload(Random.Range(-30f, 30f), reloadAmount);
     }
 
     void Move()
     {
-        if (!Input.GetButton("Aim"))
+        if (!Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload)
         {
             movement.Set(inputH, 0f, inputV);
             movement = movement.normalized * curSpeed * Time.deltaTime;
@@ -283,7 +280,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Aiming()
     {
-        if (weapon != null && Input.GetButton("Aim"))
+        if (weapon != null && Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload)
         {
             /*
             Vector3 mouse_pos = Input.mousePosition;

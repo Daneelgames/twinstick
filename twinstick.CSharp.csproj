@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\RandomShooterAi.cs" />
     <Compile Include="Assets\Scripts\RandomWalkerAi.cs" />
+    <Compile Include="Assets\Scripts\ReloadGui.cs" />
     <Compile Include="Assets\Scripts\TouchDamage.cs" />
     <Compile Include="Assets\Scripts\WalkerToPlayerAi.cs" />
     <Compile Include="Assets\Scripts\WeaponController.cs" />

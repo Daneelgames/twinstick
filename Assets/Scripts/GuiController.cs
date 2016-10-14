@@ -21,6 +21,8 @@ public class GuiController : MonoBehaviour {
 
     public Text exp;
 
+    public ReloadGui reloadController;
+
     public void SetHealth()
     {
         healthCounter.text = GameManager.instance.playerController.playerHealth.health + " / " + GameManager.instance.playerController.playerHealth.maxHealth;
@@ -32,7 +34,6 @@ public class GuiController : MonoBehaviour {
 
     public void SetWeapon()
     {
-
         for (int i = 0; i < GameManager.instance.playerWeapons.Count; i ++)
         {
             if (GameManager.instance.playerWeapons.Count > i)
@@ -57,10 +58,8 @@ public class GuiController : MonoBehaviour {
                         ammo = wpn.ammo + "/" + GameManager.instance.explosive;
                         break;
                 }
-
                 weaponCounters[i].text = ammo;
             }
-
         }
 
         switch(GameManager.instance.playerWeapons.Count) // hide inactive weapon icons
