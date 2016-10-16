@@ -105,9 +105,12 @@ ModelImporter:
     400094: Sword
     400096: weapon
     400098: weapon_end
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: GIrl.001
     4300002: GIrl
     4300004: Sword
+    4300006: Cylinder.001
     7400000: Armature|idle.001
     7400002: Armature|run
     7400004: GIrl.001|run
