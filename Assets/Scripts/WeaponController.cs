@@ -6,15 +6,17 @@ public class WeaponController : MonoBehaviour {
 
     public enum Type {Bullet, Shell, Explosive};
 
+    public int ammoCap = 0;
+    public int ammo = 0;
+
     public bool automatic = false;
 
-    public float reloadTime = 0.25f;
+    public float cooldownTime = 0.25f;
+    public float curCooldown = 0f;
 
     public GameObject shotHolder;
 
     public List<GameObject> bullets;
-
-    public float curReload = 0f;
 
     bool canPick = false;
     public bool inHands = false;
@@ -54,23 +56,36 @@ public class WeaponController : MonoBehaviour {
     }
 
     void Update () {
-        if (curReload > 0)
+        if (curCooldown > 0)
         {
-            curReload -= Time.deltaTime;
+            curCooldown -= Time.deltaTime;
         }
+    }
+
+    public void Reload(int reloadAmount)
+    {
+        ammo += reloadAmount;
     }
 
     public void Shot()
     {
-        if (curReload <= 0)
+        if (curCooldown <= 0)
         {
-            curReload = reloadTime;
-            for (int i = 0; i < bullets.Count; i++)
+            if (ammo > 0)
             {
-                GameObject newBullet = Instantiate(bullets[i], shotHolder.transform.position, Quaternion.identity) as GameObject;
-                BulletController newBulletController = newBullet.GetComponent<BulletController>();
-                
-                newBulletController.SetDirection(transform.eulerAngles.z);
+                ammo -= 1;
+                curCooldown = cooldownTime;
+                for (int i = 0; i < bullets.Count; i++)
+                {
+                    GameObject newBullet = Instantiate(bullets[i], shotHolder.transform.position, Quaternion.identity) as GameObject;
+                    BulletController newBulletController = newBullet.GetComponent<BulletController>();
+
+                    newBulletController.SetDirection(transform.eulerAngles.z);
+                }
+            }
+            else
+            {
+                // play clip sound
             }
         }
     }

@@ -21,6 +21,8 @@ public class GuiController : MonoBehaviour {
 
     public Text exp;
 
+    public ReloadGui reloadController;
+
     public void SetHealth()
     {
         healthCounter.text = GameManager.instance.playerController.playerHealth.health + " / " + GameManager.instance.playerController.playerHealth.maxHealth;
@@ -32,7 +34,6 @@ public class GuiController : MonoBehaviour {
 
     public void SetWeapon()
     {
-
         for (int i = 0; i < GameManager.instance.playerWeapons.Count; i ++)
         {
             if (GameManager.instance.playerWeapons.Count > i)
@@ -42,24 +43,23 @@ public class GuiController : MonoBehaviour {
                 weapons[i].SetNativeSize();
 
                 string ammo = "0";
-                switch (GameManager.instance.playerWeapons[i].GetComponent<WeaponController>().weaponAmmoType)
+                WeaponController wpn = GameManager.instance.playerWeapons[i].GetComponent<WeaponController>();
+                switch (wpn.weaponAmmoType)
                 {
                     case WeaponController.Type.Bullet:
-                        ammo = "" + GameManager.instance.bullets;
+                        ammo = wpn.ammo +"/" + GameManager.instance.bullets;
                         break;
 
                     case WeaponController.Type.Shell:
-                        ammo = "" + GameManager.instance.shells;
+                        ammo = wpn.ammo + "/" + GameManager.instance.shells;
                         break;
 
                     case WeaponController.Type.Explosive:
-                        ammo = "" + GameManager.instance.explosive;
+                        ammo = wpn.ammo + "/" + GameManager.instance.explosive;
                         break;
                 }
-
                 weaponCounters[i].text = ammo;
             }
-
         }
 
         switch(GameManager.instance.playerWeapons.Count) // hide inactive weapon icons
