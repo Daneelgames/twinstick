@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     public bool realoading = false;
 
+    public IKControl ikController;
+
     void FixedUpdate()
     {
         if (playerHealth.health > 0)
@@ -57,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
             Reloading();
 
-            Animate();
+            //Animate();
 
         }
     }
@@ -282,15 +284,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (weapon != null && Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload)
         {
-            /*
-            Vector3 mouse_pos = Input.mousePosition;
-            mouse_pos.z = 5.23f; //The distance between the camera and object
-            Vector3 object_pos = Camera.main.WorldToScreenPoint(weapon.position);
-            mouse_pos.x = mouse_pos.x - object_pos.x;
-            mouse_pos.y = mouse_pos.y - object_pos.y;
-            float angle = Mathf.Atan2(mouse_pos.y, mouse_pos.x) * Mathf.Rad2Deg;
-            weapon.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-            */
 
             Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -298,7 +291,9 @@ public class PlayerMovement : MonoBehaviour
 
             if (Physics.Raycast(camRay, out floorHit, 30f, aimLayers))
             {
+                ikController.SetTarget(floorHit.point, true);
                 Vector3 playerToMouse = floorHit.point - transform.position;
+                
 
                 playerToMouse.y = 0f;
 
@@ -306,9 +301,13 @@ public class PlayerMovement : MonoBehaviour
                 newRotation = Quaternion.Slerp(newRotation, transform.rotation, Time.deltaTime * turnSmooth);
                 rb.MoveRotation(newRotation);
             }
+            else
+            ikController.SetTarget(ikController.lookPos, false);
         }
+        else
+            ikController.SetTarget(ikController.lookPos, false);
     }
-
+    
     public void SetSpeed(float amount)
     {
         speed = amount;
