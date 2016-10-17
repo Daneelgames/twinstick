@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: a7a6bee4df44c524c8477749cd1b911f
-timeCreated: 1476369528
+timeCreated: 1476710755
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -55,6 +55,42 @@ ModelImporter:
     100094: Sword
     100096: weapon
     100098: weapon_end
+    100100: body0
+    100102: body1
+    100104: Cylinder.001
+    100106: hand0.L
+    100108: hand0.R
+    100110: hand1.L
+    100112: hand1.L_end
+    100114: hand1.R
+    100116: hand1.R_end
+    100118: hand2.L
+    100120: hand2.L_end
+    100122: hand2.R
+    100124: hand2.R_end
+    100126: handIK.L
+    100128: handIK.R
+    100130: handKnee.L
+    100132: handKnee.L_end
+    100134: handKnee.R
+    100136: handKnee.R_end
+    100138: head_end
+    100140: leg0.L
+    100142: leg0.R
+    100144: leg1.L
+    100146: leg1.L_end
+    100148: leg1.R
+    100150: leg1.R_end
+    100152: leg2.L
+    100154: leg2.L_end
+    100156: leg2.R
+    100158: leg2.R_end
+    100160: legIK.L
+    100162: legIK.R
+    100164: legKnee.L
+    100166: legKnee.L_end
+    100168: legKnee.R
+    100170: legKnee.R_end
     400000: Armature
     400002: base
     400004: body
@@ -105,6 +141,42 @@ ModelImporter:
     400094: Sword
     400096: weapon
     400098: weapon_end
+    400100: body0
+    400102: body1
+    400104: Cylinder.001
+    400106: hand0.L
+    400108: hand0.R
+    400110: hand1.L
+    400112: hand1.L_end
+    400114: hand1.R
+    400116: hand1.R_end
+    400118: hand2.L
+    400120: hand2.L_end
+    400122: hand2.R
+    400124: hand2.R_end
+    400126: handIK.L
+    400128: handIK.R
+    400130: handKnee.L
+    400132: handKnee.L_end
+    400134: handKnee.R
+    400136: handKnee.R_end
+    400138: head_end
+    400140: leg0.L
+    400142: leg0.R
+    400144: leg1.L
+    400146: leg1.L_end
+    400148: leg1.R
+    400150: leg1.R_end
+    400152: leg2.L
+    400154: leg2.L_end
+    400156: leg2.R
+    400158: leg2.R_end
+    400160: legIK.L
+    400162: legIK.R
+    400164: legKnee.L
+    400166: legKnee.L_end
+    400168: legKnee.R
+    400170: legKnee.R_end
     2300000: //RootNode
     3300000: //RootNode
     4300000: GIrl.001
@@ -117,10 +189,17 @@ ModelImporter:
     7400006: GIrl|run
     7400008: Sword|idle.001
     7400010: Sword|run
+    7400012: character@idle
+    7400014: Armature|Cylinder.001Action
+    7400016: Armature|PoseLib
+    7400018: Cylinder.001|Cylinder.001Action
+    7400020: character@idleHurt
+    7400022: character@walk
     9500000: //RootNode
     13700000: GIrl
     13700002: GIrl.001
     13700004: Sword
+    13700006: Cylinder.001
   materials:
     importMaterials: 1
     materialName: 0
@@ -131,17 +210,353 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
-    animationImportErrors: 
+    animationImportErrors: '
+
+      Imported file ''character'' conversion failed: Required human bone ''LeftFoot''
+      not found
+
+
+'
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: character@idle
+      takeName: Armature|ArmatureAction
+      firstFrame: 0
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/body0
+        weight: 1
+      - path: Armature/body0/body1
+        weight: 1
+      - path: Armature/body0/body1/chest
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.L
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.L/hand1.L
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.L/hand1.L/hand1.L_end
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.R
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.R/hand1.R
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.R/hand1.R/hand1.R_end
+        weight: 1
+      - path: Armature/body0/body1/chest/neck
+        weight: 1
+      - path: Armature/body0/body1/chest/neck/head
+        weight: 1
+      - path: Armature/body0/body1/chest/neck/head/head_end
+        weight: 1
+      - path: Armature/body0/leg0.L
+        weight: 1
+      - path: Armature/body0/leg0.L/leg1.L
+        weight: 1
+      - path: Armature/body0/leg0.L/leg1.L/leg1.L_end
+        weight: 1
+      - path: Armature/body0/leg0.R
+        weight: 1
+      - path: Armature/body0/leg0.R/leg1.R
+        weight: 1
+      - path: Armature/body0/leg0.R/leg1.R/leg1.R_end
+        weight: 1
+      - path: Armature/handIK.L
+        weight: 1
+      - path: Armature/handIK.L/hand2.L
+        weight: 1
+      - path: Armature/handIK.L/hand2.L/hand2.L_end
+        weight: 1
+      - path: Armature/handIK.R
+        weight: 1
+      - path: Armature/handIK.R/hand2.R
+        weight: 1
+      - path: Armature/handIK.R/hand2.R/hand2.R_end
+        weight: 1
+      - path: Armature/handKnee.L
+        weight: 1
+      - path: Armature/handKnee.L/handKnee.L_end
+        weight: 1
+      - path: Armature/handKnee.R
+        weight: 1
+      - path: Armature/handKnee.R/handKnee.R_end
+        weight: 1
+      - path: Armature/legIK.L
+        weight: 1
+      - path: Armature/legIK.L/leg2.L
+        weight: 1
+      - path: Armature/legIK.L/leg2.L/leg2.L_end
+        weight: 1
+      - path: Armature/legIK.R
+        weight: 1
+      - path: Armature/legIK.R/leg2.R
+        weight: 1
+      - path: Armature/legIK.R/leg2.R/leg2.R_end
+        weight: 1
+      - path: Armature/legKnee.L
+        weight: 1
+      - path: Armature/legKnee.L/legKnee.L_end
+        weight: 1
+      - path: Armature/legKnee.R
+        weight: 1
+      - path: Armature/legKnee.R/legKnee.R_end
+        weight: 1
+      - path: Cylinder.001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: character@idleHurt
+      takeName: Armature|ArmatureAction
+      firstFrame: 140
+      lastFrame: 260
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/body0
+        weight: 1
+      - path: Armature/body0/body1
+        weight: 1
+      - path: Armature/body0/body1/chest
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.L
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.L/hand1.L
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.L/hand1.L/hand1.L_end
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.R
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.R/hand1.R
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.R/hand1.R/hand1.R_end
+        weight: 1
+      - path: Armature/body0/body1/chest/neck
+        weight: 1
+      - path: Armature/body0/body1/chest/neck/head
+        weight: 1
+      - path: Armature/body0/body1/chest/neck/head/head_end
+        weight: 1
+      - path: Armature/body0/leg0.L
+        weight: 1
+      - path: Armature/body0/leg0.L/leg1.L
+        weight: 1
+      - path: Armature/body0/leg0.L/leg1.L/leg1.L_end
+        weight: 1
+      - path: Armature/body0/leg0.R
+        weight: 1
+      - path: Armature/body0/leg0.R/leg1.R
+        weight: 1
+      - path: Armature/body0/leg0.R/leg1.R/leg1.R_end
+        weight: 1
+      - path: Armature/handIK.L
+        weight: 1
+      - path: Armature/handIK.L/hand2.L
+        weight: 1
+      - path: Armature/handIK.L/hand2.L/hand2.L_end
+        weight: 1
+      - path: Armature/handIK.R
+        weight: 1
+      - path: Armature/handIK.R/hand2.R
+        weight: 1
+      - path: Armature/handIK.R/hand2.R/hand2.R_end
+        weight: 1
+      - path: Armature/handKnee.L
+        weight: 1
+      - path: Armature/handKnee.L/handKnee.L_end
+        weight: 1
+      - path: Armature/handKnee.R
+        weight: 1
+      - path: Armature/handKnee.R/handKnee.R_end
+        weight: 1
+      - path: Armature/legIK.L
+        weight: 1
+      - path: Armature/legIK.L/leg2.L
+        weight: 1
+      - path: Armature/legIK.L/leg2.L/leg2.L_end
+        weight: 1
+      - path: Armature/legIK.R
+        weight: 1
+      - path: Armature/legIK.R/leg2.R
+        weight: 1
+      - path: Armature/legIK.R/leg2.R/leg2.R_end
+        weight: 1
+      - path: Armature/legKnee.L
+        weight: 1
+      - path: Armature/legKnee.L/legKnee.L_end
+        weight: 1
+      - path: Armature/legKnee.R
+        weight: 1
+      - path: Armature/legKnee.R/legKnee.R_end
+        weight: 1
+      - path: Cylinder.001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: character@walk
+      takeName: Armature|ArmatureAction
+      firstFrame: 280
+      lastFrame: 319
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/body0
+        weight: 1
+      - path: Armature/body0/body1
+        weight: 1
+      - path: Armature/body0/body1/chest
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.L
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.L/hand1.L
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.L/hand1.L/hand1.L_end
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.R
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.R/hand1.R
+        weight: 1
+      - path: Armature/body0/body1/chest/hand0.R/hand1.R/hand1.R_end
+        weight: 1
+      - path: Armature/body0/body1/chest/neck
+        weight: 1
+      - path: Armature/body0/body1/chest/neck/head
+        weight: 1
+      - path: Armature/body0/body1/chest/neck/head/head_end
+        weight: 1
+      - path: Armature/body0/leg0.L
+        weight: 1
+      - path: Armature/body0/leg0.L/leg1.L
+        weight: 1
+      - path: Armature/body0/leg0.L/leg1.L/leg1.L_end
+        weight: 1
+      - path: Armature/body0/leg0.R
+        weight: 1
+      - path: Armature/body0/leg0.R/leg1.R
+        weight: 1
+      - path: Armature/body0/leg0.R/leg1.R/leg1.R_end
+        weight: 1
+      - path: Armature/handIK.L
+        weight: 1
+      - path: Armature/handIK.L/hand2.L
+        weight: 1
+      - path: Armature/handIK.L/hand2.L/hand2.L_end
+        weight: 1
+      - path: Armature/handIK.R
+        weight: 1
+      - path: Armature/handIK.R/hand2.R
+        weight: 1
+      - path: Armature/handIK.R/hand2.R/hand2.R_end
+        weight: 1
+      - path: Armature/handKnee.L
+        weight: 1
+      - path: Armature/handKnee.L/handKnee.L_end
+        weight: 1
+      - path: Armature/handKnee.R
+        weight: 1
+      - path: Armature/handKnee.R/handKnee.R_end
+        weight: 1
+      - path: Armature/legIK.L
+        weight: 1
+      - path: Armature/legIK.L/leg2.L
+        weight: 1
+      - path: Armature/legIK.L/leg2.L/leg2.L_end
+        weight: 1
+      - path: Armature/legIK.R
+        weight: 1
+      - path: Armature/legIK.R/leg2.R
+        weight: 1
+      - path: Armature/legIK.R/leg2.R/leg2.R_end
+        weight: 1
+      - path: Armature/legKnee.L
+        weight: 1
+      - path: Armature/legKnee.L/legKnee.L_end
+        weight: 1
+      - path: Armature/legKnee.R
+        weight: 1
+      - path: Armature/legKnee.R/legKnee.R_end
+        weight: 1
+      - path: Cylinder.001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
