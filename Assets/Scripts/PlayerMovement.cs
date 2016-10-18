@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     float weaponCooldownPercentageBonus = 0f;
     public bool meleeBounce;
 
+    public Transform weaponHolder;
+
     public bool realoading = false;
 
     public IKLookControl ikController;
@@ -61,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
             Reloading();
 
-            //Animate();
+            Animate();
 
         }
     }
@@ -107,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
             if (canShoot)
             {
                 StartCoroutine("CamShakeShort", Random.Range(0.2f, 0.4f));
+                anim.SetTrigger("Shoot");
                 weaponController.Shot();
                 //GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -1); 
                 GameManager.instance.gui.SetAmmo(weaponController.weaponAmmoType);
@@ -286,7 +289,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload)
         {
-
             Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit floorHit;
 
@@ -331,31 +333,4 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     
-    public void SetSpeed(float amount)
-    {
-        speed = amount;
-    }
-
-    public void SetWeaponCooldownPercentageBonus(float amount)
-    {
-        weaponCooldownPercentageBonus = amount;
-    }
-
-    public void SetMeleeBounce(bool bounce)
-    {
-        meleeBounce = bounce;
-    }
-
-    public void SetRegen(bool regen)
-    {
-        if (regen)
-            InvokeRepeating("Regen", 30, 30);
-        else
-            CancelInvoke("Regen");
-    }
-
-    void Regen()
-    {
-        playerHealth.Heal(1);
-    }
 }
