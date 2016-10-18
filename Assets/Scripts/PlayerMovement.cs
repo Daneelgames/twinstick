@@ -26,9 +26,6 @@ public class PlayerMovement : MonoBehaviour
     float inputH = 0;
     float inputV = 0;
 
-    float weaponCooldownPercentageBonus = 0f;
-    public bool meleeBounce;
-
     public Transform weaponHolder;
 
     public bool realoading = false;
@@ -78,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
     void Shooting()
     {
         // !auto
-        if (weaponController.ammo > 0 && Input.GetButtonDown("Fire1") && Input.GetButton("Aim") && weaponController.curCooldown - weaponController.cooldownTime / 100 * weaponCooldownPercentageBonus <= 0 && !weaponController.automatic)
+        if (weaponController.ammo > 0 && Input.GetButtonDown("Fire1") && Input.GetButton("Aim") && weaponController.curCooldown <= 0)
         {
             bool canShoot = false;
 
@@ -112,45 +109,6 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetTrigger("Shoot");
                 weaponController.Shot();
                 //GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -1); 
-                GameManager.instance.gui.SetAmmo(weaponController.weaponAmmoType);
-                GameManager.instance.gui.SetWeapon();
-            }
-        }
-
-        //auto
-        if (weaponController.ammo > 0 && Input.GetButton("Fire1") && Input.GetButton("Aim") && weaponController.curCooldown - weaponController.cooldownTime / 100 * weaponCooldownPercentageBonus <= 0 && weaponController.automatic)
-        {
-            bool canShoot = false;
-
-            switch (weaponController.weaponAmmoType)
-            {
-                case WeaponController.Type.Bullet:
-                    if (GameManager.instance.bullets > 0)
-                        canShoot = true;
-                    else
-                        canShoot = false;
-                    break;
-
-                case WeaponController.Type.Shell:
-                    if (GameManager.instance.shells > 0)
-                        canShoot = true;
-                    else
-                        canShoot = false;
-                    break;
-
-                case WeaponController.Type.Explosive:
-                    if (GameManager.instance.explosive > 0)
-                        canShoot = true;
-                    else
-                        canShoot = false;
-                    break;
-            }
-
-            if (canShoot)
-            {
-                StartCoroutine("CamShakeShort", Random.Range(0.1f, 0.3f));
-                weaponController.Shot();
-                //GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -1);
                 GameManager.instance.gui.SetAmmo(weaponController.weaponAmmoType);
                 GameManager.instance.gui.SetWeapon();
             }
@@ -287,6 +245,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Aiming()
     {
+        if (Input.GetButtonDown("Aim"))
+        {
+            weaponController.curCooldown = 0.5f;
+        }
+
         if (Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload)
         {
             Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
