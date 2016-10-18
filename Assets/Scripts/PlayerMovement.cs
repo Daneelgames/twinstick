@@ -256,6 +256,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload)
         {
+            if (weapon != null)
+            {
+                anim.SetBool("Aim", true);
+            }
             Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit floorHit;
 
@@ -273,7 +277,7 @@ public class PlayerMovement : MonoBehaviour
                 Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
                 newRotation = Quaternion.Slerp(newRotation, transform.rotation, Time.deltaTime * turnSmooth * 1.2f);
 
-                if (Mathf.Abs(Mathf.RoundToInt(newRotation.eulerAngles.y) - rotateY) > 5)
+                if (Mathf.Abs(Mathf.RoundToInt(newRotation.eulerAngles.y) - rotateY) > 2)
                 {
                     rb.MoveRotation(newRotation);
                     anim.SetBool("LegsTurn", true);
@@ -284,10 +288,6 @@ public class PlayerMovement : MonoBehaviour
                     anim.SetBool("LegsTurn", false);
                 }
 
-                if (weapon != null)
-                {
-                    anim.SetBool("Aim", true);
-                }
             }
             else
             {
