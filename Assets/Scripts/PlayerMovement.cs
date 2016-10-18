@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool realoading = false;
 
-    public IKControl ikController;
+    public IKLookControl ikController;
 
     void FixedUpdate()
     {
@@ -282,11 +282,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Aiming()
     {
-        if (weapon != null && Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload)
+        if (Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload)
         {
-
             Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-
             RaycastHit floorHit;
 
             if (Physics.Raycast(camRay, out floorHit, 30f, aimLayers))
@@ -298,14 +296,23 @@ public class PlayerMovement : MonoBehaviour
                 playerToMouse.y = 0f;
 
                 Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-                newRotation = Quaternion.Slerp(newRotation, transform.rotation, Time.deltaTime * turnSmooth);
+                newRotation = Quaternion.Slerp(newRotation, transform.rotation, Time.deltaTime * turnSmooth * 1.2f);
                 rb.MoveRotation(newRotation);
+
+                if (weapon != null)
+                    anim.SetBool("Aim", true);
             }
             else
-            ikController.SetTarget(ikController.lookPos, false);
+            {
+                ikController.SetTarget(ikController.lookPos, false);
+            }
         }
         else
+        {
             ikController.SetTarget(ikController.lookPos, false);
+            if (anim.GetBool("Aim"))
+                anim.SetBool("Aim", false);
+        }
     }
     
     public void SetSpeed(float amount)

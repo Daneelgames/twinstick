@@ -4,7 +4,7 @@ using System.Collections;
 
 [RequireComponent(typeof(Animator))]
 
-public class IKControl : MonoBehaviour
+public class IKLookControl : MonoBehaviour
 {
     protected Animator animator;
 
@@ -12,6 +12,9 @@ public class IKControl : MonoBehaviour
     public Vector3 lookPos;
 
     public float lookWeight = 0f;
+    public float bodyWeight = 0f;
+    public float headWeight = 0f;
+    public float clampWeight = 0f;
     public float lookSpeed = 0.25f;
 
     void Start()
@@ -38,7 +41,7 @@ public class IKControl : MonoBehaviour
                 animator.SetLookAtPosition(lookPos);
             }
             lookWeight = Mathf.Lerp(lookWeight, newLookWeight, Time.deltaTime * lookSpeed);
-            animator.SetLookAtWeight(lookWeight, lookWeight, lookWeight, 0, 0.5f);
+            animator.SetLookAtWeight(lookWeight, bodyWeight, headWeight, 0, clampWeight);
         }
     }
 }
