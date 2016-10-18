@@ -31,8 +31,12 @@ public class PlayerMovement : MonoBehaviour
     public bool realoading = false;
 
     public IKLookControl ikController;
-    
+
+    public bool aim = false;
+
     int rotateY = 0;
+
+    public Vector3 aimTarget;
 
     void FixedUpdate()
     {
@@ -74,8 +78,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Shooting()
     {
-        // !auto
-        if (weaponController.ammo > 0 && Input.GetButtonDown("Fire1") && Input.GetButton("Aim") && weaponController.curCooldown <= 0)
+        if (weaponController.ammo > 0 && Input.GetButtonDown("Fire1") && aim && weaponController.curCooldown <= 0)
         {
             bool canShoot = false;
 
@@ -107,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 StartCoroutine("CamShakeShort", Random.Range(0.2f, 0.4f));
                 anim.SetTrigger("Shoot");
-                weaponController.Shot();
+                weaponController.Shot(aimTarget);
                 //GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -1); 
                 GameManager.instance.gui.SetAmmo(weaponController.weaponAmmoType);
                 GameManager.instance.gui.SetWeapon();
@@ -229,8 +232,9 @@ public class PlayerMovement : MonoBehaviour
 
         wpn.GetComponent<WeaponController>().SwitchInhands(true);
         wpn.name = "Weapon";
-        wpn.transform.SetParent(transform);
+        wpn.transform.SetParent(weaponHolder);
         wpn.transform.localPosition = Vector3.zero;
+        wpn.transform.localEulerAngles = Vector3.zero;
 
         GameManager.instance.gui.SetWeapon();
     }
@@ -259,10 +263,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 ikController.SetTarget(floorHit.point, true);
                 Vector3 playerToMouse = floorHit.point - transform.position;
-                
+
+                aimTarget = floorHit.point;
 
                 playerToMouse.y = 0f;
 
+                aim = true;
 
                 Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
                 newRotation = Quaternion.Slerp(newRotation, transform.rotation, Time.deltaTime * turnSmooth * 1.2f);
@@ -286,6 +292,7 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 ikController.SetTarget(ikController.lookPos, false);
+                aim = false;
             }
         }
         else
@@ -293,7 +300,13 @@ public class PlayerMovement : MonoBehaviour
             ikController.SetTarget(ikController.lookPos, false);
             anim.SetBool("Aim", false);
             anim.SetBool("LegsTurn", false);
+            aim = false;
         }
     }
     
+    public void SetAnimBool(string boolName, bool boolValue)
+    {
+        anim.SetBool(boolName, boolValue);
+    }
+
 }

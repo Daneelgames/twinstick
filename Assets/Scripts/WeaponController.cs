@@ -67,7 +67,7 @@ public class WeaponController : MonoBehaviour {
         ammo += reloadAmount;
     }
 
-    public void Shot()
+    public void Shot(Vector3 target)
     {
         if (curCooldown <= 0)
         {
@@ -80,7 +80,7 @@ public class WeaponController : MonoBehaviour {
                     GameObject newBullet = Instantiate(bullets[i], shotHolder.transform.position, Quaternion.identity) as GameObject;
                     BulletController newBulletController = newBullet.GetComponent<BulletController>();
 
-                    newBulletController.SetDirection(transform.eulerAngles.z);
+                    newBulletController.SetDirection(target);
                 }
             }
             else

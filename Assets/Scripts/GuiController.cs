@@ -38,7 +38,7 @@ public class GuiController : MonoBehaviour {
         {
             if (GameManager.instance.playerWeapons.Count > i)
             {
-                weapons[i].sprite = GameManager.instance.playerWeapons[i].GetComponent<SpriteRenderer>().sprite;
+                //weapons[i].sprite = GameManager.instance.playerWeapons[i].GetComponent<SpriteRenderer>().sprite;
                 weapons[i].color = Color.white;
                 weapons[i].SetNativeSize();
 

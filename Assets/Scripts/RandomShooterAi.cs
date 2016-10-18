@@ -67,7 +67,7 @@ public class RandomShooterAi : MonoBehaviour {
     {
         SetWaitTime();
         //print("MOB SHOOTS");
-        weaponController.Shot();
+        weaponController.Shot(GameManager.instance.playerInGame.transform.position);
     }
 
     void Aiming()

@@ -3,15 +3,11 @@ using System.Collections;
 
 public class BulletController : MonoBehaviour {
 
-    public Rigidbody2D _rb;
-    public Collider2D _coll;
-    public bool ricochet = false;
-    public float bulletRicochetCooldown = 0.3f;
-    public bool shotThrough = false;
+    public Rigidbody _rb;
+    public Collider _coll;
 
-    public Vector2 direction;
+    public Vector3 direction;
     public float speed;
-    public float deceleration = 0f;
     public int damage = 1;
 
     public float lifeTime = 0;
@@ -21,17 +17,21 @@ public class BulletController : MonoBehaviour {
 
     public HealthController healthController;
     public GameObject explosion;
-    
+
     void Start()
     {
         speed += Random.Range(speed / -10, speed / 10);
     }
 
-    public void SetDirection(float rot)
+    public void SetDirection(Vector3 target)
     {
         float random = Random.Range(-maxBulletOffset, maxBulletOffset);
 
-        transform.eulerAngles = new Vector3(0, 0, rot + random);
+        target = new Vector3(target.x + random, target.y + random, target.z + random);
+
+        transform.LookAt(target);
+
+        //transform.eulerAngles = new Vector3(angles.x + random, angles.y + random, angles.z + random);
     }
 
     void Update()
@@ -45,106 +45,32 @@ public class BulletController : MonoBehaviour {
             if (curLifeTime >= lifeTime)
                 DestroyBullet();
         }
-        if (bulletRicochetCooldown > 0)
-            bulletRicochetCooldown -= Time.deltaTime;
-
-        if (speed > 0 && deceleration > 0)
-            speed -= deceleration * Time.deltaTime;
     }
 
     void FixedUpdate()
     {
-        _rb.velocity = ((Vector2)transform.TransformDirection(Vector3.right)).normalized * speed;
+        _rb.AddRelativeForce(Vector3.forward * speed);
     }
 
-    void OnCollisionEnter2D(Collision2D coll)
+    void OnCollisionEnter(Collision coll)
     {
-        if (coll.gameObject.tag == "Melee")
-        {
-            if(coll.gameObject.GetComponent<WeaponMeleeController>().meleeBounce)
-                Ricochet(coll);
-            else
-                healthController.Damage(1);
-        }
-        else
-        {
-            if (!ricochet && !shotThrough)
-            {
-                DamageColl(coll);
-            }
-            else if (ricochet)
-            {
-
-                if (coll.gameObject.tag == "Solid")
-                {
-                    DamageColl(coll);
-                    Ricochet(coll);
-                }
-                else if (coll.gameObject.tag == "Bullet")
-                {
-                    if (bulletRicochetCooldown <= 0)
-                    {
-                        DamageColl(coll);
-                        Ricochet(coll);
-                    }
-                }
-                else
-                {
-                    DamageColl(coll);
-                }
-            }
-        }
+        DamageColl(coll);
     }
 
-    void DamageColl(Collision2D coll)
+    void DamageColl(Collision coll)
     {
         //print(gameObject.name + " COLLISION " + coll.gameObject.name);
         HealthController collHealth = coll.gameObject.GetComponent<HealthController>() as HealthController;
-        if (collHealth != null)
-        {
-            if (!collHealth.invisible)
-            {
-                collHealth.Damage(damage);
-                if (ricochet && coll.gameObject.tag == "Solid")
-                {
-                    // ricochet
-                }
-                else
-                    DestroyBullet();
-            }
-            else
-            {
-                Physics2D.IgnoreCollision(coll.collider, _coll, true);
-                StartCoroutine("EnableCollision", coll.collider);
-            }
-        }
-        else
-        {
-            if (ricochet && coll.gameObject.tag == "Solid")
-            {
-                // ricochet
-            }
-            else
-                DestroyBullet();
-        }
+        if (collHealth)
+            collHealth.Damage(damage);
+        DestroyBullet();
     }
 
-    IEnumerator EnableCollision(Collider2D coll)
+    IEnumerator EnableCollision(Collider coll)
     {
         yield return new WaitForSeconds(0.3f);
         if (coll != null && _coll != null)
-            Physics2D.IgnoreCollision(coll, _coll, false);
-    }
-
-    void Ricochet(Collision2D coll)
-    {
-        if (coll.gameObject.tag != "Melee")
-            healthController.Damage(1);
-
-        ContactPoint2D contact = coll.contacts[0];
-        Vector2 mVect = Vector2.Reflect((Vector2)transform.TransformDirection(Vector3.right), contact.normal);
-        var rot = Mathf.Rad2Deg * Mathf.Atan2(mVect.y, mVect.x) + Random.Range(-5f, 5f);
-        SetDirection(rot);
+            Physics.IgnoreCollision(coll, _coll, false);
     }
 
     void DestroyBullet()

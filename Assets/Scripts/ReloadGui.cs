@@ -17,6 +17,7 @@ public class ReloadGui : MonoBehaviour {
         reloadAmount = rld;
         sliderAnim.transform.localPosition = new Vector2(-75f, 0);
         anim.SetBool("Active", true);
+        GameManager.instance.playerController.SetAnimBool("Reload", true);
         greenZone.transform.localPosition = new Vector3(greenPosX, 0, 0);
         transform.position = Camera.main.WorldToScreenPoint(new Vector3(GameManager.instance.playerInGame.transform.position.x, GameManager.instance.playerInGame.transform.position.y + 2f, GameManager.instance.playerInGame.transform.position.z));
         StartCoroutine("Reloading");
@@ -28,7 +29,7 @@ public class ReloadGui : MonoBehaviour {
         yield return new WaitForSeconds(0.2f);
         slider = true;
         yield return new WaitForSeconds(0.5f);
-        StartCoroutine("ReloadSuccess", 2f); // slow reload
+        StartCoroutine("ReloadSuccess", 3f); // slow reload
         slider = false;
         anim.SetBool("Active", false);
     }
@@ -37,6 +38,7 @@ public class ReloadGui : MonoBehaviour {
     {
         // RELOAD ANIMATION HERE
         yield return new WaitForSeconds(wait);
+        GameManager.instance.playerController.SetAnimBool("Reload", false);
         reload = false;
         WeaponController weaponController = GameManager.instance.playerController.weaponController;
         weaponController.Reload(reloadAmount);
@@ -47,9 +49,9 @@ public class ReloadGui : MonoBehaviour {
 
     IEnumerator ReloadFailed()
     {
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(1.5f);
+        GameManager.instance.playerController.SetAnimBool("Reload", false);
         reload = false;
-
     }
 
     void Update()
@@ -61,8 +63,6 @@ public class ReloadGui : MonoBehaviour {
             if (Input.GetButtonDown("Reload"))
             {
                 float distance = Vector2.Distance(sliderAnim.transform.localPosition, greenZone.transform.localPosition);
-
-                print(distance);
 
                 if (distance > 35f) // fail
                 {
