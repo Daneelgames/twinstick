@@ -32,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     public bool realoading = false;
 
     public IKLookControl ikController;
+    
+    int rotateY = 0;
 
     void FixedUpdate()
     {
@@ -284,6 +286,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload)
         {
+
             Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit floorHit;
 
@@ -295,12 +298,25 @@ public class PlayerMovement : MonoBehaviour
 
                 playerToMouse.y = 0f;
 
+
                 Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
                 newRotation = Quaternion.Slerp(newRotation, transform.rotation, Time.deltaTime * turnSmooth * 1.2f);
-                rb.MoveRotation(newRotation);
+
+                if (Mathf.Abs(Mathf.RoundToInt(newRotation.eulerAngles.y) - rotateY) > 5)
+                {
+                    rb.MoveRotation(newRotation);
+                    anim.SetBool("LegsTurn", true);
+                    rotateY = Mathf.RoundToInt(transform.localEulerAngles.y);
+                }
+                else
+                {
+                    anim.SetBool("LegsTurn", false);
+                }
 
                 if (weapon != null)
+                {
                     anim.SetBool("Aim", true);
+                }
             }
             else
             {
@@ -310,8 +326,8 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             ikController.SetTarget(ikController.lookPos, false);
-            if (anim.GetBool("Aim"))
-                anim.SetBool("Aim", false);
+            anim.SetBool("Aim", false);
+            anim.SetBool("LegsTurn", false);
         }
     }
     

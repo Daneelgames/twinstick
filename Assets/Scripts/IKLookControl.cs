@@ -11,11 +11,12 @@ public class IKLookControl : MonoBehaviour
     public bool ikActive = false;
     public Vector3 lookPos;
 
-    public float lookWeight = 0f;
-    public float bodyWeight = 0f;
-    public float headWeight = 0f;
-    public float clampWeight = 0f;
     public float lookSpeed = 0.25f;
+
+    float lookWeight = 0f;
+    float bodyWeight = 0f;
+    float headWeight = 0f;
+    float clampWeight = 1f;
 
     void Start()
     {
@@ -34,14 +35,25 @@ public class IKLookControl : MonoBehaviour
         if (animator)
         {
             float newLookWeight = 0f;
+            float newHeadWeight = 0f;
+            float newBodyWeight = 0f;
             //if the IK is active, set the position and rotation directly to the goal. 
             if (ikActive)
             {
                 newLookWeight = 1f;
+                newHeadWeight = 1f;
+                newBodyWeight = 0.75f;
                 animator.SetLookAtPosition(lookPos);
             }
+            // make smooth
             lookWeight = Mathf.Lerp(lookWeight, newLookWeight, Time.deltaTime * lookSpeed);
-            animator.SetLookAtWeight(lookWeight, bodyWeight, headWeight, 0, clampWeight);
+            headWeight = Mathf.Lerp(headWeight, newHeadWeight, Time.deltaTime * lookSpeed);
+            bodyWeight = Mathf.Lerp(bodyWeight, newBodyWeight, Time.deltaTime * lookSpeed);
+
+            if (ikActive)
+                animator.SetLookAtWeight(lookWeight, bodyWeight, headWeight, 0, clampWeight);
+            else
+                animator.SetLookAtWeight(lookWeight, bodyWeight, headWeight, 0, clampWeight);
         }
     }
 }
