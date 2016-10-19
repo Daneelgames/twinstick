@@ -9,21 +9,51 @@ ModelImporter:
     100002: sideRoad
     100004: sideRoad.001
     100006: //RootNode
+    100008: LightingPole
+    100010: LightingPoleLight
+    100012: roadCrossWalk
+    100014: sideRoadWalk
+    100016: trashCan
+    100018: trashCanCap
     400000: roadMiddle
     400002: sideRoad
     400004: sideRoad.001
     400006: //RootNode
+    400008: LightingPole
+    400010: LightingPoleLight
+    400012: roadCrossWalk
+    400014: sideRoadWalk
+    400016: trashCan
+    400018: trashCanCap
     2300000: roadMiddle
     2300002: sideRoad
     2300004: sideRoad.001
+    2300006: LightingPole
+    2300008: LightingPoleLight
+    2300010: roadCrossWalk
+    2300012: sideRoadWalk
+    2300014: trashCan
+    2300016: trashCanCap
     3300000: roadMiddle
     3300002: sideRoad
     3300004: sideRoad.001
+    3300006: LightingPole
+    3300008: LightingPoleLight
+    3300010: roadCrossWalk
+    3300012: sideRoadWalk
+    3300014: trashCan
+    3300016: trashCanCap
     4300000: sideRoad.001
     4300002: sideRoad
     4300004: roadMiddle
+    4300006: roadCrossWalk
+    4300008: LightingPoleLight
+    4300010: LightingPole
+    4300012: trashCanCap
+    4300014: trashCan
+    4300016: sideRoadWalk
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
