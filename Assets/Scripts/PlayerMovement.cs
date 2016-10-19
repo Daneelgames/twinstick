@@ -180,13 +180,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload)
         {
+            /* OLD MOVEMENT
             movement.Set(inputH, 0f, inputV);
             movement = movement.normalized * curSpeed * Time.deltaTime;
             rb.MovePosition(transform.position + movement);
+            */
+
+            movement.Set(inputH, 0f, inputV);
+            //movement = transform.TransformDirection(movement.normalized) * curSpeed;
+            movement = movement.normalized * curSpeed;
+            movement.y = rb.velocity.y;
+            rb.velocity = movement;
 
             if (inputH != 0 || inputV != 0)
             {
-
                 Vector3 playerToTarget = (transform.position + movement) - transform.position;
 
                 playerToTarget.y = 0f;
