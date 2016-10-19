@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        curSpeed = speed;
+        curSpeed = Mathf.Lerp(curSpeed, speed, 0.75f);
 
         if (playerHealth.health > 0)
         {
@@ -202,6 +202,19 @@ public class PlayerMovement : MonoBehaviour
                 newRotation = Quaternion.Slerp(newRotation, transform.rotation, Time.deltaTime * turnSmooth);
                 rb.MoveRotation(newRotation);
             }
+
+            if (Input.GetButton("Run"))
+            {
+                float animSpeed = Mathf.Lerp(anim.GetFloat("Speed"), 1, 0.1f);
+                anim.SetFloat("Speed", animSpeed);
+                speed = 3;
+            }
+            else
+            {
+                float animSpeed = Mathf.Lerp(anim.GetFloat("Speed"), 0, 0.1f);
+                anim.SetFloat("Speed", animSpeed);
+                speed = 1;
+            }
         }
     }
 
@@ -260,6 +273,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Aim"))
         {
             weaponController.curCooldown = 0.5f;
+            rb.velocity = Vector3.zero;
         }
 
         if (Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload)
