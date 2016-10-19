@@ -54,6 +54,7 @@ public class BulletController : MonoBehaviour {
 
     void OnCollisionEnter(Collision coll)
     {
+        print(coll.gameObject.name);
         DamageColl(coll);
     }
 
@@ -63,6 +64,10 @@ public class BulletController : MonoBehaviour {
         HealthController collHealth = coll.gameObject.GetComponent<HealthController>() as HealthController;
         if (collHealth)
             collHealth.Damage(damage);
+
+        if (explosion != null)
+            Instantiate(explosion, transform.position, transform.rotation);
+
         DestroyBullet();
     }
 
@@ -75,9 +80,6 @@ public class BulletController : MonoBehaviour {
 
     void DestroyBullet()
     {
-        if (explosion != null)
-            Instantiate(explosion, transform.position, transform.rotation);
-
         Destroy(gameObject);
     }
 }

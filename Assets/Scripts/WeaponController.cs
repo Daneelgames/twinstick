@@ -23,6 +23,18 @@ public class WeaponController : MonoBehaviour {
 
     public Type weaponAmmoType = Type.Bullet;
 
+    /* TEST AIMING
+    public LineRenderer line;
+
+    void FixedUpdate()
+    {
+        if (inHands)
+        {
+            line.SetPosition(0, shotHolder.transform.position);
+            line.SetPosition(1, GameManager.instance.playerController.aimTarget);
+        }
+    }
+    */
 
     public void SwitchInhands(bool hands)
     {

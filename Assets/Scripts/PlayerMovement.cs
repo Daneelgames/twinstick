@@ -234,6 +234,7 @@ public class PlayerMovement : MonoBehaviour
         wpn.name = "Weapon";
         wpn.transform.SetParent(weaponHolder);
         wpn.transform.localPosition = Vector3.zero;
+        //wpn.transform.localScale = Vector3.one;
         wpn.transform.localEulerAngles = Vector3.zero;
 
         GameManager.instance.gui.SetWeapon();
