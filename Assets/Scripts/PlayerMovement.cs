@@ -216,6 +216,10 @@ public class PlayerMovement : MonoBehaviour
                 speed = 1;
             }
         }
+        else
+        {
+            rb.velocity = Vector3.zero; // character don't move if aiming or reloading
+        }
     }
 
     public void SetWeapon(GameObject wpn, bool newWeapon)
@@ -273,7 +277,6 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Aim"))
         {
             weaponController.curCooldown = 0.5f;
-            rb.velocity = Vector3.zero;
         }
 
         if (Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload)
@@ -298,17 +301,18 @@ public class PlayerMovement : MonoBehaviour
 
                 Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
                 newRotation = Quaternion.Slerp(newRotation, transform.rotation, Time.deltaTime * turnSmooth * 1.2f);
-
-                if (Mathf.Abs(Mathf.RoundToInt(newRotation.eulerAngles.y) - rotateY) > 2)
+                float difference = Mathf.Abs(Mathf.RoundToInt(newRotation.eulerAngles.y) - rotateY);
+                print(difference);
+                if (difference > 2)
                 {
                     rb.MoveRotation(newRotation);
                     anim.SetBool("LegsTurn", true);
-                    rotateY = Mathf.RoundToInt(transform.localEulerAngles.y);
                 }
                 else
                 {
                     anim.SetBool("LegsTurn", false);
                 }
+                rotateY = Mathf.RoundToInt(transform.eulerAngles.y);
 
             }
             else

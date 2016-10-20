@@ -54,7 +54,6 @@ public class BulletController : MonoBehaviour {
 
     void OnCollisionEnter(Collision coll)
     {
-        print(coll.gameObject.name);
         DamageColl(coll);
     }
 
