@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "twinstick.CSharp.Plugins", "twinstick.CSharp.Plugins.csproj", "{A5AFE81B-663E-6D07-D176-D312DA1C74EA}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "twinstick.CSharp", "twinstick.CSharp.csproj", "{777CCA99-A9DC-AD1B-D571-4E16983B5EDF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "twinstick.CSharp.Editor", "twinstick.CSharp.Editor.csproj", "{3E5F28AF-3845-ED9E-5A8E-FCA3D44E916D}"
@@ -11,6 +13,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5AFE81B-663E-6D07-D176-D312DA1C74EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5AFE81B-663E-6D07-D176-D312DA1C74EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5AFE81B-663E-6D07-D176-D312DA1C74EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5AFE81B-663E-6D07-D176-D312DA1C74EA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{777CCA99-A9DC-AD1B-D571-4E16983B5EDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{777CCA99-A9DC-AD1B-D571-4E16983B5EDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{777CCA99-A9DC-AD1B-D571-4E16983B5EDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
