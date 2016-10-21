@@ -1,46 +1,44 @@
 fileFormatVersion: 2
-guid: 027888b7317ff464e9d3269f1fc8915f
-timeCreated: 1476978482
+guid: 8baa88bf08db64848a312848ca85453e
+timeCreated: 1477038989
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: characterMesh.001
-    100004: door
-    100006: DoorVisor
-    100008: FenceHigh
-    100010: FenceLow
-    100012: LightingPole
-    100014: LightingPoleLight
-    100016: roadCrossWalk
-    100018: roadMiddle
-    100020: sideRoad
-    100022: sideRoad.001
-    100024: sideRoadWalk
-    100026: SimpleWall
-    100028: Stair
-    100030: trashCan
-    100032: trashCanCap
-    100034: Window
-    400000: //RootNode
-    400002: characterMesh.001
-    400004: door
-    400006: DoorVisor
-    400008: FenceHigh
-    400010: FenceLow
-    400012: LightingPole
-    400014: LightingPoleLight
-    400016: roadCrossWalk
-    400018: roadMiddle
-    400020: sideRoad
-    400022: sideRoad.001
-    400024: sideRoadWalk
-    400026: SimpleWall
-    400028: Stair
-    400030: trashCan
-    400032: trashCanCap
-    400034: Window
+    100000: characterMesh.001
+    100002: door
+    100004: DoorVisor
+    100006: FenceHigh
+    100008: FenceLow
+    100010: LightingPole
+    100012: LightingPoleLight
+    100014: roadCrossWalk
+    100016: roadMiddle.001
+    100018: sideRoad
+    100020: sideRoadWalk
+    100022: SimpleWall
+    100024: Stair
+    100026: //RootNode
+    100028: trashCan
+    100030: trashCanCap
+    100032: Window
+    400000: characterMesh.001
+    400002: door
+    400004: DoorVisor
+    400006: FenceHigh
+    400008: FenceLow
+    400010: LightingPole
+    400012: LightingPoleLight
+    400014: roadCrossWalk
+    400016: roadMiddle.001
+    400018: sideRoad
+    400020: sideRoadWalk
+    400022: SimpleWall
+    400024: Stair
+    400026: //RootNode
+    400028: trashCan
+    400030: trashCanCap
+    400032: Window
     2300000: characterMesh.001
     2300002: door
     2300004: DoorVisor
@@ -49,15 +47,14 @@ ModelImporter:
     2300010: LightingPole
     2300012: LightingPoleLight
     2300014: roadCrossWalk
-    2300016: roadMiddle
+    2300016: roadMiddle.001
     2300018: sideRoad
-    2300020: sideRoad.001
-    2300022: sideRoadWalk
-    2300024: SimpleWall
-    2300026: Stair
-    2300028: trashCan
-    2300030: trashCanCap
-    2300032: Window
+    2300020: sideRoadWalk
+    2300022: SimpleWall
+    2300024: Stair
+    2300026: trashCan
+    2300028: trashCanCap
+    2300030: Window
     3300000: characterMesh.001
     3300002: door
     3300004: DoorVisor
@@ -66,23 +63,22 @@ ModelImporter:
     3300010: LightingPole
     3300012: LightingPoleLight
     3300014: roadCrossWalk
-    3300016: roadMiddle
+    3300016: roadMiddle.001
     3300018: sideRoad
-    3300020: sideRoad.001
-    3300022: sideRoadWalk
-    3300024: SimpleWall
-    3300026: Stair
-    3300028: trashCan
-    3300030: trashCanCap
-    3300032: Window
-    4300000: FenceHigh
-    4300002: FenceLow
-    4300004: Window
-    4300006: DoorVisor
-    4300008: door
-    4300010: Stair
-    4300012: SimpleWall
-    4300014: sideRoad.001
+    3300020: sideRoadWalk
+    3300022: SimpleWall
+    3300024: Stair
+    3300026: trashCan
+    3300028: trashCanCap
+    3300030: Window
+    4300000: roadMiddle.001
+    4300002: FenceHigh
+    4300004: FenceLow
+    4300006: Window
+    4300008: DoorVisor
+    4300010: door
+    4300012: Stair
+    4300014: SimpleWall
     4300016: characterMesh.001
     4300018: roadCrossWalk
     4300020: LightingPoleLight
@@ -91,7 +87,6 @@ ModelImporter:
     4300026: trashCan
     4300028: sideRoadWalk
     4300030: sideRoad
-    4300032: roadMiddle
   materials:
     importMaterials: 0
     materialName: 0
@@ -121,7 +116,7 @@ ModelImporter:
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
