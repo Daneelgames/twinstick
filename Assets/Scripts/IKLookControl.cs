@@ -42,7 +42,7 @@ public class IKLookControl : MonoBehaviour
             {
                 newLookWeight = 1f;
                 newHeadWeight = 1f;
-                newBodyWeight = 0.75f;
+                newBodyWeight = 1f;
                 animator.SetLookAtPosition(lookPos);
             }
             // make smooth

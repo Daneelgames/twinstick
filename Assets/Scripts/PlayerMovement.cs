@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator CamShakeShort(float amount)
     {
         GameManager.instance.camAnim.SetFloat("ShakeAmount", amount);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.25f);
         GameManager.instance.camAnim.SetFloat("ShakeAmount", 0);
     }
 
@@ -113,9 +113,6 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine("CamShakeShort", Random.Range(0.2f, 0.4f));
                 anim.SetTrigger("Shoot");
                 weaponController.Shot(aimTarget);
-                //GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -1); 
-                GameManager.instance.gui.SetAmmo(weaponController.weaponAmmoType);
-                GameManager.instance.gui.SetWeapon();
             }
         }
     }
@@ -243,9 +240,6 @@ public class PlayerMovement : MonoBehaviour
             }
 
             GameManager.instance.AddPlayerWeapon(wpn);
-            GameManager.instance.gui.SetAmmo(WeaponController.Type.Bullet);
-            GameManager.instance.gui.SetAmmo(WeaponController.Type.Shell);
-            GameManager.instance.gui.SetAmmo(WeaponController.Type.Explosive);
         }
         else
         {
@@ -260,10 +254,7 @@ public class PlayerMovement : MonoBehaviour
         wpn.name = "Weapon";
         wpn.transform.SetParent(weaponHolder);
         wpn.transform.localPosition = Vector3.zero;
-        //wpn.transform.localScale = Vector3.one;
         wpn.transform.localEulerAngles = Vector3.zero;
-
-        GameManager.instance.gui.SetWeapon();
     }
 
     void Animate()
@@ -281,7 +272,7 @@ public class PlayerMovement : MonoBehaviour
             weaponController.curCooldown = 0.5f;
         }
 
-        if (Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload)
+        if (Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload && Time.timeScale > 0)
         {
             if (weapon != null)
             {
@@ -315,7 +306,7 @@ public class PlayerMovement : MonoBehaviour
                 newRotation = Quaternion.Slerp(newRotation, transform.rotation, Time.deltaTime * turnSmooth * 1.2f);
                 float difference = Mathf.Abs(Mathf.RoundToInt(newRotation.eulerAngles.y) - rotateY);
                 print(difference);
-                if (difference > 2)
+                if (difference > 4)
                 {
                     rb.MoveRotation(newRotation);
                     anim.SetBool("LegsTurn", true);

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +7,10 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour {
     
     public static GameManager instance = null;
+
+    public SceneDetails _sm;
+    
+    public string characterSpawnerName = "StartSpawner";
 
     public Camera mainCam;
 
@@ -30,12 +35,10 @@ public class GameManager : MonoBehaviour {
     public int explosiveMax = 50;
 
     public CampfireController startCampfire;
-    public CampfireController lastCampfire;
 
     public List<MobSpawnerController> spawners;
 
     public GameObject weaponToPick = null;
-    public CampfireController campfireToInteract = null;
     public InteractiveObject npcToInteract = null;
 
     public Animator dialogAnimator;
@@ -43,6 +46,7 @@ public class GameManager : MonoBehaviour {
 
     public bool pointerOverMenu = false;
 
+    public ActionFeedbackController actionFeedbackController;
 
     void Awake()
     {
@@ -53,14 +57,18 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
-        
+    }
+
+    void OnLevelWasLoaded() // doesn't work
+    {
         GameObject newPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
         newPlayer.name = "Player";
         playerInGame = newPlayer;
         playerController = playerInGame.GetComponent<PlayerMovement>();
 
+        print(characterSpawnerName);
+        startCampfire = GameObject.Find(characterSpawnerName).GetComponent<CampfireController>();
         startCampfire.SpawnPlayer();
-        lastCampfire = startCampfire;
 
         GameObject newWeapon = Instantiate(weapons[0], Vector3.zero, Quaternion.identity) as GameObject;
 
@@ -68,30 +76,27 @@ public class GameManager : MonoBehaviour {
 
         gui.SetHealth();
 
-        List<GameObject> spwnrs = new List<GameObject>(GameObject.FindGameObjectsWithTag("Spawner"));
+        List<GameObject> spwnrs = new List<GameObject>(GameObject.FindGameObjectsWithTag("MobSpawner"));
         foreach (GameObject i in spwnrs)
         {
             spawners.Add(i.GetComponent<MobSpawnerController>());
         }
-        
-    }
+        gui.Fade("ToGame");
 
-    void Start()
-    {
+        _sm = GameObject.Find("SceneManager").GetComponent<SceneDetails>();
         PlayerDead();
     }
-    
+
     public void PlayerDead()
     {
         StartCoroutine("RespawnPlayer");
     }
 
-
     IEnumerator RespawnPlayer()
     {
         yield return new WaitForSeconds(1f);
         playerInGame.SetActive(true);
-        lastCampfire.SpawnPlayer();
+        startCampfire.SpawnPlayer();
         RespawnMobs();
     }
 
@@ -107,16 +112,24 @@ public class GameManager : MonoBehaviour {
     public void WeaponToPick(GameObject weapon)
     {
         weaponToPick = weapon;
+        if (weapon != null)
+            actionFeedbackController.SetFeedback(true, "Inspect");
+        else
+            actionFeedbackController.SetFeedback(false, "Inspect");
     }
 
-    public void CampfireToInteract(CampfireController campfire)
-    {
-        campfireToInteract = campfire;
-    }
 
-    public void NpcToInteract(InteractiveObject npc)
+    public void NpcToInteract(InteractiveObject npc, string type)
     {
         npcToInteract = npc;
+        if (npc != null)
+        {
+            actionFeedbackController.SetFeedback(true, type);
+        }
+        else
+        {
+            actionFeedbackController.SetFeedback(false, type);
+        }
     }
 
     void Update()
@@ -127,12 +140,6 @@ public class GameManager : MonoBehaviour {
             {
                 playerController.SetWeapon(weaponToPick, true);
                 WeaponToPick(null);
-            }
-            else if (campfireToInteract != null)
-            {
-                lastCampfire = campfireToInteract;
-                playerController.playerHealth.Heal(playerController.playerHealth.maxHealth);
-                RespawnMobs();
             }
             else if (npcToInteract != null)
             {
@@ -152,8 +159,6 @@ public class GameManager : MonoBehaviour {
                 print("change weapon to 0");
                 playerController.SetWeapon(playerWeapons[0], false);
             }
-
-            gui.SetWeapon();
         }
     }
 
@@ -193,5 +198,12 @@ public class GameManager : MonoBehaviour {
     public void PointerOverMenu(bool entered)
     {
         pointerOverMenu = entered;
+    }
+
+    public void MoveToNewScene(string sceneName, string spawnerName)
+    {
+        characterSpawnerName = spawnerName;
+        print(characterSpawnerName);
+        SceneManager.LoadScene(sceneName);
     }
 }

@@ -19,7 +19,7 @@ public class ReloadGui : MonoBehaviour {
         anim.SetBool("Active", true);
         GameManager.instance.playerController.SetAnimBool("Reload", true);
         greenZone.transform.localPosition = new Vector3(greenPosX, 0, 0);
-        transform.position = Camera.main.WorldToScreenPoint(new Vector3(GameManager.instance.playerInGame.transform.position.x, GameManager.instance.playerInGame.transform.position.y + 2f, GameManager.instance.playerInGame.transform.position.z));
+        //transform.localPosition = Camera.main.WorldToViewportPoint(new Vector3(GameManager.instance.playerInGame.transform.position.x, GameManager.instance.playerInGame.transform.position.y, GameManager.instance.playerInGame.transform.position.z));
         StartCoroutine("Reloading");
     }
 
@@ -43,8 +43,6 @@ public class ReloadGui : MonoBehaviour {
         WeaponController weaponController = GameManager.instance.playerController.weaponController;
         weaponController.Reload(reloadAmount);
         GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -reloadAmount);
-        GameManager.instance.gui.SetAmmo(weaponController.weaponAmmoType);
-        GameManager.instance.gui.SetWeapon();
     }
 
     IEnumerator ReloadFailed()
