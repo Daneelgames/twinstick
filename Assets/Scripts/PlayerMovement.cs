@@ -38,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector3 aimTarget;
 
+    public LineRenderer line;
+
     void FixedUpdate()
     {
         if (playerHealth.health > 0)
@@ -285,11 +287,21 @@ public class PlayerMovement : MonoBehaviour
             {
                 anim.SetBool("Aim", true);
             }
-            Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            /*
+            Vector2 mousePosition = Input.mousePosition;
+            Vector2 normalized = new Vector2(mousePosition.x / Screen.width, mousePosition.y / Screen.height);
+            Ray camRay = GameManager.instance.mainCam.ScreenPointToRay(GameManager.instance.mainCam.ViewportToScreenPoint(normalized));
+            */
+
+            Ray camRay = GameManager.instance.mainCam.ScreenPointToRay(Input.mousePosition);
+
             RaycastHit floorHit;
 
             if (Physics.Raycast(camRay, out floorHit, 30f, aimLayers))
             {
+                line.SetPosition(0, weaponController.shotHolder.transform.position);
+                line.SetPosition(1, floorHit.point);
+
                 ikController.SetTarget(floorHit.point, true);
                 Vector3 playerToMouse = floorHit.point - transform.position;
 

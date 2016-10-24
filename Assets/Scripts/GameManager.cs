@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour {
     
     public static GameManager instance = null;
 
+    public Camera mainCam;
+
     public Animator camAnim;
 
     public GuiController gui;
