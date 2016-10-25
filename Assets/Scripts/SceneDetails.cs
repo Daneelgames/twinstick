@@ -5,4 +5,9 @@ public class SceneDetails : MonoBehaviour {
 
     public float cameraMinX = -5f;
     public float cameraMaxX = 5f;
+
+    void Start()
+    {
+        GameManager.instance.InitializeScene(this);
+    }
 }

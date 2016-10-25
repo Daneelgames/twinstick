@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    void OnLevelWasLoaded() // doesn't work
+    public void InitializeScene(SceneDetails scene)
     {
         GameObject newPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
         newPlayer.name = "Player";
@@ -70,9 +70,8 @@ public class GameManager : MonoBehaviour {
         startCampfire = GameObject.Find(characterSpawnerName).GetComponent<CampfireController>();
         startCampfire.SpawnPlayer();
 
-        GameObject newWeapon = Instantiate(weapons[0], Vector3.zero, Quaternion.identity) as GameObject;
-
-        playerController.SetWeapon(newWeapon, true);
+        if (playerWeapons.Count > 0)
+            playerController.SetWeapon(playerWeapons.Count - 1);
 
         gui.SetHealth();
 
@@ -81,12 +80,23 @@ public class GameManager : MonoBehaviour {
         {
             spawners.Add(i.GetComponent<MobSpawnerController>());
         }
+        Time.timeScale = 1;
         gui.Fade("ToGame");
 
-        _sm = GameObject.Find("SceneManager").GetComponent<SceneDetails>();
-        PlayerDead();
+        _sm = scene;
+
+        PlayerSetPos();
+
+        WeaponToPick(null);
+        NpcToInteract(null, "Inspect");
     }
 
+    void PlayerSetPos()
+    {
+        playerInGame.SetActive(true);
+        startCampfire.SpawnPlayer();
+    }
+    
     public void PlayerDead()
     {
         StartCoroutine("RespawnPlayer");
@@ -138,26 +148,13 @@ public class GameManager : MonoBehaviour {
         {
             if (weaponToPick != null)
             {
-                playerController.SetWeapon(weaponToPick, true);
+                AddPlayerWeapon(weaponToPick);
+                playerController.SetWeapon(playerWeapons.Count - 1);
                 WeaponToPick(null);
             }
             else if (npcToInteract != null)
             {
                 npcToInteract.Talk();
-            }
-        }
-
-        if (Input.GetButtonDown("ChangeWeapon") && playerWeapons.Count > 1)
-        {
-            if (playerController.weaponController.gameObject == playerWeapons[0])
-            {
-                print("change weapon to 1");
-                playerController.SetWeapon(playerWeapons[1], false);
-            }
-            else
-            {
-                print("change weapon to 0");
-                playerController.SetWeapon(playerWeapons[0], false);
             }
         }
     }

@@ -61,10 +61,13 @@ public class PlayerMovement : MonoBehaviour
             if (!realoading)
             {
                 Aiming();
-                Shooting();
+
+                if (weaponController != null)
+                    Shooting();
             }
 
-            Reloading();
+            if (weaponController != null)
+                Reloading();
 
             Animate();
 
@@ -125,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
             {
 
                 bool canReload = false;
-                int reloadAmount = reloadAmount = weaponController.ammoCap - weaponController.ammo;
+                int reloadAmount = weaponController.ammoCap - weaponController.ammo;
 
                 switch (weaponController.weaponAmmoType)
                 {
@@ -221,36 +224,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void SetWeapon(GameObject wpn, bool newWeapon)
+    public void SetWeapon(int weaponIndex)
     {
-        if (newWeapon)
-        {
-            if (GameManager.instance.playerWeapons.Count == 1)
-            {
-                if (weaponController != null) // if have weapon in hands
-                {
-                    weaponController.gameObject.SetActive(false);
-                }
-            }
-            else if (GameManager.instance.playerWeapons.Count == 2)
-            {
-                GameManager.instance.RemovePlayerWeapon(weaponController.gameObject);
-                weaponController.SwitchInhands(false);
-                weaponController = null;
-            }
-
-            GameManager.instance.AddPlayerWeapon(wpn);
-        }
-        else
-        {
-            weaponController.gameObject.SetActive(false);
-        }
-
+        GameObject wpn = Instantiate(GameManager.instance.playerWeapons[weaponIndex], Vector3.zero, Quaternion.identity) as GameObject;
+        
         weaponController = wpn.GetComponent<WeaponController>();
         weaponController.gameObject.SetActive(true);
         weapon = wpn.transform;
 
-        wpn.GetComponent<WeaponController>().SwitchInhands(true);
+        weaponController.SwitchInhands(true);
         wpn.name = "Weapon";
         wpn.transform.SetParent(weaponHolder);
         wpn.transform.localPosition = Vector3.zero;
@@ -269,7 +251,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetButtonDown("Aim"))
         {
-            weaponController.curCooldown = 0.5f;
+            if (weaponController != null)
+                weaponController.curCooldown = 0.5f;
         }
 
         if (Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload && Time.timeScale > 0)
@@ -290,8 +273,12 @@ public class PlayerMovement : MonoBehaviour
 
             if (Physics.Raycast(camRay, out floorHit, 30f, aimLayers))
             {
-                line.SetPosition(0, weaponController.shotHolder.transform.position);
-                line.SetPosition(1, floorHit.point);
+
+                if (weaponController != null)
+                {
+                    line.SetPosition(0, weaponController.shotHolder.transform.position);
+                    line.SetPosition(1, floorHit.point);
+                }
 
                 ikController.SetTarget(floorHit.point, true);
                 Vector3 playerToMouse = floorHit.point - transform.position;
