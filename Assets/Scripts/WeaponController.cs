@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class WeaponController : MonoBehaviour {
 
-    public enum Type {Bullet, Shell, Explosive};
+    public enum Type {Bullet, Shell};
 
     public int ammoCap = 0;
     public int ammo = 0;

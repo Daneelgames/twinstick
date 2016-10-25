@@ -9,6 +9,8 @@ public class GuiController : MonoBehaviour {
     public Animator healthAnimator;
     float fill;
 
+    public Animator saveAnimator;
+
     public ReloadGui reloadController;
 
     public Animator fadeAnimator;
@@ -31,5 +33,17 @@ public class GuiController : MonoBehaviour {
                 fadeAnimator.SetTrigger("Game");
                 break;
         }
+    }
+
+    public void Save()
+    {
+        StartCoroutine("AnimateSave");
+    }
+
+    IEnumerator AnimateSave()
+    {
+        saveAnimator.SetBool("Active", true);
+        yield return new WaitForSeconds(1f);
+        saveAnimator.SetBool("Active", false);
     }
 }

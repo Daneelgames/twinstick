@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class InteractiveObject : MonoBehaviour {
 
     public bool door = false;
+    public bool savePoint = false;
+    public CampfireController localSpawner;
     public string scene = "";
     public string spawner = "";
 
@@ -52,6 +54,16 @@ public class InteractiveObject : MonoBehaviour {
         yield return new WaitForSecondsRealtime(1f);
         GameManager.instance.MoveToNewScene(scene, spawner);
     }
+    
+    IEnumerator Save()
+    {
+        Time.timeScale = 0f;
+        GameManager.instance.gui.Save();
+        GameManager.instance.SetStartCampfire(localSpawner);
+        StateManager.instance.GameSave();
+        yield return new WaitForSecondsRealtime(1f);
+        Time.timeScale = 1f;
+    }
 
     void SetPhrase()
     {
@@ -64,18 +76,24 @@ public class InteractiveObject : MonoBehaviour {
         }
         else //end of dialog
         {
-            Time.timeScale = 1;
             GameManager.instance.dialogAnimator.SetTrigger("Inactive");
 
             if (activeDialogIndex < dialogues.Count - 1) //loop last dialog
                 activeDialogIndex += 1;
 
-            stateful.InteractiveObjectSetActiveDialog(activeDialogIndex);
+            if (stateful != null)
+                stateful.InteractiveObjectSetActiveDialog(activeDialogIndex);
 
             inDialog = false;
 
             if (door)
                 StartCoroutine("ExitDoor");
+
+            if (savePoint)
+                StartCoroutine("Save");
+
+            if (!door && !savePoint)
+                Time.timeScale = 1;
         }
     }
 
@@ -102,17 +120,19 @@ public class InteractiveObject : MonoBehaviour {
     {
         if (coll.gameObject.tag == "Player" && GameManager.instance.playerController.playerHealth.health > 0)
         {
-            if (!door)
-                GameManager.instance.NpcToInteract(this, "Inspect");
-            else
+            if (door)
                 GameManager.instance.NpcToInteract(this, "Door");
+            else if (savePoint)
+                GameManager.instance.NpcToInteract(this, "Save");
+            else
+                GameManager.instance.NpcToInteract(this, "Inspect");
         }
     }
     void OnTriggerExit(Collider coll)
     {
         if (coll.gameObject.tag == "Player" && GameManager.instance.playerController.playerHealth.health > 0)
         {
-            GameManager.instance.NpcToInteract(null, "Inspect");
+            GameManager.instance.NpcToInteract(null, "");
         }
     }
 

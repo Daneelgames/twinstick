@@ -102,13 +102,6 @@ public class PlayerMovement : MonoBehaviour
                     else
                         canShoot = false;
                     break;
-
-                case WeaponController.Type.Explosive:
-                    if (GameManager.instance.explosive > 0)
-                        canShoot = true;
-                    else
-                        canShoot = false;
-                    break;
             }
 
             if (canShoot)
@@ -149,17 +142,6 @@ public class PlayerMovement : MonoBehaviour
                             canReload = true;
                             if (reloadAmount > GameManager.instance.shells)
                                 reloadAmount = GameManager.instance.shells;
-                        }
-                        else
-                            canReload = false;
-                        break;
-
-                    case WeaponController.Type.Explosive:
-                        if (GameManager.instance.explosive > 0)
-                        {
-                            canReload = true;
-                            if (reloadAmount > GameManager.instance.explosive)
-                                reloadAmount = GameManager.instance.explosive;
                         }
                         else
                             canReload = false;
@@ -242,9 +224,16 @@ public class PlayerMovement : MonoBehaviour
     void Animate()
     {
         if (inputH != 0 || inputV != 0)
-            anim.SetBool("Move", true);
+        {
+            if (!Input.GetButton("Aim"))
+                anim.SetBool("Move", true);
+            else
+                anim.SetBool("Move", false);
+        }
         else
+        {
             anim.SetBool("Move", false);
+        }
     }
 
     void Aiming()

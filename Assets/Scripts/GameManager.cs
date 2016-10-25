@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
     
     public static GameManager instance = null;
 
-    public SceneDetails _sm;
+    public SceneDetails _sm; // scene manager
     
     public string characterSpawnerName = "StartSpawner";
 
@@ -20,21 +20,16 @@ public class GameManager : MonoBehaviour {
 
     public GameObject playerInGame;
     public PlayerMovement playerController;
-    public List<GameObject> playerWeapons;
 
     public List<GameObject> weapons;
     public GameObject playerPrefab;
 
-    public int bullets = 50;
-    public int bulletsMax = 240;
-
-    public int shells = 20;
-    public int shellsMax = 100;
-
-    public int explosive = 15;
-    public int explosiveMax = 50;
-
+    public int playerHealth = 10;
     public CampfireController startCampfire;
+    public int bullets = 50;
+    public int shells = 20;
+    public List<GameObject> playerWeapons;
+
 
     public List<MobSpawnerController> spawners;
 
@@ -67,12 +62,18 @@ public class GameManager : MonoBehaviour {
         playerInGame = newPlayer;
         playerController = playerInGame.GetComponent<PlayerMovement>();
         
-        startCampfire = GameObject.Find(characterSpawnerName).GetComponent<CampfireController>();
-        startCampfire.SpawnPlayer();
+        if (startCampfire == null)
+        {
+            if (!StateManager.instance.loadOnStart)
+                startCampfire = GameObject.Find(characterSpawnerName).GetComponent<CampfireController>();
+            else
+                startCampfire = GameObject.Find(StateManager.instance.playerSpawner).GetComponent<CampfireController>();
+        }
         
         if (playerWeapons.Count > 0)
             playerController.SetWeapon(playerWeapons.Count - 1);
 
+        playerController.playerHealth.SetHealth(StateManager.instance.playerHealth);
         gui.SetHealth();
 
         List<GameObject> spwnrs = new List<GameObject>(GameObject.FindGameObjectsWithTag("MobSpawner"));
@@ -85,10 +86,47 @@ public class GameManager : MonoBehaviour {
 
         _sm = scene;
 
+
         PlayerSetPos();
 
         WeaponToPick(null);
         NpcToInteract(null, "Inspect");
+    }
+
+    public void GetValuesFromSaveFile()
+    {
+        playerHealth = StateManager.instance.playerHealth;
+        if (StateManager.instance.playerAmmo.Count > 0)
+        {
+            bullets = StateManager.instance.playerAmmo[0];
+
+            if (StateManager.instance.playerAmmo.Count > 1)
+                shells = StateManager.instance.playerAmmo[1];
+        }
+
+        // iterate through lists, make playerWeaponList
+        foreach (string name in StateManager.instance.playerWeapons)
+        {
+            foreach (GameObject i in weapons)
+            {
+                if (i.name == name)
+                    playerWeapons.Add(i);
+            }
+        }
+
+        // quest items
+
+        if (StateManager.instance.playerSpawner != null)
+            characterSpawnerName = StateManager.instance.playerSpawner;
+
+        if (StateManager.instance.sceneSaved != "")
+        {
+            if (StateManager.instance.sceneSaved != SceneManager.GetActiveScene().name)
+            {
+                characterSpawnerName = startCampfire.name;
+                LoadToNewScene(StateManager.instance.sceneSaved, startCampfire.name);
+            }
+        }
     }
 
     void PlayerSetPos()
@@ -100,6 +138,11 @@ public class GameManager : MonoBehaviour {
     public void PlayerDead()
     {
         StartCoroutine("RespawnPlayer");
+    }
+
+    public void SetStartCampfire(CampfireController savePoint)
+    {
+        startCampfire = savePoint;
     }
 
     IEnumerator RespawnPlayer()
@@ -150,10 +193,12 @@ public class GameManager : MonoBehaviour {
             {
                 weaponToPick.GetComponent<WeaponController>().PickUp();
                 WeaponToPick(null);
+                actionFeedbackController.SetFeedback(false, "");
             }
             else if (npcToInteract != null)
             {
                 npcToInteract.Talk();
+                actionFeedbackController.SetFeedback(false, "");
             }
         }
     }
@@ -181,20 +226,10 @@ public class GameManager : MonoBehaviour {
         {
             case WeaponController.Type.Bullet:
                 bullets += amount;
-                if (bullets > bulletsMax)
-                    bullets = bulletsMax;
                 break;
 
             case WeaponController.Type.Shell:
                 shells += amount;
-                if (shells > shellsMax)
-                    shells = shellsMax;
-                break;
-
-            case WeaponController.Type.Explosive:
-                explosive += amount;
-                if (explosive > explosiveMax)
-                    explosive = explosiveMax;
                 break;
         }
     }
@@ -207,7 +242,14 @@ public class GameManager : MonoBehaviour {
     public void MoveToNewScene(string sceneName, string spawnerName)
     {
         characterSpawnerName = spawnerName;
-        print(characterSpawnerName);
+        StateManager.instance.SetSpawner(spawnerName);
+        SceneManager.LoadScene(sceneName);
+    }
+
+    void LoadToNewScene(string sceneName, string spawnerName)
+    {
+        characterSpawnerName = spawnerName;
+        //StateManager.instance.SetSpawner(spawnerName);
         SceneManager.LoadScene(sceneName);
     }
 }

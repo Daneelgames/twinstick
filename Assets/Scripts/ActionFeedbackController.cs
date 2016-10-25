@@ -5,6 +5,7 @@ using System.Collections;
 public class ActionFeedbackController : MonoBehaviour {
 
     public Sprite doorSprite;
+    public Sprite saveSprite;
     public Sprite inspectSprite;
 
     public Image spr;
@@ -19,6 +20,11 @@ public class ActionFeedbackController : MonoBehaviour {
                 break;
             case "Door":
                 spr.sprite = doorSprite;
+                break;
+            case "Save":
+                spr.sprite = saveSprite;
+                break;
+            default:
                 break;
         }
 

@@ -7,7 +7,7 @@ public class Stateful : MonoBehaviour {
 
     void Start()
     {
-        if (StateManager.instance.GetActive(gameObject.name) == false)
+        if (StateManager.instance.GetActive(gameObject.name) == false) //is active?
         {
             gameObject.SetActive(false);
         }

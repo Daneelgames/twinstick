@@ -19,6 +19,11 @@ public class HealthController : MonoBehaviour {
         invisible = invs;
     }
 
+    public void SetHealth(int amount)
+    {
+        health = amount;
+    }
+
     public void Damage(int dmg)
     {
         if (dmg > 0)
