@@ -23,6 +23,8 @@ public class WeaponController : MonoBehaviour {
 
     public Type weaponAmmoType = Type.Bullet;
 
+    public Stateful stateful;
+
     /* TEST AIMING
     public LineRenderer line;
 
@@ -41,6 +43,7 @@ public class WeaponController : MonoBehaviour {
         canPick = false;
         inHands = true;
         GameManager.instance.AddPlayerWeapon(gameObject);
+        stateful.ObjectInactive();
         gameObject.SetActive(false);
         
     }

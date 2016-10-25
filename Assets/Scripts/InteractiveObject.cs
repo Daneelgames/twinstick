@@ -15,6 +15,7 @@ public class InteractiveObject : MonoBehaviour {
     public float phraseCooldown = 0f;
 
     public bool inDialog = false;
+    public Stateful stateful;
 
     [System.Serializable]
     public class Dialog
@@ -69,6 +70,8 @@ public class InteractiveObject : MonoBehaviour {
             if (activeDialogIndex < dialogues.Count - 1) //loop last dialog
                 activeDialogIndex += 1;
 
+            stateful.InteractiveObjectSetActiveDialog(activeDialogIndex);
+
             inDialog = false;
 
             if (door)
@@ -111,5 +114,10 @@ public class InteractiveObject : MonoBehaviour {
         {
             GameManager.instance.NpcToInteract(null, "Inspect");
         }
+    }
+
+    public void SetActiveDialog(int index)
+    {
+        activeDialogIndex = index;
     }
 }
