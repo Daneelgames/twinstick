@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour {
 
     public ActionFeedbackController actionFeedbackController;
 
+
     void Awake()
     {
         if (instance == null)
@@ -65,11 +66,10 @@ public class GameManager : MonoBehaviour {
         newPlayer.name = "Player";
         playerInGame = newPlayer;
         playerController = playerInGame.GetComponent<PlayerMovement>();
-
-        print(characterSpawnerName);
+        
         startCampfire = GameObject.Find(characterSpawnerName).GetComponent<CampfireController>();
         startCampfire.SpawnPlayer();
-
+        
         if (playerWeapons.Count > 0)
             playerController.SetWeapon(playerWeapons.Count - 1);
 
@@ -148,8 +148,7 @@ public class GameManager : MonoBehaviour {
         {
             if (weaponToPick != null)
             {
-                AddPlayerWeapon(weaponToPick);
-                playerController.SetWeapon(playerWeapons.Count - 1);
+                weaponToPick.GetComponent<WeaponController>().PickUp();
                 WeaponToPick(null);
             }
             else if (npcToInteract != null)
@@ -161,7 +160,15 @@ public class GameManager : MonoBehaviour {
 
     public void AddPlayerWeapon(GameObject weapon)
     {
-        playerWeapons.Add(weapon);
+        foreach(GameObject i in weapons)
+        {
+            if (weapon.name == i.name)
+            {
+                playerWeapons.Add(i);
+                playerController.SetWeapon(playerWeapons.Count - 1);
+                break;
+            }
+        }
     }
     public void RemovePlayerWeapon(GameObject weapon)
     {

@@ -36,17 +36,18 @@ public class WeaponController : MonoBehaviour {
     }
     */
 
-    public void SwitchInhands(bool hands)
+    public void PickUp() // use fore pick up
     {
         canPick = false;
+        inHands = true;
+        GameManager.instance.AddPlayerWeapon(gameObject);
+        gameObject.SetActive(false);
+        
+    }
 
-        if (!hands)
-        {
-            transform.SetParent(null);
-            transform.localEulerAngles = new Vector3(0, 0, Random.Range(0, 360));
-        }
-        inHands = hands;
-
+    public void SetInHands()
+    {
+        inHands = true;
     }
 
     void OnTriggerStay(Collider coll)

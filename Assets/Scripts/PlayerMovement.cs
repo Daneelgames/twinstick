@@ -232,7 +232,7 @@ public class PlayerMovement : MonoBehaviour
         weaponController.gameObject.SetActive(true);
         weapon = wpn.transform;
 
-        weaponController.SwitchInhands(true);
+        weaponController.SetInHands();
         wpn.name = "Weapon";
         wpn.transform.SetParent(weaponHolder);
         wpn.transform.localPosition = Vector3.zero;
