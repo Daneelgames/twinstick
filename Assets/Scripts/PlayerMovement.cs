@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public float maxSpeed = 6f;
     public float speed = 6f;
 
     float curSpeed = 6f;
@@ -191,13 +192,13 @@ public class PlayerMovement : MonoBehaviour
             {
                 float animSpeed = Mathf.Lerp(anim.GetFloat("Speed"), 1, 0.1f);
                 anim.SetFloat("Speed", animSpeed);
-                speed = 3;
+                speed = maxSpeed * 2.5f;
             }
             else
             {
                 float animSpeed = Mathf.Lerp(anim.GetFloat("Speed"), 0, 0.1f);
                 anim.SetFloat("Speed", animSpeed);
-                speed = 1;
+                speed = maxSpeed;
             }
         }
         else
@@ -233,6 +234,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             anim.SetBool("Move", false);
+            rb.velocity = Vector3.zero;
         }
     }
 

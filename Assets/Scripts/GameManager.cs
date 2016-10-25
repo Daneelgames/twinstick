@@ -168,7 +168,7 @@ public class GameManager : MonoBehaviour {
         if (weapon != null)
             actionFeedbackController.SetFeedback(true, "Inspect");
         else
-            actionFeedbackController.SetFeedback(false, "Inspect");
+            actionFeedbackController.SetFeedback(false, "");
     }
 
 
@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour {
         }
         else
         {
-            actionFeedbackController.SetFeedback(false, type);
+            actionFeedbackController.SetFeedback(false, "");
         }
     }
 
