@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour {
 
         if (_sm.introCutScene != null) // play scene intro cutScene
         {
-            if (_sm.introCutScene.gameObject.activeInHierarchy && _sm.introCutScene.playOnStartOfScene)
+            if (_sm.introCutScene.gameObject.activeSelf && _sm.introCutScene.playOnStartOfScene)
                 _sm.introCutScene.StartCs();
         }
 
