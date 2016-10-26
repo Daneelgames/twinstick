@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
             inputH = Input.GetAxisRaw("Horizontal");
             inputV = Input.GetAxisRaw("Vertical");
 
-            if(!realoading)
+            if(!realoading && !GameManager.instance.cutScene)
                 Move();
         }
     }
@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
     {
         curSpeed = Mathf.Lerp(curSpeed, speed, 0.75f);
 
-        if (playerHealth.health > 0)
+        if (playerHealth.health > 0 && !GameManager.instance.cutScene)
         {
             if (!realoading)
             {

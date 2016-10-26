@@ -50,7 +50,7 @@ public class InteractiveObject : MonoBehaviour {
     {
         Time.timeScale = 0f;
         // screen fade
-        GameManager.instance.gui.Fade("ToBlack");
+        GameManager.instance.gui.Fade("Black");
         yield return new WaitForSecondsRealtime(1f);
         GameManager.instance.MoveToNewScene(scene, spawner);
     }

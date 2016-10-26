@@ -24,15 +24,7 @@ public class GuiController : MonoBehaviour {
 
     public void Fade(string fade)
     {
-        switch(fade)
-        {
-            case "ToBlack":
-                fadeAnimator.SetTrigger("Black");
-                break;
-            case "ToGame":
-                fadeAnimator.SetTrigger("Game");
-                break;
-        }
+        fadeAnimator.SetTrigger(fade);
     }
 
     public void Save()

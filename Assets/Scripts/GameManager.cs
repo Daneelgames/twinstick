@@ -12,8 +12,9 @@ public class GameManager : MonoBehaviour {
     
     public string characterSpawnerName = "StartSpawner";
 
+    public bool cutScene = false;
+    public GameObject cameraHolder;
     public Camera mainCam;
-
     public Animator camAnim;
 
     public GuiController gui;
@@ -82,7 +83,7 @@ public class GameManager : MonoBehaviour {
             spawners.Add(i.GetComponent<MobSpawnerController>());
         }
         Time.timeScale = 1;
-        gui.Fade("ToGame");
+        gui.Fade("Game");
 
         _sm = scene;
 
@@ -91,6 +92,14 @@ public class GameManager : MonoBehaviour {
 
         WeaponToPick(null);
         NpcToInteract(null, "Inspect");
+
+        if (_sm.introCutScene != null) // play scene intro cutScene
+        {
+            if (_sm.introCutScene.gameObject.activeInHierarchy && _sm.introCutScene.playOnStartOfScene)
+                _sm.introCutScene.StartCs();
+        }
+
+        mainCam.backgroundColor = RenderSettings.fogColor;
     }
 
     public void GetValuesFromSaveFile()
@@ -251,5 +260,13 @@ public class GameManager : MonoBehaviour {
         characterSpawnerName = spawnerName;
         //StateManager.instance.SetSpawner(spawnerName);
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void CutScenePlay(bool playing)
+    {
+        cutScene = playing;
+
+        if (playerController != null)
+            playerController.gameObject.SetActive(!playing);
     }
 }
