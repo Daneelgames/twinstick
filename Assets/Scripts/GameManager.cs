@@ -62,7 +62,8 @@ public class GameManager : MonoBehaviour {
         newPlayer.name = "Player";
         playerInGame = newPlayer;
         playerController = playerInGame.GetComponent<PlayerMovement>();
-        
+
+        print(startCampfire.name);
         if (startCampfire == null)
         {
             if (!StateManager.instance.loadOnStart)

@@ -283,7 +283,7 @@ public class PlayerMovement : MonoBehaviour
                 Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
                 newRotation = Quaternion.Slerp(newRotation, transform.rotation, Time.deltaTime * turnSmooth * 1.2f);
                 float difference = Mathf.Abs(Mathf.RoundToInt(newRotation.eulerAngles.y) - rotateY);
-                print(difference);
+                //print(difference);
                 if (difference > 4)
                 {
                     rb.MoveRotation(newRotation);
