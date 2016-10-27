@@ -100,9 +100,9 @@ public class StateManager : MonoBehaviour {
             questItems = new List<string>(data.questItems);
             playerWeapons = new List<string>(data.playerWeapons);
             playerAmmo = new List<int>(data.playerAmmo);
-        }
 
-        GameManager.instance.GetValuesFromSaveFile(); // load values on start of session
+            GameManager.instance.GetValuesFromSaveFile(); // load values on start of session
+        }
     }
 }
 

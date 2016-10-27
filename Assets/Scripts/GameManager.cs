@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour {
 
     public ActionFeedbackController actionFeedbackController;
 
+    private bool loadSpawnerFromSave = false;
 
     void Awake()
     {
@@ -63,15 +64,8 @@ public class GameManager : MonoBehaviour {
         playerInGame = newPlayer;
         playerController = playerInGame.GetComponent<PlayerMovement>();
 
-        print(startCampfire.name);
-        if (startCampfire == null)
-        {
-            if (!StateManager.instance.loadOnStart)
-                startCampfire = GameObject.Find(characterSpawnerName).GetComponent<CampfireController>();
-            else
-                startCampfire = GameObject.Find(StateManager.instance.playerSpawner).GetComponent<CampfireController>();
-        }
-        
+        startCampfire = GameObject.Find(characterSpawnerName).GetComponent<CampfireController>();
+
         if (playerWeapons.Count > 0)
             playerController.SetWeapon(playerWeapons.Count - 1);
 
@@ -126,15 +120,19 @@ public class GameManager : MonoBehaviour {
 
         // quest items
 
+        // get spawner on save
         if (StateManager.instance.playerSpawner != null)
+        {
             characterSpawnerName = StateManager.instance.playerSpawner;
+            loadSpawnerFromSave = true;
+        }
 
         if (StateManager.instance.sceneSaved != "")
         {
             if (StateManager.instance.sceneSaved != SceneManager.GetActiveScene().name)
             {
-                characterSpawnerName = startCampfire.name;
-                LoadToNewScene(StateManager.instance.sceneSaved, startCampfire.name);
+                characterSpawnerName = StateManager.instance.playerSpawner;
+                LoadToNewScene(StateManager.instance.sceneSaved, characterSpawnerName);
             }
         }
     }
