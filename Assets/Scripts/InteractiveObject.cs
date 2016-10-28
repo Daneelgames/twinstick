@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class InteractiveObject : MonoBehaviour {
 
     public bool door = false;
+    public bool passage = false;
     public bool savePoint = false;
     public CampfireController localSpawner;
     public string scene = "";
@@ -29,14 +30,14 @@ public class InteractiveObject : MonoBehaviour {
     {
         if (!inDialog)
         {
-            if (!door)
+            if (!door && !passage)
             {
                 if (dialogues.Count > activeDialogIndex && dialogues[activeDialogIndex].phrases.Count > 0)
                 {
                     inDialog = true;
                     activePhraseIndex = 0;
                     SetPhrase();
-                    GameManager.instance.NpcToInteract(null, "Inspect");
+                    GameManager.instance.NpcToInteract(null, "");
                 }
             }
             else
@@ -118,14 +119,21 @@ public class InteractiveObject : MonoBehaviour {
 
     void OnTriggerEnter(Collider coll)
     {
-        if (coll.gameObject.tag == "Player" && GameManager.instance.playerController.playerHealth.health > 0)
+        if (!passage)
         {
-            if (door)
-                GameManager.instance.NpcToInteract(this, "Door");
-            else if (savePoint)
-                GameManager.instance.NpcToInteract(this, "Save");
-            else
-                GameManager.instance.NpcToInteract(this, "Inspect");
+            if (coll.gameObject.tag == "Player" && GameManager.instance.playerController.playerHealth.health > 0)
+            {
+                if (door)
+                    GameManager.instance.NpcToInteract(this, "Door");
+                else if (savePoint)
+                    GameManager.instance.NpcToInteract(this, "Save");
+                else
+                    GameManager.instance.NpcToInteract(this, "Inspect");
+            }
+        }
+        else if (coll.gameObject.tag == "Player")
+        {
+            Talk(); // move to next scene
         }
     }
     void OnTriggerExit(Collider coll)

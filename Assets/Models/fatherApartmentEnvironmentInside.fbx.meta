@@ -13,6 +13,15 @@ ModelImporter:
     100010: Locker_1_doorRight
     100012: PortiegeDesk
     100014: wall_1Corner
+    100016: Chair_1
+    100018: Chair_2
+    100020: ClosedBook
+    100022: DeskLamp
+    100024: keyHolderDesk
+    100026: OpenedBook
+    100028: RoundCarpet
+    100030: SquareCarpet
+    100032: characterMesh.001
     400000: //RootNode
     400002: sealing
     400004: wall_1
@@ -21,6 +30,15 @@ ModelImporter:
     400010: Locker_1_doorRight
     400012: PortiegeDesk
     400014: wall_1Corner
+    400016: Chair_1
+    400018: Chair_2
+    400020: ClosedBook
+    400022: DeskLamp
+    400024: keyHolderDesk
+    400026: OpenedBook
+    400028: RoundCarpet
+    400030: SquareCarpet
+    400032: characterMesh.001
     2300000: sealing
     2300002: wall_1
     2300004: Locker_1
@@ -28,6 +46,15 @@ ModelImporter:
     2300008: Locker_1_doorRight
     2300010: PortiegeDesk
     2300012: wall_1Corner
+    2300014: Chair_1
+    2300016: Chair_2
+    2300018: ClosedBook
+    2300020: DeskLamp
+    2300022: keyHolderDesk
+    2300024: OpenedBook
+    2300026: RoundCarpet
+    2300028: SquareCarpet
+    2300030: characterMesh.001
     3300000: sealing
     3300002: wall_1
     3300004: Locker_1
@@ -35,6 +62,15 @@ ModelImporter:
     3300008: Locker_1_doorRight
     3300010: PortiegeDesk
     3300012: wall_1Corner
+    3300014: Chair_1
+    3300016: Chair_2
+    3300018: ClosedBook
+    3300020: DeskLamp
+    3300022: keyHolderDesk
+    3300024: OpenedBook
+    3300026: RoundCarpet
+    3300028: SquareCarpet
+    3300030: characterMesh.001
     4300000: sealing
     4300002: wall_1
     4300004: wall_1Corner
@@ -42,6 +78,15 @@ ModelImporter:
     4300008: Locker_1_doorLeft
     4300010: Locker_1
     4300012: PortiegeDesk
+    4300014: Chair_2
+    4300016: SquareCarpet
+    4300018: RoundCarpet
+    4300020: OpenedBook
+    4300022: ClosedBook
+    4300024: Chair_1
+    4300026: DeskLamp
+    4300028: keyHolderDesk
+    4300030: characterMesh.001
   materials:
     importMaterials: 0
     materialName: 0

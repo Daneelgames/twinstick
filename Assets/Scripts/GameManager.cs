@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour {
 
     public ActionFeedbackController actionFeedbackController;
 
-    private bool loadSpawnerFromSave = false;
+    //private bool loadSpawnerFromSave = false;
 
     void Awake()
     {
@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour {
         if (StateManager.instance.playerSpawner != null)
         {
             characterSpawnerName = StateManager.instance.playerSpawner;
-            loadSpawnerFromSave = true;
+            //loadSpawnerFromSave = true;
         }
 
         if (StateManager.instance.sceneSaved != "")
