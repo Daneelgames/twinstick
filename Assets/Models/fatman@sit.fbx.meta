@@ -99,7 +99,7 @@ ModelImporter:
     7400008: fatmanSkeleton|ClosedBookAction
     7400010: fatmanSkeleton|DeskLampAction
     7400012: fatmanSkeleton|fatmanSkeletonAction
-    7400014: fatmanSkeleton|fatmanSkeletonAction.001
+    7400014: fatman@sit
     7400016: fatmanSkeleton|OpenedBookAction
     7400018: fatmanSkeleton|PortiegeDeskAction
     7400020: fatmanSkeleton|PortiegeDeskAction.001
@@ -127,10 +127,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: fatmanSkeleton|fatmanSkeletonAction.001
+      name: fatman@sit
       takeName: fatmanSkeleton|fatmanSkeletonAction.001
       firstFrame: 20
-      lastFrame: 48
+      lastFrame: 150
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -138,7 +138,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
