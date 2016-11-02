@@ -99,6 +99,7 @@
     <Compile Include="Assets\Scripts\WalkerToPlayerAi.cs" />
     <Compile Include="Assets\Scripts\WeaponController.cs" />
     <Compile Include="Assets\Scripts\WeaponMeleeController.cs" />
+    <Compile Include="Assets\SetCharacterColor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />

@@ -186,7 +186,7 @@ public class PlayerMovement : MonoBehaviour
                 Quaternion newRotation = Quaternion.LookRotation(playerToTarget);
                 newRotation = Quaternion.Slerp(newRotation, transform.rotation, Time.deltaTime * 45F);
                 rb.MoveRotation(newRotation);
-                transform.eulerAngles = new Vector3(0, transform.rotation.eulerAngles.y, 0);
+                //transform.eulerAngles = new Vector3(0, transform.rotation.eulerAngles.y, 0);
             }
 
             if (Input.GetButton("Run"))
