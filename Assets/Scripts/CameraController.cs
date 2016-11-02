@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour {
 
-	void Update ()
+	void FixedUpdate ()
     {
         if(GameManager.instance.playerInGame != null && !GameManager.instance.cutScene)
         {
