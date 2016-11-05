@@ -23,6 +23,10 @@ ModelImporter:
     100030: SquareCarpet
     100032: characterMesh.001
     100034: wall_1.001
+    100036: wallHalf
+    100038: Stair
+    100040: sealingHalf
+    100042: door
     400000: //RootNode
     400002: sealing
     400004: wall_1
@@ -41,6 +45,10 @@ ModelImporter:
     400030: SquareCarpet
     400032: characterMesh.001
     400034: wall_1.001
+    400036: wallHalf
+    400038: Stair
+    400040: sealingHalf
+    400042: door
     2300000: sealing
     2300002: wall_1
     2300004: Locker_1
@@ -58,6 +66,10 @@ ModelImporter:
     2300028: SquareCarpet
     2300030: characterMesh.001
     2300032: wall_1.001
+    2300034: wallHalf
+    2300036: Stair
+    2300038: sealingHalf
+    2300040: door
     3300000: sealing
     3300002: wall_1
     3300004: Locker_1
@@ -75,6 +87,10 @@ ModelImporter:
     3300028: SquareCarpet
     3300030: characterMesh.001
     3300032: wall_1.001
+    3300034: wallHalf
+    3300036: Stair
+    3300038: sealingHalf
+    3300040: door
     4300000: sealing
     4300002: wall_1
     4300004: wall_1Corner
@@ -92,6 +108,10 @@ ModelImporter:
     4300028: keyHolderDesk
     4300030: characterMesh.001
     4300032: wall_1.001
+    4300034: wallHalf
+    4300036: Stair
+    4300038: sealingHalf
+    4300040: door
   materials:
     importMaterials: 0
     materialName: 0

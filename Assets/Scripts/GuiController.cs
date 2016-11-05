@@ -14,6 +14,7 @@ public class GuiController : MonoBehaviour {
     public ReloadGui reloadController;
 
     public Animator fadeAnimator;
+    public RawImage fadeImg;
 
     public void SetHealth()
     {
@@ -37,5 +38,10 @@ public class GuiController : MonoBehaviour {
         saveAnimator.SetBool("Active", true);
         yield return new WaitForSeconds(1f);
         saveAnimator.SetBool("Active", false);
+    }
+
+    public void InstantBlack()
+    {
+        fadeAnimator.SetTrigger("InstantBlack");
     }
 }

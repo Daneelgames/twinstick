@@ -175,6 +175,11 @@ public class PlayerMovement : MonoBehaviour
             //movement = transform.TransformDirection(movement.normalized) * curSpeed;
             movement = movement.normalized * curSpeed;
             movement.y = rb.velocity.y;
+
+            Quaternion rot = rb.rotation;
+            rot.eulerAngles = new Vector3(0, rb.rotation.eulerAngles.y, 0);
+            rb.rotation = rot;
+
             rb.velocity = movement;
 
             if (inputH != 0 || inputV != 0)

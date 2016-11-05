@@ -7,6 +7,7 @@ public class CutSceneController : MonoBehaviour {
     public bool playOnStartOfScene = false;
     public Animator csAnim;
     public List<GameObject> cameraAnchors;
+    public List<Animator> actorsAnimators;
 
     public Stateful stateful;
 
@@ -54,5 +55,20 @@ public class CutSceneController : MonoBehaviour {
             GameManager.instance.dialogAnimator.SetTrigger("Active");
         else
             GameManager.instance.dialogAnimator.SetTrigger("Inactive");
+    }
+
+    //public void SetAnimatorBool(int actor, string boolName, bool active)
+    public void SetAnimatorBool(AnimationEvent animationEvent)
+    {
+        bool active = false;
+        if (animationEvent.floatParameter > 0.5)
+            active = true;
+
+        actorsAnimators[animationEvent.intParameter].SetBool(animationEvent.stringParameter, active);
+    }
+
+    public void SetAnimatorTrigger(AnimationEvent animationEvent)
+    {
+        actorsAnimators[animationEvent.intParameter].SetTrigger(animationEvent.stringParameter);
     }
 }

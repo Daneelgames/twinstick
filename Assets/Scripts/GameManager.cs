@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour {
 
     public void InitializeScene(SceneDetails scene)
     {
+        gui.InstantBlack();
+
         GameObject newPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
         newPlayer.name = "Player";
         playerInGame = newPlayer;
@@ -78,7 +80,6 @@ public class GameManager : MonoBehaviour {
             spawners.Add(i.GetComponent<MobSpawnerController>());
         }
         Time.timeScale = 1;
-        gui.Fade("Game");
 
         _sm = scene;
 
@@ -87,11 +88,21 @@ public class GameManager : MonoBehaviour {
 
         WeaponToPick(null);
         NpcToInteract(null, "Inspect");
+        
+        bool noCs = true;
 
         if (_sm.introCutScene != null) // play scene intro cutScene
         {
             if (_sm.introCutScene.gameObject.activeSelf && _sm.introCutScene.playOnStartOfScene)
+            {
                 _sm.introCutScene.StartCs();
+                noCs = false;
+            }
+        }
+
+        if (noCs)
+        {
+            gui.Fade("Game");
         }
 
         mainCam.backgroundColor = RenderSettings.fogColor;
