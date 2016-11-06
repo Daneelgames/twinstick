@@ -19,6 +19,9 @@ public class StateManager : MonoBehaviour {
     public List<string> playerWeapons = new List<string>();
     public List<int> playerAmmo = new List<int>();
 
+    public List<string> statefulObjectsAnimators = new List<string>();
+    public List<string> statefulObjectsAnimatorsBooleans = new List<string>();
+
     public static StateManager instance;
     
     void Awake()
@@ -41,22 +44,37 @@ public class StateManager : MonoBehaviour {
         playerSpawner = spawner;
     }
 
-    public bool GetActive(string name)
+    public bool GetActive(string n)
     {
         if (inactiveObjects.Count > 0)
         {
             foreach (string i in inactiveObjects)
             {
-                if (i == name)
+                if (i == n)
                     return false;
             }
         }
         return true;
     }
-
+    
     public void SetObjectInactive(string name)
     {
         inactiveObjects.Add(name);
+    }
+
+    public void SetAnimatorParameters(string objName, string bools)
+    {
+        foreach (string j in statefulObjectsAnimators)
+        {
+            if (j == objName)
+            {
+                statefulObjectsAnimatorsBooleans.RemoveAt(statefulObjectsAnimators.IndexOf(j));
+                statefulObjectsAnimators.Remove(j);
+                break;
+            }
+        }
+        statefulObjectsAnimators.Add(objName);
+        statefulObjectsAnimatorsBooleans.Add(bools);
     }
 
     public void GameSave()
@@ -71,6 +89,9 @@ public class StateManager : MonoBehaviour {
         data.playerSpawner = playerSpawner = GameManager.instance.startCampfire.name;
         data.playerHealth = playerHealth = GameManager.instance.playerController.playerHealth.health;
         data.questItems = new List<string>(questItems);
+
+        data.statefulObjectsAnimators = new List<string>(statefulObjectsAnimators);
+        data.statefulObjectsAnimatorsBooleans = new List<string>(statefulObjectsAnimatorsBooleans);
 
         List<string> tempWeaponList = new List<string>();
         foreach (GameObject i in GameManager.instance.playerWeapons)
@@ -101,6 +122,9 @@ public class StateManager : MonoBehaviour {
             playerWeapons = new List<string>(data.playerWeapons);
             playerAmmo = new List<int>(data.playerAmmo);
 
+            statefulObjectsAnimators = new List<string>(data.statefulObjectsAnimators);
+            statefulObjectsAnimatorsBooleans = new List<string>(data.statefulObjectsAnimatorsBooleans);
+
             GameManager.instance.GetValuesFromSaveFile(); // load values on start of session
         }
     }
@@ -116,4 +140,7 @@ class GameState
     public List<string> questItems;
     public List<string> playerWeapons;
     public List<int> playerAmmo;
+
+    public List<string> statefulObjectsAnimators = new List<string>();
+    public List<string> statefulObjectsAnimatorsBooleans = new List<string>();
 }
