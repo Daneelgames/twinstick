@@ -4,10 +4,11 @@ using System.Collections;
 public class Stateful : MonoBehaviour {
 
     public InteractiveObject interactive;
+    public Animator anim;
 
     void Awake()
     {
-        if (StateManager.instance.GetActive(gameObject.name) == false) //is active?
+        if (StateManager.instance.GetActive(gameObject.name) == false) //is inactive?
         {
             gameObject.SetActive(false);
         }
@@ -20,6 +21,14 @@ public class Stateful : MonoBehaviour {
     public void ObjectInactive()
     {
         StateManager.instance.SetObjectInactive(gameObject.name);
+    }
+    
+    void OnDisable()
+    {
+        if (anim != null)
+        {
+                
+        }
     }
 
     public void InteractiveObjectSetActiveDialog(int index)
