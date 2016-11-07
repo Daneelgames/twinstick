@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour {
 
     //private bool loadSpawnerFromSave = false;
 
+    public List<Stateful> statefulObjectsOnscene = new List<Stateful>();
+
     void Awake()
     {
         if (instance == null)
@@ -159,6 +161,11 @@ public class GameManager : MonoBehaviour {
                 LoadToNewScene(StateManager.instance.sceneSaved, characterSpawnerName);
             }
         }
+    }
+
+    public void AddStateful(Stateful statefulObj)
+    {
+        statefulObjectsOnscene.Add(statefulObj);
     }
 
     void PlayerSetPos()
@@ -275,6 +282,9 @@ public class GameManager : MonoBehaviour {
     {
         characterSpawnerName = spawnerName;
         StateManager.instance.SetSpawner(spawnerName);
+
+        ClearStatefulObjectsList();
+
         SceneManager.LoadScene(sceneName);
     }
 
@@ -282,7 +292,20 @@ public class GameManager : MonoBehaviour {
     {
         characterSpawnerName = spawnerName;
         //StateManager.instance.SetSpawner(spawnerName);
+
+        ClearStatefulObjectsList();
+
         SceneManager.LoadScene(sceneName);
+    }
+
+    void ClearStatefulObjectsList()
+    {
+        foreach (Stateful i in statefulObjectsOnscene)
+        {
+            i.DisableOnSceneChange();
+        }
+
+        statefulObjectsOnscene.Clear();
     }
 
     public void CutScenePlay(bool playing)

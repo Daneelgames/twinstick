@@ -24,6 +24,11 @@ public class Stateful : MonoBehaviour {
         }
     }
 
+    void Start()
+    {
+        GameManager.instance.AddStateful(this);
+    }
+
     public void ObjectInactive()
     {
         StateManager.instance.SetObjectInactive(gameObject.name);
@@ -57,7 +62,7 @@ public class Stateful : MonoBehaviour {
         }
     }
 
-    void OnDisable()
+    public void DisableOnSceneChange()
     {
         if (anim)
         {
