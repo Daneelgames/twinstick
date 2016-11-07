@@ -10,7 +10,9 @@ public class StateManager : MonoBehaviour {
 
     public bool loadOnStart = false;
 
-    static List<string> inactiveObjects = new List<string>();
+    public List<string> statefulObjects = new List<string>();
+    public List<bool> activeObjects = new List<bool>();
+    public List<int> activeDialogues = new List<int>();
 
     public string sceneSaved;
     public string playerSpawner;
@@ -46,20 +48,90 @@ public class StateManager : MonoBehaviour {
 
     public bool GetActive(string n)
     {
-        if (inactiveObjects.Count > 0)
+        if (statefulObjects.Count > 0)
         {
-            foreach (string i in inactiveObjects)
+            foreach (string i in statefulObjects)
             {
                 if (i == n)
-                    return false;
+                {
+                    if (activeObjects[statefulObjects.IndexOf(i)] == true)
+                        return true;
+                    else
+                        return false;
+                }
             }
         }
         return true;
     }
     
-    public void SetObjectInactive(string name)
+    public void SetStatefulObject(string objName)
     {
-        inactiveObjects.Add(name);
+        bool noDouble = true;
+
+        if (statefulObjects.Count > 0)
+        {
+            foreach (string i in statefulObjects)
+            {
+                if (i == objName)
+                {
+                    noDouble = false;
+                    break;
+                }
+            }
+        }
+
+        if (noDouble)
+        {
+            statefulObjects.Add(objName);
+            activeObjects.Add(true);
+            activeDialogues.Add(0);
+        }
+    }
+
+    public int GetActiveDialog(string n)
+    {
+        if (statefulObjects.Count > 0)
+        {
+            foreach (string i in statefulObjects)
+            {
+                if (i == n)
+                {
+                    return activeDialogues[statefulObjects.IndexOf(i)];
+                }
+            }
+        }
+
+        return 0;
+    }
+
+    public void SetActiveDialog(string objName, int activeDialog)
+    {
+        if (statefulObjects.Count > 0)
+        {
+            foreach (string i in statefulObjects)
+            {
+                if (i == objName)
+                {
+                    activeDialogues[statefulObjects.IndexOf(i)] = activeDialog;
+                    break;
+                }
+            }
+        }
+    }
+
+    public void SetObjectInactive(string objName)
+    {
+        if (statefulObjects.Count > 0)
+        {
+            foreach (string i in statefulObjects)
+            {
+                if (i == objName)
+                {
+                    activeObjects[statefulObjects.IndexOf(i)] = false;
+                    break;
+                }
+            }
+        }
     }
 
     public void SetAnimatorParameters(string objName, string bools)
@@ -84,7 +156,10 @@ public class StateManager : MonoBehaviour {
 
         GameState data = new GameState();
 
-        data.inactiveObjects = new List<string>(inactiveObjects);
+        data.statefulObjects = new List<string>(statefulObjects);
+        data.activeObjects = new List<bool>(activeObjects);
+        data.activeDialogues = new List<int>(activeDialogues);
+
         data.sceneSaved = SceneManager.GetActiveScene().name;
         data.playerSpawner = playerSpawner = GameManager.instance.startCampfire.name;
         data.playerHealth = playerHealth = GameManager.instance.playerController.playerHealth.health;
@@ -114,7 +189,9 @@ public class StateManager : MonoBehaviour {
             GameState data = (GameState)bf.Deserialize(file);
             file.Close();
 
-            inactiveObjects = new List<string>(data.inactiveObjects);
+            statefulObjects = new List<string>(data.statefulObjects);
+            activeObjects = new List<bool>(data.activeObjects);
+            activeDialogues = new List<int>(data.activeDialogues);
             sceneSaved = data.sceneSaved;
             playerSpawner = data.playerSpawner;
             playerHealth = data.playerHealth;
@@ -133,7 +210,10 @@ public class StateManager : MonoBehaviour {
 [Serializable]
 class GameState
 {
-    public List<string> inactiveObjects = new List<string>();
+    public List<string> statefulObjects = new List<string>();
+    public List<bool> activeObjects = new List<bool>();
+    public List<int> activeDialogues = new List<int>();
+
     public string sceneSaved;
     public string playerSpawner;
     public int playerHealth = 100;

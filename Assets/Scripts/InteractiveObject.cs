@@ -59,6 +59,7 @@ public class InteractiveObject : MonoBehaviour {
     IEnumerator Save()
     {
         Time.timeScale = 0f;
+        GameManager.instance.SaveAnimatorBooleans();
         GameManager.instance.gui.Save();
         GameManager.instance.SetStartCampfire(localSpawner);
         StateManager.instance.GameSave();

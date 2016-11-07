@@ -7,16 +7,18 @@ public class Stateful : MonoBehaviour {
     public InteractiveObject interactive;
     public List<string> boolsToSave = new List<string>();
     public Animator anim;
-
+    
     void Awake()
     {
+        StateManager.instance.SetStatefulObject(gameObject.name);
+
         if (StateManager.instance.GetActive(gameObject.name) == false) //is inactive?
         {
             gameObject.SetActive(false);
         }
         if (interactive != null)
         {
-            interactive.SetActiveDialog(0); // set index
+            interactive.SetActiveDialog(StateManager.instance.GetActiveDialog(gameObject.name)); // set index
         }
         if (anim)
         {
@@ -62,7 +64,7 @@ public class Stateful : MonoBehaviour {
         }
     }
 
-    public void DisableOnSceneChange()
+    public void SaveAnimatorBooleans()
     {
         if (anim)
         {
@@ -86,6 +88,6 @@ public class Stateful : MonoBehaviour {
 
     public void InteractiveObjectSetActiveDialog(int index)
     {
-
+        StateManager.instance.SetActiveDialog(name, index);
     }
 }

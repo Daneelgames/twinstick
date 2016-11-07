@@ -61,8 +61,6 @@ public class GameManager : MonoBehaviour {
 
     public void InitializeScene(SceneDetails scene)
     {
-        gui.InstantBlack();
-
         GameObject newPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
         newPlayer.name = "Player";
         playerInGame = newPlayer;
@@ -91,18 +89,19 @@ public class GameManager : MonoBehaviour {
         WeaponToPick(null);
         NpcToInteract(null, "Inspect");
         
-        bool noCs = true;
+        bool cs = false;
 
         if (_sm.introCutScene != null) // play scene intro cutScene
         {
             if (_sm.introCutScene.gameObject.activeSelf && _sm.introCutScene.playOnStartOfScene)
             {
+                gui.InstantBlack();
                 _sm.introCutScene.StartCs();
-                noCs = false;
+                cs = true;
             }
         }
 
-        if (noCs)
+        if (!cs)
         {
             gui.Fade("Game");
         }
@@ -292,19 +291,23 @@ public class GameManager : MonoBehaviour {
     {
         characterSpawnerName = spawnerName;
         //StateManager.instance.SetSpawner(spawnerName);
-
+        
         ClearStatefulObjectsList();
 
         SceneManager.LoadScene(sceneName);
     }
 
-    void ClearStatefulObjectsList()
+    public void SaveAnimatorBooleans()
     {
         foreach (Stateful i in statefulObjectsOnscene)
         {
-            i.DisableOnSceneChange();
+            i.SaveAnimatorBooleans();
         }
+    }
 
+    void ClearStatefulObjectsList()
+    {
+        SaveAnimatorBooleans();
         statefulObjectsOnscene.Clear();
     }
 
