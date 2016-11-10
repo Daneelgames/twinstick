@@ -27,6 +27,7 @@ ModelImporter:
     100038: Stair
     100040: sealingHalf
     100042: door
+    100044: doorBasement
     400000: //RootNode
     400002: sealing
     400004: wall_1
@@ -49,6 +50,7 @@ ModelImporter:
     400038: Stair
     400040: sealingHalf
     400042: door
+    400044: doorBasement
     2300000: sealing
     2300002: wall_1
     2300004: Locker_1
@@ -70,6 +72,7 @@ ModelImporter:
     2300036: Stair
     2300038: sealingHalf
     2300040: door
+    2300042: doorBasement
     3300000: sealing
     3300002: wall_1
     3300004: Locker_1
@@ -91,6 +94,7 @@ ModelImporter:
     3300036: Stair
     3300038: sealingHalf
     3300040: door
+    3300042: doorBasement
     4300000: sealing
     4300002: wall_1
     4300004: wall_1Corner
@@ -112,6 +116,7 @@ ModelImporter:
     4300036: Stair
     4300038: sealingHalf
     4300040: door
+    4300042: doorBasement
   materials:
     importMaterials: 0
     materialName: 0
