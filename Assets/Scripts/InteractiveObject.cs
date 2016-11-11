@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public class InteractiveObject : MonoBehaviour {
 
+    public bool locker = false; // 0th dialog = idle; 1th dialog = opened
+    public string keyName = "";
+    public GameObject objToActivate;
+
     public bool door = false;
     public bool passage = false;
     public bool savePoint = false;
@@ -20,6 +24,8 @@ public class InteractiveObject : MonoBehaviour {
     public bool inDialog = false;
     public Stateful stateful;
 
+    public bool canInteract = false;
+
     [System.Serializable]
     public class Dialog
     {
@@ -28,16 +34,27 @@ public class InteractiveObject : MonoBehaviour {
 
     public void Talk()
     {
-        if (!inDialog)
+        if (!inDialog && canInteract)
         {
             if (!door && !passage)
             {
                 if (dialogues.Count > activeDialogIndex && dialogues[activeDialogIndex].phrases.Count > 0)
                 {
+                    if (locker)
+                    {
+                        if (StateManager.instance.HaveItem(keyName))
+                        {
+                            activeDialogIndex = 1;
+                        }
+                        else
+                            activeDialogIndex = 0;
+                    }
+
                     inDialog = true;
                     activePhraseIndex = 0;
                     SetPhrase();
-                    GameManager.instance.NpcToInteract(null, "");
+                    canInteract = false;
+                    //GameManager.instance.NpcToInteract(null, "");
                 }
             }
             else
@@ -80,7 +97,7 @@ public class InteractiveObject : MonoBehaviour {
         {
             GameManager.instance.dialogAnimator.SetTrigger("Inactive");
 
-            if (activeDialogIndex < dialogues.Count - 1) //loop last dialog
+            if (activeDialogIndex < dialogues.Count - 1 && !locker) //loop last dialog
                 activeDialogIndex += 1;
 
             if (stateful != null)
@@ -96,7 +113,29 @@ public class InteractiveObject : MonoBehaviour {
 
             if (!door && !savePoint)
                 Time.timeScale = 1;
+
+            if (locker && activeDialogIndex == 1) // door opened
+            {
+                if (objToActivate)
+                    objToActivate.SetActive(true);
+
+                StateManager.instance.RemoveItem(keyName);
+
+                stateful.ObjectInactive();
+
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                StartCoroutine("CanInteractAfterTime");
+            }
         }
+    }
+
+    IEnumerator CanInteractAfterTime()
+    {
+        yield return new WaitForSeconds(0.5f);
+        canInteract = true;
     }
 
     void Update()
@@ -130,6 +169,8 @@ public class InteractiveObject : MonoBehaviour {
                     GameManager.instance.NpcToInteract(this, "Save");
                 else
                     GameManager.instance.NpcToInteract(this, "Inspect");
+
+                canInteract = true;
             }
         }
         else if (coll.gameObject.tag == "Player")
@@ -141,6 +182,7 @@ public class InteractiveObject : MonoBehaviour {
     {
         if (coll.gameObject.tag == "Player" && GameManager.instance.playerController.playerHealth.health > 0)
         {
+            canInteract = false;
             GameManager.instance.NpcToInteract(null, "");
         }
     }

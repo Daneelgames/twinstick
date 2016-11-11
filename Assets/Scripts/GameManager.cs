@@ -231,12 +231,12 @@ public class GameManager : MonoBehaviour {
             {
                 weaponToPick.GetComponent<WeaponController>().PickUp();
                 WeaponToPick(null);
-                actionFeedbackController.SetFeedback(false, "");
+                //actionFeedbackController.SetFeedback(false, "");
             }
             else if (npcToInteract != null)
             {
                 npcToInteract.Talk();
-                actionFeedbackController.SetFeedback(false, "");
+                //actionFeedbackController.SetFeedback(false, "");
             }
         }
     }

@@ -149,6 +149,46 @@ public class StateManager : MonoBehaviour {
         statefulObjectsAnimatorsBooleans.Add(bools);
     }
 
+    public void AddItem(string item)
+    {
+        bool alreadyHave = false;
+        foreach (string i in questItems)
+        {
+            if (i == item)
+            {
+                alreadyHave = true;
+                break;
+            }
+        }
+        if (!alreadyHave)
+            questItems.Add(item);
+    }
+
+    public bool HaveItem(string item)
+    {
+        foreach (string i in questItems)
+        {
+            if (i == item)
+            {
+                questItems.Remove(item);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void RemoveItem(string item)
+    {
+        foreach (string i in questItems)
+        {
+            if (i == item)
+            {
+                questItems.Remove(item);
+                break;
+            }
+        }
+    }
+
     public void GameSave()
     {
         BinaryFormatter bf = new BinaryFormatter();
