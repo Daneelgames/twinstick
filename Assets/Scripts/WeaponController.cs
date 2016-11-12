@@ -18,12 +18,7 @@ public class WeaponController : MonoBehaviour {
 
     public List<GameObject> bullets;
 
-    bool canPick = false;
-    public bool inHands = false;
-
     public Type weaponAmmoType = Type.Bullet;
-
-    public Stateful stateful;
 
     /* TEST AIMING
     public LineRenderer line;
@@ -37,39 +32,6 @@ public class WeaponController : MonoBehaviour {
         }
     }
     */
-
-    public void PickUp() // use fore pick up
-    {
-        canPick = false;
-        inHands = true;
-        GameManager.instance.AddPlayerWeapon(gameObject);
-        stateful.ObjectInactive();
-        gameObject.SetActive(false);
-        
-    }
-
-    public void SetInHands()
-    {
-        inHands = true;
-    }
-
-    void OnTriggerStay(Collider coll)
-    {
-        if (coll.tag == "Player" && !canPick && !inHands)
-        {
-            GameManager.instance.WeaponToPick(gameObject);
-            canPick = true;
-        }
-    }
-
-    void OnTriggerExit(Collider coll)
-    {
-        if (coll.tag == "Player")
-        {
-            GameManager.instance.WeaponToPick(null);
-            canPick = false;
-        }
-    }
 
     void Update () {
         if (curCooldown > 0)

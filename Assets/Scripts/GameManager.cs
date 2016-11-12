@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour {
 
     public List<MobSpawnerController> spawners;
 
-    public GameObject weaponToPick = null;
     public InteractiveObject npcToInteract = null;
 
     public Animator dialogAnimator;
@@ -86,7 +85,6 @@ public class GameManager : MonoBehaviour {
 
         PlayerSetPos();
 
-        WeaponToPick(null);
         NpcToInteract(null, "Inspect");
         
         bool cs = false;
@@ -200,15 +198,6 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void WeaponToPick(GameObject weapon)
-    {
-        weaponToPick = weapon;
-        if (weapon != null)
-            actionFeedbackController.SetFeedback(true, "Inspect");
-        else
-            actionFeedbackController.SetFeedback(false, "");
-    }
-
 
     public void NpcToInteract(InteractiveObject npc, string type)
     {
@@ -227,13 +216,7 @@ public class GameManager : MonoBehaviour {
     {
         if (Input.GetButtonDown("Submit"))
         {
-            if (weaponToPick != null)
-            {
-                weaponToPick.GetComponent<WeaponController>().PickUp();
-                WeaponToPick(null);
-                //actionFeedbackController.SetFeedback(false, "");
-            }
-            else if (npcToInteract != null)
+            if (npcToInteract != null)
             {
                 npcToInteract.Talk();
                 //actionFeedbackController.SetFeedback(false, "");

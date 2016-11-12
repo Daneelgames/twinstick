@@ -213,6 +213,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
     public void SetWeapon(int weaponIndex)
     {
         GameObject wpn = Instantiate(GameManager.instance.playerWeapons[weaponIndex], Vector3.zero, Quaternion.identity) as GameObject;
@@ -221,7 +222,6 @@ public class PlayerMovement : MonoBehaviour
         weaponController.gameObject.SetActive(true);
         weapon = wpn.transform;
 
-        weaponController.SetInHands();
         wpn.name = "Weapon";
         wpn.transform.SetParent(weaponHolder);
         wpn.transform.localPosition = Vector3.zero;
