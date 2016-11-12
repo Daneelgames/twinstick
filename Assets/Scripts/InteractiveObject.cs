@@ -8,10 +8,14 @@ public class InteractiveObject : MonoBehaviour {
     public string keyName = "";
     public GameObject objToActivate;
 
-    public bool door = false;
-    public bool passage = false;
+    public bool dropItem = false;
+    public string dropName = "";
+
     public bool savePoint = false;
     public CampfireController localSpawner;
+
+    public bool door = false;
+    public bool passage = false;
     public string scene = "";
     public string spawner = "";
 
@@ -113,9 +117,20 @@ public class InteractiveObject : MonoBehaviour {
 
             if (!door && !savePoint)
                 Time.timeScale = 1;
+            
 
-            if (locker && activeDialogIndex == 1) // door opened
+            if (dropItem)
             {
+                GameManager.instance.NpcToInteract(null, "");
+                StateManager.instance.AddItem(dropName);
+
+                stateful.ObjectInactive();
+
+                gameObject.SetActive(false);
+            }
+            else if (locker && activeDialogIndex == 1) // door opened
+            {
+                GameManager.instance.NpcToInteract(null, "");
                 if (objToActivate)
                     objToActivate.SetActive(true);
 
