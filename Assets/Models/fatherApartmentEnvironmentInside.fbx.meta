@@ -28,6 +28,11 @@ ModelImporter:
     100040: sealingHalf
     100042: door
     100044: doorBasement
+    100046: FatherHouseRoomFloorSealing
+    100048: FatherHouseRoomWall
+    100050: OldCouch
+    100052: OldCouchPillow
+    100054: Cube
     400000: //RootNode
     400002: sealing
     400004: wall_1
@@ -51,6 +56,11 @@ ModelImporter:
     400040: sealingHalf
     400042: door
     400044: doorBasement
+    400046: FatherHouseRoomFloorSealing
+    400048: FatherHouseRoomWall
+    400050: OldCouch
+    400052: OldCouchPillow
+    400054: Cube
     2300000: sealing
     2300002: wall_1
     2300004: Locker_1
@@ -73,6 +83,11 @@ ModelImporter:
     2300038: sealingHalf
     2300040: door
     2300042: doorBasement
+    2300044: FatherHouseRoomFloorSealing
+    2300046: FatherHouseRoomWall
+    2300048: OldCouch
+    2300050: OldCouchPillow
+    2300052: Cube
     3300000: sealing
     3300002: wall_1
     3300004: Locker_1
@@ -95,6 +110,11 @@ ModelImporter:
     3300038: sealingHalf
     3300040: door
     3300042: doorBasement
+    3300044: FatherHouseRoomFloorSealing
+    3300046: FatherHouseRoomWall
+    3300048: OldCouch
+    3300050: OldCouchPillow
+    3300052: Cube
     4300000: sealing
     4300002: wall_1
     4300004: wall_1Corner
@@ -117,6 +137,11 @@ ModelImporter:
     4300038: sealingHalf
     4300040: door
     4300042: doorBasement
+    4300044: FatherHouseRoomFloorSealing
+    4300046: FatherHouseRoomWall
+    4300048: OldCouchPillow
+    4300050: OldCouch
+    4300052: Cube
   materials:
     importMaterials: 0
     materialName: 0
