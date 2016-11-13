@@ -18,6 +18,8 @@ public class InventoryControllerGUI : MonoBehaviour {
     public GameObject cursor;
     public List<Image> slotsImages = new List<Image>();
     public List<Animator> animators = new List<Animator>();
+    
+    public List<Animator> arrowsAnimators = new List<Animator>();
 
     public Text itemNameText;
     public Text itemDescriptionText;
@@ -77,15 +79,18 @@ public class InventoryControllerGUI : MonoBehaviour {
                 anim.SetBool("Active", true);
                 active = true;
                 Time.timeScale = 0f;
-                UpdateItems();
+                UpdateItems(0);
 
                 cursor.transform.position = slotsImages[0].transform.position;
                 animators[0].SetTrigger("Shake");
+
+                cursorAt = 0;
+                cursotAtGlobal = 0;
             }
         }
     }
 
-    void UpdateItems()
+    void UpdateItems(int offset)
     {
         for (int i = 0; i < 9; i ++)
         {
@@ -95,7 +100,7 @@ public class InventoryControllerGUI : MonoBehaviour {
 
                 for (int j = 0; j < GameManager.instance.inventoryItems.items.Count; j++)
                 {
-                    if (StateManager.instance.questItems[i] == GameManager.instance.inventoryItems.items[j].name) // FOUND NEEDED ITEM
+                    if (StateManager.instance.questItems[i + offset] == GameManager.instance.inventoryItems.items[j].name) // FOUND NEEDED ITEM
                     {
                         slotsImages[i].sprite = GameManager.instance.inventoryItems.items[j].itemSprite;
                         names[i] = GameManager.instance.inventoryItems.items[j].itemName;
@@ -110,6 +115,27 @@ public class InventoryControllerGUI : MonoBehaviour {
             }
         }
         SetText();
+
+        if (offset > 0)
+        {
+            arrowsAnimators[0].gameObject.SetActive(true);
+            arrowsAnimators[0].SetTrigger("Shake");
+        }
+        else
+        {
+            arrowsAnimators[0].gameObject.SetActive(false);
+        }
+
+        if (cursotAtGlobal < StateManager.instance.questItems.Count - 1)
+        {
+            arrowsAnimators[1].gameObject.SetActive(true);
+            arrowsAnimators[1].SetTrigger("Shake");
+        }
+        else
+        {
+            arrowsAnimators[1].gameObject.SetActive(false);
+        }
+
     }
 
     void MoveCursor(string direction)
@@ -117,19 +143,23 @@ public class InventoryControllerGUI : MonoBehaviour {
         switch (direction)
         {
             case "Right":
-                if (cursorAt < 8 && cursorAt < StateManager.instance.questItems.Count - 1)
+                if (cursorAt < 8 && cursotAtGlobal < StateManager.instance.questItems.Count - 1)
                 {
                     cursorAt += 1;
                     cursotAtGlobal += 1;
                 }
-                else if (cursorAt < StateManager.instance.questItems.Count - 1)
+                else if (cursotAtGlobal < StateManager.instance.questItems.Count - 1)
                 {
                     cursotAtGlobal += 1;
+                    // update
+                    UpdateItems(Mathf.Abs(cursotAtGlobal - cursorAt));
                 }
                 else
                 {
                     cursorAt = 0;
                     cursotAtGlobal = 0;
+                    // update
+                    UpdateItems(Mathf.Abs(cursotAtGlobal - cursorAt));
                 }
                 break;
 
@@ -142,13 +172,23 @@ public class InventoryControllerGUI : MonoBehaviour {
                 else if (cursotAtGlobal > 0)
                 {
                     cursotAtGlobal -= 1;
+                    // update
+                    UpdateItems(Mathf.Abs(cursotAtGlobal - cursorAt));
                 }
                 else
                 {
                     if (StateManager.instance.questItems.Count < 10)
+                    {
                         cursorAt = StateManager.instance.questItems.Count - 1;
+                        cursotAtGlobal = StateManager.instance.questItems.Count - 1;
+                    }
                     else
+                    {
                         cursorAt = 8;
+                        cursotAtGlobal = StateManager.instance.questItems.Count - 1;
+                        // update
+                        UpdateItems(Mathf.Abs(cursotAtGlobal - cursorAt));
+                    }
                 }
                 break;
         }
