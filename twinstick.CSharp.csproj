@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\BulletController.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\CampfireController.cs" />
+    <Compile Include="Assets\Scripts\CanvasContainer.cs" />
     <Compile Include="Assets\Scripts\CutSceneController.cs" />
     <Compile Include="Assets\Scripts\ExplosionController.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -86,6 +87,9 @@
     <Compile Include="Assets\Scripts\HealthController.cs" />
     <Compile Include="Assets\Scripts\IKLookControl.cs" />
     <Compile Include="Assets\Scripts\InteractiveObject.cs" />
+    <Compile Include="Assets\Scripts\InventoryControllerGUI.cs" />
+    <Compile Include="Assets\Scripts\InventoryItemContainer.cs" />
+    <Compile Include="Assets\Scripts\InventoryItemsList.cs" />
     <Compile Include="Assets\Scripts\MobSpawnerController.cs" />
     <Compile Include="Assets\Scripts\NpcController.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
@@ -95,11 +99,11 @@
     <Compile Include="Assets\Scripts\SaveSystem\StateManager.cs" />
     <Compile Include="Assets\Scripts\SaveSystem\Stateful.cs" />
     <Compile Include="Assets\Scripts\SceneDetails.cs" />
+    <Compile Include="Assets\Scripts\SetCharacterColor.cs" />
     <Compile Include="Assets\Scripts\TouchDamage.cs" />
     <Compile Include="Assets\Scripts\WalkerToPlayerAi.cs" />
     <Compile Include="Assets\Scripts\WeaponController.cs" />
     <Compile Include="Assets\Scripts\WeaponMeleeController.cs" />
-    <Compile Include="Assets\SetCharacterColor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />

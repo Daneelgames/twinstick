@@ -10,6 +10,8 @@ public class InteractiveObject : MonoBehaviour {
 
     public bool dropItem = false;
     public string dropName = "";
+    public string inventoryDescription = "";
+    public Sprite inventoryImg;
 
     public bool savePoint = false;
     public CampfireController localSpawner;
@@ -38,11 +40,11 @@ public class InteractiveObject : MonoBehaviour {
 
     public void Talk()
     {
-        if (!inDialog && canInteract)
+        if (!inDialog)
         {
             if (!door && !passage)
             {
-                if (dialogues.Count > activeDialogIndex && dialogues[activeDialogIndex].phrases.Count > 0)
+                if (canInteract && dialogues.Count > activeDialogIndex && dialogues[activeDialogIndex].phrases.Count > 0)
                 {
                     if (locker)
                     {

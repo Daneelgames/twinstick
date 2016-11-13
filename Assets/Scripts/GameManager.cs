@@ -42,10 +42,15 @@ public class GameManager : MonoBehaviour {
     public bool pointerOverMenu = false;
 
     public ActionFeedbackController actionFeedbackController;
+    public InventoryControllerGUI inventory;
 
     //private bool loadSpawnerFromSave = false;
 
     public List<Stateful> statefulObjectsOnscene = new List<Stateful>();
+
+    public GameObject canvasPrefab;
+
+    public InventoryItemsList inventoryItems;
 
     void Awake()
     {
@@ -56,6 +61,31 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
+
+        CreateCanvas();
+    }
+
+    void CreateCanvas()
+    {
+        GameObject cnvs = Instantiate(canvasPrefab, transform.position, Quaternion.identity) as GameObject;
+
+        cnvs.name = "CanvasMain";
+        cnvs.transform.SetParent(transform);
+        cnvs.transform.position = Vector2.zero;
+
+        CanvasContainer canvasContainer = cnvs.GetComponent<CanvasContainer>();
+        dialogAnimator = canvasContainer.dialogAnimator;
+        dialogText = canvasContainer.dialogText;
+        actionFeedbackController = canvasContainer.actionFeedback;
+        gui.healthAnimator = canvasContainer.healthbarAnimator;
+        gui.healthbar = canvasContainer.healthbar;
+        gui.saveAnimator = canvasContainer.saveAnimator;
+        gui.reloadController = canvasContainer.reloadController;
+        gui.fadeAnimator = canvasContainer.fadeAnimator;
+        gui.fadeImg = canvasContainer.fadeImg;
+        inventory = canvasContainer.inventory;
+
+        canvasContainer.SetRenderCamera();
     }
 
     public void InitializeScene(SceneDetails scene)
@@ -214,12 +244,20 @@ public class GameManager : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetButtonDown("Submit"))
+        if (!playerController.aim)
         {
-            if (npcToInteract != null)
+            if (Input.GetButtonDown("Submit"))
             {
-                npcToInteract.Talk();
-                //actionFeedbackController.SetFeedback(false, "");
+                if (npcToInteract != null && !inventory.active)
+                {
+                    npcToInteract.Talk();
+                    //actionFeedbackController.SetFeedback(false, "");
+                }
+            }
+
+            if (Input.GetButtonDown("ToggleInventory"))
+            {
+                inventory.ToggleInventory();
             }
         }
     }
