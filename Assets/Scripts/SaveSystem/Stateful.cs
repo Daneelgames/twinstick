@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Stateful : MonoBehaviour {
 
+    public bool activeOnStart = true;
+
     public InteractiveObject interactive;
     public List<string> boolsToSave = new List<string>();
     public Animator anim;
