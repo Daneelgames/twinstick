@@ -61,10 +61,10 @@ public class StateManager : MonoBehaviour {
                 }
             }
         }
-        return true;
+        return false;
     }
     
-    public void SetStatefulObject(string objName)
+    public void SetStatefulObject(string objName, bool active)
     {
         bool noDouble = true;
 
@@ -83,7 +83,7 @@ public class StateManager : MonoBehaviour {
         if (noDouble)
         {
             statefulObjects.Add(objName);
-            activeObjects.Add(true);
+            activeObjects.Add(active);
             activeDialogues.Add(0);
         }
     }
@@ -119,7 +119,7 @@ public class StateManager : MonoBehaviour {
         }
     }
 
-    public void SetObjectInactive(string objName)
+    public void SetObjectActive(string objName, bool active)
     {
         if (statefulObjects.Count > 0)
         {
@@ -127,7 +127,7 @@ public class StateManager : MonoBehaviour {
             {
                 if (i == objName)
                 {
-                    activeObjects[statefulObjects.IndexOf(i)] = false;
+                    activeObjects[statefulObjects.IndexOf(i)] = active;
                     break;
                 }
             }

@@ -12,13 +12,13 @@ public class Stateful : MonoBehaviour {
     
     void Awake()
     {
-        StateManager.instance.SetStatefulObject(gameObject.name);
+        StateManager.instance.SetStatefulObject(gameObject.name, activeOnStart);
 
         if (StateManager.instance.GetActive(gameObject.name) == false) //is inactive?
         {
             gameObject.SetActive(false);
         }
-        if (interactive != null)
+        if (interactive)
         {
             interactive.SetActiveDialog(StateManager.instance.GetActiveDialog(gameObject.name)); // set index
         }
@@ -30,12 +30,13 @@ public class Stateful : MonoBehaviour {
 
     void Start()
     {
+        ObjectActive(true);
         GameManager.instance.AddStateful(this);
     }
 
-    public void ObjectInactive()
+    public void ObjectActive(bool active)
     {
-        StateManager.instance.SetObjectInactive(gameObject.name);
+        StateManager.instance.SetObjectActive(gameObject.name, active);
     }
     
     void SetAnimatorBoolsOnAwake()

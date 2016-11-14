@@ -126,7 +126,7 @@ public class InteractiveObject : MonoBehaviour {
                 GameManager.instance.NpcToInteract(null, "");
                 StateManager.instance.AddItem(dropName);
 
-                stateful.ObjectInactive();
+                stateful.ObjectActive(false);
 
                 gameObject.SetActive(false);
             }
@@ -138,7 +138,7 @@ public class InteractiveObject : MonoBehaviour {
 
                 StateManager.instance.RemoveItem(keyName);
 
-                stateful.ObjectInactive();
+                stateful.ObjectActive(false);
 
                 gameObject.SetActive(false);
             }

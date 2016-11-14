@@ -37,7 +37,7 @@ public class CutSceneController : MonoBehaviour {
         GameManager.instance.camAnim.transform.rotation = Quaternion.identity;
 
 
-        stateful.ObjectInactive();
+        stateful.ObjectActive(false);
         gameObject.SetActive(false);
     }
 
