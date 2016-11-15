@@ -75,6 +75,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Pixelation\Example\Scripts\ImageEffectBase.cs" />
+    <Compile Include="Assets\Pixelation\Example\Scripts\Plane.cs" />
+    <Compile Include="Assets\Pixelation\Example\Scripts\PointLight.cs" />
+    <Compile Include="Assets\Pixelation\Scripts\Chunky.cs" />
+    <Compile Include="Assets\Pixelation\Scripts\Pixelation.cs" />
     <Compile Include="Assets\Scripts\ActionFeedbackController.cs" />
     <Compile Include="Assets\Scripts\BulletController.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
@@ -107,6 +112,9 @@
     <Compile Include="Assets\Scripts\WeaponMeleeController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Pixelation\Readme.txt" />
+    <None Include="Assets\Pixelation\Shaders\Chunky.shader" />
+    <None Include="Assets\Pixelation\Shaders\Pixelation.shader" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />
