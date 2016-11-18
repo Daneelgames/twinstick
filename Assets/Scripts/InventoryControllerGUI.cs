@@ -76,16 +76,19 @@ public class InventoryControllerGUI : MonoBehaviour {
             }
             else
             {
-                anim.SetBool("Active", true);
-                active = true;
-                Time.timeScale = 0f;
-                UpdateItems(0);
+                if (Time.timeScale == 1)
+                {
+                    anim.SetBool("Active", true);
+                    active = true;
+                    Time.timeScale = 0f;
+                    UpdateItems(0);
 
-                cursor.transform.position = slotsImages[0].transform.position;
-                animators[0].SetTrigger("Shake");
+                    cursor.transform.position = slotsImages[0].transform.position;
+                    animators[0].SetTrigger("Shake");
 
-                cursorAt = 0;
-                cursotAtGlobal = 0;
+                    cursorAt = 0;
+                    cursotAtGlobal = 0;
+                }
             }
         }
     }
@@ -175,7 +178,7 @@ public class InventoryControllerGUI : MonoBehaviour {
                     // update
                     UpdateItems(Mathf.Abs(cursotAtGlobal - cursorAt));
                 }
-                else
+                else if (StateManager.instance.questItems.Count > 0)
                 {
                     if (StateManager.instance.questItems.Count < 10)
                     {

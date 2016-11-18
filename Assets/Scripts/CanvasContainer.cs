@@ -22,5 +22,6 @@ public class CanvasContainer : MonoBehaviour {
     public void SetRenderCamera()
     {
         cnvs.worldCamera = Camera.main;
+        cnvs.planeDistance = 0.25f;
     }
 }

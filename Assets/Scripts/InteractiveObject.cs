@@ -10,8 +10,8 @@ public class InteractiveObject : MonoBehaviour {
 
     public bool dropItem = false;
     public string dropName = "";
-    public string inventoryDescription = "";
-    public Sprite inventoryImg;
+    //public string inventoryDescription = "";
+    //public Sprite inventoryImg;
 
     public bool savePoint = false;
     public CampfireController localSpawner;
@@ -31,6 +31,8 @@ public class InteractiveObject : MonoBehaviour {
     public Stateful stateful;
 
     public bool canInteract = false;
+
+    public GameObject cameraAnchor;
 
     [System.Serializable]
     public class Dialog
@@ -58,7 +60,10 @@ public class InteractiveObject : MonoBehaviour {
 
                     inDialog = true;
                     activePhraseIndex = 0;
-                    SetPhrase();
+                    if (cameraAnchor)
+                        StartCoroutine("SetCamera");
+                    else
+                        SetPhrase();
                     canInteract = false;
                     //GameManager.instance.NpcToInteract(null, "");
                 }
@@ -68,6 +73,37 @@ public class InteractiveObject : MonoBehaviour {
                 StartCoroutine("ExitDoor");
             }
         }
+    }
+
+    IEnumerator SetCamera()
+    {
+        Time.timeScale = 0;
+        GameManager.instance.gui.Fade("Black");
+        yield return new WaitForSecondsRealtime(1f);
+
+        GameManager.instance.CutScenePlay(true);
+
+        GameManager.instance.camAnim.transform.position = cameraAnchor.transform.position;
+        GameManager.instance.camAnim.transform.rotation = cameraAnchor.transform.rotation;
+        GameManager.instance.camAnim.transform.SetParent(cameraAnchor.transform);
+        GameManager.instance.gui.Fade("Game");
+        yield return new WaitForSecondsRealtime(1f);
+        SetPhrase();
+    }
+
+
+    IEnumerator ResetCamera()
+    {
+        GameManager.instance.gui.Fade("Black");
+        yield return new WaitForSecondsRealtime(1f);
+
+        GameManager.instance.CutScenePlay(false);
+
+        GameManager.instance.camAnim.transform.position = GameManager.instance.cameraHolder.transform.position;
+        GameManager.instance.camAnim.transform.SetParent(GameManager.instance.cameraHolder.transform);
+        GameManager.instance.camAnim.transform.rotation = Quaternion.identity;
+        GameManager.instance.gui.Fade("Game");
+        yield return new WaitForSecondsRealtime(1f);
     }
 
     IEnumerator ExitDoor()
@@ -121,26 +157,41 @@ public class InteractiveObject : MonoBehaviour {
                 Time.timeScale = 1;
             
 
-            if (dropItem)
+            if (locker && activeDialogIndex == 1) // door opened
             {
                 GameManager.instance.NpcToInteract(null, "");
-                StateManager.instance.AddItem(dropName);
 
-                stateful.ObjectActive(false);
-
-                gameObject.SetActive(false);
-            }
-            else if (locker && activeDialogIndex == 1) // door opened
-            {
-                GameManager.instance.NpcToInteract(null, "");
                 if (objToActivate)
                     objToActivate.SetActive(true);
 
                 StateManager.instance.RemoveItem(keyName);
+                
+                 if (dropItem)
+                    {
+                        StateManager.instance.AddItem(dropName);
+                    }
+                if (cameraAnchor)
+                    StartCoroutine("ResetCamera");
+                else
+                {
+                    stateful.ObjectActive(false);
+                    gameObject.SetActive(false);
+                    return;
+                }
+            }
+            else if (dropItem && !locker)
+            {
+                GameManager.instance.NpcToInteract(null, "");
+                StateManager.instance.AddItem(dropName);
 
-                stateful.ObjectActive(false);
-
-                gameObject.SetActive(false);
+                if (cameraAnchor)
+                    StartCoroutine("ResetCamera");
+                else
+                {
+                    stateful.ObjectActive(false);
+                    gameObject.SetActive(false);
+                    return;
+                }
             }
             else
             {
@@ -151,7 +202,20 @@ public class InteractiveObject : MonoBehaviour {
 
     IEnumerator CanInteractAfterTime()
     {
-        yield return new WaitForSeconds(0.5f);
+        if (cameraAnchor)
+        {
+            GameManager.instance.gui.Fade("Black");
+            yield return new WaitForSecondsRealtime(1f);
+            GameManager.instance.camAnim.transform.position = GameManager.instance.cameraHolder.transform.position;
+            GameManager.instance.camAnim.transform.SetParent(GameManager.instance.cameraHolder.transform);
+            GameManager.instance.camAnim.transform.rotation = Quaternion.identity;
+            GameManager.instance.CutScenePlay(false);
+            GameManager.instance.gui.Fade("Game");
+            yield return new WaitForSecondsRealtime(1f);
+        }
+        else
+            yield return new WaitForSeconds(0.5f);
+
         canInteract = true;
     }
 
