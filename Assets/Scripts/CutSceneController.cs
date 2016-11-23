@@ -71,4 +71,25 @@ public class CutSceneController : MonoBehaviour {
     {
         actorsAnimators[animationEvent.intParameter].SetTrigger(animationEvent.stringParameter);
     }
+
+    public void SetObjectActive(AnimationEvent animEvent)
+    {
+        string name = animEvent.stringParameter;
+        int value = animEvent.intParameter;
+
+        Stateful obj = GameManager.instance.GetStatefulOnScene(name);
+
+        switch (value)
+        {
+            case 0:
+                obj.ObjectActive(false);
+                obj.gameObject.SetActive(false);
+                break;
+
+            case 1:
+                obj.ObjectActive(true);
+                obj.gameObject.SetActive(true);
+                break;
+        }
+    }
 }

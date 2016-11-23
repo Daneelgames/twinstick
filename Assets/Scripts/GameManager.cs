@@ -136,7 +136,6 @@ public class GameManager : MonoBehaviour {
         {
             foreach (Stateful s in statefulObjectsOnscene)
             {
-                print(s.name);
                 if (m == s.name)
                 {
                     s.gameObject.GetComponent<MessageReciever>().GetMessage();
@@ -236,6 +235,7 @@ public class GameManager : MonoBehaviour {
             {
                 characterSpawnerName = StateManager.instance.playerSpawner;
                 LoadToNewScene(StateManager.instance.sceneSaved, characterSpawnerName);
+                statefulObjectsOnscene.Clear();
             }
         }
     }
@@ -388,5 +388,18 @@ public class GameManager : MonoBehaviour {
 
         if (playerController != null)
             playerController.gameObject.SetActive(!playing);
+    }
+
+    public Stateful GetStatefulOnScene(string n)
+    {
+        foreach (Stateful st in statefulObjectsOnscene)
+        {
+            if (st.name == n)
+            {
+                return st;
+            }
+        }
+
+        return null;
     }
 }
