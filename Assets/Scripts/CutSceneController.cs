@@ -79,6 +79,8 @@ public class CutSceneController : MonoBehaviour {
 
         Stateful obj = GameManager.instance.GetStatefulOnScene(name);
 
+        print(value);
+
         switch (value)
         {
             case 0:

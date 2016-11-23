@@ -38,7 +38,7 @@ public class InteractiveObject : MonoBehaviour {
     public GameObject cameraAnchor;
 
     public bool camFade = false;
-
+    
     [System.Serializable]
     public class Dialog
     {
@@ -99,7 +99,7 @@ public class InteractiveObject : MonoBehaviour {
     }
 
 
-    IEnumerator ResetCamera()
+    IEnumerator ResetCamera(bool active)
     {
         GameManager.instance.gui.Fade("Black");
         yield return new WaitForSecondsRealtime(1f);
@@ -110,7 +110,12 @@ public class InteractiveObject : MonoBehaviour {
         GameManager.instance.camAnim.transform.SetParent(GameManager.instance.cameraHolder.transform);
         GameManager.instance.camAnim.transform.rotation = Quaternion.identity;
         GameManager.instance.gui.Fade("Game");
-        yield return new WaitForSecondsRealtime(1f);
+        if (!active)
+        {
+            stateful.ObjectActive(false);
+            gameObject.SetActive(false);
+        }
+        //yield return new WaitForSecondsRealtime(1f);
     }
 
     IEnumerator ExitDoor()
@@ -183,7 +188,7 @@ public class InteractiveObject : MonoBehaviour {
                         StateManager.instance.AddItem(dropName);
                     }
                 if (cameraAnchor)
-                    StartCoroutine("ResetCamera");
+                    StartCoroutine("ResetCamera", false);
                 else
                 {
                     stateful.ObjectActive(false);
@@ -195,9 +200,12 @@ public class InteractiveObject : MonoBehaviour {
             {
                 GameManager.instance.NpcToInteract(null, "");
                 StateManager.instance.AddItem(dropName);
+                
+                if (objToActivate)
+                    objToActivate.SetActive(true);
 
                 if (cameraAnchor)
-                    StartCoroutine("ResetCamera");
+                    StartCoroutine("ResetCamera", false);
                 else
                 {
                     stateful.ObjectActive(false);
