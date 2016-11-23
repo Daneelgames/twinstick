@@ -9,14 +9,23 @@ public class Stateful : MonoBehaviour {
     public InteractiveObject interactive;
     public List<string> boolsToSave = new List<string>();
     public Animator anim;
+    public MessageTransmitter mt;
     
     void Awake()
     {
-        StateManager.instance.SetStatefulObject(gameObject.name, activeOnStart);
+        string mtRecieverName = "";
+        if (mt)
+            mtRecieverName = mt.recieverName;
+
+        StateManager.instance.SetStatefulObject(gameObject.name, activeOnStart, mtRecieverName);
 
         if (StateManager.instance.GetActive(gameObject.name) == false) //is inactive?
         {
             gameObject.SetActive(false);
+        }
+        if (mt)
+        {
+            mt.SetRecieverName(StateManager.instance.GetRecieverName(gameObject.name));
         }
         if (interactive)
         {
@@ -26,12 +35,14 @@ public class Stateful : MonoBehaviour {
         {
             SetAnimatorBoolsOnAwake();   
         }
+
+        GameManager.instance.AddStateful(this);
     }
 
     void Start()
     {
         ObjectActive(true);
-        GameManager.instance.AddStateful(this);
+        //GameManager.instance.AddStateful(this);
     }
 
     public void ObjectActive(bool active)

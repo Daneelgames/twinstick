@@ -25,6 +25,9 @@ public class InteractiveObject : MonoBehaviour {
     public int activePhraseIndex = 0;
     public List<Dialog> dialogues = new List<Dialog>();
 
+    public int messageDialog = 0;
+    public MessageTransmitter messageTransmitter;
+
     public float phraseCooldown = 0f;
 
     public bool inDialog = false;
@@ -33,6 +36,8 @@ public class InteractiveObject : MonoBehaviour {
     public bool canInteract = false;
 
     public GameObject cameraAnchor;
+
+    public bool camFade = false;
 
     [System.Serializable]
     public class Dialog
@@ -77,6 +82,7 @@ public class InteractiveObject : MonoBehaviour {
 
     IEnumerator SetCamera()
     {
+        camFade = true;
         Time.timeScale = 0;
         GameManager.instance.gui.Fade("Black");
         yield return new WaitForSecondsRealtime(1f);
@@ -88,6 +94,7 @@ public class InteractiveObject : MonoBehaviour {
         GameManager.instance.camAnim.transform.SetParent(cameraAnchor.transform);
         GameManager.instance.gui.Fade("Game");
         yield return new WaitForSecondsRealtime(1f);
+        camFade = false;
         SetPhrase();
     }
 
@@ -138,6 +145,11 @@ public class InteractiveObject : MonoBehaviour {
         else //end of dialog
         {
             GameManager.instance.dialogAnimator.SetTrigger("Inactive");
+
+            if (messageDialog == activeDialogIndex && messageTransmitter)
+            {
+                messageTransmitter.SendMessage();
+            }
 
             if (activeDialogIndex < dialogues.Count - 1 && !locker) //loop last dialog
                 activeDialogIndex += 1;
@@ -221,7 +233,7 @@ public class InteractiveObject : MonoBehaviour {
 
     void Update()
     {
-        if (inDialog)
+        if (inDialog && !camFade)
         { 
             if (phraseCooldown > 0)
             {

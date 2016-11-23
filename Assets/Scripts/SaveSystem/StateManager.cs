@@ -13,6 +13,7 @@ public class StateManager : MonoBehaviour {
     public List<string> statefulObjects = new List<string>();
     public List<bool> activeObjects = new List<bool>();
     public List<int> activeDialogues = new List<int>();
+    public List<string> transmittersMessages = new List<string>();
 
     public string sceneSaved;
     public string playerSpawner;
@@ -23,6 +24,8 @@ public class StateManager : MonoBehaviour {
 
     public List<string> statefulObjectsAnimators = new List<string>();
     public List<string> statefulObjectsAnimatorsBooleans = new List<string>();
+
+    public List<string> messages = new List<string>();
 
     public static StateManager instance;
     
@@ -64,7 +67,46 @@ public class StateManager : MonoBehaviour {
         return false;
     }
     
-    public void SetStatefulObject(string objName, bool active)
+    public string GetRecieverName(string n)
+    {
+        if (statefulObjects.Count > 0)
+        {
+            foreach (string i in statefulObjects)
+            {
+                if (i == n)
+                {
+                        return transmittersMessages[statefulObjects.IndexOf(i)];
+                }
+            }
+        }
+        return "";
+    }
+
+    public void AddMessage(string message)
+    {
+        bool alreadyHave = false;
+
+        foreach (string i in messages)
+        {
+            if (message == i)
+            {
+                alreadyHave = true;
+                break;
+            }
+        }
+
+        if (!alreadyHave)
+        {
+            messages.Add(message);
+        }
+    }
+
+    public void RemoveMessage(string message)
+    {
+        messages.Remove(message);
+    }
+
+    public void SetStatefulObject(string objName, bool active, string message)
     {
         bool noDouble = true;
 
@@ -85,6 +127,25 @@ public class StateManager : MonoBehaviour {
             statefulObjects.Add(objName);
             activeObjects.Add(active);
             activeDialogues.Add(0);
+            transmittersMessages.Add(message);
+        }
+    }
+
+    public void RemoveTransmitterMessage(string msg)
+    {
+        int index = -1;
+        foreach (string m in transmittersMessages)
+        {
+            if (m == msg)
+            {
+                index = transmittersMessages.IndexOf(m);
+                break;
+            }
+        }
+
+        if (index > 0)
+        {
+            transmittersMessages[index] = "";
         }
     }
 
@@ -200,6 +261,8 @@ public class StateManager : MonoBehaviour {
         data.activeObjects = new List<bool>(activeObjects);
         data.activeDialogues = new List<int>(activeDialogues);
 
+        data.transmittersMessages = new List<string>(transmittersMessages);
+
         data.sceneSaved = SceneManager.GetActiveScene().name;
         data.playerSpawner = playerSpawner = GameManager.instance.startCampfire.name;
         data.playerHealth = playerHealth = GameManager.instance.playerController.playerHealth.health;
@@ -207,6 +270,7 @@ public class StateManager : MonoBehaviour {
 
         data.statefulObjectsAnimators = new List<string>(statefulObjectsAnimators);
         data.statefulObjectsAnimatorsBooleans = new List<string>(statefulObjectsAnimatorsBooleans);
+        data.messages = new List<string>(messages);
 
         List<string> tempWeaponList = new List<string>();
         foreach (GameObject i in GameManager.instance.playerWeapons)
@@ -232,6 +296,9 @@ public class StateManager : MonoBehaviour {
             statefulObjects = new List<string>(data.statefulObjects);
             activeObjects = new List<bool>(data.activeObjects);
             activeDialogues = new List<int>(data.activeDialogues);
+
+            transmittersMessages = new List<string>(data.transmittersMessages);
+
             sceneSaved = data.sceneSaved;
             playerSpawner = data.playerSpawner;
             playerHealth = data.playerHealth;
@@ -241,6 +308,7 @@ public class StateManager : MonoBehaviour {
 
             statefulObjectsAnimators = new List<string>(data.statefulObjectsAnimators);
             statefulObjectsAnimatorsBooleans = new List<string>(data.statefulObjectsAnimatorsBooleans);
+            messages = new List<string>(data.messages);
 
             GameManager.instance.GetValuesFromSaveFile(); // load values on start of session
         }
@@ -253,6 +321,7 @@ class GameState
     public List<string> statefulObjects = new List<string>();
     public List<bool> activeObjects = new List<bool>();
     public List<int> activeDialogues = new List<int>();
+    public List<string> transmittersMessages = new List<string>();
 
     public string sceneSaved;
     public string playerSpawner;
@@ -263,4 +332,6 @@ class GameState
 
     public List<string> statefulObjectsAnimators = new List<string>();
     public List<string> statefulObjectsAnimatorsBooleans = new List<string>();
+
+    public List<string> messages = new List<string>();
 }

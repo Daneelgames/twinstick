@@ -96,6 +96,8 @@
     <Compile Include="Assets\Scripts\InventoryControllerGUI.cs" />
     <Compile Include="Assets\Scripts\InventoryItemContainer.cs" />
     <Compile Include="Assets\Scripts\InventoryItemsList.cs" />
+    <Compile Include="Assets\Scripts\MessageReciever.cs" />
+    <Compile Include="Assets\Scripts\MessageTransmitter.cs" />
     <Compile Include="Assets\Scripts\MobSpawnerController.cs" />
     <Compile Include="Assets\Scripts\NpcController.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />

@@ -129,6 +129,30 @@ public class GameManager : MonoBehaviour {
             }
         }
 
+        // SEND MESSAGES
+
+        List<string> messengersNames = new List<string>();
+        foreach (string m in StateManager.instance.messages)
+        {
+            foreach (Stateful s in statefulObjectsOnscene)
+            {
+                print(s.name);
+                if (m == s.name)
+                {
+                    s.gameObject.GetComponent<MessageReciever>().GetMessage();
+                    messengersNames.Add(m);
+                    cs = true;
+                }
+            }
+        }
+
+        foreach (string n in messengersNames)
+        {
+            StateManager.instance.RemoveMessage(n);
+        }
+
+        /////////////
+
         if (!cs)
         {
             gui.Fade("Game");
@@ -148,7 +172,33 @@ public class GameManager : MonoBehaviour {
         cameraHolder.transform.position = new Vector3(posX, posY, cameraHolder.transform.position.z);
         cameraHolder.transform.LookAt(new Vector3(posX, posY - 2f, playerInGame.transform.position.z));
 
+        //SendMessages();
+
     }
+
+    /*
+    void SendMessages()
+    {
+        List<string> messengersNames = new List<string>();
+        foreach (string m in StateManager.instance.messages)
+        {
+            foreach (Stateful s in statefulObjectsOnscene)
+            {
+                print(s.name);
+                if (m == s.name)
+                {
+                    s.gameObject.GetComponent<MessageReciever>().GetMessage();
+                    messengersNames.Add(m);
+                }
+            }
+        }
+
+        foreach (string n in messengersNames)
+        {
+            StateManager.instance.RemoveMessage(n);
+        }
+    }
+    */
 
     public void GetValuesFromSaveFile()
     {
