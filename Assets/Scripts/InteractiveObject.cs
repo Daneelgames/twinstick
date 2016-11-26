@@ -142,7 +142,7 @@ public class InteractiveObject : MonoBehaviour {
     {
         if (activePhraseIndex < dialogues[activeDialogIndex].phrases.Count)
         {
-            phraseCooldown = 1f;
+            phraseCooldown = 0.5f;
             Time.timeScale = 0;
             GameManager.instance.dialogText.text = dialogues[activeDialogIndex].phrases[activePhraseIndex];
             GameManager.instance.dialogAnimator.SetTrigger("Active");
@@ -245,13 +245,14 @@ public class InteractiveObject : MonoBehaviour {
         { 
             if (phraseCooldown > 0)
             {
-                phraseCooldown -= Time.unscaledTime;
+                phraseCooldown -= Time.unscaledDeltaTime;
             }
             else
             {
                 if(Input.GetButtonDown("Submit")) // update phrase
                 {
                     activePhraseIndex += 1;
+                    phraseCooldown = 0.5f;
                     SetPhrase();
                 }
             }
