@@ -10,13 +10,15 @@ public class MessageTransmitter : MonoBehaviour {
         recieverName = j;
     }
 
-    public void SendMessage()
+    public void SendMessage(bool needToFadeIn)
     {
         if (recieverName != "")
         {
             StateManager.instance.AddMessage(recieverName);
             StateManager.instance.RemoveTransmitterMessage(recieverName);
             recieverName = "";
+
+            GameManager.instance.SendMessages(needToFadeIn);
         }
     }
 }

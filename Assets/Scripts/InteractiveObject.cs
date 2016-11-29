@@ -109,7 +109,8 @@ public class InteractiveObject : MonoBehaviour {
         GameManager.instance.camAnim.transform.position = GameManager.instance.cameraHolder.transform.position;
         GameManager.instance.camAnim.transform.SetParent(GameManager.instance.cameraHolder.transform);
         GameManager.instance.camAnim.transform.rotation = Quaternion.identity;
-        GameManager.instance.gui.Fade("Game");
+        //GameManager.instance.gui.Fade("Game");
+        SendMessage(true);
         if (!active)
         {
             stateful.ObjectActive(false);
@@ -150,11 +151,12 @@ public class InteractiveObject : MonoBehaviour {
         else //end of dialog
         {
             GameManager.instance.dialogAnimator.SetTrigger("Inactive");
-
+            /*
             if (messageDialog == activeDialogIndex && messageTransmitter)
             {
                 messageTransmitter.SendMessage();
             }
+            */
 
             if (activeDialogIndex < dialogues.Count - 1 && !locker) //loop last dialog
                 activeDialogIndex += 1;
@@ -191,6 +193,7 @@ public class InteractiveObject : MonoBehaviour {
                     StartCoroutine("ResetCamera", false);
                 else
                 {
+                    SendMessage(false);
                     stateful.ObjectActive(false);
                     gameObject.SetActive(false);
                     return;
@@ -208,6 +211,7 @@ public class InteractiveObject : MonoBehaviour {
                     StartCoroutine("ResetCamera", false);
                 else
                 {
+                    SendMessage(false);
                     stateful.ObjectActive(false);
                     gameObject.SetActive(false);
                     return;
@@ -217,6 +221,14 @@ public class InteractiveObject : MonoBehaviour {
             {
                 StartCoroutine("CanInteractAfterTime");
             }
+        }
+    }
+
+    void SendMessage(bool needToFadeIn)
+    {
+        if (messageDialog == activeDialogIndex && messageTransmitter)
+        {
+            messageTransmitter.SendMessage(needToFadeIn);
         }
     }
 
@@ -232,9 +244,13 @@ public class InteractiveObject : MonoBehaviour {
             GameManager.instance.CutScenePlay(false);
             GameManager.instance.gui.Fade("Game");
             yield return new WaitForSecondsRealtime(1f);
+            SendMessage(false);
         }
         else
+        {
+            SendMessage(false);
             yield return new WaitForSeconds(0.5f);
+        }
 
         canInteract = true;
     }

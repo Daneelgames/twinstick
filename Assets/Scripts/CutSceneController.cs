@@ -64,6 +64,10 @@ public class CutSceneController : MonoBehaviour {
         if (animationEvent.floatParameter > 0.5)
             active = true;
 
+        print(animationEvent.floatParameter + " float");
+        print(animationEvent.intParameter + " int");
+        print(animationEvent.stringParameter + " string");
+
         actorsAnimators[animationEvent.intParameter].SetBool(animationEvent.stringParameter, active);
     }
 
@@ -93,5 +97,10 @@ public class CutSceneController : MonoBehaviour {
                 obj.gameObject.SetActive(true);
                 break;
         }
+    }
+
+    public void CamShakeAmount (float amount)
+    {
+        GameManager.instance.camAnim.SetFloat("ShakeAmount", amount);
     }
 }

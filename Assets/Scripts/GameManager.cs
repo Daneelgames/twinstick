@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        // SEND MESSAGES
+        // SEND MESSAGES ON START OF SCENE
 
         List<string> messengersNames = new List<string>();
         foreach (string m in StateManager.instance.messages)
@@ -170,15 +170,12 @@ public class GameManager : MonoBehaviour {
 
         cameraHolder.transform.position = new Vector3(posX, posY, cameraHolder.transform.position.z);
         cameraHolder.transform.LookAt(new Vector3(posX, posY - 2f, playerInGame.transform.position.z));
-
-        //SendMessages();
-
     }
 
-
-    /*
-    void SendMessages()
+    
+    public void SendMessages(bool needToFadeIn) // CALL IN MIDDLE OF SCENE
     {
+        bool msg = false;
         List<string> messengersNames = new List<string>();
         foreach (string m in StateManager.instance.messages)
         {
@@ -189,16 +186,19 @@ public class GameManager : MonoBehaviour {
                 {
                     s.gameObject.GetComponent<MessageReciever>().GetMessage();
                     messengersNames.Add(m);
+                    msg = true;
                 }
             }
         }
+
+        if (!msg && needToFadeIn) // IF NO CUT SCENE TO PLAY AND NEED TO FADE TO GAME 
+            GameManager.instance.gui.Fade("Game");
 
         foreach (string n in messengersNames)
         {
             StateManager.instance.RemoveMessage(n);
         }
     }
-    */
 
     public void GetValuesFromSaveFile()
     {

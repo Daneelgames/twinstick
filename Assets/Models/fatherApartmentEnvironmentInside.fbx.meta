@@ -43,6 +43,7 @@ ModelImporter:
     100070: FatherHouseRoomWallWindowPart
     100072: BedroomBed
     100074: BedroomBedPillow
+    100076: FatherHouseRoomFloorSealingHole
     400000: //RootNode
     400002: sealing
     400004: wall_1
@@ -81,6 +82,7 @@ ModelImporter:
     400070: FatherHouseRoomWallWindowPart
     400072: BedroomBed
     400074: BedroomBedPillow
+    400076: FatherHouseRoomFloorSealingHole
     2300000: sealing
     2300002: wall_1
     2300004: Locker_1
@@ -118,6 +120,7 @@ ModelImporter:
     2300068: FatherHouseRoomWallWindowPart
     2300070: BedroomBed
     2300072: BedroomBedPillow
+    2300074: FatherHouseRoomFloorSealingHole
     3300000: sealing
     3300002: wall_1
     3300004: Locker_1
@@ -155,6 +158,7 @@ ModelImporter:
     3300068: FatherHouseRoomWallWindowPart
     3300070: BedroomBed
     3300072: BedroomBedPillow
+    3300074: FatherHouseRoomFloorSealingHole
     4300000: sealing
     4300002: wall_1
     4300004: wall_1Corner
@@ -192,6 +196,7 @@ ModelImporter:
     4300068: FatherHouseRoomWallWindow
     4300070: BedroomBedPillow
     4300072: BedroomBed
+    4300074: FatherHouseRoomFloorSealingHole
   materials:
     importMaterials: 0
     materialName: 0
