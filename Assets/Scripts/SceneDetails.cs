@@ -13,5 +13,6 @@ public class SceneDetails : MonoBehaviour {
     void Start()
     {
         GameManager.instance.InitializeScene(this);
+        GameManager.instance.mainCam.backgroundColor = RenderSettings.fogColor;
     }
 }

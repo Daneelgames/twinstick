@@ -8,6 +8,7 @@ public class CutSceneController : MonoBehaviour {
     public Animator csAnim;
     public List<GameObject> cameraAnchors;
     public List<Animator> actorsAnimators;
+    public List<MessageTransmitter> transmitters;
 
     public Stateful stateful;
 
@@ -25,6 +26,11 @@ public class CutSceneController : MonoBehaviour {
     public void Fade(string fade) // Black, Game
     {
         GameManager.instance.gui.Fade(fade);
+    }
+
+    public void SendMessage(int index)
+    {
+        transmitters[index].SendMessage(false);
     }
 
     public void StopCs()

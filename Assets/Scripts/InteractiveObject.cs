@@ -230,6 +230,10 @@ public class InteractiveObject : MonoBehaviour {
         {
             messageTransmitter.SendMessage(needToFadeIn);
         }
+        else if (needToFadeIn)
+        {
+            GameManager.instance.gui.Fade("Game");
+        }
     }
 
     IEnumerator CanInteractAfterTime()
@@ -252,7 +256,8 @@ public class InteractiveObject : MonoBehaviour {
             yield return new WaitForSeconds(0.5f);
         }
 
-        canInteract = true;
+        if (!inDialog)
+            canInteract = true;
     }
 
     void Update()
