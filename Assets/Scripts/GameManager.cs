@@ -138,9 +138,11 @@ public class GameManager : MonoBehaviour {
             {
                 if (m == s.name)
                 {
-                    s.gameObject.GetComponent<MessageReciever>().GetMessage();
+                    MessageReciever msg = s.gameObject.GetComponent<MessageReciever>();
+                    msg.GetMessage();
                     messengersNames.Add(m);
-                    cs = true;
+                    if (msg.csToStart)
+                        cs = true;
                 }
             }
         }
