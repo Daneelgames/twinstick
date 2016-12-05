@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Rigidbody rb;
 
+    bool moveBack = false;
+
     // The vector to store the direction of the player's movement.
     Vector3 movement;
     float inputH = 0;
@@ -161,9 +163,21 @@ public class PlayerMovement : MonoBehaviour
         GameManager.instance.gui.reloadController.StartReload(Random.Range(-30f, 30f), reloadAmount);
     }
 
+    public void MoveBack(float moveTime)
+    {
+        StartCoroutine("MoveBackCoroutine", moveTime);
+    }
+
+    IEnumerator MoveBackCoroutine (float moveTime)
+    {
+        moveBack = true;
+        yield return new WaitForSeconds(moveTime);
+        moveBack = false;
+    }
+
     void Move()
     {
-        if (!Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload)
+        if (!Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload && !playerHealth.invisible && !moveBack)
         {
             /* OLD MOVEMENT
             movement.Set(inputH, 0f, inputV);

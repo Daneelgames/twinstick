@@ -14,6 +14,7 @@ public class StateManager : MonoBehaviour {
     public List<bool> activeObjects = new List<bool>();
     public List<int> activeDialogues = new List<int>();
     public List<string> transmittersMessages = new List<string>();
+    public List<string> deadMobs = new List<string>();
 
     public string sceneSaved;
     public string playerSpawner;
@@ -180,6 +181,36 @@ public class StateManager : MonoBehaviour {
         }
     }
 
+    public void SetMobDead(string mobName)
+    {
+        bool dbl = false;
+        foreach (string i in deadMobs)
+        {
+            if (mobName == i)
+            {
+                dbl = true;
+            }
+        }
+
+        if (!dbl)
+        {
+            deadMobs.Add(mobName);
+        }
+    }
+
+    public bool GetMobDead (string mobName)
+    {
+        foreach (string i in deadMobs)
+        {
+            if (mobName == i)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void SetObjectActive(string objName, bool active)
     {
         if (statefulObjects.Count > 0)
@@ -260,6 +291,7 @@ public class StateManager : MonoBehaviour {
         data.statefulObjects = new List<string>(statefulObjects);
         data.activeObjects = new List<bool>(activeObjects);
         data.activeDialogues = new List<int>(activeDialogues);
+        data.deadMobs = new List<string>(deadMobs);
 
         data.transmittersMessages = new List<string>(transmittersMessages);
 
@@ -296,6 +328,7 @@ public class StateManager : MonoBehaviour {
             statefulObjects = new List<string>(data.statefulObjects);
             activeObjects = new List<bool>(data.activeObjects);
             activeDialogues = new List<int>(data.activeDialogues);
+            deadMobs = new List<string>(data.deadMobs);
 
             transmittersMessages = new List<string>(data.transmittersMessages);
 
@@ -322,6 +355,7 @@ class GameState
     public List<bool> activeObjects = new List<bool>();
     public List<int> activeDialogues = new List<int>();
     public List<string> transmittersMessages = new List<string>();
+    public List<string> deadMobs = new List<string>();
 
     public string sceneSaved;
     public string playerSpawner;

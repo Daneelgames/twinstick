@@ -116,7 +116,9 @@ ModelImporter:
     7400002: embrionMonster@walk
     7400004: metarig|PlaneAction
     7400006: embrionMonster@cordAttack
-    7400008: embrionMonster@idle
+    7400008: embrionMonster@hurt
+    7400010: embrionMonster@idle
+    7400012: embrionMonster@dead
     9500000: //RootNode
     13700000: Embrion
   materials:
@@ -393,6 +395,256 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Embrion
+        weight: 1
+      - path: metarig
+        weight: 1
+      - path: metarig/armIK.L
+        weight: 1
+      - path: metarig/armIK.L/hand.L
+        weight: 1
+      - path: metarig/armIK.L/hand.L/hand.L_end
+        weight: 1
+      - path: metarig/forearm.R.001
+        weight: 1
+      - path: metarig/forearm.R.001/hand.R
+        weight: 1
+      - path: metarig/forearm.R.001/hand.R/hand.R_end
+        weight: 1
+      - path: metarig/hips
+        weight: 1
+      - path: metarig/hips/spine
+        weight: 1
+      - path: metarig/hips/spine/chest
+        weight: 1
+      - path: metarig/hips/spine/chest/neck
+        weight: 1
+      - path: metarig/hips/spine/chest/neck/head
+        weight: 1
+      - path: metarig/hips/spine/chest/neck/head/head_end
+        weight: 1
+      - path: metarig/hips/spine/chest/shoulder.L
+        weight: 1
+      - path: metarig/hips/spine/chest/shoulder.L/upper_arm.L
+        weight: 1
+      - path: metarig/hips/spine/chest/shoulder.L/upper_arm.L/forearm.L
+        weight: 1
+      - path: metarig/hips/spine/chest/shoulder.L/upper_arm.L/forearm.L/forearm.L_end
+        weight: 1
+      - path: metarig/hips/spine/chest/shoulder.R
+        weight: 1
+      - path: metarig/hips/spine/chest/shoulder.R/upper_arm.R
+        weight: 1
+      - path: metarig/hips/spine/chest/shoulder.R/upper_arm.R/forearm.R
+        weight: 1
+      - path: metarig/hips/spine/chest/shoulder.R/upper_arm.R/forearm.R/forearm.R_end
+        weight: 1
+      - path: metarig/hips/spine/cord
+        weight: 1
+      - path: metarig/hips/spine/cord/cord.001
+        weight: 1
+      - path: metarig/hips/spine/cord/cord.001/cord.002
+        weight: 1
+      - path: metarig/hips/spine/cord/cord.001/cord.002/cord.003
+        weight: 1
+      - path: metarig/hips/spine/cord/cord.001/cord.002/cord.003/cord.003_end
+        weight: 1
+      - path: metarig/hips/spine/SPNIEbLOB
+        weight: 1
+      - path: metarig/hips/spine/SPNIEbLOB/SPNIEbLOB_end
+        weight: 1
+      - path: metarig/hips/thigh.L
+        weight: 1
+      - path: metarig/hips/thigh.L/shin.L
+        weight: 1
+      - path: metarig/hips/thigh.L/shin.L/shin.L_end
+        weight: 1
+      - path: metarig/hips/thigh.R
+        weight: 1
+      - path: metarig/hips/thigh.R/shin.R
+        weight: 1
+      - path: metarig/hips/thigh.R/shin.R/shin.R_end
+        weight: 1
+      - path: metarig/knee.L
+        weight: 1
+      - path: metarig/knee.L/knee.L_end
+        weight: 1
+      - path: metarig/knee.R
+        weight: 1
+      - path: metarig/knee.R/knee.R_end
+        weight: 1
+      - path: metarig/legIK.L
+        weight: 1
+      - path: metarig/legIK.L/foot.L
+        weight: 1
+      - path: metarig/legIK.L/foot.L/foot.L.001
+        weight: 1
+      - path: metarig/legIK.L/foot.L/foot.L.001/foot.L.001_end
+        weight: 1
+      - path: metarig/legIK.R
+        weight: 1
+      - path: metarig/legIK.R/foot.R
+        weight: 1
+      - path: metarig/legIK.R/foot.R/foot.R.001
+        weight: 1
+      - path: metarig/legIK.R/foot.R/foot.R.001/foot.R.001_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: embrionMonster@hurt
+      takeName: metarig|metarigAction
+      firstFrame: 300
+      lastFrame: 330
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Embrion
+        weight: 1
+      - path: EmbrionMicroHead
+        weight: 1
+      - path: metarig
+        weight: 1
+      - path: metarig/armIK.L
+        weight: 1
+      - path: metarig/armIK.L/hand.L
+        weight: 1
+      - path: metarig/armIK.L/hand.L/hand.L_end
+        weight: 1
+      - path: metarig/forearm.R.001
+        weight: 1
+      - path: metarig/forearm.R.001/hand.R
+        weight: 1
+      - path: metarig/forearm.R.001/hand.R/hand.R_end
+        weight: 1
+      - path: metarig/hips
+        weight: 1
+      - path: metarig/hips/spine
+        weight: 1
+      - path: metarig/hips/spine/chest
+        weight: 1
+      - path: metarig/hips/spine/chest/neck
+        weight: 1
+      - path: metarig/hips/spine/chest/neck/head
+        weight: 1
+      - path: metarig/hips/spine/chest/neck/head/head_end
+        weight: 1
+      - path: metarig/hips/spine/chest/shoulder.L
+        weight: 1
+      - path: metarig/hips/spine/chest/shoulder.L/upper_arm.L
+        weight: 1
+      - path: metarig/hips/spine/chest/shoulder.L/upper_arm.L/forearm.L
+        weight: 1
+      - path: metarig/hips/spine/chest/shoulder.L/upper_arm.L/forearm.L/forearm.L_end
+        weight: 1
+      - path: metarig/hips/spine/chest/shoulder.R
+        weight: 1
+      - path: metarig/hips/spine/chest/shoulder.R/upper_arm.R
+        weight: 1
+      - path: metarig/hips/spine/chest/shoulder.R/upper_arm.R/forearm.R
+        weight: 1
+      - path: metarig/hips/spine/chest/shoulder.R/upper_arm.R/forearm.R/forearm.R_end
+        weight: 1
+      - path: metarig/hips/spine/cord
+        weight: 1
+      - path: metarig/hips/spine/cord/cord.001
+        weight: 1
+      - path: metarig/hips/spine/cord/cord.001/cord.002
+        weight: 1
+      - path: metarig/hips/spine/cord/cord.001/cord.002/cord.003
+        weight: 1
+      - path: metarig/hips/spine/cord/cord.001/cord.002/cord.003/cord.003_end
+        weight: 1
+      - path: metarig/hips/spine/SPNIEbLOB
+        weight: 1
+      - path: metarig/hips/spine/SPNIEbLOB/SPNIEbLOB_end
+        weight: 1
+      - path: metarig/hips/thigh.L
+        weight: 1
+      - path: metarig/hips/thigh.L/shin.L
+        weight: 1
+      - path: metarig/hips/thigh.L/shin.L/shin.L_end
+        weight: 1
+      - path: metarig/hips/thigh.R
+        weight: 1
+      - path: metarig/hips/thigh.R/shin.R
+        weight: 1
+      - path: metarig/hips/thigh.R/shin.R/shin.R_end
+        weight: 1
+      - path: metarig/knee.L
+        weight: 1
+      - path: metarig/knee.L/knee.L_end
+        weight: 1
+      - path: metarig/knee.R
+        weight: 1
+      - path: metarig/knee.R/knee.R_end
+        weight: 1
+      - path: metarig/legIK.L
+        weight: 1
+      - path: metarig/legIK.L/foot.L
+        weight: 1
+      - path: metarig/legIK.L/foot.L/foot.L.001
+        weight: 1
+      - path: metarig/legIK.L/foot.L/foot.L.001/foot.L.001_end
+        weight: 1
+      - path: metarig/legIK.R
+        weight: 1
+      - path: metarig/legIK.R/foot.R
+        weight: 1
+      - path: metarig/legIK.R/foot.R/foot.R.001
+        weight: 1
+      - path: metarig/legIK.R/foot.R/foot.R.001/foot.R.001_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: embrionMonster@dead
+      takeName: metarig|metarigAction
+      firstFrame: 350
+      lastFrame: 394
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

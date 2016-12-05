@@ -3,17 +3,17 @@ using System.Collections;
 
 public class HealthController : MonoBehaviour {
 
-    public enum Type { Unit, Projectile}
-
-    public Type objectType = Type.Unit;
-
     public int maxHealth = 1;
     public int health = 1;
 
     public bool player = false;
 
     public bool invisible = false;
-    
+
+    public Animator anim;
+
+    public MobMovement mobController;
+
     public void SetInvisible(bool invs)
     {
         invisible = invs;
@@ -26,23 +26,33 @@ public class HealthController : MonoBehaviour {
 
     public void Damage(int dmg)
     {
-        if (dmg > 0)
+        if (dmg > 0 && health > 0)
         {
             if (!invisible)
+            {
                 health -= dmg;
 
-            if (health <= 0)
-            {
-                health = 0;
-                Death();
-            }
+                if (health <= 0)
+                {
+                    health = 0;
+                    Death();
+                }
+                else
+                {
+                    anim.SetTrigger("Hurt");
 
-            if (player)
-            {
-                if (health > 0 && gameObject.activeInHierarchy)
-                    StartCoroutine("PlayerInvisibleFrames");
+                    if (mobController)
+                        mobController.Hurt();
+                }
 
-                GameManager.instance.gui.SetHealth();
+                if (player)
+                {
+                    if (health > 0)
+                        StartCoroutine("PlayerInvisibleFrames");
+
+                    GameManager.instance.playerController.MoveBack(0.75f);
+                    GameManager.instance.gui.SetHealth();
+                }
             }
         }
     }
@@ -60,8 +70,7 @@ public class HealthController : MonoBehaviour {
     {
         invisible = true;
 
-        yield return new WaitForSeconds(1f);
-
+        yield return new WaitForSeconds(0.75f);
 
         if (invisible)
             invisible = false;
@@ -69,20 +78,15 @@ public class HealthController : MonoBehaviour {
 
     void Death()
     {
-        switch (objectType)
-        {
-            case Type.Unit:
-                gameObject.SetActive(false);
-                break;
-
-            case Type.Projectile:
-                DestroyObject();
-                break;
-        }
-
         if (player)
         {
             GameManager.instance.PlayerDead();
+        }
+        else
+        {
+            mobController.Dead();
+            anim.SetTrigger("Dead");
+            anim.SetBool("Dead.persist", true);
         }
     }
 

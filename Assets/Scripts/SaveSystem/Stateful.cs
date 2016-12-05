@@ -10,6 +10,7 @@ public class Stateful : MonoBehaviour {
     public List<string> boolsToSave = new List<string>();
     public Animator anim;
     public MessageTransmitter mt;
+    public MobMovement mobController;
     
     void Awake()
     {
@@ -35,6 +36,13 @@ public class Stateful : MonoBehaviour {
         {
             SetAnimatorBoolsOnAwake();   
         }
+        if (mobController)
+        {
+            if (StateManager.instance.GetMobDead(gameObject.name)) // if mob is dead
+            {
+                mobController.Dead();
+            }
+        }
 
         GameManager.instance.AddStateful(this);
     }
@@ -49,7 +57,12 @@ public class Stateful : MonoBehaviour {
     {
         StateManager.instance.SetObjectActive(gameObject.name, active);
     }
-    
+
+    public void MobDead()
+    {
+        StateManager.instance.SetMobDead(gameObject.name);
+    }
+
     void SetAnimatorBoolsOnAwake()
     {
         string boolValues = "";
