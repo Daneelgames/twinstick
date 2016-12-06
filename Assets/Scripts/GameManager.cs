@@ -31,9 +31,6 @@ public class GameManager : MonoBehaviour {
     public int shells = 20;
     public List<GameObject> playerWeapons;
 
-
-    public List<MobSpawnerController> spawners;
-
     public InteractiveObject npcToInteract = null;
 
     public Animator dialogAnimator;
@@ -51,6 +48,7 @@ public class GameManager : MonoBehaviour {
     public GameObject canvasPrefab;
 
     public InventoryItemsList inventoryItems;
+
 
     void Awake()
     {
@@ -103,11 +101,6 @@ public class GameManager : MonoBehaviour {
         playerController.playerHealth.SetHealth(StateManager.instance.playerHealth);
         gui.SetHealth();
 
-        List<GameObject> spwnrs = new List<GameObject>(GameObject.FindGameObjectsWithTag("MobSpawner"));
-        foreach (GameObject i in spwnrs)
-        {
-            spawners.Add(i.GetComponent<MobSpawnerController>());
-        }
         Time.timeScale = 1;
 
         _sm = scene;
@@ -234,7 +227,7 @@ public class GameManager : MonoBehaviour {
 
         if (StateManager.instance.sceneSaved != "")
         {
-            if (StateManager.instance.sceneSaved != SceneManager.GetActiveScene().name)
+            //if (StateManager.instance.sceneSaved != SceneManager.GetActiveScene().name)
             {
                 characterSpawnerName = StateManager.instance.playerSpawner;
                 LoadToNewScene(StateManager.instance.sceneSaved, characterSpawnerName);
@@ -266,19 +259,20 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator RespawnPlayer()
     {
+        gui.Fade("Black");
         yield return new WaitForSeconds(1f);
-        playerInGame.SetActive(true);
-        startCampfire.SpawnPlayer();
-        RespawnMobs();
-    }
-
-    public void RespawnMobs()
-    {
-        foreach (MobSpawnerController i in spawners)
-        {
-            i.DestroyMob();
-            i.Spawn();
-        }
+        mainCam.cullingMask = (1 << 13);
+        playerInGame.SetActive(false);
+        gui.Fade("Game");
+        mainCam.backgroundColor = Color.black;
+        camAnim.SetBool("PlayerDead", true);
+        yield return new WaitForSeconds(7f);
+        gui.Fade("Black");
+        yield return new WaitForSeconds(1f);
+        mainCam.cullingMask = ~(1 << 13);
+        mainCam.cullingMask &= ~(1 << 12);
+        camAnim.SetBool("PlayerDead", false);
+        StateManager.instance.GameLoad();
     }
 
 
