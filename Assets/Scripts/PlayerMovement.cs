@@ -1,5 +1,6 @@
-﻿    using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     //public float turnSmooth = 50f;
 
+    public List<WeaponController> weapons = new List<WeaponController>();
     public WeaponController weaponController;
     public HealthController playerHealth;
 
@@ -18,7 +20,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     Animator anim;
     [SerializeField]
-    Transform weapon;
 
     public Rigidbody rb;
 
@@ -28,8 +29,6 @@ public class PlayerMovement : MonoBehaviour
     Vector3 movement;
     float inputH = 0;
     float inputV = 0;
-
-    public Transform weaponHolder;
 
     public bool realoading = false;
 
@@ -66,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
                 Aiming();
 
                 if (weaponController != null)
-                    Shooting();
+                    Attacking();
             }
 
             if (weaponController != null)
@@ -77,54 +76,46 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    IEnumerator CamShakeShort(float amount)
+    void Attacking()
     {
-        GameManager.instance.camAnim.SetFloat("ShakeAmount", amount);
-        yield return new WaitForSeconds(0.25f);
-        GameManager.instance.camAnim.SetFloat("ShakeAmount", 0);
-    }
-
-    void Shooting()
-    {
-        if (weaponController.ammo > 0 && Input.GetButtonDown("Fire1") && aim && weaponController.curCooldown <= 0)
+        if (Input.GetButtonDown("Fire1") && aim && weaponController.curCooldown <= 0)
         {
             bool canShoot = false;
 
             switch (weaponController.weaponAmmoType)
             {
                 case WeaponController.Type.Bullet:
-                    if (GameManager.instance.bullets > 0)
+                    if (GameManager.instance.bullets > 0 && weaponController.ammo > 0)
                         canShoot = true;
-                    else
-                        canShoot = false;
                     break;
 
                 case WeaponController.Type.Shell:
-                    if (GameManager.instance.shells > 0)
+                    if (GameManager.instance.shells > 0 && weaponController.ammo > 0)
                         canShoot = true;
-                    else
-                        canShoot = false;
+                    break;
+                
+                case WeaponController.Type.Melee:
+                    canShoot = true;
                     break;
             }
 
             if (canShoot)
             {
-                StartCoroutine("CamShakeShort", Random.Range(0.2f, 0.4f));
                 anim.SetTrigger("Shoot");
-                weaponController.Shot(aimTarget);
+                weaponController.Attack(aimTarget);
             }
         }
     }
 
     void Reloading()
     {
-        if (weaponController.curCooldown <= 0 && weaponController.ammo < weaponController.ammoCap && !GameManager.instance.gui.reloadController.reload)
+        if (weaponController.curCooldown <= 0 && weaponController.ammo < weaponController.ammoMax && !GameManager.instance.gui.reloadController.reload)
         {
             if (Input.GetButtonDown("Reload"))
             {
 
                 bool canReload = false;
-                int reloadAmount = weaponController.ammoCap - weaponController.ammo;
+                int reloadAmount = weaponController.ammoMax - weaponController.ammo;
 
                 switch (weaponController.weaponAmmoType)
                 {
@@ -228,20 +219,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    public void SetWeapon(int weaponIndex)
-    {
-        GameObject wpn = Instantiate(GameManager.instance.playerWeapons[weaponIndex], Vector3.zero, Quaternion.identity) as GameObject;
-        
-        weaponController = wpn.GetComponent<WeaponController>();
-        weaponController.gameObject.SetActive(true);
-        weapon = wpn.transform;
-
-        wpn.name = "Weapon";
-        wpn.transform.SetParent(weaponHolder);
-        wpn.transform.localPosition = Vector3.zero;
-        wpn.transform.localEulerAngles = Vector3.zero;
-    }
-
     void Animate()
     {
         if (inputH != 0 || inputV != 0)
@@ -258,6 +235,23 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void SetWeapon(string weaponName)
+    {
+        foreach(WeaponController j in weapons)
+        {
+            if (j.name == weaponName)
+            {
+                j.gameObject.SetActive(true);
+                weaponController = j;
+                anim.SetFloat("WeaponIndex", weapons.IndexOf(j) * 1.0f);
+            }
+            else
+            {
+                    j.gameObject.SetActive(false);
+            }
+        }
+    }
+
     void Aiming()
     {
         if (Input.GetButtonDown("Aim"))
@@ -268,7 +262,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload && Time.timeScale > 0)
         {
-            if (weapon != null)
+            if (GameManager.instance.activeWeapon != "")
             {
                 anim.SetBool("Aim", true);
             }
@@ -285,13 +279,14 @@ public class PlayerMovement : MonoBehaviour
             if (Physics.Raycast(camRay, out floorHit, 30f, aimLayers))
             {
 
-                if (weaponController != null)
+                if (weaponController != null && weaponController.shotHolder)
                 {
                     line.SetPosition(0, weaponController.shotHolder.transform.position);
                     line.SetPosition(1, floorHit.point);
                 }
 
-                ikController.SetTarget(floorHit.point, true);
+                if (!weaponController || weaponController.weaponAmmoType != WeaponController.Type.Melee)
+                    ikController.SetTarget(floorHit.point, true);
                 Vector3 playerToMouse = floorHit.point - transform.position;
 
                 aimTarget = floorHit.point;

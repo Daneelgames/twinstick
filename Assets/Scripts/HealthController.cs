@@ -45,11 +45,11 @@ public class HealthController : MonoBehaviour {
                         mobController.Hurt();
                 }
 
+                if (health > 0)
+                    StartCoroutine("PlayerInvisibleFrames");
+
                 if (player)
                 {
-                    if (health > 0)
-                        StartCoroutine("PlayerInvisibleFrames");
-
                     GameManager.instance.playerController.MoveBack(0.75f);
                     GameManager.instance.gui.SetHealth();
                 }
@@ -70,7 +70,7 @@ public class HealthController : MonoBehaviour {
     {
         invisible = true;
 
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(0.5f);
 
         if (invisible)
             invisible = false;
@@ -80,6 +80,8 @@ public class HealthController : MonoBehaviour {
     {
         if (player)
         {
+            Time.timeScale = 0.3f;
+            anim.SetTrigger("Hurt");
             GameManager.instance.PlayerDead();
         }
         else

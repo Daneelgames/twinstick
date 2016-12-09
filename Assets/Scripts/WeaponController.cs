@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public class WeaponController : MonoBehaviour {
 
-    public enum Type {Bullet, Shell};
+    public enum Type {Bullet, Shell, Melee};
 
-    public int ammoCap = 0;
+    public int ammoMax = 0;
     public int ammo = 0;
 
     public bool automatic = false;
@@ -16,6 +16,8 @@ public class WeaponController : MonoBehaviour {
 
     public GameObject shotHolder;
 
+    public bool dangerous = false;
+    public int meleeDamage = 1;
     public List<GameObject> bullets;
 
     public Type weaponAmmoType = Type.Bullet;
@@ -45,25 +47,40 @@ public class WeaponController : MonoBehaviour {
         ammo += reloadAmount;
     }
 
-    public void Shot(Vector3 target)
+    void OnTriggerEnter(Collider col)
+    {
+      if (dangerous && col.gameObject.layer == 8 && col.tag == "HealthCollider")   // 8 layer is Unit
+      {
+          col.GetComponent<HealthCollider>().Damage(meleeDamage);
+      }
+    }
+
+    public void Attack(Vector3 target)
     {
         if (curCooldown <= 0)
         {
-            if (ammo > 0)
+            if (weaponAmmoType == Type.Bullet || weaponAmmoType == Type.Shell)
             {
-                ammo -= 1;
-                curCooldown = cooldownTime;
-                for (int i = 0; i < bullets.Count; i++)
+                if (ammo > 0)
                 {
-                    GameObject newBullet = Instantiate(bullets[i], shotHolder.transform.position, Quaternion.identity) as GameObject;
-                    BulletController newBulletController = newBullet.GetComponent<BulletController>();
+                    ammo -= 1;
+                    curCooldown = cooldownTime;
+                    for (int i = 0; i < bullets.Count; i++)
+                    {
+                        GameObject newBullet = Instantiate(bullets[i], shotHolder.transform.position, Quaternion.identity) as GameObject;
+                        BulletController newBulletController = newBullet.GetComponent<BulletController>();
 
-                    newBulletController.SetDirection(target);
+                        newBulletController.SetDirection(target);
+                    }
+                }
+                else
+                {
+                    // play clip sound
                 }
             }
             else
             {
-                // play clip sound
+                    curCooldown = cooldownTime;
             }
         }
     }

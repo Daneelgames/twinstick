@@ -22,14 +22,14 @@ public class GameManager : MonoBehaviour {
     public GameObject playerInGame;
     public PlayerMovement playerController;
 
-    public List<GameObject> weapons;
+    public List<string> weapons;
     public GameObject playerPrefab;
 
     public int playerHealth = 10;
     public CampfireController startCampfire;
     public int bullets = 50;
     public int shells = 20;
-    public List<GameObject> playerWeapons;
+    public string activeWeapon;
 
     public InteractiveObject npcToInteract = null;
 
@@ -94,9 +94,6 @@ public class GameManager : MonoBehaviour {
         playerController = playerInGame.GetComponent<PlayerMovement>();
 
         startCampfire = GameObject.Find(characterSpawnerName).GetComponent<CampfireController>();
-
-        if (playerWeapons.Count > 0)
-            playerController.SetWeapon(playerWeapons.Count - 1);
 
         playerController.playerHealth.SetHealth(StateManager.instance.playerHealth);
         gui.SetHealth();
@@ -165,6 +162,7 @@ public class GameManager : MonoBehaviour {
 
         cameraHolder.transform.position = new Vector3(posX, posY, cameraHolder.transform.position.z);
         cameraHolder.transform.LookAt(new Vector3(posX, posY - 2f, playerInGame.transform.position.z));
+        SetActiveWeapon(StateManager.instance.activeWeapon);
     }
 
     
@@ -206,17 +204,6 @@ public class GameManager : MonoBehaviour {
                 shells = StateManager.instance.playerAmmo[1];
         }
 
-        // iterate through lists, make playerWeaponList
-        foreach (string name in StateManager.instance.playerWeapons)
-        {
-            foreach (GameObject i in weapons)
-            {
-                if (i.name == name)
-                    playerWeapons.Add(i);
-            }
-        }
-
-        // quest items
 
         // get spawner on save
         if (StateManager.instance.playerSpawner != null)
@@ -260,15 +247,16 @@ public class GameManager : MonoBehaviour {
     IEnumerator RespawnPlayer()
     {
         gui.Fade("Black");
-        yield return new WaitForSeconds(1f);
-        mainCam.cullingMask = (1 << 13);
+        yield return new WaitForSecondsRealtime(1f);
+        mainCam.cullingMask = (1 << 13); // only player dead
+        mainCam.cullingMask ^= (1 << 5);
         playerInGame.SetActive(false);
         gui.Fade("Game");
         mainCam.backgroundColor = Color.black;
         camAnim.SetBool("PlayerDead", true);
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSecondsRealtime(7f);
         gui.Fade("Black");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         mainCam.cullingMask = ~(1 << 13);
         mainCam.cullingMask &= ~(1 << 12);
         camAnim.SetBool("PlayerDead", false);
@@ -295,7 +283,7 @@ public class GameManager : MonoBehaviour {
         {
             if (Input.GetButtonDown("Submit"))
             {
-                if (npcToInteract != null && !inventory.active)
+                if (npcToInteract != null && !inventory.active && playerHealth > 0)
                 {
                     npcToInteract.Talk();
                     //actionFeedbackController.SetFeedback(false, "");
@@ -309,21 +297,11 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void AddPlayerWeapon(GameObject weapon)
+    public void SetActiveWeapon(string weaponName)
     {
-        foreach(GameObject i in weapons)
-        {
-            if (weapon.name == i.name)
-            {
-                playerWeapons.Add(i);
-                playerController.SetWeapon(playerWeapons.Count - 1);
-                break;
-            }
-        }
-    }
-    public void RemovePlayerWeapon(GameObject weapon)
-    {
-        playerWeapons.Remove(weapon);
+        activeWeapon = weaponName;
+        playerController.SetWeapon(activeWeapon);
+        StateManager.instance.SetActiveWeapon(weaponName);
     }
 
     public void SetAmmo (WeaponController.Type type, int amount)

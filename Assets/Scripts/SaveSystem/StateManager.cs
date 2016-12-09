@@ -19,8 +19,8 @@ public class StateManager : MonoBehaviour {
     public string sceneSaved;
     public string playerSpawner;
     public int playerHealth = 10;
+    public string activeWeapon;
     public List<string> questItems = new List<string>();
-    public List<string> playerWeapons = new List<string>();
     public List<int> playerAmmo = new List<int>();
 
     public List<string> statefulObjectsAnimators = new List<string>();
@@ -281,6 +281,11 @@ public class StateManager : MonoBehaviour {
         }
     }
 
+    public void SetActiveWeapon(string weaponName)
+    {
+        activeWeapon = weaponName;
+    }
+
     public void GameSave()
     {
         BinaryFormatter bf = new BinaryFormatter();
@@ -298,18 +303,13 @@ public class StateManager : MonoBehaviour {
         data.sceneSaved = SceneManager.GetActiveScene().name;
         data.playerSpawner = playerSpawner = GameManager.instance.startCampfire.name;
         data.playerHealth = playerHealth = GameManager.instance.playerController.playerHealth.health;
+        data.activeWeapon = activeWeapon;
         data.questItems = new List<string>(questItems);
 
         data.statefulObjectsAnimators = new List<string>(statefulObjectsAnimators);
         data.statefulObjectsAnimatorsBooleans = new List<string>(statefulObjectsAnimatorsBooleans);
         data.messages = new List<string>(messages);
 
-        List<string> tempWeaponList = new List<string>();
-        foreach (GameObject i in GameManager.instance.playerWeapons)
-        {
-            tempWeaponList.Add(i.name);
-        }
-        data.playerWeapons = new List<string>(tempWeaponList);
         data.playerAmmo = new List<int>(playerAmmo);
 
         bf.Serialize(file, data);
@@ -335,8 +335,8 @@ public class StateManager : MonoBehaviour {
             sceneSaved = data.sceneSaved;
             playerSpawner = data.playerSpawner;
             playerHealth = data.playerHealth;
+            activeWeapon = data.activeWeapon;
             questItems = new List<string>(data.questItems);
-            playerWeapons = new List<string>(data.playerWeapons);
             playerAmmo = new List<int>(data.playerAmmo);
 
             statefulObjectsAnimators = new List<string>(data.statefulObjectsAnimators);
@@ -360,8 +360,8 @@ class GameState
     public string sceneSaved;
     public string playerSpawner;
     public int playerHealth = 100;
+    public string activeWeapon;
     public List<string> questItems;
-    public List<string> playerWeapons;
     public List<int> playerAmmo;
 
     public List<string> statefulObjectsAnimators = new List<string>();

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class InventoryControllerGUI : MonoBehaviour {
 
     public bool active = false;
-    float coolDownMax = 0.5f;
+    float coolDownMax = 0.3f;
     float coolDown = 0f;
 
     public Animator anim;
@@ -15,8 +15,10 @@ public class InventoryControllerGUI : MonoBehaviour {
 
     public int cursorAt = 0;
     public int cursotAtGlobal = 0;
+    int oldOffset = 0;
     public GameObject cursor;
     public List<Image> slotsImages = new List<Image>();
+    public List<Image> equipFeedback = new List<Image>();
     public List<Animator> animators = new List<Animator>();
     
     public List<Animator> arrowsAnimators = new List<Animator>();
@@ -39,17 +41,40 @@ public class InventoryControllerGUI : MonoBehaviour {
                 if (Input.GetAxisRaw("Horizontal") > 0)
                 {
                     horAxisInUse = true;
+                        coolDown = coolDownMax;
                     MoveCursor("Right");
                 }
                 else if (Input.GetAxisRaw("Horizontal") < 0)
                 {
                     horAxisInUse = true;
+                        coolDown = coolDownMax;
                     MoveCursor("Left");
                 }
             }
             else if (Input.GetAxisRaw("Horizontal") == 0)
             {
                 horAxisInUse = false;
+            }
+
+            if (Input.GetButtonDown("Submit"))
+            {
+                foreach (string j in GameManager.instance.weapons)
+                {
+                    if (j == StateManager.instance.questItems[cursotAtGlobal])
+                    {
+                        if (GameManager.instance.activeWeapon == j)
+                        {
+                            GameManager.instance.SetActiveWeapon("");
+                        }
+                        else
+                        {
+                            GameManager.instance.SetActiveWeapon(j);
+                        }
+                        UpdateItems(oldOffset);
+                        coolDown = coolDownMax;
+                        break;
+                    }
+                }
             }
 
             /*
@@ -95,6 +120,8 @@ public class InventoryControllerGUI : MonoBehaviour {
 
     void UpdateItems(int offset)
     {
+        oldOffset = offset;
+        bool haveItems = false; 
         for (int i = 0; i < 9; i ++)
         {
             if (StateManager.instance.questItems.Count > i)
@@ -105,9 +132,17 @@ public class InventoryControllerGUI : MonoBehaviour {
                 {
                     if (StateManager.instance.questItems[i + offset] == GameManager.instance.inventoryItems.items[j].name) // FOUND NEEDED ITEM
                     {
+                        if (StateManager.instance.questItems[i + offset] == GameManager.instance.activeWeapon)
+                        {
+                            equipFeedback[i].color = Color.white;
+                        }
+                        else
+                            equipFeedback[i].color = Color.clear;
+
                         slotsImages[i].sprite = GameManager.instance.inventoryItems.items[j].itemSprite;
                         names[i] = GameManager.instance.inventoryItems.items[j].itemName;
                         descriptions[i] = GameManager.instance.inventoryItems.items[j].itemDescription;
+                        haveItems = true;
                         break;
                     }
                 }
@@ -115,8 +150,22 @@ public class InventoryControllerGUI : MonoBehaviour {
             else
             {
                 slotsImages[i].color = Color.clear;
+                equipFeedback[i].color = Color.clear;
             }
         }
+        if (!haveItems)
+        {
+            for(int i = 0; i < names.Count; i ++)
+            {
+                names[i] = "";
+            }
+            
+            for(int i = 0; i < descriptions.Count; i ++)
+            {
+                descriptions[i] = "";
+            }
+        }
+
         SetText();
 
         if (offset > 0)
