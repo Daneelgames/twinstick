@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody rb;
 
     bool moveBack = false;
-
+    public bool attacking = false;
     // The vector to store the direction of the player's movement.
     Vector3 movement;
     float inputH = 0;
@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Attacking()
     {
-        if (Input.GetButtonDown("Fire1") && aim && weaponController.curCooldown <= 0)
+        if (Input.GetButtonDown("Fire1") && aim && weaponController.curCooldown <= 0  && !moveBack)
         {
             bool canShoot = false;
 
@@ -102,14 +102,22 @@ public class PlayerMovement : MonoBehaviour
             if (canShoot)
             {
                 anim.SetTrigger("Shoot");
+                attacking = true;
+                StartCoroutine("AttackingEnd", weaponController.cooldownTime);
                 weaponController.Attack(aimTarget);
             }
         }
     }
 
+    IEnumerator AttackingEnd(float t)
+    {
+        yield return new WaitForSeconds(t);
+        attacking = false;   
+    }
+
     void Reloading()
     {
-        if (weaponController.curCooldown <= 0 && weaponController.ammo < weaponController.ammoMax && !GameManager.instance.gui.reloadController.reload)
+        if (weaponController.curCooldown <= 0 && weaponController.ammo < weaponController.ammoMax && !GameManager.instance.gui.reloadController.reload && !moveBack)
         {
             if (Input.GetButtonDown("Reload"))
             {
@@ -168,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        if (!Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload && !playerHealth.invisible && !moveBack)
+        if (!Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload && !playerHealth.invisible && !moveBack && !attacking)
         {
             /* OLD MOVEMENT
             movement.Set(inputH, 0f, inputV);
@@ -223,7 +231,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (inputH != 0 || inputV != 0)
         {
-            if (!Input.GetButton("Aim"))
+            if (!Input.GetButton("Aim") && !attacking && !moveBack)
                 anim.SetBool("Move", true);
             else
                 anim.SetBool("Move", false);
@@ -248,6 +256,7 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                     j.gameObject.SetActive(false);
+                    weaponController = null;
             }
         }
     }
@@ -260,7 +269,7 @@ public class PlayerMovement : MonoBehaviour
                 weaponController.curCooldown = 0.5f;
         }
 
-        if (Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload && Time.timeScale > 0)
+        if (Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload && Time.timeScale > 0 && !moveBack)
         {
             if (GameManager.instance.activeWeapon != "")
             {
@@ -272,49 +281,52 @@ public class PlayerMovement : MonoBehaviour
             Ray camRay = GameManager.instance.mainCam.ScreenPointToRay(GameManager.instance.mainCam.ViewportToScreenPoint(normalized));
             */
 
-            Ray camRay = GameManager.instance.mainCam.ScreenPointToRay(Input.mousePosition);
-
-            RaycastHit floorHit;
-
-            if (Physics.Raycast(camRay, out floorHit, 30f, aimLayers))
+            if (!attacking)
             {
+                Ray camRay = GameManager.instance.mainCam.ScreenPointToRay(Input.mousePosition);
 
-                if (weaponController != null && weaponController.shotHolder)
+                RaycastHit floorHit;
+
+                if (Physics.Raycast(camRay, out floorHit, 30f, aimLayers))
                 {
-                    line.SetPosition(0, weaponController.shotHolder.transform.position);
-                    line.SetPosition(1, floorHit.point);
-                }
 
-                if (!weaponController || weaponController.weaponAmmoType != WeaponController.Type.Melee)
-                    ikController.SetTarget(floorHit.point, true);
-                Vector3 playerToMouse = floorHit.point - transform.position;
+                    if (weaponController != null && weaponController.shotHolder)
+                    {
+                        line.SetPosition(0, weaponController.shotHolder.transform.position);
+                        line.SetPosition(1, floorHit.point);
+                    }
 
-                aimTarget = floorHit.point;
+                    if (!weaponController || weaponController.weaponAmmoType != WeaponController.Type.Melee)
+                        ikController.SetTarget(floorHit.point, true);
+                    Vector3 playerToMouse = floorHit.point - transform.position;
 
-                playerToMouse.y = 0f;
+                    aimTarget = floorHit.point;
 
-                aim = true;
+                    playerToMouse.y = 0f;
 
-                Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-                newRotation = Quaternion.Slerp(newRotation, transform.rotation, Time.deltaTime * 40f);
-                float difference = Mathf.Abs(Mathf.RoundToInt(newRotation.eulerAngles.y) - rotateY);
-                //print(difference);
-                if (difference > 4)
-                {
-                    rb.MoveRotation(newRotation);
-                    anim.SetBool("LegsTurn", true);
+                    aim = true;
+
+                    Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
+                    newRotation = Quaternion.Slerp(newRotation, transform.rotation, Time.deltaTime * 40f);
+                    float difference = Mathf.Abs(Mathf.RoundToInt(newRotation.eulerAngles.y) - rotateY);
+                    //print(difference);
+                    if (difference > 4)
+                    {
+                        rb.MoveRotation(newRotation);
+                        anim.SetBool("LegsTurn", true);
+                    }
+                    else
+                    {
+                        anim.SetBool("LegsTurn", false);
+                    }
+                    rotateY = Mathf.RoundToInt(transform.eulerAngles.y);
+
                 }
                 else
                 {
-                    anim.SetBool("LegsTurn", false);
+                    ikController.SetTarget(ikController.lookPos, false);
+                    aim = false;
                 }
-                rotateY = Mathf.RoundToInt(transform.eulerAngles.y);
-
-            }
-            else
-            {
-                ikController.SetTarget(ikController.lookPos, false);
-                aim = false;
             }
         }
         else

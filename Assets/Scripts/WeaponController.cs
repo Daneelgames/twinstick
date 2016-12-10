@@ -21,6 +21,8 @@ public class WeaponController : MonoBehaviour {
     public List<GameObject> bullets;
 
     public Type weaponAmmoType = Type.Bullet;
+    public ParticleSystem bloodSplatter;
+    public ParticleSystem.EmissionModule bloodSplatterEmission;
 
     /* TEST AIMING
     public LineRenderer line;
@@ -34,6 +36,11 @@ public class WeaponController : MonoBehaviour {
         }
     }
     */
+
+    void Start()
+    {
+        bloodSplatterEmission = bloodSplatter.emission;
+    }
 
     void Update () {
         if (curCooldown > 0)
@@ -51,8 +58,20 @@ public class WeaponController : MonoBehaviour {
     {
       if (dangerous && col.gameObject.layer == 8 && col.tag == "HealthCollider")   // 8 layer is Unit
       {
-          col.GetComponent<HealthCollider>().Damage(meleeDamage);
+          HealthCollider h = col.GetComponent<HealthCollider>();
+          if (h.masterHealth.health > 0)
+          {
+            bloodSplatterEmission.rate = 500;
+            StartCoroutine("DisableBlood");
+          }
+          h.Damage(meleeDamage);
       }
+    }
+
+    IEnumerator DisableBlood()
+    {
+        yield return new WaitForSeconds(0.2f);
+          bloodSplatterEmission.rate = 0;
     }
 
     public void Attack(Vector3 target)
