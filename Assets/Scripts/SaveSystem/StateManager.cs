@@ -20,10 +20,12 @@ public class StateManager : MonoBehaviour {
     public string playerSpawner;
     public int playerHealth = 10;
     public string activeWeapon;
+    public bool flashlight = false;
     public List<string> questItems = new List<string>();
     public List<int> playerAmmo = new List<int>();
 
     public List<string> statefulObjectsAnimators = new List<string>();
+    public List<Vector3> statefulPositions = new List<Vector3>();
     public List<string> statefulObjectsAnimatorsBooleans = new List<string>();
 
     public List<string> messages = new List<string>();
@@ -107,7 +109,7 @@ public class StateManager : MonoBehaviour {
         messages.Remove(message);
     }
 
-    public void SetStatefulObject(string objName, bool active, string message)
+    public void SetStatefulObject(string objName, bool active, string message, Vector3 pos)
     {
         bool noDouble = true;
 
@@ -128,6 +130,7 @@ public class StateManager : MonoBehaviour {
             statefulObjects.Add(objName);
             activeObjects.Add(active);
             activeDialogues.Add(0);
+            statefulPositions.Add(pos);
             transmittersMessages.Add(message);
         }
     }
@@ -225,6 +228,30 @@ public class StateManager : MonoBehaviour {
             }
         }
     }
+    public void SaveStatefulPosition(string statefulName, Vector3 pos)
+    {
+        foreach(string i in statefulObjects)
+        {
+            if (statefulName == i)
+            {
+                statefulPositions[statefulObjects.IndexOf(i)] = pos;
+                break;
+            }   
+        }
+    }
+
+    public Vector3 GetStatefulPosition(string statefulName)
+    {
+        foreach(string i in statefulObjects)
+        {
+            if (statefulName == i)
+            {
+                if (statefulPositions.Count > statefulObjects.IndexOf(i))
+                    return statefulPositions[statefulObjects.IndexOf(i)];
+            }   
+        }
+        return new Vector3(0, -100f, 100f);
+    }
 
     public void SetAnimatorParameters(string objName, string bools)
     {
@@ -281,6 +308,15 @@ public class StateManager : MonoBehaviour {
         }
     }
 
+    public void SetFlashlight(bool active)
+    {
+        flashlight = active;
+    }
+    public bool GetFlashlight()
+    {
+        return flashlight;
+    }
+
     public void SetActiveWeapon(string weaponName)
     {
         activeWeapon = weaponName;
@@ -305,9 +341,18 @@ public class StateManager : MonoBehaviour {
         data.playerHealth = playerHealth = GameManager.instance.playerController.playerHealth.health;
         data.activeWeapon = activeWeapon;
         data.questItems = new List<string>(questItems);
+        data.flashlight = flashlight;
 
         data.statefulObjectsAnimators = new List<string>(statefulObjectsAnimators);
         data.statefulObjectsAnimatorsBooleans = new List<string>(statefulObjectsAnimatorsBooleans);
+        //data.statefulPositions = new List<Vector3>(statefulPositions);
+
+        data.statefulPositions.Clear();
+        foreach(Vector3 v in statefulPositions)
+        {
+            data.statefulPositions.Add(v);
+        }
+
         data.messages = new List<string>(messages);
 
         data.playerAmmo = new List<int>(playerAmmo);
@@ -338,9 +383,18 @@ public class StateManager : MonoBehaviour {
             activeWeapon = data.activeWeapon;
             questItems = new List<string>(data.questItems);
             playerAmmo = new List<int>(data.playerAmmo);
+            flashlight = data.flashlight;
 
             statefulObjectsAnimators = new List<string>(data.statefulObjectsAnimators);
             statefulObjectsAnimatorsBooleans = new List<string>(data.statefulObjectsAnimatorsBooleans);
+            //statefulPositions = new List<Vector3>(data.statefulPositions);
+
+            statefulPositions.Clear();
+            foreach(Vector3 v in data.statefulPositions)
+            {
+                statefulPositions.Add(v);
+            }
+
             messages = new List<string>(data.messages);
 
             GameManager.instance.GetValuesFromSaveFile(); // load values on start of session
@@ -363,8 +417,10 @@ class GameState
     public string activeWeapon;
     public List<string> questItems;
     public List<int> playerAmmo;
+    public bool flashlight;
 
     public List<string> statefulObjectsAnimators = new List<string>();
+    public List<SerializableVector3> statefulPositions = new List<SerializableVector3>();
     public List<string> statefulObjectsAnimatorsBooleans = new List<string>();
 
     public List<string> messages = new List<string>();

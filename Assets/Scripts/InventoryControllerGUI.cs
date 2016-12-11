@@ -60,7 +60,7 @@ public class InventoryControllerGUI : MonoBehaviour {
             {
                 foreach (string j in GameManager.instance.weapons)
                 {
-                    if (j == StateManager.instance.questItems[cursotAtGlobal])
+                    if (StateManager.instance.questItems.Count > 0 && j == StateManager.instance.questItems[cursotAtGlobal])
                     {
                         if (GameManager.instance.activeWeapon == j)
                         {
@@ -126,7 +126,7 @@ public class InventoryControllerGUI : MonoBehaviour {
         {
             if (StateManager.instance.questItems.Count > i)
             {
-                slotsImages[i].color = GameManager.instance._sm.charactersColor;
+                slotsImages[i].color = Color.white;
 
                 for (int j = 0; j < GameManager.instance.inventoryItems.items.Count; j++)
                 {

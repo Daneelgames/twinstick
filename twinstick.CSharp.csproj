@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\CampfireController.cs" />
     <Compile Include="Assets\Scripts\CanvasContainer.cs" />
+    <Compile Include="Assets\Scripts\Custom\SerializableVector3.cs" />
     <Compile Include="Assets\Scripts\CutSceneController.cs" />
     <Compile Include="Assets\Scripts\ExplosionController.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -113,7 +114,6 @@
     <Compile Include="Assets\Scripts\SaveSystem\StateManager.cs" />
     <Compile Include="Assets\Scripts\SaveSystem\Stateful.cs" />
     <Compile Include="Assets\Scripts\SceneDetails.cs" />
-    <Compile Include="Assets\Scripts\SetCharacterColor.cs" />
     <Compile Include="Assets\Scripts\TouchDamage.cs" />
     <Compile Include="Assets\Scripts\WalkerToPlayerAi.cs" />
     <Compile Include="Assets\Scripts\WeaponController.cs" />

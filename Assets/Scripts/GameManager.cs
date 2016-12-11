@@ -121,6 +121,23 @@ public class GameManager : MonoBehaviour {
 
         // SEND MESSAGES ON START OF SCENE
 
+/*
+        for (int i = StateManager.instance.messages.Count - 1; i > -1; i --)
+        {
+            for (int j = statefulObjectsOnscene.Count - 1; j > -1; j--)
+            {
+                if (StateManager.instance.messages[i] == statefulObjectsOnscene[j].name)
+                {
+                    MessageReciever msg = statefulObjectsOnscene[j].gameObject.GetComponent<MessageReciever>();
+                    msg.GetMessage();
+                    if (msg.csToStart)
+                        cs = true;
+                    StateManager.instance.RemoveMessage(StateManager.instance.messages[i]);
+                }
+            }
+        }
+*/
+
         List<string> messengersNames = new List<string>();
         foreach (string m in StateManager.instance.messages)
         {
@@ -141,7 +158,6 @@ public class GameManager : MonoBehaviour {
         {
             StateManager.instance.RemoveMessage(n);
         }
-
         /////////////
 
         if (!cs)
@@ -163,6 +179,8 @@ public class GameManager : MonoBehaviour {
         cameraHolder.transform.position = new Vector3(posX, posY, cameraHolder.transform.position.z);
         cameraHolder.transform.LookAt(new Vector3(posX, posY - 2f, playerInGame.transform.position.z));
         SetActiveWeapon(StateManager.instance.activeWeapon);
+
+        playerController.SetFlashlight(StateManager.instance.GetFlashlight());
     }
 
     
@@ -218,14 +236,33 @@ public class GameManager : MonoBehaviour {
             {
                 characterSpawnerName = StateManager.instance.playerSpawner;
                 LoadToNewScene(StateManager.instance.sceneSaved, characterSpawnerName);
-                statefulObjectsOnscene.Clear();
             }
+        }
+    }
+
+    void Start()
+    {
+        //remove trash from statefulObjectsOnscene
+        for (int i = statefulObjectsOnscene.Count - 1; i > -1; i--)
+        {
+            if (statefulObjectsOnscene[i] == null)
+                statefulObjectsOnscene.RemoveAt(i);
         }
     }
 
     public void AddStateful(Stateful statefulObj)
     {
-        statefulObjectsOnscene.Add(statefulObj);
+        bool noDouble = true;
+        foreach(Stateful st in statefulObjectsOnscene)
+        {
+            if (st == statefulObj)
+            {
+                noDouble = false;
+                break;
+            }
+        }
+        if (noDouble)
+            statefulObjectsOnscene.Add(statefulObj);
     }
 
     void PlayerSetPos()
@@ -290,10 +327,11 @@ public class GameManager : MonoBehaviour {
                 }
             }
 
-            if (Input.GetButtonDown("ToggleInventory"))
+            if (Input.GetButtonDown("ToggleInventory") && !cutScene)
             {
                 inventory.ToggleInventory();
             }
+
         }
     }
 
@@ -325,6 +363,13 @@ public class GameManager : MonoBehaviour {
 
     public void MoveToNewScene(string sceneName, string spawnerName)
     {
+        //save stateful positions
+        foreach (Stateful i in statefulObjectsOnscene)
+        {
+            i.SavePosition();
+        }
+
+
         characterSpawnerName = spawnerName;
         StateManager.instance.SetSpawner(spawnerName);
 
@@ -340,6 +385,7 @@ public class GameManager : MonoBehaviour {
         
         ClearStatefulObjectsList();
 
+        print("new scene");
         SceneManager.LoadScene(sceneName);
     }
 
@@ -354,6 +400,7 @@ public class GameManager : MonoBehaviour {
     void ClearStatefulObjectsList()
     {
         SaveAnimatorBooleans();
+        print("clearList");
         statefulObjectsOnscene.Clear();
     }
 

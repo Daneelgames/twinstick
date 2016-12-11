@@ -23,18 +23,20 @@ public class PlayerMovement : MonoBehaviour
 
     public Rigidbody rb;
 
-    bool moveBack = false;
-    public bool attacking = false;
     // The vector to store the direction of the player's movement.
     Vector3 movement;
     float inputH = 0;
     float inputV = 0;
 
-    public bool realoading = false;
+    bool moveBack = false;
+    public bool attacking = false;
+    public bool reloading = false;
+    public bool aim = false;
 
+    float flashlightCooldown = 0f;
+    public GameObject flashlight;
     public IKLookControl ikController;
 
-    public bool aim = false;
 
     int rotateY = 0;
 
@@ -49,8 +51,11 @@ public class PlayerMovement : MonoBehaviour
             inputH = Input.GetAxisRaw("Horizontal");
             inputV = Input.GetAxisRaw("Vertical");
 
-            if(!realoading && !GameManager.instance.cutScene)
+            if(!reloading && !GameManager.instance.cutScene)
+            {
                 Move();
+                Aiming();
+            }
         }
     }
 
@@ -60,12 +65,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerHealth.health > 0 && !GameManager.instance.cutScene)
         {
-            if (!realoading)
+            if (!reloading)
             {
-                Aiming();
 
                 if (weaponController != null)
                     Attacking();
+
+                Flashlight();
             }
 
             if (weaponController != null)
@@ -76,6 +82,31 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void Flashlight()
+    {
+        if (flashlightCooldown > 0)
+            flashlightCooldown -= Time.deltaTime;
+
+        if (Input.GetButtonDown("Flashlight") && !moveBack && !aim && !attacking && !reloading && flashlightCooldown <= 0)
+        {
+            if (StateManager.instance.flashlight)
+            {
+                flashlight.SetActive(false);
+                StateManager.instance.SetFlashlight(false);
+            }
+            else
+            {
+                flashlight.SetActive(true);
+                StateManager.instance.SetFlashlight(true);
+            }
+            flashlightCooldown = 0.5f;
+        }
+    }
+
+    public void SetFlashlight(bool active)
+    {
+        flashlight.SetActive(active);
+    }
     void Attacking()
     {
         if (Input.GetButtonDown("Fire1") && aim && weaponController.curCooldown <= 0  && !moveBack)

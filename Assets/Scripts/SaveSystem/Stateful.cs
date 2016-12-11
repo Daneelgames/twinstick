@@ -18,7 +18,7 @@ public class Stateful : MonoBehaviour {
         if (mt)
             mtRecieverName = mt.recieverName;
 
-        StateManager.instance.SetStatefulObject(gameObject.name, activeOnStart, mtRecieverName);
+        StateManager.instance.SetStatefulObject(gameObject.name, activeOnStart, mtRecieverName, transform.position);
 
         if (StateManager.instance.GetActive(gameObject.name) == false) //is inactive?
         {
@@ -45,6 +45,13 @@ public class Stateful : MonoBehaviour {
         }
 
         GameManager.instance.AddStateful(this);
+        //print("AddStateful " + gameObject.name);
+        
+        Vector3 tempPos = StateManager.instance.GetStatefulPosition(gameObject.name);
+        if (tempPos != new Vector3(0, -100f, 100f))
+        {
+            transform.position = tempPos;
+        }
     }
 
     void Start()
@@ -116,5 +123,10 @@ public class Stateful : MonoBehaviour {
     public void InteractiveObjectSetActiveDialog(int index)
     {
         StateManager.instance.SetActiveDialog(name, index);
+    }
+
+    public void SavePosition() // called from GM when player leaves the scene
+    {
+        StateManager.instance.SaveStatefulPosition(gameObject.name, transform.position);
     }
 }
