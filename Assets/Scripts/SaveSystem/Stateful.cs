@@ -10,6 +10,7 @@ public class Stateful : MonoBehaviour {
     public List<string> boolsToSave = new List<string>();
     public Animator anim;
     public MessageTransmitter mt;
+    public MessageReciever mr;
     public MobMovement mobController;
     
     void Awake()

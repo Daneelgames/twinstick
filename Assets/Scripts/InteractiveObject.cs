@@ -9,7 +9,7 @@ public class InteractiveObject : MonoBehaviour {
     public GameObject objToActivate;
 
     public bool dropItem = false;
-    public string dropName = "";
+    public List<string> dropNames = new List<string>();
     //public string inventoryDescription = "";
     //public Sprite inventoryImg;
 
@@ -187,7 +187,10 @@ public class InteractiveObject : MonoBehaviour {
                 
                  if (dropItem)
                     {
-                        StateManager.instance.AddItem(dropName);
+                        foreach (string i in dropNames)
+                        {
+                            StateManager.instance.AddItem(i);
+                        }
                     }
                 if (cameraAnchor)
                     StartCoroutine("ResetCamera", false);
@@ -202,7 +205,10 @@ public class InteractiveObject : MonoBehaviour {
             else if (dropItem && !locker)
             {
                 GameManager.instance.NpcToInteract(null, "");
-                StateManager.instance.AddItem(dropName);
+                foreach (string i in dropNames)
+                {
+                    StateManager.instance.AddItem(i);
+                }
                 
                 if (objToActivate)
                     objToActivate.SetActive(true);

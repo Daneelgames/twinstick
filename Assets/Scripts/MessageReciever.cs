@@ -23,14 +23,17 @@ public class MessageReciever : MonoBehaviour {
                 st.gameObject.SetActive(true);
             }
         }
+
         if (objectsToDeactivate.Count > 0)
         {
-            foreach (Stateful st in objectsToActivate)
+            foreach (Stateful st in objectsToDeactivate)
             {
+                print(st + " is inactive");
                 st.ObjectActive(false);
                 st.gameObject.SetActive(false);
             } 
         }
+
         if (transmitters.Count > 0)
         {
             foreach (MessageTransmitter mt in transmitters)

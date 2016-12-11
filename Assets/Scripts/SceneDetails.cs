@@ -9,6 +9,10 @@ public class SceneDetails : MonoBehaviour {
 
     public CutSceneController introCutScene;
 
+    void Awake()
+    {
+        GameManager.instance._sm = this;
+    }
     void Start()
     {
         GameManager.instance.InitializeScene(this);

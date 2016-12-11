@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class GameManager : MonoBehaviour {
     
@@ -102,11 +103,11 @@ public class GameManager : MonoBehaviour {
 
         _sm = scene;
 
-
         PlayerSetPos();
 
         NpcToInteract(null, "Inspect");
         
+//        print("events");
         bool cs = false;
 
         if (_sm.introCutScene != null) // play scene intro cutScene
@@ -139,14 +140,17 @@ public class GameManager : MonoBehaviour {
 */
 
         List<string> messengersNames = new List<string>();
-        foreach (string m in StateManager.instance.messages)
+        foreach (string m in StateManager.instance.messages.ToList())
         {
+            //print (m);
             foreach (Stateful s in statefulObjectsOnscene)
             {
+                //print (s);
                 if (m == s.name)
                 {
                     MessageReciever msg = s.gameObject.GetComponent<MessageReciever>();
                     msg.GetMessage();
+                    //print (msg);
                     messengersNames.Add(m);
                     if (msg.csToStart)
                         cs = true;
@@ -164,7 +168,6 @@ public class GameManager : MonoBehaviour {
         {
             gui.Fade("Game");
         }
-
         mainCam.backgroundColor = RenderSettings.fogColor;
 
         //SET CAM TO PLAYER
@@ -183,7 +186,6 @@ public class GameManager : MonoBehaviour {
         playerController.SetFlashlight(StateManager.instance.GetFlashlight());
     }
 
-    
     public void SendMessages(bool needToFadeIn) // CALL IN MIDDLE OF SCENE
     {
         bool msg = false;
@@ -195,7 +197,7 @@ public class GameManager : MonoBehaviour {
                 print(s.name);
                 if (m == s.name)
                 {
-                    s.gameObject.GetComponent<MessageReciever>().GetMessage();
+                    s.mr.GetMessage();
                     messengersNames.Add(m);
                     msg = true;
                 }
@@ -400,7 +402,7 @@ public class GameManager : MonoBehaviour {
     void ClearStatefulObjectsList()
     {
         SaveAnimatorBooleans();
-        print("clearList");
+//        print("clearList");
         statefulObjectsOnscene.Clear();
     }
 
