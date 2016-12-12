@@ -8,6 +8,8 @@ public class InteractiveObject : MonoBehaviour {
     public string keyName = "";
     public GameObject objToActivate;
 
+    public DigitPuzzle dgtPuzzle;
+
     public bool dropItem = false;
     public List<string> dropNames = new List<string>();
     //public string inventoryDescription = "";
@@ -20,6 +22,7 @@ public class InteractiveObject : MonoBehaviour {
     public bool passage = false;
     public string scene = "";
     public string spawner = "";
+    public GameObject hint;
 
     public int activeDialogIndex = 0;
     public int activePhraseIndex = 0;
@@ -49,7 +52,12 @@ public class InteractiveObject : MonoBehaviour {
     {
         if (!inDialog)
         {
-            if (!door && !passage)
+            if (dgtPuzzle)
+            {
+                inDialog = true;
+                StartCoroutine("StartPuzzle");
+            }
+            else if (!door && !passage)
             {
                 if (canInteract && dialogues.Count > activeDialogIndex && dialogues[activeDialogIndex].phrases.Count > 0)
                 {
@@ -78,8 +86,68 @@ public class InteractiveObject : MonoBehaviour {
                 StartCoroutine("ExitDoor");
             }
         }
+        else if (dgtPuzzle)
+        {
+            if (!dgtPuzzle.complete)
+            StartCoroutine("PuzzleOver", 0f);
+        }
     }
 
+    IEnumerator StartPuzzle()
+    {
+        print ("start puzzle");
+        camFade = true;
+        Time.timeScale = 0;
+        GameManager.instance.gui.Fade("Black");
+        yield return new WaitForSecondsRealtime(1f);
+        if(hint)
+            hint.SetActive(false);
+        GameManager.instance.CutScenePlay(true);
+        GameManager.instance.camAnim.transform.position = cameraAnchor.transform.position;
+        GameManager.instance.camAnim.transform.rotation = cameraAnchor.transform.rotation;
+        GameManager.instance.camAnim.transform.SetParent(cameraAnchor.transform);
+        GameManager.instance.gui.Fade("Game");
+        dgtPuzzle.StartPuzzle(this);
+        yield return new WaitForSecondsRealtime(1f);
+        camFade = false;
+    }
+
+    public void PuzzleComplete()
+    {
+        StartCoroutine("PuzzleOver", 1f);
+    }
+    IEnumerator PuzzleOver(float t)
+    {
+        yield return new WaitForSecondsRealtime(t);
+        GameManager.instance.gui.Fade("Black");
+        camFade = true;
+        yield return new WaitForSecondsRealtime(1f);
+
+        Time.timeScale = 1;
+        dgtPuzzle.PuzzleOver();
+
+        if(hint)
+            hint.SetActive(true);
+
+        GameManager.instance.CutScenePlay(false);
+        inDialog = false;
+        GameManager.instance.camAnim.transform.position = GameManager.instance.cameraHolder.transform.position;
+        GameManager.instance.camAnim.transform.SetParent(GameManager.instance.cameraHolder.transform);
+        GameManager.instance.camAnim.transform.rotation = Quaternion.identity;
+        GameManager.instance.gui.Fade("Game");
+        camFade = false;
+
+        if (objToActivate)
+        {
+            objToActivate.SetActive(true);
+        }
+
+        if (dgtPuzzle.complete)
+            {
+                stateful.ObjectActive(false);
+                gameObject.SetActive(false);
+            }
+    }
     IEnumerator SetCamera()
     {
         camFade = true;
@@ -88,6 +156,9 @@ public class InteractiveObject : MonoBehaviour {
         yield return new WaitForSecondsRealtime(1f);
 
         GameManager.instance.CutScenePlay(true);
+        
+        if(hint)
+            hint.SetActive(false);
 
         GameManager.instance.camAnim.transform.position = cameraAnchor.transform.position;
         GameManager.instance.camAnim.transform.rotation = cameraAnchor.transform.rotation;
@@ -103,6 +174,9 @@ public class InteractiveObject : MonoBehaviour {
     {
         GameManager.instance.gui.Fade("Black");
         yield return new WaitForSecondsRealtime(1f);
+
+        if(hint)
+            hint.SetActive(true);
 
         GameManager.instance.CutScenePlay(false);
 
@@ -199,6 +273,8 @@ public class InteractiveObject : MonoBehaviour {
                     SendMessage(false);
                     stateful.ObjectActive(false);
                     gameObject.SetActive(false);
+                    if (hint)
+                        hint.SetActive(true);
                     return;
                 }
             }
@@ -220,6 +296,8 @@ public class InteractiveObject : MonoBehaviour {
                     SendMessage(false);
                     stateful.ObjectActive(false);
                     gameObject.SetActive(false);
+                    if (hint)
+                        hint.SetActive(true);
                     return;
                 }
             }
@@ -248,6 +326,8 @@ public class InteractiveObject : MonoBehaviour {
         {
             GameManager.instance.gui.Fade("Black");
             yield return new WaitForSecondsRealtime(1f);
+            if (hint)
+                hint.SetActive(true);
             GameManager.instance.camAnim.transform.position = GameManager.instance.cameraHolder.transform.position;
             GameManager.instance.camAnim.transform.SetParent(GameManager.instance.cameraHolder.transform);
             GameManager.instance.camAnim.transform.rotation = Quaternion.identity;
@@ -259,6 +339,8 @@ public class InteractiveObject : MonoBehaviour {
         else
         {
             SendMessage(false);
+            if (hint)
+                hint.SetActive(true);
             yield return new WaitForSeconds(0.5f);
         }
 
@@ -274,7 +356,7 @@ public class InteractiveObject : MonoBehaviour {
             {
                 phraseCooldown -= Time.unscaledDeltaTime;
             }
-            else
+            else if (!dgtPuzzle || dgtPuzzle.complete)
             {
                 if(Input.GetButtonDown("Submit")) // update phrase
                 {

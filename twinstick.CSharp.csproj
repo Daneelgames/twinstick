@@ -78,7 +78,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\DamageOnG.cs" />
+    <Compile Include="Assets\DigitPuzzle.cs" />
     <Compile Include="Assets\Pixelation\Example\Scripts\ImageEffectBase.cs" />
     <Compile Include="Assets\Pixelation\Example\Scripts\Plane.cs" />
     <Compile Include="Assets\Pixelation\Example\Scripts\PointLight.cs" />
@@ -117,6 +117,7 @@
     <Compile Include="Assets\Scripts\TouchDamage.cs" />
     <Compile Include="Assets\Scripts\WalkerToPlayerAi.cs" />
     <Compile Include="Assets\Scripts\WeaponController.cs" />
+    <Compile Include="Assets\SpriteFaceCam.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Pixelation\Readme.txt" />
