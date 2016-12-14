@@ -39,6 +39,7 @@ public class InteractiveObject : MonoBehaviour {
     public bool canInteract = false;
 
     public GameObject cameraAnchor;
+    public GameObject light;
 
     public bool camFade = false;
     
@@ -155,6 +156,11 @@ public class InteractiveObject : MonoBehaviour {
         GameManager.instance.gui.Fade("Black");
         yield return new WaitForSecondsRealtime(1f);
 
+		if (light)
+		{
+			light.SetActive(true);
+		}
+
         GameManager.instance.CutScenePlay(true);
         
         if(hint)
@@ -178,6 +184,11 @@ public class InteractiveObject : MonoBehaviour {
         if(hint)
             hint.SetActive(true);
 
+		if (light)
+		{
+			light.SetActive(false);
+		}
+        
         GameManager.instance.CutScenePlay(false);
 
         GameManager.instance.camAnim.transform.position = GameManager.instance.cameraHolder.transform.position;

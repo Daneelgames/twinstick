@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class DigitPuzzle : MonoBehaviour {
 	public List<int> winCombination = new List<int>();
 	public List<int> playerCombination = new List<int>();
-	public GameObject light;
 	public bool complete = false;
 	public List<Image> buttonsImage = new List<Image>();
 	public List<Text> buttonsText = new List<Text>();
@@ -22,10 +21,6 @@ public class DigitPuzzle : MonoBehaviour {
 		interactiveController = intr;
 		SetButtonsInteractive(true);
 
-		if (light)
-		{
-			light.SetActive(true);
-		}
 		playerCombination.Clear();
 	}
 
@@ -80,8 +75,6 @@ public class DigitPuzzle : MonoBehaviour {
 
 	public void PuzzleOver()
 	{
-		if (light)
-			light.SetActive(false);
 
 		SetButtonsInteractive(false);
 	}
