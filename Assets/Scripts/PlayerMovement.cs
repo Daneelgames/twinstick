@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
                 flashlight.SetActive(true);
                 StateManager.instance.SetFlashlight(true);
             }
-            flashlightCooldown = 0.5f;
+            flashlightCooldown = 0.25f;
         }
     }
 

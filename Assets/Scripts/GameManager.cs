@@ -188,9 +188,9 @@ public class GameManager : MonoBehaviour {
 
     public void SendMessages(bool needToFadeIn) // CALL IN MIDDLE OF SCENE
     {
-        bool msg = false;
+        bool cs = false;
         List<string> messengersNames = new List<string>();
-        foreach (string m in StateManager.instance.messages)
+        foreach (string m in StateManager.instance.messages.ToList())
         {
             foreach (Stateful s in statefulObjectsOnscene)
             {
@@ -199,12 +199,13 @@ public class GameManager : MonoBehaviour {
                 {
                     s.mr.GetMessage();
                     messengersNames.Add(m);
-                    msg = true;
+                    if (s.mr.csToStart)
+                        cs = true;
                 }
             }
         }
 
-        if (!msg && needToFadeIn) // IF NO CUT SCENE TO PLAY AND NEED TO FADE TO GAME 
+        if (!cs && needToFadeIn) // IF NO CUT SCENE TO PLAY AND NEED TO FADE TO GAME 
             GameManager.instance.gui.Fade("Game");
 
         foreach (string n in messengersNames)

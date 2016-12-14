@@ -101,6 +101,10 @@ public class InteractiveObject : MonoBehaviour {
         Time.timeScale = 0;
         GameManager.instance.gui.Fade("Black");
         yield return new WaitForSecondsRealtime(1f);
+		if (light)
+		{
+			light.SetActive(true);
+		}
         if(hint)
             hint.SetActive(false);
         GameManager.instance.CutScenePlay(true);
@@ -127,6 +131,10 @@ public class InteractiveObject : MonoBehaviour {
         Time.timeScale = 1;
         dgtPuzzle.PuzzleOver();
 
+		if (light)
+		{
+			light.SetActive(false);
+		}
         if(hint)
             hint.SetActive(true);
 
