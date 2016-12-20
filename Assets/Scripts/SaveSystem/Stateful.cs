@@ -59,6 +59,10 @@ public class Stateful : MonoBehaviour {
     {
         ObjectActive(true);
         //GameManager.instance.AddStateful(this);
+        if (mt)
+        {
+            mt.SendMessage(false);
+        }
     }
 
     public void ObjectActive(bool active)
