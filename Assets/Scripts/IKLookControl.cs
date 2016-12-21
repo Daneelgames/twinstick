@@ -12,11 +12,12 @@ public class IKLookControl : MonoBehaviour
     public Vector3 lookPos;
 
     public float lookSpeed = 0.25f;
+    public float targetSmooth = 0.25f;
 
     float lookWeight = 0f;
     float bodyWeight = 0f;
     float headWeight = 0f;
-    float clampWeight = 1f;
+    public float clampWeight = 1f;
 
     void Start()
     {
@@ -26,7 +27,7 @@ public class IKLookControl : MonoBehaviour
     public void SetTarget(Vector3 target, bool active)
     {
         ikActive = active;
-        lookPos = target;
+        lookPos = Vector3.Slerp(target, lookPos, targetSmooth);
     }
 
     //a callback for calculating IK

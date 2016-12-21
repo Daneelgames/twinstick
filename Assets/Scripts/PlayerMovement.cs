@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public List<WeaponController> weapons = new List<WeaponController>();
     public WeaponController weaponController;
     public HealthController playerHealth;
+    public float turnSpeed = 45f;
 
     public LayerMask aimLayers;
 
@@ -233,7 +234,7 @@ public class PlayerMovement : MonoBehaviour
                 playerToTarget.y = transform.position.y;
 
                 Quaternion newRotation = Quaternion.LookRotation(playerToTarget);
-                newRotation = Quaternion.Slerp(newRotation, transform.rotation, Time.deltaTime * 45F);
+                newRotation = Quaternion.Slerp(newRotation, transform.rotation, turnSpeed * Time.deltaTime);
                 rb.MoveRotation(newRotation);
                 //transform.eulerAngles = new Vector3(0, transform.rotation.eulerAngles.y, 0);
             }
@@ -338,7 +339,7 @@ public class PlayerMovement : MonoBehaviour
                     aim = true;
 
                     Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-                    newRotation = Quaternion.Slerp(newRotation, transform.rotation, Time.deltaTime * 40f);
+                    newRotation = Quaternion.Slerp(newRotation, transform.rotation, turnSpeed * Time.deltaTime);
                     float difference = Mathf.Abs(Mathf.RoundToInt(newRotation.eulerAngles.y) - rotateY);
                     //print(difference);
                     if (difference > 4)
