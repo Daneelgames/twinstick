@@ -205,6 +205,7 @@ public class GameManager : MonoBehaviour {
             }
         }
 
+        print ("cs is " + cs + " ; need to fade is " + needToFadeIn);
         if (!cs && needToFadeIn) // IF NO CUT SCENE TO PLAY AND NEED TO FADE TO GAME 
             GameManager.instance.gui.Fade("Game");
 

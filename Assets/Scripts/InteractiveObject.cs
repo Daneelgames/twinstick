@@ -329,8 +329,10 @@ public class InteractiveObject : MonoBehaviour {
 
     void SendMessage(bool needToFadeIn)
     {
+        //print ("try to send message from interactive. needToFadeIn == " + needToFadeIn + "; messageDialog == " + messageDialog + "; active dialog index == " + activeDialogIndex + "message transm is " + messageTransmitter);
         if (messageDialog == activeDialogIndex && messageTransmitter)
         {
+            //print ("send message");
             messageTransmitter.SendMessage(needToFadeIn);
         }
         else if (needToFadeIn)

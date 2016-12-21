@@ -20,5 +20,9 @@ public class MessageTransmitter : MonoBehaviour {
 
             GameManager.instance.SendMessages(needToFadeIn);
         }
+        else
+        {
+            print (gameObject.name + "'s transmitter doesn't have a recieverName");
+        }
     }
 }
