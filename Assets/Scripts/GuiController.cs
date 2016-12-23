@@ -3,10 +3,10 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class GuiController : MonoBehaviour {
+public class GuiController : MonoBehaviour
+{
 
     public Image healthbar;
-    public Animator healthAnimator;
     float fill;
 
     public Animator saveAnimator;
@@ -16,11 +16,17 @@ public class GuiController : MonoBehaviour {
     public Animator fadeAnimator;
     public RawImage fadeImg;
 
+    public bool fade = false;
+
     public void SetHealth()
     {
-        healthAnimator.SetTrigger("Update");
         fill = GameManager.instance.playerController.playerHealth.health * 1.0f / GameManager.instance.playerController.playerHealth.maxHealth * 1.0f;
         healthbar.fillAmount = fill;
+    }
+
+    public void SetFade(bool f)
+    {
+        fade = f;
     }
 
     public void Fade(string fade)

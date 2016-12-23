@@ -76,7 +76,6 @@ public class GameManager : MonoBehaviour {
         dialogAnimator = canvasContainer.dialogAnimator;
         dialogText = canvasContainer.dialogText;
         actionFeedbackController = canvasContainer.actionFeedback;
-        gui.healthAnimator = canvasContainer.healthbarAnimator;
         gui.healthbar = canvasContainer.healthbar;
         gui.saveAnimator = canvasContainer.saveAnimator;
         gui.reloadController = canvasContainer.reloadController;
@@ -324,7 +323,7 @@ public class GameManager : MonoBehaviour {
         {
             if (Input.GetButtonDown("Submit"))
             {
-                if (npcToInteract != null && !inventory.active && playerHealth > 0)
+                if (npcToInteract != null && !inventory.active && playerHealth > 0 && !playerController.attacking && !gui.fade)
                 {
                     npcToInteract.Talk();
                     //actionFeedbackController.SetFeedback(false, "");

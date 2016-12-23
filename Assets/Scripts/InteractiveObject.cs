@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class InteractiveObject : MonoBehaviour {
+public class InteractiveObject : MonoBehaviour
+{
 
     public bool locker = false; // 0th dialog = idle; 1th dialog = opened
     public string keyName = "";
@@ -42,7 +43,7 @@ public class InteractiveObject : MonoBehaviour {
     public GameObject light;
 
     public bool camFade = false;
-    
+
     [System.Serializable]
     public class Dialog
     {
@@ -67,6 +68,10 @@ public class InteractiveObject : MonoBehaviour {
                         if (StateManager.instance.HaveItem(keyName))
                         {
                             activeDialogIndex = 1;
+                            if (dialogues.Count < 2)
+                            {
+                                print(gameObject.name + " hasn't dialog #1");
+                            }
                         }
                         else
                             activeDialogIndex = 0;
@@ -90,22 +95,22 @@ public class InteractiveObject : MonoBehaviour {
         else if (dgtPuzzle)
         {
             if (!dgtPuzzle.complete)
-            StartCoroutine("PuzzleOver", 0f);
+                StartCoroutine("PuzzleOver", 0f);
         }
     }
 
     IEnumerator StartPuzzle()
     {
-        print ("start puzzle");
+        print("start puzzle");
         camFade = true;
         Time.timeScale = 0;
         GameManager.instance.gui.Fade("Black");
         yield return new WaitForSecondsRealtime(1f);
-		if (light)
-		{
-			light.SetActive(true);
-		}
-        if(hint)
+        if (light)
+        {
+            light.SetActive(true);
+        }
+        if (hint)
             hint.SetActive(false);
         GameManager.instance.CutScenePlay(true);
         GameManager.instance.camAnim.transform.position = cameraAnchor.transform.position;
@@ -131,11 +136,11 @@ public class InteractiveObject : MonoBehaviour {
         Time.timeScale = 1;
         dgtPuzzle.PuzzleOver();
 
-		if (light)
-		{
-			light.SetActive(false);
-		}
-        if(hint)
+        if (light)
+        {
+            light.SetActive(false);
+        }
+        if (hint)
             hint.SetActive(true);
 
         GameManager.instance.CutScenePlay(false);
@@ -152,10 +157,10 @@ public class InteractiveObject : MonoBehaviour {
         }
 
         if (dgtPuzzle.complete)
-            {
-                stateful.ObjectActive(false);
-                gameObject.SetActive(false);
-            }
+        {
+            stateful.ObjectActive(false);
+            gameObject.SetActive(false);
+        }
     }
     IEnumerator SetCamera()
     {
@@ -164,14 +169,14 @@ public class InteractiveObject : MonoBehaviour {
         GameManager.instance.gui.Fade("Black");
         yield return new WaitForSecondsRealtime(1f);
 
-		if (light)
-		{
-			light.SetActive(true);
-		}
+        if (light)
+        {
+            light.SetActive(true);
+        }
 
         GameManager.instance.CutScenePlay(true);
-        
-        if(hint)
+
+        if (hint)
             hint.SetActive(false);
 
         GameManager.instance.camAnim.transform.position = cameraAnchor.transform.position;
@@ -189,14 +194,14 @@ public class InteractiveObject : MonoBehaviour {
         GameManager.instance.gui.Fade("Black");
         yield return new WaitForSecondsRealtime(1f);
 
-        if(hint)
+        if (hint)
             hint.SetActive(true);
 
-		if (light)
-		{
-			light.SetActive(false);
-		}
-        
+        if (light)
+        {
+            light.SetActive(false);
+        }
+
         GameManager.instance.CutScenePlay(false);
 
         GameManager.instance.camAnim.transform.position = GameManager.instance.cameraHolder.transform.position;
@@ -220,7 +225,7 @@ public class InteractiveObject : MonoBehaviour {
         yield return new WaitForSecondsRealtime(1f);
         GameManager.instance.MoveToNewScene(scene, spawner);
     }
-    
+
     IEnumerator Save()
     {
         Time.timeScale = 0f;
@@ -267,7 +272,7 @@ public class InteractiveObject : MonoBehaviour {
 
             if (!door && !savePoint)
                 Time.timeScale = 1;
-            
+
 
             if (locker && activeDialogIndex == 1) // door opened
             {
@@ -277,14 +282,14 @@ public class InteractiveObject : MonoBehaviour {
                     objToActivate.SetActive(true);
 
                 StateManager.instance.RemoveItem(keyName);
-                
-                 if (dropItem)
+
+                if (dropItem)
+                {
+                    foreach (string i in dropNames)
                     {
-                        foreach (string i in dropNames)
-                        {
-                            StateManager.instance.AddItem(i);
-                        }
+                        StateManager.instance.AddItem(i);
                     }
+                }
                 if (cameraAnchor)
                     StartCoroutine("ResetCamera", false);
                 else
@@ -304,7 +309,7 @@ public class InteractiveObject : MonoBehaviour {
                 {
                     StateManager.instance.AddItem(i);
                 }
-                
+
                 if (objToActivate)
                     objToActivate.SetActive(true);
 
@@ -322,7 +327,10 @@ public class InteractiveObject : MonoBehaviour {
             }
             else
             {
-                StartCoroutine("CanInteractAfterTime");
+                if (cameraAnchor)
+                    StartCoroutine("ResetCamera", true);
+                else
+                    StartCoroutine("CanInteractAfterTime");
             }
         }
     }
@@ -372,14 +380,14 @@ public class InteractiveObject : MonoBehaviour {
     void Update()
     {
         if (inDialog && !camFade)
-        { 
+        {
             if (phraseCooldown > 0)
             {
                 phraseCooldown -= Time.unscaledDeltaTime;
             }
             else if (!dgtPuzzle || dgtPuzzle.complete)
             {
-                if(Input.GetButtonDown("Submit")) // update phrase
+                if (Input.GetButtonDown("Submit")) // update phrase
                 {
                     activePhraseIndex += 1;
                     phraseCooldown = 0.5f;

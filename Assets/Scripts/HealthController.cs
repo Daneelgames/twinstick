@@ -86,7 +86,8 @@ public class HealthController : MonoBehaviour {
         }
         else
         {
-            mobController.Dead();
+            if (mobController)
+                mobController.Dead();
             anim.SetTrigger("Dead");
             anim.SetBool("Dead.persist", true);
         }

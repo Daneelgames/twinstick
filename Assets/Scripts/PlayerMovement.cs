@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
             inputH = Input.GetAxisRaw("Horizontal");
             inputV = Input.GetAxisRaw("Vertical");
 
-            if(!reloading && !GameManager.instance.cutScene)
+            if (!reloading && !GameManager.instance.cutScene)
             {
                 Move();
                 Aiming();
@@ -110,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Attacking()
     {
-        if (Input.GetButtonDown("Fire1") && aim && weaponController.curCooldown <= 0  && !moveBack)
+        if (Input.GetButtonDown("Fire1") && aim && weaponController.curCooldown <= 0 && !moveBack)
         {
             bool canShoot = false;
 
@@ -125,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
                     if (GameManager.instance.shells > 0 && weaponController.ammo > 0)
                         canShoot = true;
                     break;
-                
+
                 case WeaponController.Type.Melee:
                     canShoot = true;
                     break;
@@ -144,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator AttackingEnd(float t)
     {
         yield return new WaitForSeconds(t);
-        attacking = false;   
+        attacking = false;
     }
 
     void Reloading()
@@ -199,11 +199,16 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine("MoveBackCoroutine", moveTime);
     }
 
-    IEnumerator MoveBackCoroutine (float moveTime)
+    IEnumerator MoveBackCoroutine(float moveTime)
     {
         moveBack = true;
         yield return new WaitForSeconds(moveTime);
         moveBack = false;
+    }
+
+    public void SetMaxSpeed(float value)
+    {
+        maxSpeed = value;
     }
 
     void Move()
@@ -277,7 +282,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetWeapon(string weaponName)
     {
-        foreach(WeaponController j in weapons)
+        foreach (WeaponController j in weapons)
         {
             if (j.name == weaponName)
             {
@@ -287,8 +292,8 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                    j.gameObject.SetActive(false);
-                    weaponController = null;
+                j.gameObject.SetActive(false);
+                weaponController = null;
             }
         }
     }
@@ -328,8 +333,8 @@ public class PlayerMovement : MonoBehaviour
                         line.SetPosition(1, floorHit.point);
                     }
 
-                    if (!weaponController || weaponController.weaponAmmoType != WeaponController.Type.Melee)
-                        ikController.SetTarget(floorHit.point, true);
+                    // if (weaponController /* || weaponController.weaponAmmoType != WeaponController.Type.Melee*/)
+                    ikController.SetTarget(floorHit.point, true);
                     Vector3 playerToMouse = floorHit.point - transform.position;
 
                     aimTarget = floorHit.point;
@@ -356,6 +361,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
+                    print("ik false");
                     ikController.SetTarget(ikController.lookPos, false);
                     aim = false;
                 }
@@ -363,13 +369,14 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            print("ik false");
             ikController.SetTarget(ikController.lookPos, false);
             anim.SetBool("Aim", false);
             anim.SetBool("LegsTurn", false);
             aim = false;
         }
     }
-    
+
     public void SetAnimBool(string boolName, bool boolValue)
     {
         anim.SetBool(boolName, boolValue);

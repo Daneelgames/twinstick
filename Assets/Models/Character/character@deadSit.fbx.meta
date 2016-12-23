@@ -94,9 +94,12 @@ ModelImporter:
     400084: upper_arm.L
     400086: upper_arm.R
     4300000: characterMesh.001
-    7400000: deadSit
+    7400000: characterDead@lay
     7400002: character@deadSit
     7400004: armature|Chair_2Action
+    7400006: characterDead@chairSit
+    7400008: characterDead@lay
+    7400010: characterDead@wallSit
     9500000: //RootNode
     13700000: characterMesh.001
   materials:
@@ -121,10 +124,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: character@deadSit
+      name: characterDead@chairSit
       takeName: armature|armatureAction
       firstFrame: 0
-      lastFrame: 92
+      lastFrame: 10
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -133,6 +136,238 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: armature
+        weight: 1
+      - path: armature/root
+        weight: 1
+      - path: armature/root/armIK.L
+        weight: 1
+      - path: armature/root/armIK.L/armIK.L_end
+        weight: 1
+      - path: armature/root/armIK.R
+        weight: 1
+      - path: armature/root/armIK.R/armIK.R_end
+        weight: 1
+      - path: armature/root/armSolver.L
+        weight: 1
+      - path: armature/root/armSolver.L/armSolver.L_end
+        weight: 1
+      - path: armature/root/armSolver.R
+        weight: 1
+      - path: armature/root/armSolver.R/armSolver.R_end
+        weight: 1
+      - path: armature/root/heel.L
+        weight: 1
+      - path: armature/root/heel.L/legSolver.L
+        weight: 1
+      - path: armature/root/heel.L/legSolver.L/legSolver.L_end
+        weight: 1
+      - path: armature/root/heel.R
+        weight: 1
+      - path: armature/root/heel.R/legSolver.R
+        weight: 1
+      - path: armature/root/heel.R/legSolver.R/legSolver.R_end
+        weight: 1
+      - path: armature/root/hips
+        weight: 1
+      - path: armature/root/hips/spine
+        weight: 1
+      - path: armature/root/hips/spine/chest
+        weight: 1
+      - path: armature/root/hips/spine/chest/neck
+        weight: 1
+      - path: armature/root/hips/spine/chest/neck/head
+        weight: 1
+      - path: armature/root/hips/spine/chest/neck/head/head_end
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.L
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.L/upper_arm.L
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.L/upper_arm.L/forearm.L
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L/hand.L_end
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.R
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.R/upper_arm.R
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.R/upper_arm.R/forearm.R
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/hand.R_end
+        weight: 1
+      - path: armature/root/hips/thigh.L
+        weight: 1
+      - path: armature/root/hips/thigh.L/shin.L
+        weight: 1
+      - path: armature/root/hips/thigh.L/shin.L/foot.L
+        weight: 1
+      - path: armature/root/hips/thigh.L/shin.L/foot.L/toe.L
+        weight: 1
+      - path: armature/root/hips/thigh.L/shin.L/foot.L/toe.L/toe.L_end
+        weight: 1
+      - path: armature/root/hips/thigh.R
+        weight: 1
+      - path: armature/root/hips/thigh.R/shin.R
+        weight: 1
+      - path: armature/root/hips/thigh.R/shin.R/foot.R
+        weight: 1
+      - path: armature/root/hips/thigh.R/shin.R/foot.R/toe.R
+        weight: 1
+      - path: armature/root/hips/thigh.R/shin.R/foot.R/toe.R/toe.R_end
+        weight: 1
+      - path: characterMesh.001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: characterDead@lay
+      takeName: armature|armatureAction
+      firstFrame: 30
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: armature
+        weight: 1
+      - path: armature/root
+        weight: 1
+      - path: armature/root/armIK.L
+        weight: 1
+      - path: armature/root/armIK.L/armIK.L_end
+        weight: 1
+      - path: armature/root/armIK.R
+        weight: 1
+      - path: armature/root/armIK.R/armIK.R_end
+        weight: 1
+      - path: armature/root/armSolver.L
+        weight: 1
+      - path: armature/root/armSolver.L/armSolver.L_end
+        weight: 1
+      - path: armature/root/armSolver.R
+        weight: 1
+      - path: armature/root/armSolver.R/armSolver.R_end
+        weight: 1
+      - path: armature/root/heel.L
+        weight: 1
+      - path: armature/root/heel.L/legSolver.L
+        weight: 1
+      - path: armature/root/heel.L/legSolver.L/legSolver.L_end
+        weight: 1
+      - path: armature/root/heel.R
+        weight: 1
+      - path: armature/root/heel.R/legSolver.R
+        weight: 1
+      - path: armature/root/heel.R/legSolver.R/legSolver.R_end
+        weight: 1
+      - path: armature/root/hips
+        weight: 1
+      - path: armature/root/hips/spine
+        weight: 1
+      - path: armature/root/hips/spine/chest
+        weight: 1
+      - path: armature/root/hips/spine/chest/neck
+        weight: 1
+      - path: armature/root/hips/spine/chest/neck/head
+        weight: 1
+      - path: armature/root/hips/spine/chest/neck/head/head_end
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.L
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.L/upper_arm.L
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.L/upper_arm.L/forearm.L
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.L/upper_arm.L/forearm.L/hand.L/hand.L_end
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.R
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.R/upper_arm.R
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.R/upper_arm.R/forearm.R
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R
+        weight: 1
+      - path: armature/root/hips/spine/chest/shoulder.R/upper_arm.R/forearm.R/hand.R/hand.R_end
+        weight: 1
+      - path: armature/root/hips/thigh.L
+        weight: 1
+      - path: armature/root/hips/thigh.L/shin.L
+        weight: 1
+      - path: armature/root/hips/thigh.L/shin.L/foot.L
+        weight: 1
+      - path: armature/root/hips/thigh.L/shin.L/foot.L/toe.L
+        weight: 1
+      - path: armature/root/hips/thigh.L/shin.L/foot.L/toe.L/toe.L_end
+        weight: 1
+      - path: armature/root/hips/thigh.R
+        weight: 1
+      - path: armature/root/hips/thigh.R/shin.R
+        weight: 1
+      - path: armature/root/hips/thigh.R/shin.R/foot.R
+        weight: 1
+      - path: armature/root/hips/thigh.R/shin.R/foot.R/toe.R
+        weight: 1
+      - path: armature/root/hips/thigh.R/shin.R/foot.R/toe.R/toe.R_end
+        weight: 1
+      - path: characterMesh.001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: characterDead@wallSit
+      takeName: armature|armatureAction
+      firstFrame: 55
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

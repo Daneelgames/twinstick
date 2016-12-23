@@ -6,7 +6,8 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-public class StateManager : MonoBehaviour {
+public class StateManager : MonoBehaviour
+{
 
     public bool loadOnStart = false;
 
@@ -23,6 +24,7 @@ public class StateManager : MonoBehaviour {
     public bool flashlight = false;
     public List<string> questItems = new List<string>();
     public List<int> playerAmmo = new List<int>();
+    public int painkillers = 0;
 
     public List<string> statefulObjectsAnimators = new List<string>();
     public List<Vector3> statefulPositions = new List<Vector3>();
@@ -31,9 +33,9 @@ public class StateManager : MonoBehaviour {
     public List<string> messages = new List<string>();
 
     public static StateManager instance;
-    
+
     void Awake()
-    {   
+    {
         if (instance == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -69,7 +71,7 @@ public class StateManager : MonoBehaviour {
         }
         return false;
     }
-    
+
     public string GetRecieverName(string n)
     {
         if (statefulObjects.Count > 0)
@@ -78,7 +80,7 @@ public class StateManager : MonoBehaviour {
             {
                 if (i == n)
                 {
-                        return transmittersMessages[statefulObjects.IndexOf(i)];
+                    return transmittersMessages[statefulObjects.IndexOf(i)];
                 }
             }
         }
@@ -201,7 +203,7 @@ public class StateManager : MonoBehaviour {
         }
     }
 
-    public bool GetMobDead (string mobName)
+    public bool GetMobDead(string mobName)
     {
         foreach (string i in deadMobs)
         {
@@ -230,25 +232,25 @@ public class StateManager : MonoBehaviour {
     }
     public void SaveStatefulPosition(string statefulName, Vector3 pos)
     {
-        foreach(string i in statefulObjects)
+        foreach (string i in statefulObjects)
         {
             if (statefulName == i)
             {
                 statefulPositions[statefulObjects.IndexOf(i)] = pos;
                 break;
-            }   
+            }
         }
     }
 
     public Vector3 GetStatefulPosition(string statefulName)
     {
-        foreach(string i in statefulObjects)
+        foreach (string i in statefulObjects)
         {
             if (statefulName == i)
             {
                 if (statefulPositions.Count > statefulObjects.IndexOf(i))
                     return statefulPositions[statefulObjects.IndexOf(i)];
-            }   
+            }
         }
         return new Vector3(0, -100f, 100f);
     }
@@ -270,17 +272,29 @@ public class StateManager : MonoBehaviour {
 
     public void AddItem(string item)
     {
-        bool alreadyHave = false;
-        foreach (string i in questItems)
+        if (item != "Painkillers")
         {
-            if (i == item)
+            bool alreadyHave = false;
+            foreach (string i in questItems)
             {
-                alreadyHave = true;
-                break;
+                if (i == item)
+                {
+                    alreadyHave = true;
+                    break;
+                }
             }
+            if (!alreadyHave)
+                questItems.Add(item);
         }
-        if (!alreadyHave)
-            questItems.Add(item);
+        else if (item == "Painkillers")
+        {
+            painkillers += 1;
+        }
+    }
+
+    public void UsePainkillers()
+    {
+        painkillers -= 1;
     }
 
     public bool HaveItem(string item)
@@ -341,6 +355,7 @@ public class StateManager : MonoBehaviour {
         data.playerHealth = playerHealth = GameManager.instance.playerController.playerHealth.health;
         data.activeWeapon = activeWeapon;
         data.questItems = new List<string>(questItems);
+        data.painkillers = painkillers;
         data.flashlight = flashlight;
 
         data.statefulObjectsAnimators = new List<string>(statefulObjectsAnimators);
@@ -348,7 +363,7 @@ public class StateManager : MonoBehaviour {
         //data.statefulPositions = new List<Vector3>(statefulPositions);
 
         data.statefulPositions.Clear();
-        foreach(Vector3 v in statefulPositions)
+        foreach (Vector3 v in statefulPositions)
         {
             data.statefulPositions.Add(v);
         }
@@ -363,7 +378,7 @@ public class StateManager : MonoBehaviour {
 
     public void GameLoad()
     {
-        if(File.Exists(Application.persistentDataPath + "/gameState.dat"))
+        if (File.Exists(Application.persistentDataPath + "/gameState.dat"))
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/gameState.dat", FileMode.Open);
@@ -383,6 +398,7 @@ public class StateManager : MonoBehaviour {
             activeWeapon = data.activeWeapon;
             questItems = new List<string>(data.questItems);
             playerAmmo = new List<int>(data.playerAmmo);
+            painkillers = data.painkillers;
             flashlight = data.flashlight;
 
             statefulObjectsAnimators = new List<string>(data.statefulObjectsAnimators);
@@ -390,7 +406,7 @@ public class StateManager : MonoBehaviour {
             //statefulPositions = new List<Vector3>(data.statefulPositions);
 
             statefulPositions.Clear();
-            foreach(Vector3 v in data.statefulPositions)
+            foreach (Vector3 v in data.statefulPositions)
             {
                 statefulPositions.Add(v);
             }
@@ -417,6 +433,7 @@ class GameState
     public string activeWeapon;
     public List<string> questItems;
     public List<int> playerAmmo;
+    public int painkillers = 0;
     public bool flashlight;
 
     public List<string> statefulObjectsAnimators = new List<string>();

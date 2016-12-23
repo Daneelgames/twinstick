@@ -4,10 +4,19 @@ using System.Collections;
 public class MessageTransmitter : MonoBehaviour {
 
     public string recieverName = "";
+    public bool sendOnStart = false;
 
     public void SetRecieverName(string j)
     {
         recieverName = j;
+    }
+
+    void Start()
+    {
+        if (recieverName != "" && sendOnStart)
+        {
+            SendMessage(false);
+        }
     }
 
     public void SendMessage(bool needToFadeIn)

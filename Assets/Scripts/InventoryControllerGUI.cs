@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class InventoryControllerGUI : MonoBehaviour {
 
     public bool active = false;
-    float coolDownMax = 0.3f;
+    float coolDownMax = 0.15f;
     float coolDown = 0f;
 
     public Animator anim;
@@ -19,12 +19,11 @@ public class InventoryControllerGUI : MonoBehaviour {
     public GameObject cursor;
     public List<Image> slotsImages = new List<Image>();
     public List<Image> equipFeedback = new List<Image>();
-    public List<Animator> animators = new List<Animator>();
-    
-    public List<Animator> arrowsAnimators = new List<Animator>();
 
     public Text itemNameText;
     public Text itemDescriptionText;
+    public Text painkillersAmountText;
+    public List<GameObject> arrows;
     public List<string> names = new List<string>();
     public List<string> descriptions = new List<string>();
 
@@ -109,10 +108,10 @@ public class InventoryControllerGUI : MonoBehaviour {
                     UpdateItems(0);
 
                     cursor.transform.position = slotsImages[0].transform.position;
-                    animators[0].SetTrigger("Shake");
 
                     cursorAt = 0;
                     cursotAtGlobal = 0;
+                    painkillersAmountText.text = StateManager.instance.painkillers + "";
                 }
             }
         }
@@ -170,22 +169,20 @@ public class InventoryControllerGUI : MonoBehaviour {
 
         if (offset > 0)
         {
-            arrowsAnimators[0].gameObject.SetActive(true);
-            arrowsAnimators[0].SetTrigger("Shake");
+            arrows[0].gameObject.SetActive(true);
         }
         else
         {
-            arrowsAnimators[0].gameObject.SetActive(false);
+            arrows[0].gameObject.SetActive(false);
         }
 
         if (cursotAtGlobal < StateManager.instance.questItems.Count - 1)
         {
-            arrowsAnimators[1].gameObject.SetActive(true);
-            arrowsAnimators[1].SetTrigger("Shake");
+            arrows[1].gameObject.SetActive(true);
         }
         else
         {
-            arrowsAnimators[1].gameObject.SetActive(false);
+            arrows[1].gameObject.SetActive(false);
         }
 
     }
@@ -247,7 +244,6 @@ public class InventoryControllerGUI : MonoBehaviour {
 
 
         cursor.transform.position = slotsImages[cursorAt].transform.position;
-        animators[0].SetTrigger("Shake");
         SetText();
     }
 
