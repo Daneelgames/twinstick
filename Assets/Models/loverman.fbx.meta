@@ -155,6 +155,10 @@ ModelImporter:
     7400006: metarig|metarig.001Action
     7400008: metarig|metarigAction
     7400010: loverman@idle
+    7400012: loverman@attackLeft
+    7400014: lovermanDeadGirl@attackLeft
+    7400016: loverman@attackRight
+    7400018: lovermanDeadGirl@attackRight
     9500000: //RootNode
     11100000: //RootNode
     13700000: DeadGirl
@@ -367,6 +371,702 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: DeadGirl
+        weight: 1
+      - path: fatherLoverman
+        weight: 1
+      - path: metarig
+        weight: 1
+      - path: metarig/Bone
+        weight: 1
+      - path: metarig/Bone/forearmIK.L
+        weight: 1
+      - path: metarig/Bone/forearmIK.L/hand.L 1
+        weight: 1
+      - path: metarig/Bone/forearmIK.L/hand.L 1/hand.L_end 1
+        weight: 1
+      - path: metarig/Bone/upper_arm.L
+        weight: 1
+      - path: metarig/Bone/upper_arm.L/forearm.L
+        weight: 1
+      - path: metarig/Bone/upper_arm.L/forearm.L/forearm.L_end
+        weight: 1
+      - path: metarig/Bone.001
+        weight: 1
+      - path: metarig/Bone.001/forearmIK.R
+        weight: 1
+      - path: metarig/Bone.001/forearmIK.R/hand.R 1
+        weight: 1
+      - path: metarig/Bone.001/forearmIK.R/hand.R 1/hand.R_end 1
+        weight: 1
+      - path: metarig/Bone.001/upper_arm.R
+        weight: 1
+      - path: metarig/Bone.001/upper_arm.R/forearm.R
+        weight: 1
+      - path: metarig/Bone.001/upper_arm.R/forearm.R/forearm.R_end
+        weight: 1
+      - path: metarig/heel.L
+        weight: 1
+      - path: metarig/heel.L/foot.L
+        weight: 1
+      - path: metarig/heel.L/foot.L/foot.L_end
+        weight: 1
+      - path: metarig/heel.R
+        weight: 1
+      - path: metarig/heel.R/foot.R
+        weight: 1
+      - path: metarig/heel.R/foot.R/foot.R_end
+        weight: 1
+      - path: metarig/root
+        weight: 1
+      - path: metarig/root/hips 1
+        weight: 1
+      - path: metarig/root/hips 1/spine 1
+        weight: 1
+      - path: metarig/root/hips 1/spine 1/chest 1
+        weight: 1
+      - path: metarig/root/hips 1/spine 1/chest 1/chest_end
+        weight: 1
+      - path: metarig/root/hips 1/thigh.L 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.L 1/shin.L 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.L 1/shin.L 1/shin.L_end 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.R 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.R 1/shin.R 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.R 1/shin.R 1/shin.R_end 1
+        weight: 1
+      - path: metarig.001
+        weight: 1
+      - path: metarig.001/Bone 1
+        weight: 1
+      - path: metarig.001/Bone 1/armIK.L
+        weight: 1
+      - path: metarig.001/Bone 1/armIK.L/hand.L
+        weight: 1
+      - path: metarig.001/Bone 1/armIK.L/hand.L/hand.L_end
+        weight: 1
+      - path: metarig.001/Bone 1/heel.L 1
+        weight: 1
+      - path: metarig.001/Bone 1/heel.L 1/foot.L 1
+        weight: 1
+      - path: metarig.001/Bone 1/heel.L 1/foot.L 1/toe.L
+        weight: 1
+      - path: metarig.001/Bone 1/heel.L 1/foot.L 1/toe.L/toe.L_end
+        weight: 1
+      - path: metarig.001/Bone 1/heel.R 1
+        weight: 1
+      - path: metarig.001/Bone 1/heel.R 1/foot.R 1
+        weight: 1
+      - path: metarig.001/Bone 1/heel.R 1/foot.R 1/toe.R
+        weight: 1
+      - path: metarig.001/Bone 1/heel.R 1/foot.R 1/toe.R/toe.R_end
+        weight: 1
+      - path: metarig.001/Bone 1/hips
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/neck
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/neck/head
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/neck/head/head_end
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.L
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.L/upper_arm.L 1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.L/upper_arm.L 1/forearm.L
+          1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.L/upper_arm.L 1/forearm.L
+          1/forearm.L_end 1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.R
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.R/upper_arm.R 1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.R/upper_arm.R 1/forearm.R
+          1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.R/upper_arm.R 1/forearm.R
+          1/forearm.R_end 1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.L
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.L/shin.L
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.L/shin.L/shin.L_end
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.R
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.R/shin.R
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.R/shin.R/shin.R_end
+        weight: 1
+      - path: metarig.001/Bone 1/root 1
+        weight: 1
+      - path: metarig.001/Bone 1/root 1/hand.R
+        weight: 1
+      - path: metarig.001/Bone 1/root 1/hand.R/hand.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: loverman@attackLeft
+      takeName: metarig|metarigAction.001
+      firstFrame: 80
+      lastFrame: 140
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: DeadGirl
+        weight: 1
+      - path: fatherLoverman
+        weight: 1
+      - path: metarig
+        weight: 1
+      - path: metarig/Bone
+        weight: 1
+      - path: metarig/Bone/forearmIK.L
+        weight: 1
+      - path: metarig/Bone/forearmIK.L/hand.L 1
+        weight: 1
+      - path: metarig/Bone/forearmIK.L/hand.L 1/hand.L_end 1
+        weight: 1
+      - path: metarig/Bone/upper_arm.L
+        weight: 1
+      - path: metarig/Bone/upper_arm.L/forearm.L
+        weight: 1
+      - path: metarig/Bone/upper_arm.L/forearm.L/forearm.L_end
+        weight: 1
+      - path: metarig/Bone.001
+        weight: 1
+      - path: metarig/Bone.001/forearmIK.R
+        weight: 1
+      - path: metarig/Bone.001/forearmIK.R/hand.R 1
+        weight: 1
+      - path: metarig/Bone.001/forearmIK.R/hand.R 1/hand.R_end 1
+        weight: 1
+      - path: metarig/Bone.001/upper_arm.R
+        weight: 1
+      - path: metarig/Bone.001/upper_arm.R/forearm.R
+        weight: 1
+      - path: metarig/Bone.001/upper_arm.R/forearm.R/forearm.R_end
+        weight: 1
+      - path: metarig/heel.L
+        weight: 1
+      - path: metarig/heel.L/foot.L
+        weight: 1
+      - path: metarig/heel.L/foot.L/foot.L_end
+        weight: 1
+      - path: metarig/heel.R
+        weight: 1
+      - path: metarig/heel.R/foot.R
+        weight: 1
+      - path: metarig/heel.R/foot.R/foot.R_end
+        weight: 1
+      - path: metarig/root
+        weight: 1
+      - path: metarig/root/hips 1
+        weight: 1
+      - path: metarig/root/hips 1/spine 1
+        weight: 1
+      - path: metarig/root/hips 1/spine 1/chest 1
+        weight: 1
+      - path: metarig/root/hips 1/spine 1/chest 1/chest_end
+        weight: 1
+      - path: metarig/root/hips 1/thigh.L 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.L 1/shin.L 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.L 1/shin.L 1/shin.L_end 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.R 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.R 1/shin.R 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.R 1/shin.R 1/shin.R_end 1
+        weight: 1
+      - path: metarig.001
+        weight: 1
+      - path: metarig.001/Bone 1
+        weight: 1
+      - path: metarig.001/Bone 1/armIK.L
+        weight: 1
+      - path: metarig.001/Bone 1/armIK.L/hand.L
+        weight: 1
+      - path: metarig.001/Bone 1/armIK.L/hand.L/hand.L_end
+        weight: 1
+      - path: metarig.001/Bone 1/heel.L 1
+        weight: 1
+      - path: metarig.001/Bone 1/heel.L 1/foot.L 1
+        weight: 1
+      - path: metarig.001/Bone 1/heel.L 1/foot.L 1/toe.L
+        weight: 1
+      - path: metarig.001/Bone 1/heel.L 1/foot.L 1/toe.L/toe.L_end
+        weight: 1
+      - path: metarig.001/Bone 1/heel.R 1
+        weight: 1
+      - path: metarig.001/Bone 1/heel.R 1/foot.R 1
+        weight: 1
+      - path: metarig.001/Bone 1/heel.R 1/foot.R 1/toe.R
+        weight: 1
+      - path: metarig.001/Bone 1/heel.R 1/foot.R 1/toe.R/toe.R_end
+        weight: 1
+      - path: metarig.001/Bone 1/hips
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/neck
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/neck/head
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/neck/head/head_end
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.L
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.L/upper_arm.L 1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.L/upper_arm.L 1/forearm.L
+          1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.L/upper_arm.L 1/forearm.L
+          1/forearm.L_end 1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.R
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.R/upper_arm.R 1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.R/upper_arm.R 1/forearm.R
+          1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.R/upper_arm.R 1/forearm.R
+          1/forearm.R_end 1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.L
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.L/shin.L
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.L/shin.L/shin.L_end
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.R
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.R/shin.R
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.R/shin.R/shin.R_end
+        weight: 1
+      - path: metarig.001/Bone 1/root 1
+        weight: 1
+      - path: metarig.001/Bone 1/root 1/hand.R
+        weight: 1
+      - path: metarig.001/Bone 1/root 1/hand.R/hand.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: lovermanDeadGirl@attackLeft
+      takeName: metarig.001|metarig.001Action.001
+      firstFrame: 80
+      lastFrame: 140
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: DeadGirl
+        weight: 1
+      - path: fatherLoverman
+        weight: 1
+      - path: metarig
+        weight: 1
+      - path: metarig/Bone
+        weight: 1
+      - path: metarig/Bone/forearmIK.L
+        weight: 1
+      - path: metarig/Bone/forearmIK.L/hand.L 1
+        weight: 1
+      - path: metarig/Bone/forearmIK.L/hand.L 1/hand.L_end 1
+        weight: 1
+      - path: metarig/Bone/upper_arm.L
+        weight: 1
+      - path: metarig/Bone/upper_arm.L/forearm.L
+        weight: 1
+      - path: metarig/Bone/upper_arm.L/forearm.L/forearm.L_end
+        weight: 1
+      - path: metarig/Bone.001
+        weight: 1
+      - path: metarig/Bone.001/forearmIK.R
+        weight: 1
+      - path: metarig/Bone.001/forearmIK.R/hand.R 1
+        weight: 1
+      - path: metarig/Bone.001/forearmIK.R/hand.R 1/hand.R_end 1
+        weight: 1
+      - path: metarig/Bone.001/upper_arm.R
+        weight: 1
+      - path: metarig/Bone.001/upper_arm.R/forearm.R
+        weight: 1
+      - path: metarig/Bone.001/upper_arm.R/forearm.R/forearm.R_end
+        weight: 1
+      - path: metarig/heel.L
+        weight: 1
+      - path: metarig/heel.L/foot.L
+        weight: 1
+      - path: metarig/heel.L/foot.L/foot.L_end
+        weight: 1
+      - path: metarig/heel.R
+        weight: 1
+      - path: metarig/heel.R/foot.R
+        weight: 1
+      - path: metarig/heel.R/foot.R/foot.R_end
+        weight: 1
+      - path: metarig/root
+        weight: 1
+      - path: metarig/root/hips 1
+        weight: 1
+      - path: metarig/root/hips 1/spine 1
+        weight: 1
+      - path: metarig/root/hips 1/spine 1/chest 1
+        weight: 1
+      - path: metarig/root/hips 1/spine 1/chest 1/chest_end
+        weight: 1
+      - path: metarig/root/hips 1/thigh.L 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.L 1/shin.L 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.L 1/shin.L 1/shin.L_end 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.R 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.R 1/shin.R 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.R 1/shin.R 1/shin.R_end 1
+        weight: 1
+      - path: metarig.001
+        weight: 1
+      - path: metarig.001/Bone 1
+        weight: 1
+      - path: metarig.001/Bone 1/armIK.L
+        weight: 1
+      - path: metarig.001/Bone 1/armIK.L/hand.L
+        weight: 1
+      - path: metarig.001/Bone 1/armIK.L/hand.L/hand.L_end
+        weight: 1
+      - path: metarig.001/Bone 1/heel.L 1
+        weight: 1
+      - path: metarig.001/Bone 1/heel.L 1/foot.L 1
+        weight: 1
+      - path: metarig.001/Bone 1/heel.L 1/foot.L 1/toe.L
+        weight: 1
+      - path: metarig.001/Bone 1/heel.L 1/foot.L 1/toe.L/toe.L_end
+        weight: 1
+      - path: metarig.001/Bone 1/heel.R 1
+        weight: 1
+      - path: metarig.001/Bone 1/heel.R 1/foot.R 1
+        weight: 1
+      - path: metarig.001/Bone 1/heel.R 1/foot.R 1/toe.R
+        weight: 1
+      - path: metarig.001/Bone 1/heel.R 1/foot.R 1/toe.R/toe.R_end
+        weight: 1
+      - path: metarig.001/Bone 1/hips
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/neck
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/neck/head
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/neck/head/head_end
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.L
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.L/upper_arm.L 1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.L/upper_arm.L 1/forearm.L
+          1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.L/upper_arm.L 1/forearm.L
+          1/forearm.L_end 1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.R
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.R/upper_arm.R 1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.R/upper_arm.R 1/forearm.R
+          1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.R/upper_arm.R 1/forearm.R
+          1/forearm.R_end 1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.L
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.L/shin.L
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.L/shin.L/shin.L_end
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.R
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.R/shin.R
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.R/shin.R/shin.R_end
+        weight: 1
+      - path: metarig.001/Bone 1/root 1
+        weight: 1
+      - path: metarig.001/Bone 1/root 1/hand.R
+        weight: 1
+      - path: metarig.001/Bone 1/root 1/hand.R/hand.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: loverman@attackRight
+      takeName: metarig|metarigAction.001
+      firstFrame: 150
+      lastFrame: 200
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: DeadGirl
+        weight: 1
+      - path: fatherLoverman
+        weight: 1
+      - path: metarig
+        weight: 1
+      - path: metarig/Bone
+        weight: 1
+      - path: metarig/Bone/forearmIK.L
+        weight: 1
+      - path: metarig/Bone/forearmIK.L/hand.L 1
+        weight: 1
+      - path: metarig/Bone/forearmIK.L/hand.L 1/hand.L_end 1
+        weight: 1
+      - path: metarig/Bone/upper_arm.L
+        weight: 1
+      - path: metarig/Bone/upper_arm.L/forearm.L
+        weight: 1
+      - path: metarig/Bone/upper_arm.L/forearm.L/forearm.L_end
+        weight: 1
+      - path: metarig/Bone.001
+        weight: 1
+      - path: metarig/Bone.001/forearmIK.R
+        weight: 1
+      - path: metarig/Bone.001/forearmIK.R/hand.R 1
+        weight: 1
+      - path: metarig/Bone.001/forearmIK.R/hand.R 1/hand.R_end 1
+        weight: 1
+      - path: metarig/Bone.001/upper_arm.R
+        weight: 1
+      - path: metarig/Bone.001/upper_arm.R/forearm.R
+        weight: 1
+      - path: metarig/Bone.001/upper_arm.R/forearm.R/forearm.R_end
+        weight: 1
+      - path: metarig/heel.L
+        weight: 1
+      - path: metarig/heel.L/foot.L
+        weight: 1
+      - path: metarig/heel.L/foot.L/foot.L_end
+        weight: 1
+      - path: metarig/heel.R
+        weight: 1
+      - path: metarig/heel.R/foot.R
+        weight: 1
+      - path: metarig/heel.R/foot.R/foot.R_end
+        weight: 1
+      - path: metarig/root
+        weight: 1
+      - path: metarig/root/hips 1
+        weight: 1
+      - path: metarig/root/hips 1/spine 1
+        weight: 1
+      - path: metarig/root/hips 1/spine 1/chest 1
+        weight: 1
+      - path: metarig/root/hips 1/spine 1/chest 1/chest_end
+        weight: 1
+      - path: metarig/root/hips 1/thigh.L 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.L 1/shin.L 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.L 1/shin.L 1/shin.L_end 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.R 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.R 1/shin.R 1
+        weight: 1
+      - path: metarig/root/hips 1/thigh.R 1/shin.R 1/shin.R_end 1
+        weight: 1
+      - path: metarig.001
+        weight: 1
+      - path: metarig.001/Bone 1
+        weight: 1
+      - path: metarig.001/Bone 1/armIK.L
+        weight: 1
+      - path: metarig.001/Bone 1/armIK.L/hand.L
+        weight: 1
+      - path: metarig.001/Bone 1/armIK.L/hand.L/hand.L_end
+        weight: 1
+      - path: metarig.001/Bone 1/heel.L 1
+        weight: 1
+      - path: metarig.001/Bone 1/heel.L 1/foot.L 1
+        weight: 1
+      - path: metarig.001/Bone 1/heel.L 1/foot.L 1/toe.L
+        weight: 1
+      - path: metarig.001/Bone 1/heel.L 1/foot.L 1/toe.L/toe.L_end
+        weight: 1
+      - path: metarig.001/Bone 1/heel.R 1
+        weight: 1
+      - path: metarig.001/Bone 1/heel.R 1/foot.R 1
+        weight: 1
+      - path: metarig.001/Bone 1/heel.R 1/foot.R 1/toe.R
+        weight: 1
+      - path: metarig.001/Bone 1/heel.R 1/foot.R 1/toe.R/toe.R_end
+        weight: 1
+      - path: metarig.001/Bone 1/hips
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/neck
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/neck/head
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/neck/head/head_end
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.L
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.L/upper_arm.L 1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.L/upper_arm.L 1/forearm.L
+          1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.L/upper_arm.L 1/forearm.L
+          1/forearm.L_end 1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.R
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.R/upper_arm.R 1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.R/upper_arm.R 1/forearm.R
+          1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/spine/chest/shoulder.R/upper_arm.R 1/forearm.R
+          1/forearm.R_end 1
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.L
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.L/shin.L
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.L/shin.L/shin.L_end
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.R
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.R/shin.R
+        weight: 1
+      - path: metarig.001/Bone 1/hips/thigh.R/shin.R/shin.R_end
+        weight: 1
+      - path: metarig.001/Bone 1/root 1
+        weight: 1
+      - path: metarig.001/Bone 1/root 1/hand.R
+        weight: 1
+      - path: metarig.001/Bone 1/root 1/hand.R/hand.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: lovermanDeadGirl@attackRight
+      takeName: metarig.001|metarig.001Action.001
+      firstFrame: 150
+      lastFrame: 200
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
