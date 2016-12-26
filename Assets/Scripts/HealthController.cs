@@ -101,6 +101,7 @@ public class HealthController : MonoBehaviour
         {
             GameManager.instance.gui.SetHealth();
             StateManager.instance.UsePainkillers();
+            StateManager.instance.SetPlayerHealth(health);
         }
     }
 }

@@ -403,4 +403,8 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool(boolName, boolValue);
     }
 
+    public void SetAnimTrigger(string triggerName)
+    {
+        anim.SetTrigger(triggerName);
+    }
 }

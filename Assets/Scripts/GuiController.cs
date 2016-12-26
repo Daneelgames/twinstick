@@ -22,6 +22,8 @@ public class GuiController : MonoBehaviour
     {
         fill = GameManager.instance.playerController.playerHealth.health * 1.0f / GameManager.instance.playerController.playerHealth.maxHealth * 1.0f;
         healthbar.fillAmount = fill;
+        HealthController h = GameManager.instance.playerController.playerHealth;
+        GameManager.instance.healthFeedbackAnimator.SetFloat("Blend", h.health * 1.0f / h.maxHealth * 1.0f );
     }
 
     public void SetFade(bool f)

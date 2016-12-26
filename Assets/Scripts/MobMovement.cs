@@ -2,9 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class MobMovement : MonoBehaviour {
+public class MobMovement : MonoBehaviour
+{
 
-    public enum State {Idle, Chase, Dead};
+    public enum State { Idle, Chase, Dead };
 
     public State mobState = State.Idle;
 
@@ -34,7 +35,8 @@ public class MobMovement : MonoBehaviour {
     public HealthController health;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         InvokeRepeating("CheckDistanceToPlayer", 0f, 0.5f);
         InvokeRepeating("SetNextAttack", 1f, 1f);
     }
@@ -65,15 +67,21 @@ public class MobMovement : MonoBehaviour {
     void SetNextAttack()
     {
         List<int> indexes = new List<int>();
-        for (int i = 0; i < attackRanges.Count; i ++)
+        for (int i = 0; i < attackRanges.Count; i++)
         {
-            if (attackRanges[i])
+            if (attackRanges[i] != false)
             {
                 indexes.Add(i);
             }
         }
+        if (indexes.Count > 0)
+        {
+            int maxIndex = indexes.Count;
+            if (indexes.Count > 1)
+                maxIndex = indexes.Count + 1;
 
-        nextAttackIndex = Random.Range(0, indexes.Count);
+            nextAttackIndex = indexes[Random.Range(0, maxIndex)];
+        }
     }
 
     void CheckDistanceToPlayer()
@@ -114,7 +122,7 @@ public class MobMovement : MonoBehaviour {
             anim.SetTrigger(attackTriggerName[nextAttackIndex]);
             attackCooldown = attackCooldownMax[nextAttackIndex];
         }
-        else if (attackCooldown <= 0 && hurtCooldown<= 0)
+        else if (attackCooldown <= 0 && hurtCooldown <= 0)
         {
             animNewSpeed = 1;
 
@@ -141,7 +149,7 @@ public class MobMovement : MonoBehaviour {
             rb.velocity = Vector3.zero;
         }
     }
-    
+
     public void PlayerInRange(int index, bool inside)
     {
         attackRanges[index] = inside;

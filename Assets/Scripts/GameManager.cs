@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
     public List<string> weapons;
     public GameObject playerPrefab;
 
-    public int playerHealth = 10;
     public CampfireController startCampfire;
     public int bullets = 50;
     public int shells = 20;
@@ -51,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     public InventoryItemsList inventoryItems;
 
+    public Animator healthFeedbackAnimator;
 
     void Awake()
     {
@@ -184,6 +184,7 @@ public class GameManager : MonoBehaviour
         SetActiveWeapon(StateManager.instance.activeWeapon);
 
         playerController.SetFlashlight(StateManager.instance.GetFlashlight());
+        playerController.playerHealth.health = StateManager.instance.playerHealth;
     }
 
     public void SendMessages(bool needToFadeIn) // CALL IN MIDDLE OF SCENE
@@ -217,7 +218,6 @@ public class GameManager : MonoBehaviour
 
     public void GetValuesFromSaveFile()
     {
-        playerHealth = StateManager.instance.playerHealth;
         if (StateManager.instance.playerAmmo.Count > 0)
         {
             bullets = StateManager.instance.playerAmmo[0];
@@ -324,14 +324,14 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetButtonDown("Submit"))
             {
-                if (npcToInteract != null && !inventory.active && playerHealth > 0 && !playerController.attacking && !playerController.aim && !playerController.reloading && !playerController.healing && !playerController.moveBack && !gui.fade)
+                if (npcToInteract != null && !inventory.active && playerController.playerHealth.health > 0 && !playerController.attacking && !playerController.aim && !playerController.reloading && !playerController.healing && !playerController.moveBack && !gui.fade)
                 {
                     npcToInteract.Talk();
                     //actionFeedbackController.SetFeedback(false, "");
                 }
             }
 
-            if (Input.GetButtonDown("ToggleInventory") && playerHealth > 0 && !gui.fade && !cutScene && !playerController.attacking && !playerController.aim && !playerController.reloading && !playerController.healing && !playerController.moveBack)
+            if (Input.GetButtonDown("ToggleInventory") && playerController.playerHealth.health > 0 && !gui.fade && !cutScene && !playerController.attacking && !playerController.aim && !playerController.reloading && !playerController.healing && !playerController.moveBack)
             {
                 inventory.ToggleInventory();
             }

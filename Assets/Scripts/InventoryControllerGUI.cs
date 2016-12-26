@@ -94,7 +94,7 @@ public class InventoryControllerGUI : MonoBehaviour {
 
             if (active)
             {
-                anim.SetBool("Active", false);
+                anim.SetBool("InventoryActive", false);
                 active = false;
                 Time.timeScale = 1f;
             }
@@ -102,7 +102,7 @@ public class InventoryControllerGUI : MonoBehaviour {
             {
                 if (Time.timeScale == 1)
                 {
-                    anim.SetBool("Active", true);
+                    anim.SetBool("InventoryActive", true);
                     active = true;
                     Time.timeScale = 0f;
                     UpdateItems(0);

@@ -297,6 +297,11 @@ public class StateManager : MonoBehaviour
         painkillers -= 1;
     }
 
+    public void SetPlayerHealth(int amount)
+    {
+        playerHealth = amount;
+    }
+
     public bool HaveItem(string item)
     {
         foreach (string i in questItems)
