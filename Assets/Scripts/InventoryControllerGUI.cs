@@ -107,6 +107,8 @@ public class InventoryControllerGUI : MonoBehaviour {
                     Time.timeScale = 0f;
                     UpdateItems(0);
 
+                    GameManager.instance.gui.SetHealth();
+
                     cursor.transform.position = slotsImages[0].transform.position;
 
                     cursorAt = 0;

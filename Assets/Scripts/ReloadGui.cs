@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ReloadGui : MonoBehaviour {
+public class ReloadGui : MonoBehaviour
+{
 
     public Animator anim;
     public Animator sliderAnim;
@@ -17,10 +18,16 @@ public class ReloadGui : MonoBehaviour {
         reloadAmount = rld;
         sliderAnim.transform.localPosition = new Vector2(-75f, 0);
         anim.SetBool("Active", true);
-        GameManager.instance.playerController.SetAnimBool("Reload", true);
+
+        if (reloadAmount > 0)
+            GameManager.instance.playerController.SetAnimBool("Reload", true);
+        else
+            GameManager.instance.playerController.SetAnimBool("Heal", true);
+
         greenZone.transform.localPosition = new Vector3(greenPosX, 0, 0);
         //transform.localPosition = Camera.main.WorldToViewportPoint(new Vector3(GameManager.instance.playerInGame.transform.position.x, GameManager.instance.playerInGame.transform.position.y, GameManager.instance.playerInGame.transform.position.z));
         StartCoroutine("Reloading");
+        print("start reload");
     }
 
     IEnumerator Reloading()
@@ -38,18 +45,44 @@ public class ReloadGui : MonoBehaviour {
     {
         // RELOAD ANIMATION HERE
         yield return new WaitForSeconds(wait);
-        GameManager.instance.playerController.SetAnimBool("Reload", false);
         reload = false;
-        WeaponController weaponController = GameManager.instance.playerController.weaponController;
-        weaponController.Reload(reloadAmount);
-        GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -reloadAmount);
+        if (reloadAmount > 0)
+        {
+            WeaponController weaponController = GameManager.instance.playerController.weaponController;
+            weaponController.Reload(reloadAmount);
+            GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -reloadAmount);
+        }
+        else
+        {
+            HealthController ph = GameManager.instance.playerController.playerHealth;
+            ph.Heal(Mathf.RoundToInt(ph.maxHealth / 3));
+        }
+        Finish();
     }
 
     IEnumerator ReloadFailed()
     {
         yield return new WaitForSeconds(1.5f);
-        GameManager.instance.playerController.SetAnimBool("Reload", false);
         reload = false;
+        Finish();
+    }
+
+    void Finish()
+    {
+        GameManager.instance.playerController.SetAnimBool("Reload", false);
+        GameManager.instance.playerController.ReloadOver();
+        GameManager.instance.playerController.SetAnimBool("Heal", false);
+        GameManager.instance.playerController.HealOver();
+    }
+
+    public void BreakProcess()
+    {
+        if (reload)
+        {
+            StopAllCoroutines();
+            reload = false;
+            Finish();
+        }
     }
 
     void Update()
@@ -58,24 +91,32 @@ public class ReloadGui : MonoBehaviour {
         {
             sliderAnim.transform.localPosition = new Vector2(sliderAnim.transform.localPosition.x + 300 * Time.deltaTime, 0);
 
-            if (Input.GetButtonDown("Reload"))
+            if (Input.GetButtonDown("Reload") && reloadAmount > 0)
             {
-                float distance = Vector2.Distance(sliderAnim.transform.localPosition, greenZone.transform.localPosition);
-
-                if (distance > 35f) // fail
-                {
-                    StartCoroutine("ReloadFailed");
-                    StopCoroutine("Reloading");
-                }
-                else
-                {
-                    StartCoroutine("ReloadSuccess", 0.75f); // fast reload
-                    StopCoroutine("Reloading");
-                }
-                anim.SetBool("Active", false);
-                slider = false;
+                ActiveReload();
             }
-
+            else if (Input.GetButtonDown("Heal") && reloadAmount <= 0)
+            {
+                ActiveReload();
+            }
         }
+    }
+
+    void ActiveReload()
+    {
+        float distance = Vector2.Distance(sliderAnim.transform.localPosition, greenZone.transform.localPosition);
+
+        if (distance > 35f) // fail
+        {
+            StopCoroutine("Reloading");
+            StartCoroutine("ReloadFailed");
+        }
+        else
+        {
+            StopCoroutine("Reloading");
+            StartCoroutine("ReloadSuccess", 0.75f); // fast reload
+        }
+        anim.SetBool("Active", false);
+        slider = false;
     }
 }

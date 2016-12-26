@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HealthController : MonoBehaviour {
+public class HealthController : MonoBehaviour
+{
 
     public int maxHealth = 1;
     public int health = 1;
@@ -57,15 +58,6 @@ public class HealthController : MonoBehaviour {
         }
     }
 
-    public void AddToMaxHealth(int amount)
-    {
-        maxHealth += amount;
-        Heal(maxHealth);
-
-        if (player)
-            GameManager.instance.gui.SetHealth();
-    }
-
     IEnumerator PlayerInvisibleFrames()
     {
         invisible = true;
@@ -98,8 +90,7 @@ public class HealthController : MonoBehaviour {
         // use for destroying bullets
         Destroy(gameObject);
     }
-
-    public void Heal (int amount)
+    public void Heal(int amount)
     {
         health += amount;
 
@@ -107,6 +98,9 @@ public class HealthController : MonoBehaviour {
             health = maxHealth;
 
         if (player)
+        {
             GameManager.instance.gui.SetHealth();
+            StateManager.instance.UsePainkillers();
+        }
     }
 }

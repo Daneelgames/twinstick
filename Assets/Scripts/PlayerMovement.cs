@@ -29,9 +29,10 @@ public class PlayerMovement : MonoBehaviour
     float inputH = 0;
     float inputV = 0;
 
-    bool moveBack = false;
+    public bool moveBack = false;
     public bool attacking = false;
     public bool reloading = false;
+    public bool healing = false;
     public bool aim = false;
 
     float flashlightCooldown = 0f;
@@ -52,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
             inputH = Input.GetAxisRaw("Horizontal");
             inputV = Input.GetAxisRaw("Vertical");
 
-            if (!reloading && !GameManager.instance.cutScene)
+            if (!reloading && !healing && !GameManager.instance.cutScene)
             {
                 Move();
                 Aiming();
@@ -66,20 +67,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerHealth.health > 0 && !GameManager.instance.cutScene)
         {
-            if (!reloading)
-            {
-
-                if (weaponController != null)
-                    Attacking();
-
-                Flashlight();
-            }
+            Flashlight();
+            Healing();
 
             if (weaponController != null)
+            {
                 Reloading();
-
+                Attacking();
+            }
             Animate();
-
         }
     }
 
@@ -88,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         if (flashlightCooldown > 0)
             flashlightCooldown -= Time.deltaTime;
 
-        if (Input.GetButtonDown("Flashlight") && !moveBack && !aim && !attacking && !reloading && flashlightCooldown <= 0)
+        if (Input.GetButtonDown("Flashlight") && !moveBack && !aim && !reloading && !attacking && flashlightCooldown <= 0)
         {
             if (StateManager.instance.flashlight)
             {
@@ -104,13 +100,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
     public void SetFlashlight(bool active)
     {
         flashlight.SetActive(active);
     }
     void Attacking()
     {
-        if (Input.GetButtonDown("Fire1") && aim && weaponController.curCooldown <= 0 && !moveBack)
+        if (Input.GetButtonDown("Fire1") && aim && weaponController.curCooldown <= 0 && !moveBack && !reloading)
         {
             bool canShoot = false;
 
@@ -149,9 +146,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Reloading()
     {
-        if (weaponController.curCooldown <= 0 && weaponController.ammo < weaponController.ammoMax && !GameManager.instance.gui.reloadController.reload && !moveBack)
+        if (Input.GetButtonDown("Reload"))
         {
-            if (Input.GetButtonDown("Reload"))
+            if (weaponController.curCooldown <= 0 && weaponController.ammo < weaponController.ammoMax && !GameManager.instance.gui.reloadController.reload && !moveBack)
             {
 
                 bool canReload = false;
@@ -189,10 +186,34 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void Healing()
+    {
+        if (Input.GetButtonDown("Heal") && !attacking && !healing && !reloading && !moveBack)
+        {
+            if (StateManager.instance.painkillers > 0 && playerHealth.health != playerHealth.maxHealth)
+            {
+                healing = true;
+                GameManager.instance.gui.reloadController.StartReload(Random.Range(-30f, 30f), 0);
+            }
+            
+        }
+    }
+
     void ReloadWeapon(int reloadAmount)
     {
+        reloading = true;
         GameManager.instance.gui.reloadController.StartReload(Random.Range(-30f, 30f), reloadAmount);
     }
+
+    public void ReloadOver()
+    {
+        reloading = false;
+    }
+    public void HealOver()
+    {
+        healing = false;
+    }
+
 
     public void MoveBack(float moveTime)
     {
@@ -268,7 +289,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (inputH != 0 || inputV != 0)
         {
-            if (!Input.GetButton("Aim") && !attacking && !moveBack)
+            if (!Input.GetButton("Aim") && !attacking && !moveBack && !reloading && !healing)
                 anim.SetBool("Move", true);
             else
                 anim.SetBool("Move", false);
@@ -369,7 +390,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            print("ik false");
+//            print("ik false");
             ikController.SetTarget(ikController.lookPos, false);
             anim.SetBool("Aim", false);
             anim.SetBool("LegsTurn", false);

@@ -5,12 +5,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class GameManager : MonoBehaviour {
-    
+public class GameManager : MonoBehaviour
+{
+
     public static GameManager instance = null;
 
     public SceneDetails _sm; // scene manager
-    
+
     public string characterSpawnerName = "StartSpawner";
 
     public bool cutScene = false;
@@ -105,8 +106,8 @@ public class GameManager : MonoBehaviour {
         PlayerSetPos();
 
         NpcToInteract(null, "Inspect");
-        
-//        print("events");
+
+        //        print("events");
         bool cs = false;
 
         if (_sm.introCutScene != null) // play scene intro cutScene
@@ -121,22 +122,22 @@ public class GameManager : MonoBehaviour {
 
         // SEND MESSAGES ON START OF SCENE
 
-/*
-        for (int i = StateManager.instance.messages.Count - 1; i > -1; i --)
-        {
-            for (int j = statefulObjectsOnscene.Count - 1; j > -1; j--)
-            {
-                if (StateManager.instance.messages[i] == statefulObjectsOnscene[j].name)
+        /*
+                for (int i = StateManager.instance.messages.Count - 1; i > -1; i --)
                 {
-                    MessageReciever msg = statefulObjectsOnscene[j].gameObject.GetComponent<MessageReciever>();
-                    msg.GetMessage();
-                    if (msg.csToStart)
-                        cs = true;
-                    StateManager.instance.RemoveMessage(StateManager.instance.messages[i]);
+                    for (int j = statefulObjectsOnscene.Count - 1; j > -1; j--)
+                    {
+                        if (StateManager.instance.messages[i] == statefulObjectsOnscene[j].name)
+                        {
+                            MessageReciever msg = statefulObjectsOnscene[j].gameObject.GetComponent<MessageReciever>();
+                            msg.GetMessage();
+                            if (msg.csToStart)
+                                cs = true;
+                            StateManager.instance.RemoveMessage(StateManager.instance.messages[i]);
+                        }
+                    }
                 }
-            }
-        }
-*/
+        */
 
         List<string> messengersNames = new List<string>();
         foreach (string m in StateManager.instance.messages.ToList())
@@ -204,7 +205,7 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        print ("cs is " + cs + " ; need to fade is " + needToFadeIn);
+        print("cs is " + cs + " ; need to fade is " + needToFadeIn);
         if (!cs && needToFadeIn) // IF NO CUT SCENE TO PLAY AND NEED TO FADE TO GAME 
             GameManager.instance.gui.Fade("Game");
 
@@ -256,7 +257,7 @@ public class GameManager : MonoBehaviour {
     public void AddStateful(Stateful statefulObj)
     {
         bool noDouble = true;
-        foreach(Stateful st in statefulObjectsOnscene)
+        foreach (Stateful st in statefulObjectsOnscene)
         {
             if (st == statefulObj)
             {
@@ -273,7 +274,7 @@ public class GameManager : MonoBehaviour {
         playerInGame.SetActive(true);
         startCampfire.SpawnPlayer();
     }
-    
+
     public void PlayerDead()
     {
         StartCoroutine("RespawnPlayer");
@@ -323,18 +324,18 @@ public class GameManager : MonoBehaviour {
         {
             if (Input.GetButtonDown("Submit"))
             {
-                if (npcToInteract != null && !inventory.active && playerHealth > 0 && !playerController.attacking && !gui.fade)
+                if (npcToInteract != null && !inventory.active && playerHealth > 0 && !playerController.attacking && !playerController.aim && !playerController.reloading && !playerController.healing && !playerController.moveBack && !gui.fade)
                 {
                     npcToInteract.Talk();
                     //actionFeedbackController.SetFeedback(false, "");
                 }
             }
 
-            if (Input.GetButtonDown("ToggleInventory") && !cutScene)
+            if (Input.GetButtonDown("ToggleInventory") && playerHealth > 0 && !gui.fade && !cutScene && !playerController.attacking && !playerController.aim && !playerController.reloading && !playerController.healing && !playerController.moveBack)
             {
                 inventory.ToggleInventory();
             }
-
+            
         }
     }
 
@@ -345,7 +346,7 @@ public class GameManager : MonoBehaviour {
         StateManager.instance.SetActiveWeapon(weaponName);
     }
 
-    public void SetAmmo (WeaponController.Type type, int amount)
+    public void SetAmmo(WeaponController.Type type, int amount)
     {
         switch (type)
         {
@@ -385,7 +386,7 @@ public class GameManager : MonoBehaviour {
     {
         characterSpawnerName = spawnerName;
         //StateManager.instance.SetSpawner(spawnerName);
-        
+
         ClearStatefulObjectsList();
 
         print("new scene");
@@ -403,7 +404,7 @@ public class GameManager : MonoBehaviour {
     void ClearStatefulObjectsList()
     {
         SaveAnimatorBooleans();
-//        print("clearList");
+        //        print("clearList");
         statefulObjectsOnscene.Clear();
     }
 

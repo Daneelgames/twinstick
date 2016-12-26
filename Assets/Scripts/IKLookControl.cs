@@ -26,7 +26,7 @@ public class IKLookControl : MonoBehaviour
 
     public void SetTarget(Vector3 target, bool active)
     {
-        print (active);
+//        print (active);
         ikActive = active;
         lookPos = Vector3.Slerp(target, lookPos, targetSmooth);
     }
