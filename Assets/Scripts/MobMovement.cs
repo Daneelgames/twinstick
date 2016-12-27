@@ -77,8 +77,6 @@ public class MobMovement : MonoBehaviour
         if (indexes.Count > 0)
         {
             int maxIndex = indexes.Count;
-            if (indexes.Count > 1)
-                maxIndex = indexes.Count + 1;
 
             nextAttackIndex = indexes[Random.Range(0, maxIndex)];
         }
