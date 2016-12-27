@@ -10,6 +10,7 @@ public class MobMovement : MonoBehaviour
     public State mobState = State.Idle;
 
     public float reactionDistance = 10f;
+    public float stopDistance = 1f;
     public int nextAttackIndex = 0;
     public List<bool> attackRanges = new List<bool>();
     public List<string> attackTriggerName = new List<string>();
@@ -124,16 +125,10 @@ public class MobMovement : MonoBehaviour
         {
             animNewSpeed = 1;
 
-            //move to player
+            // choose movement direction
             Vector3 movement = GameManager.instance.playerInGame.transform.position - transform.position;
             movement = movement.normalized * speed;
             movement.y = rb.velocity.y;
-
-            //set rotate.y = 0
-            Quaternion rot = rb.rotation;
-            rot.eulerAngles = new Vector3(0, rb.rotation.eulerAngles.y, 0);
-            rb.rotation = rot;
-            rb.velocity = movement;
 
             // rotate
             Vector3 mobToTarget = (transform.position + movement) - transform.position;
@@ -141,6 +136,22 @@ public class MobMovement : MonoBehaviour
             Quaternion newRotation = Quaternion.LookRotation(mobToTarget);
             newRotation = Quaternion.Slerp(newRotation, transform.rotation, turnSmooth);
             rb.MoveRotation(newRotation);
+
+
+            //set rotate.y = 0
+            Quaternion rot = rb.rotation;
+            rot.eulerAngles = new Vector3(0, rb.rotation.eulerAngles.y, 0);
+            rb.rotation = rot;
+
+            //move mob
+            float distance = Vector3.Distance(transform.position, GameManager.instance.playerInGame.transform.position);
+            float rotationOffset = Mathf.Abs(newRotation.eulerAngles.y - transform.rotation.eulerAngles.y);
+            print (rotationOffset);
+            if (distance > stopDistance && rotationOffset < 0.3f)
+                rb.velocity = movement;
+            else
+                rb.velocity = Vector3.zero;
+
         }
         else
         {
