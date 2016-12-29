@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Stateful : MonoBehaviour {
+public class Stateful : MonoBehaviour
+{
 
     public bool activeOnStart = true;
 
@@ -12,7 +13,9 @@ public class Stateful : MonoBehaviour {
     public MessageTransmitter mt;
     public MessageReciever mr;
     public MobMovement mobController;
-    
+    public List<MeshRenderer> meshes;
+    public List<SkinnedMeshRenderer> skinnedMeshes;
+
     void Awake()
     {
         string mtRecieverName = "";
@@ -35,7 +38,7 @@ public class Stateful : MonoBehaviour {
         }
         if (anim)
         {
-            SetAnimatorBoolsOnAwake();   
+            SetAnimatorBoolsOnAwake();
         }
         if (mobController)
         {
@@ -47,7 +50,7 @@ public class Stateful : MonoBehaviour {
 
         GameManager.instance.AddStateful(this);
         //print("AddStateful " + gameObject.name);
-        
+
         Vector3 tempPos = StateManager.instance.GetStatefulPosition(gameObject.name);
         if (tempPos != new Vector3(0, -100f, 100f))
         {
@@ -59,7 +62,7 @@ public class Stateful : MonoBehaviour {
     {
         ObjectActive(true);
         //GameManager.instance.AddStateful(this);
-        
+
         /*
         if (mt)
         {
@@ -78,6 +81,18 @@ public class Stateful : MonoBehaviour {
         StateManager.instance.SetMobDead(gameObject.name);
     }
 
+    public void SetMeshActive(bool active)
+    {
+        foreach (MeshRenderer m in meshes)
+        {
+            m.enabled = active;
+        }
+        foreach (SkinnedMeshRenderer sm in skinnedMeshes)
+        {
+            sm.enabled = active;
+        }
+    }
+
     void SetAnimatorBoolsOnAwake()
     {
         string boolValues = "";
@@ -93,10 +108,10 @@ public class Stateful : MonoBehaviour {
                 }
             }
         }
-        
+
         if (boolValues.Length > 0)
         {
-            for (int i = 0; i < boolValues.Length; i ++)
+            for (int i = 0; i < boolValues.Length; i++)
             {
                 if (boolValues.Substring(i) == "0")
                     anim.SetBool(boolsToSave[i], false);

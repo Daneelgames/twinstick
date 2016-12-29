@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CharacterAnimationEvents : MonoBehaviour
 {
 
     public PlayerMovement pm;
+    public List<StepController> steps;
 
-    public void Step()
+    public void Step(int leg) // 0 left; 1 right
     {
         if (pm)
         {
@@ -17,6 +19,10 @@ public class CharacterAnimationEvents : MonoBehaviour
                 t = 0.2f;
 
             StartCoroutine("ReduceSpeedWhileStepping", t);
+        }
+        if (steps[leg])
+        {
+            steps[leg].Step();
         }
     }
 

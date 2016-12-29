@@ -47,7 +47,7 @@ public class HealthController : MonoBehaviour
                 }
 
                 if (health > 0)
-                    StartCoroutine("PlayerInvisibleFrames");
+                    StartCoroutine("InvisibleFrames");
 
                 if (player)
                 {
@@ -58,7 +58,7 @@ public class HealthController : MonoBehaviour
         }
     }
 
-    IEnumerator PlayerInvisibleFrames()
+    IEnumerator InvisibleFrames()
     {
         invisible = true;
 

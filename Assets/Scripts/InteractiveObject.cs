@@ -169,6 +169,8 @@ public class InteractiveObject : MonoBehaviour
         GameManager.instance.gui.Fade("Black");
         yield return new WaitForSecondsRealtime(1f);
 
+        GameManager.instance.SetMonstersActive(false);
+
         if (light)
         {
             light.SetActive(true);
@@ -193,6 +195,8 @@ public class InteractiveObject : MonoBehaviour
     {
         GameManager.instance.gui.Fade("Black");
         yield return new WaitForSecondsRealtime(1f);
+        
+        GameManager.instance.SetMonstersActive(true);
 
         if (hint)
             hint.SetActive(true);

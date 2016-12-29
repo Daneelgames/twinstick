@@ -338,6 +338,17 @@ public class GameManager : MonoBehaviour
             
         }
     }
+     
+    public void SetMonstersActive(bool active)
+    {
+        foreach (Stateful st in statefulObjectsOnscene)
+        {
+            if (st.gameObject.tag == "Mob")
+            {
+                st.SetMeshActive(active);
+            }
+        }
+    }
 
     public void SetActiveWeapon(string weaponName)
     {
