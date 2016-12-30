@@ -6,12 +6,14 @@ public class StepsList : MonoBehaviour
 {
     public AudioSource audioSource;
     public List<AudioClip> stepsGravel;
+    public List<AudioClip> stepsCarpet;
     public List<AudioClip> stepsWood;
     public List<AudioClip> stepsMetal;
     public List<AudioClip> stepsTile;
     public List<AudioClip> stepsGrass;
     public List<AudioClip> stepsSnow;
     public List<AudioClip> stepsMeat;
+
 
     public void PlayStep(string floor)
     {
@@ -23,6 +25,10 @@ public class StepsList : MonoBehaviour
         {
             case "FloorGravel":
                 audioSource.PlayOneShot(stepsGravel[Random.Range(0, stepsGravel.Count)], randomVolume);
+                break;
+
+            case "FloorCarpet":
+                audioSource.PlayOneShot(stepsCarpet[Random.Range(0, stepsCarpet.Count)], randomVolume);
                 break;
 
             case "FloorWood":
