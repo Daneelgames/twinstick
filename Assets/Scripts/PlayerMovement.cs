@@ -46,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
 
     public LineRenderer line;
 
+    public GameObject cameraFocus;
+
     void FixedUpdate()
     {
         if (playerHealth.health > 0)
