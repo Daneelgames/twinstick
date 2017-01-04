@@ -49,6 +49,7 @@ ModelImporter:
     100082: toe.R_end
     100084: upper_arm.L
     100086: upper_arm.R
+    100088: m01
     400000: armature
     400002: armIK.L
     400004: armIK.L_end
@@ -93,6 +94,7 @@ ModelImporter:
     400082: toe.R_end
     400084: upper_arm.L
     400086: upper_arm.R
+    400088: m01
     4300000: characterMesh.001
     7400000: character@aimPistol
     7400002: character@idle

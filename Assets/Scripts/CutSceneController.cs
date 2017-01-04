@@ -8,6 +8,8 @@ public class CutSceneController : MonoBehaviour {
     public Animator csAnim;
     public List<GameObject> cameraAnchors;
     public List<Animator> actorsAnimators;
+    public AudioSource audio;
+    public List<AudioClip> sounds;
     public List<MessageTransmitter> transmitters;
 
     public Stateful stateful;
@@ -41,7 +43,6 @@ public class CutSceneController : MonoBehaviour {
         GameManager.instance.camAnim.transform.position = GameManager.instance.cameraHolder.transform.position;
         GameManager.instance.camAnim.transform.SetParent(GameManager.instance.cameraHolder.transform);
         GameManager.instance.camAnim.transform.rotation = Quaternion.identity;
-
 
         stateful.ObjectActive(false);
         gameObject.SetActive(false);
@@ -80,6 +81,11 @@ public class CutSceneController : MonoBehaviour {
     public void SetAnimatorTrigger(AnimationEvent animationEvent)
     {
         actorsAnimators[animationEvent.intParameter].SetTrigger(animationEvent.stringParameter);
+    }
+
+    public void PlaySound(int soundIndex)
+    {
+        audio.PlayOneShot(sounds[soundIndex]);
     }
 
     public void SetObjectActive(AnimationEvent animEvent)
