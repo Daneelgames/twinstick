@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class CutSceneController : MonoBehaviour {
+public class CutSceneController : MonoBehaviour
+{
 
     public bool playOnStartOfScene = false;
     public Animator csAnim;
@@ -101,7 +102,10 @@ public class CutSceneController : MonoBehaviour {
         {
             case 0:
                 obj.ObjectActive(false);
-                obj.gameObject.SetActive(false);
+                if (obj.tag != "BgmSource")
+                    obj.gameObject.SetActive(false);
+                else
+                    obj.BgmSourceInactve();
                 break;
 
             case 1:
@@ -111,7 +115,7 @@ public class CutSceneController : MonoBehaviour {
         }
     }
 
-    public void CamShakeAmount (float amount)
+    public void CamShakeAmount(float amount)
     {
         GameManager.instance.camAnim.SetFloat("ShakeAmount", amount);
     }

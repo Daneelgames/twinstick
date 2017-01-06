@@ -6,12 +6,13 @@ public class Stateful : MonoBehaviour
 {
 
     public bool activeOnStart = true;
-
     public InteractiveObject interactive;
     public List<string> boolsToSave = new List<string>();
     public Animator anim;
     public MessageTransmitter mt;
     public MessageReciever mr;
+    public AudioSource audio;
+    float audioNewVolume = 0;
     public MobMovement mobController;
     public List<MeshRenderer> meshes;
     public List<SkinnedMeshRenderer> skinnedMeshes;
@@ -61,6 +62,12 @@ public class Stateful : MonoBehaviour
     void Start()
     {
         ObjectActive(true);
+
+        if (audio)
+        {
+            audioNewVolume = audio.volume;
+            audio.volume = 0;
+        }
         //GameManager.instance.AddStateful(this);
 
         /*
@@ -74,6 +81,21 @@ public class Stateful : MonoBehaviour
     public void ObjectActive(bool active)
     {
         StateManager.instance.SetObjectActive(gameObject.name, active);
+    }
+
+    public void BgmSourceInactve()
+    {
+        if (audio)
+        {
+            audioNewVolume = 0f;
+            StartCoroutine("FadeBgm");
+        }
+    }
+
+    IEnumerator FadeBgm()
+    {
+        yield return new WaitForSeconds(1f);
+        gameObject.SetActive(false);
     }
 
     public void MobDead()
@@ -90,6 +112,18 @@ public class Stateful : MonoBehaviour
         foreach (SkinnedMeshRenderer sm in skinnedMeshes)
         {
             sm.enabled = active;
+        }
+    }
+
+    void Update()
+    {
+        if (audio)
+        {
+            float vd = Mathf.Abs(audio.volume - audioNewVolume);
+            if (vd > 0.01f)
+            {
+                audio.volume = Mathf.Lerp(audio.volume, audioNewVolume, 1f);
+            }
         }
     }
 
