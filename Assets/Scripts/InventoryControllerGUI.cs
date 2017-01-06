@@ -39,12 +39,14 @@ public class InventoryControllerGUI : MonoBehaviour {
             {
                 if (Input.GetAxisRaw("Horizontal") > 0)
                 {
+                    print ("timescale is " + Time.timeScale + "; hor > 0");
                     horAxisInUse = true;
                         coolDown = coolDownMax;
                     MoveCursor("Right");
                 }
                 else if (Input.GetAxisRaw("Horizontal") < 0)
                 {
+                    print ("timescale is " + Time.timeScale + "; hor < 0");
                     horAxisInUse = true;
                         coolDown = coolDownMax;
                     MoveCursor("Left");

@@ -87,6 +87,7 @@ public class Stateful : MonoBehaviour
     {
         if (audio)
         {
+            print("start audio fade");
             audioNewVolume = 0f;
             StartCoroutine("FadeBgm");
         }
@@ -94,9 +95,21 @@ public class Stateful : MonoBehaviour
 
     IEnumerator FadeBgm()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(2f);
         gameObject.SetActive(false);
     }
+    void Update()
+    {
+        if (audio)
+        {
+            float vd = Mathf.Abs(audio.volume - audioNewVolume);
+            if (vd > 0.005f)
+            {
+                audio.volume = Mathf.Lerp(audio.volume, audioNewVolume, Time.unscaledDeltaTime);
+            }
+        }
+    }
+
 
     public void MobDead()
     {
@@ -112,18 +125,6 @@ public class Stateful : MonoBehaviour
         foreach (SkinnedMeshRenderer sm in skinnedMeshes)
         {
             sm.enabled = active;
-        }
-    }
-
-    void Update()
-    {
-        if (audio)
-        {
-            float vd = Mathf.Abs(audio.volume - audioNewVolume);
-            if (vd > 0.01f)
-            {
-                audio.volume = Mathf.Lerp(audio.volume, audioNewVolume, 1f);
-            }
         }
     }
 

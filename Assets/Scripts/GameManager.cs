@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager instance = null;
-
+    
     public SceneDetails _sm; // scene manager
 
     public string characterSpawnerName = "StartSpawner";

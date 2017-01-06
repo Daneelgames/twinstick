@@ -72,9 +72,9 @@ public class CutSceneController : MonoBehaviour
         if (animationEvent.floatParameter > 0.5)
             active = true;
 
-        print(animationEvent.floatParameter + " float");
-        print(animationEvent.intParameter + " int");
-        print(animationEvent.stringParameter + " string");
+       //print(animationEvent.floatParameter + " float");
+       //print(animationEvent.intParameter + " int");
+       //print(animationEvent.stringParameter + " string");
 
         actorsAnimators[animationEvent.intParameter].SetBool(animationEvent.stringParameter, active);
     }
