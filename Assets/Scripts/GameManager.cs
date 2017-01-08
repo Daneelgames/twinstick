@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager instance = null;
-    
+
     public SceneDetails _sm; // scene manager
 
     public string characterSpawnerName = "StartSpawner";
@@ -61,8 +61,17 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
-
+        CreatePlayer();
         CreateCanvas();
+    }
+
+    void CreatePlayer()
+    {
+        GameObject newPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+        newPlayer.name = "Player";
+        playerInGame = newPlayer;
+        playerController = playerInGame.GetComponent<PlayerMovement>();
+        playerInGame.transform.SetParent(transform);
     }
 
     void CreateCanvas()
@@ -89,11 +98,6 @@ public class GameManager : MonoBehaviour
 
     public void InitializeScene(SceneDetails scene)
     {
-        GameObject newPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-        newPlayer.name = "Player";
-        playerInGame = newPlayer;
-        playerController = playerInGame.GetComponent<PlayerMovement>();
-
         startCampfire = GameObject.Find(characterSpawnerName).GetComponent<CampfireController>();
 
         playerController.playerHealth.SetHealth(StateManager.instance.playerHealth);
@@ -335,10 +339,10 @@ public class GameManager : MonoBehaviour
             {
                 inventory.ToggleInventory();
             }
-            
+
         }
     }
-     
+
     public void SetMonstersActive(bool active)
     {
         foreach (Stateful st in statefulObjectsOnscene)

@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\FadeAudioOnG.cs" />
+    <Compile Include="Assets\MainAudioController.cs" />
     <Compile Include="Assets\Pixelation\Example\Scripts\ImageEffectBase.cs" />
     <Compile Include="Assets\Pixelation\Example\Scripts\Plane.cs" />
     <Compile Include="Assets\Pixelation\Example\Scripts\PointLight.cs" />

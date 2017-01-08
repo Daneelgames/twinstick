@@ -8,27 +8,43 @@ public class InteractiveObject : MonoBehaviour
     public bool locker = false; // 0th dialog = idle; 1th dialog = opened
     public string keyName = "";
     public GameObject objToActivate;
+    public AudioClip lockerSound;
 
     public DigitPuzzle dgtPuzzle;
 
     public bool dropItem = false;
+    public AudioClip dropItemSound;
     public List<string> dropNames = new List<string>();
     //public string inventoryDescription = "";
     //public Sprite inventoryImg;
 
     public bool savePoint = false;
+    public AudioClip savePointSound;
     public CampfireController localSpawner;
 
     public bool door = false;
     public bool passage = false;
+    public AudioClip doorSound;
     public string scene = "";
     public string spawner = "";
     public GameObject hint;
 
     public int activeDialogIndex = 0;
     public int activePhraseIndex = 0;
+
+    [System.Serializable]
+    public class Dialog
+    {
+        public List<string> phrases;
+    }
     public List<Dialog> dialogues = new List<Dialog>();
 
+    [System.Serializable]
+    public class DialogSfx
+    {
+        public List<AudioClip> phraseSFXs;
+    }
+    public List<DialogSfx> dialogueSFXs = new List<DialogSfx>();
     public int messageDialog = 0;
     public MessageTransmitter messageTransmitter;
 
@@ -44,11 +60,6 @@ public class InteractiveObject : MonoBehaviour
 
     public bool camFade = false;
 
-    [System.Serializable]
-    public class Dialog
-    {
-        public List<string> phrases;
-    }
 
     public void Talk()
     {
@@ -195,7 +206,7 @@ public class InteractiveObject : MonoBehaviour
     {
         GameManager.instance.gui.Fade("Black");
         yield return new WaitForSecondsRealtime(1f);
-        
+
         GameManager.instance.SetMonstersActive(true);
 
         if (hint)
@@ -226,6 +237,8 @@ public class InteractiveObject : MonoBehaviour
         Time.timeScale = 0f;
         // screen fade
         GameManager.instance.gui.Fade("Black");
+        if (doorSound)
+            GameManager.instance.playerController.au.Play(doorSound);
         yield return new WaitForSecondsRealtime(1f);
         GameManager.instance.MoveToNewScene(scene, spawner);
     }
@@ -237,7 +250,9 @@ public class InteractiveObject : MonoBehaviour
         GameManager.instance.gui.Save();
         GameManager.instance.SetStartCampfire(localSpawner);
         StateManager.instance.GameSave();
-        yield return new WaitForSecondsRealtime(1f);
+        if (savePointSound)
+            GameManager.instance.playerController.au.Play(savePointSound);
+        yield return new WaitForSecondsRealtime(2f);
         Time.timeScale = 1f;
     }
 
@@ -249,6 +264,11 @@ public class InteractiveObject : MonoBehaviour
             Time.timeScale = 0;
             GameManager.instance.dialogText.text = dialogues[activeDialogIndex].phrases[activePhraseIndex];
             GameManager.instance.dialogAnimator.SetTrigger("Active");
+            if (dialogueSFXs.Count == dialogues.Count && dialogueSFXs[activeDialogIndex].phraseSFXs.Count == dialogues[activeDialogIndex].phrases.Count)
+            {
+                if (dialogueSFXs[activeDialogIndex].phraseSFXs[activePhraseIndex])
+                    GameManager.instance.playerController.au.Play(dialogueSFXs[activeDialogIndex].phraseSFXs[activePhraseIndex]);
+            }
         }
         else //end of dialog
         {
@@ -285,10 +305,15 @@ public class InteractiveObject : MonoBehaviour
                 if (objToActivate)
                     objToActivate.SetActive(true);
 
+                if (lockerSound)
+                    GameManager.instance.playerController.au.Play(lockerSound);
+
                 StateManager.instance.RemoveItem(keyName);
 
                 if (dropItem)
                 {
+                    if (dropItemSound)
+                        GameManager.instance.playerController.au.Play(dropItemSound);
                     foreach (string i in dropNames)
                     {
                         StateManager.instance.AddItem(i);

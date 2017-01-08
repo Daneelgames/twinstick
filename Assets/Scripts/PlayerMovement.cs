@@ -18,10 +18,10 @@ public class PlayerMovement : MonoBehaviour
 
     public LayerMask aimLayers;
 
+    public MainAudioController au;
     [SerializeField]
     Animator anim;
     [SerializeField]
-
     public Rigidbody rb;
 
     // The vector to store the direction of the player's movement.
