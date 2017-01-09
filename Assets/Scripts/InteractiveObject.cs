@@ -167,6 +167,15 @@ public class InteractiveObject : MonoBehaviour
             objToActivate.SetActive(true);
         }
 
+        if (lockerSound)
+        {
+            if (!cameraAnchor)
+                GameManager.instance.playerController.au.Play(lockerSound);
+            else
+                GameManager.instance.gmAu.au.PlayOneShot(lockerSound);
+        }
+
+
         if (dgtPuzzle.complete)
         {
             stateful.ObjectActive(false);
@@ -238,7 +247,12 @@ public class InteractiveObject : MonoBehaviour
         // screen fade
         GameManager.instance.gui.Fade("Black");
         if (doorSound)
-            GameManager.instance.playerController.au.Play(doorSound);
+        {
+            if (!cameraAnchor)
+                GameManager.instance.playerController.au.Play(doorSound);
+            else
+                GameManager.instance.gmAu.au.PlayOneShot(doorSound);
+        }
         yield return new WaitForSecondsRealtime(1f);
         GameManager.instance.MoveToNewScene(scene, spawner);
     }
@@ -251,7 +265,12 @@ public class InteractiveObject : MonoBehaviour
         GameManager.instance.SetStartCampfire(localSpawner);
         StateManager.instance.GameSave();
         if (savePointSound)
-            GameManager.instance.playerController.au.Play(savePointSound);
+        {
+            if (!cameraAnchor)
+                GameManager.instance.playerController.au.Play(savePointSound);
+            else
+                GameManager.instance.gmAu.au.PlayOneShot(savePointSound);
+        }
         yield return new WaitForSecondsRealtime(2f);
         Time.timeScale = 1f;
     }
@@ -267,7 +286,12 @@ public class InteractiveObject : MonoBehaviour
             if (dialogueSFXs.Count == dialogues.Count && dialogueSFXs[activeDialogIndex].phraseSFXs.Count == dialogues[activeDialogIndex].phrases.Count)
             {
                 if (dialogueSFXs[activeDialogIndex].phraseSFXs[activePhraseIndex])
-                    GameManager.instance.playerController.au.Play(dialogueSFXs[activeDialogIndex].phraseSFXs[activePhraseIndex]);
+                {
+                    if (!cameraAnchor)
+                        GameManager.instance.playerController.au.Play(dialogueSFXs[activeDialogIndex].phraseSFXs[activePhraseIndex]);
+                    else
+                        GameManager.instance.gmAu.au.PlayOneShot(dialogueSFXs[activeDialogIndex].phraseSFXs[activePhraseIndex]);
+                }
             }
         }
         else //end of dialog
@@ -306,14 +330,28 @@ public class InteractiveObject : MonoBehaviour
                     objToActivate.SetActive(true);
 
                 if (lockerSound)
-                    GameManager.instance.playerController.au.Play(lockerSound);
+                {
+                    if (!cameraAnchor)
+                        GameManager.instance.playerController.au.Play(lockerSound);
+                    else
+                        GameManager.instance.gmAu.au.PlayOneShot(lockerSound);
+                }
 
                 StateManager.instance.RemoveItem(keyName);
 
                 if (dropItem)
                 {
+                    print(cameraAnchor + "; " + dropItemSound);
                     if (dropItemSound)
-                        GameManager.instance.playerController.au.Play(dropItemSound);
+                    {
+                        if (!cameraAnchor)
+                            GameManager.instance.playerController.au.Play(dropItemSound);
+                        else
+                        {
+                            print("play from gm");
+                            GameManager.instance.gmAu.au.PlayOneShot(dropItemSound);
+                        }
+                    }
                     foreach (string i in dropNames)
                     {
                         StateManager.instance.AddItem(i);
@@ -334,6 +372,17 @@ public class InteractiveObject : MonoBehaviour
             else if (dropItem && !locker)
             {
                 GameManager.instance.NpcToInteract(null, "");
+                print(cameraAnchor + "; " + dropItemSound);
+                if (dropItemSound)
+                {
+                    if (!cameraAnchor)
+                        GameManager.instance.playerController.au.Play(dropItemSound);
+                    else
+                    {
+                        print("play from gm");
+                        GameManager.instance.gmAu.au.PlayOneShot(dropItemSound);
+                    }
+                }
                 foreach (string i in dropNames)
                 {
                     StateManager.instance.AddItem(i);

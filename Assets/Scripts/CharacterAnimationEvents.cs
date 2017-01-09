@@ -7,6 +7,7 @@ public class CharacterAnimationEvents : MonoBehaviour
 
     public PlayerMovement pm;
     public List<StepController> steps;
+    public List<AudioClip> audioClips;
 
     public void Step(int leg) // 0 left; 1 right
     {
@@ -24,6 +25,11 @@ public class CharacterAnimationEvents : MonoBehaviour
         {
             steps[leg].Step();
         }
+    }
+
+    public void PlaySoundOnPlayer(int clipIndex)
+    {
+        GameManager.instance.gmAu.au.PlayOneShot(audioClips[clipIndex]);
     }
 
     IEnumerator ReduceSpeedWhileStepping(float t)

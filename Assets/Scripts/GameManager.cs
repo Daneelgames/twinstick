@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
     public InventoryItemsList inventoryItems;
 
     public Animator healthFeedbackAnimator;
+    public MainAudioController gmAu;
 
     void Awake()
     {
