@@ -2,9 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class WeaponController : MonoBehaviour {
+public class WeaponController : MonoBehaviour
+{
 
-    public enum Type {Bullet, Shell, Melee};
+    public enum Type { Bullet, Shell, Melee };
 
     public int ammoMax = 0;
     public int ammo = 0;
@@ -23,7 +24,9 @@ public class WeaponController : MonoBehaviour {
     public Type weaponAmmoType = Type.Bullet;
     public ParticleSystem bloodSplatter;
     public ParticleSystem.EmissionModule bloodSplatterEmission;
-
+    public AudioSource au;
+    public AudioClip noAmmoClip;
+    public List<AudioClip> meleeAttackClips;
     /* TEST AIMING
     public LineRenderer line;
 
@@ -42,7 +45,8 @@ public class WeaponController : MonoBehaviour {
         bloodSplatterEmission = bloodSplatter.emission;
     }
 
-    void Update () {
+    void Update()
+    {
         if (curCooldown > 0)
         {
             curCooldown -= Time.deltaTime;
@@ -56,22 +60,27 @@ public class WeaponController : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-      if (dangerous && col.gameObject.layer == 8 && col.tag == "HealthCollider")   // 8 layer is Unit
-      {
-          HealthCollider h = col.GetComponent<HealthCollider>();
-          if (h.masterHealth.health > 0)
-          {
-            bloodSplatterEmission.rate = 500;
-            StartCoroutine("DisableBlood");
-          }
-          h.Damage(meleeDamage);
-      }
+        if (dangerous && col.gameObject.layer == 8 && col.tag == "HealthCollider")   // 8 layer is Unit
+        {
+            HealthCollider h = col.GetComponent<HealthCollider>();
+            if (h.masterHealth.health > 0)
+            {
+                bloodSplatterEmission.rate = 500;
+                StartCoroutine("DisableBlood");
+            }
+            if (!h.masterHealth.invisible && h.masterHealth.health > 0)
+            {
+                au.pitch = Random.Range(0.75f, 1.25f);
+                au.PlayOneShot(meleeAttackClips[Random.Range(0, meleeAttackClips.Count)]);
+                h.Damage(meleeDamage);
+            }
+        }
     }
 
     IEnumerator DisableBlood()
     {
         yield return new WaitForSeconds(0.2f);
-          bloodSplatterEmission.rate = 0;
+        bloodSplatterEmission.rate = 0;
     }
 
     public void Attack(Vector3 target)
@@ -94,12 +103,13 @@ public class WeaponController : MonoBehaviour {
                 }
                 else
                 {
+                    au.PlayOneShot(noAmmoClip);
                     // play clip sound
                 }
             }
-            else
+            else // if  melee
             {
-                    curCooldown = cooldownTime;
+                curCooldown = cooldownTime;
             }
         }
     }

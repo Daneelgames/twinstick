@@ -78,8 +78,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\FadeAudioOnG.cs" />
     <Compile Include="Assets\MainAudioController.cs" />
+    <Compile Include="Assets\MusicPlayerController.cs" />
     <Compile Include="Assets\Pixelation\Example\Scripts\ImageEffectBase.cs" />
     <Compile Include="Assets\Pixelation\Example\Scripts\Plane.cs" />
     <Compile Include="Assets\Pixelation\Example\Scripts\PointLight.cs" />
@@ -87,6 +87,7 @@
     <Compile Include="Assets\Pixelation\PsxShaders\imageEffects\cPrecision.cs" />
     <Compile Include="Assets\Pixelation\Scripts\Chunky.cs" />
     <Compile Include="Assets\Pixelation\Scripts\Pixelation.cs" />
+    <Compile Include="Assets\SceneBgm.cs" />
     <Compile Include="Assets\Scripts\ActionFeedbackController.cs" />
     <Compile Include="Assets\Scripts\AttackRangeController.cs" />
     <Compile Include="Assets\Scripts\BulletController.cs" />

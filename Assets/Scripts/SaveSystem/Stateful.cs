@@ -11,11 +11,11 @@ public class Stateful : MonoBehaviour
     public Animator anim;
     public MessageTransmitter mt;
     public MessageReciever mr;
-    public AudioSource audio;
     float audioNewVolume = 0;
     public MobMovement mobController;
     public List<MeshRenderer> meshes;
     public List<SkinnedMeshRenderer> skinnedMeshes;
+    public SceneBgm sceneBgm;
 
     void Awake()
     {
@@ -62,12 +62,6 @@ public class Stateful : MonoBehaviour
     void Start()
     {
         ObjectActive(true);
-
-        if (audio)
-        {
-            audioNewVolume = audio.volume;
-            audio.volume = 0;
-        }
         //GameManager.instance.AddStateful(this);
 
         /*
@@ -81,35 +75,9 @@ public class Stateful : MonoBehaviour
     public void ObjectActive(bool active)
     {
         StateManager.instance.SetObjectActive(gameObject.name, active);
+        if (active == false && sceneBgm)
+            GameManager.instance.musicController.SetBgm(null);
     }
-
-    public void BgmSourceInactve()
-    {
-        if (audio)
-        {
-            print("start audio fade");
-            audioNewVolume = 0f;
-            StartCoroutine("FadeBgm");
-        }
-    }
-
-    IEnumerator FadeBgm()
-    {
-        yield return new WaitForSecondsRealtime(2f);
-        gameObject.SetActive(false);
-    }
-    void Update()
-    {
-        if (audio)
-        {
-            float vd = Mathf.Abs(audio.volume - audioNewVolume);
-            if (vd > 0.005f)
-            {
-                audio.volume = Mathf.Lerp(audio.volume, audioNewVolume, Time.unscaledDeltaTime);
-            }
-        }
-    }
-
 
     public void MobDead()
     {

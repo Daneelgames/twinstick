@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 using System.Collections;
 
 public class HealthController : MonoBehaviour
@@ -14,6 +15,9 @@ public class HealthController : MonoBehaviour
     public Animator anim;
 
     public MobMovement mobController;
+    public AudioSource au;
+    public List<AudioClip> hurtClips;
+    public List<AudioClip> deathClips;
 
     public void SetInvisible(bool invs)
     {
@@ -25,6 +29,12 @@ public class HealthController : MonoBehaviour
         health = amount;
     }
 
+    void Start()
+    {
+        if (mobController && health > 0)
+            au.Play();
+    }
+
     public void Damage(int dmg)
     {
         if (dmg > 0 && health > 0)
@@ -32,10 +42,15 @@ public class HealthController : MonoBehaviour
             if (!invisible)
             {
                 health -= dmg;
+                au.pitch = Random.Range(0.75f, 1.25f);
 
                 if (health <= 0)
                 {
                     health = 0;
+                    if (mobController)
+                        au.Stop();
+                    if (deathClips.Count > 0)
+                        au.PlayOneShot(deathClips[Random.Range(0, deathClips.Count)]);
                     Death();
                 }
                 else
@@ -44,6 +59,8 @@ public class HealthController : MonoBehaviour
 
                     if (mobController)
                         mobController.Hurt();
+                    if (hurtClips.Count > 0)
+                        au.PlayOneShot(hurtClips[Random.Range(0, hurtClips.Count)]);
                 }
 
                 if (health > 0)

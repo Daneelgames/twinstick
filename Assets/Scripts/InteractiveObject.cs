@@ -9,7 +9,7 @@ public class InteractiveObject : MonoBehaviour
     public string keyName = "";
     public GameObject objToActivate;
     public AudioClip lockerSound;
-
+    public CutSceneController csToStart;
     public DigitPuzzle dgtPuzzle;
 
     public bool dropItem = false;
@@ -67,11 +67,13 @@ public class InteractiveObject : MonoBehaviour
         {
             if (dgtPuzzle)
             {
+                print("dgtPuzzle");
                 inDialog = true;
                 StartCoroutine("StartPuzzle");
             }
-            else if (!door && !passage)
+            else if (!door && !passage && !csToStart)
             {
+                print("!door && !passage");
                 if (canInteract && dialogues.Count > activeDialogIndex && dialogues[activeDialogIndex].phrases.Count > 0)
                 {
                     if (locker)
@@ -91,16 +93,22 @@ public class InteractiveObject : MonoBehaviour
                     inDialog = true;
                     activePhraseIndex = 0;
                     if (cameraAnchor)
-                        StartCoroutine("SetCamera");
+                        StartCoroutine("SetCamera", false);
                     else
-                        SetPhrase();
+                        SetPhraseText();
                     canInteract = false;
                     //GameManager.instance.NpcToInteract(null, "");
                 }
             }
-            else
+            else if (door || passage)
             {
+                print("door || passage");
                 StartCoroutine("ExitDoor");
+            }
+            else if (csToStart)
+            {
+                print("csToStart");
+                StartCoroutine("SetCamera", true);
             }
         }
         else if (dgtPuzzle)
@@ -182,32 +190,34 @@ public class InteractiveObject : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-    IEnumerator SetCamera()
+    IEnumerator SetCamera(bool cutScene)
     {
         camFade = true;
         Time.timeScale = 0;
         GameManager.instance.gui.Fade("Black");
         yield return new WaitForSecondsRealtime(1f);
-
         GameManager.instance.SetMonstersActive(false);
-
-        if (light)
+        if (!cutScene)
         {
-            light.SetActive(true);
+            GameManager.instance.CutScenePlay(true);
+            if (light)
+            {
+                light.SetActive(true);
+            }
+            if (hint)
+                hint.SetActive(false);
+            GameManager.instance.camAnim.transform.position = cameraAnchor.transform.position;
+            GameManager.instance.camAnim.transform.rotation = cameraAnchor.transform.rotation;
+            GameManager.instance.camAnim.transform.SetParent(cameraAnchor.transform);
+            GameManager.instance.gui.Fade("Game");
+            yield return new WaitForSecondsRealtime(1f);
+            camFade = false;
+            SetPhraseText();
         }
-
-        GameManager.instance.CutScenePlay(true);
-
-        if (hint)
-            hint.SetActive(false);
-
-        GameManager.instance.camAnim.transform.position = cameraAnchor.transform.position;
-        GameManager.instance.camAnim.transform.rotation = cameraAnchor.transform.rotation;
-        GameManager.instance.camAnim.transform.SetParent(cameraAnchor.transform);
-        GameManager.instance.gui.Fade("Game");
-        yield return new WaitForSecondsRealtime(1f);
-        camFade = false;
-        SetPhrase();
+        else
+        {
+            csToStart.StartCs();
+        }
     }
 
 
@@ -275,7 +285,7 @@ public class InteractiveObject : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    void SetPhrase()
+    void SetPhraseText()
     {
         if (activePhraseIndex < dialogues[activeDialogIndex].phrases.Count)
         {
@@ -469,7 +479,7 @@ public class InteractiveObject : MonoBehaviour
                 {
                     activePhraseIndex += 1;
                     phraseCooldown = 0.5f;
-                    SetPhrase();
+                    SetPhraseText();
                 }
             }
         }

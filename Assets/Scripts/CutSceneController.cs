@@ -58,9 +58,11 @@ public class CutSceneController : MonoBehaviour
 
     public void SetPhrase(string text)
     {
-        GameManager.instance.dialogText.text = text;
         if (text.Length > 0)
+        {
+            GameManager.instance.dialogText.text = text;
             GameManager.instance.dialogAnimator.SetTrigger("Active");
+        }
         else
             GameManager.instance.dialogAnimator.SetTrigger("Inactive");
     }
@@ -72,9 +74,9 @@ public class CutSceneController : MonoBehaviour
         if (animationEvent.floatParameter > 0.5)
             active = true;
 
-       //print(animationEvent.floatParameter + " float");
-       //print(animationEvent.intParameter + " int");
-       //print(animationEvent.stringParameter + " string");
+        //print(animationEvent.floatParameter + " float");
+        //print(animationEvent.intParameter + " int");
+        //print(animationEvent.stringParameter + " string");
 
         actorsAnimators[animationEvent.intParameter].SetBool(animationEvent.stringParameter, active);
     }
@@ -82,6 +84,10 @@ public class CutSceneController : MonoBehaviour
     public void SetAnimatorTrigger(AnimationEvent animationEvent)
     {
         actorsAnimators[animationEvent.intParameter].SetTrigger(animationEvent.stringParameter);
+    }
+    public void SetAnimatorFloat(AnimationEvent animationEvent)
+    {
+        actorsAnimators[animationEvent.intParameter].SetFloat(animationEvent.stringParameter, animationEvent.floatParameter);
     }
 
     public void PlaySound(int soundIndex)
@@ -102,10 +108,7 @@ public class CutSceneController : MonoBehaviour
         {
             case 0:
                 obj.ObjectActive(false);
-                if (obj.tag != "BgmSource")
-                    obj.gameObject.SetActive(false);
-                else
-                    obj.BgmSourceInactve();
+                obj.gameObject.SetActive(false);
                 break;
 
             case 1:

@@ -20,7 +20,7 @@ public class StepController : MonoBehaviour
 
             if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.2f, 1 << 9))
             {
-                cooldown = 0.2f;
+                cooldown = 0.3f;
                 sl.PlayStep(hit.collider.tag);
             }
         }

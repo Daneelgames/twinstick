@@ -37,8 +37,9 @@ public class PlayerMovement : MonoBehaviour
 
     float flashlightCooldown = 0f;
     public GameObject flashlight;
+    public AudioClip flashlightSound;
     public IKLookControl ikController;
-
+    Vector3 slerpMovement;
 
     int rotateY = 0;
 
@@ -99,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
                 StateManager.instance.SetFlashlight(true);
             }
             flashlightCooldown = 0.25f;
+            au.au.PlayOneShot(flashlightSound);
         }
     }
 
@@ -252,7 +254,10 @@ public class PlayerMovement : MonoBehaviour
             Quaternion rot = rb.rotation;
             rot.eulerAngles = new Vector3(0, rb.rotation.eulerAngles.y, 0);
             rb.rotation = rot;
-
+            /*
+            slerpMovement = Vector3.Slerp(rb.velocity, movement, 0.075f);
+            slerpMovement.y = rb.velocity.y;
+            */
             rb.velocity = movement;
 
             if (inputH != 0 || inputV != 0)

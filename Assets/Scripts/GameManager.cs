@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
 
     public Animator healthFeedbackAnimator;
     public MainAudioController gmAu;
+    public MusicPlayerController musicController;
 
     void Awake()
     {
