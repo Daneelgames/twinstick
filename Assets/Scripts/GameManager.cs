@@ -431,6 +431,11 @@ public class GameManager : MonoBehaviour
 
         if (playerController != null)
             playerController.gameObject.SetActive(!playing);
+
+        if (!playing && Time.timeScale < 1)
+        {
+            Time.timeScale = 1;
+        }
     }
 
     public Stateful GetStatefulOnScene(string n)

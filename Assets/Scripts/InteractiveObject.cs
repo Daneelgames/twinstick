@@ -45,6 +45,7 @@ public class InteractiveObject : MonoBehaviour
         public List<AudioClip> phraseSFXs;
     }
     public List<DialogSfx> dialogueSFXs = new List<DialogSfx>();
+    public AudioSource au;
     public int messageDialog = 0;
     public MessageTransmitter messageTransmitter;
 
@@ -105,7 +106,7 @@ public class InteractiveObject : MonoBehaviour
                 print("door || passage");
                 StartCoroutine("ExitDoor");
             }
-            else if (csToStart)
+            else if (csToStart && !GameManager.instance.cutScene)
             {
                 print("csToStart");
                 StartCoroutine("SetCamera", true);
@@ -225,7 +226,8 @@ public class InteractiveObject : MonoBehaviour
     {
         GameManager.instance.gui.Fade("Black");
         yield return new WaitForSecondsRealtime(1f);
-
+        if (au)
+            au.Stop();
         GameManager.instance.SetMonstersActive(true);
 
         if (hint)
@@ -297,10 +299,14 @@ public class InteractiveObject : MonoBehaviour
             {
                 if (dialogueSFXs[activeDialogIndex].phraseSFXs[activePhraseIndex])
                 {
+                    au.Stop();
+                    au.PlayOneShot(dialogueSFXs[activeDialogIndex].phraseSFXs[activePhraseIndex]);
+                    /*
                     if (!cameraAnchor)
                         GameManager.instance.playerController.au.Play(dialogueSFXs[activeDialogIndex].phraseSFXs[activePhraseIndex]);
                     else
                         GameManager.instance.gmAu.au.PlayOneShot(dialogueSFXs[activeDialogIndex].phraseSFXs[activePhraseIndex]);
+                        */
                 }
             }
         }
