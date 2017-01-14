@@ -78,7 +78,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\MainAudioController.cs" />
     <Compile Include="Assets\MusicPlayerController.cs" />
     <Compile Include="Assets\Pixelation\Example\Scripts\ImageEffectBase.cs" />
     <Compile Include="Assets\Pixelation\Example\Scripts\Plane.cs" />
@@ -87,7 +86,6 @@
     <Compile Include="Assets\Pixelation\PsxShaders\imageEffects\cPrecision.cs" />
     <Compile Include="Assets\Pixelation\Scripts\Chunky.cs" />
     <Compile Include="Assets\Pixelation\Scripts\Pixelation.cs" />
-    <Compile Include="Assets\SceneBgm.cs" />
     <Compile Include="Assets\Scripts\ActionFeedbackController.cs" />
     <Compile Include="Assets\Scripts\AttackRangeController.cs" />
     <Compile Include="Assets\Scripts\BulletController.cs" />
@@ -111,6 +109,8 @@
     <Compile Include="Assets\Scripts\InventoryControllerGUI.cs" />
     <Compile Include="Assets\Scripts\InventoryItemContainer.cs" />
     <Compile Include="Assets\Scripts\InventoryItemsList.cs" />
+    <Compile Include="Assets\Scripts\MainAudioController.cs" />
+    <Compile Include="Assets\Scripts\MapController.cs" />
     <Compile Include="Assets\Scripts\MessageReciever.cs" />
     <Compile Include="Assets\Scripts\MessageTransmitter.cs" />
     <Compile Include="Assets\Scripts\MobMovement.cs" />
@@ -121,6 +121,7 @@
     <Compile Include="Assets\Scripts\ReloadGui.cs" />
     <Compile Include="Assets\Scripts\SaveSystem\StateManager.cs" />
     <Compile Include="Assets\Scripts\SaveSystem\Stateful.cs" />
+    <Compile Include="Assets\Scripts\SceneBgm.cs" />
     <Compile Include="Assets\Scripts\SceneDetails.cs" />
     <Compile Include="Assets\Scripts\SpriteFaceCam.cs" />
     <Compile Include="Assets\Scripts\StepController.cs" />

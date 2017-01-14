@@ -9,6 +9,7 @@ public class SceneDetails : MonoBehaviour {
     public float cameraMaxX = 5f;
     public AudioMixerSnapshot activeSnapshot;
     public CutSceneController introCutScene;
+    public string mapName;
 
     void Awake()
     {
