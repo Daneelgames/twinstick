@@ -51,11 +51,13 @@ public class Stateful : MonoBehaviour
 
         GameManager.instance.AddStateful(this);
         //print("AddStateful " + gameObject.name);
-
-        Vector3 tempPos = StateManager.instance.GetStatefulPosition(gameObject.name);
-        if (tempPos != new Vector3(0, -100f, 100f))
+        if (tag != "MapMarker")
         {
-            transform.position = tempPos;
+            Vector3 tempPos = StateManager.instance.GetStatefulPosition(gameObject.name);
+            if (tempPos != new Vector3(0, -100f, 100f))
+            {
+                transform.position = tempPos;
+            }
         }
     }
 
@@ -153,6 +155,7 @@ public class Stateful : MonoBehaviour
 
     public void SavePosition() // called from GM when player leaves the scene
     {
-        StateManager.instance.SaveStatefulPosition(gameObject.name, transform.position);
+        if (tag != "MapMarker")
+            StateManager.instance.SaveStatefulPosition(gameObject.name, transform.position);
     }
 }
