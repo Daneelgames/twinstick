@@ -328,7 +328,7 @@ public class InteractiveObject : MonoBehaviour
                 messageTransmitter.SendMessage();
             }
             */
-            if (mapMarkers[activeDialogIndex] != null)
+            if (mapMarkers.Count >= activeDialogIndex)
             {
                 GameManager.instance.canvasContainer.map.SetMarkerActive(mapMarkers[activeDialogIndex]);
             }
