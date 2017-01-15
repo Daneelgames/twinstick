@@ -2,7 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class CanvasContainer : MonoBehaviour {
+public class CanvasContainer : MonoBehaviour
+{
 
     public Canvas cnvs;
 
@@ -16,7 +17,7 @@ public class CanvasContainer : MonoBehaviour {
     public ReloadGui reloadController;
     public Animator fadeAnimator;
     public RawImage fadeImg;
-
+    public MapController map;
     public InventoryControllerGUI inventory;
 
     public void SetRenderCamera()

@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     public Animator healthFeedbackAnimator;
     public MainAudioController gmAu;
     public MusicPlayerController musicController;
-
+    public CanvasContainer canvasContainer;
     void Awake()
     {
         if (instance == null)
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
         cnvs.transform.SetParent(transform);
         cnvs.transform.position = Vector2.zero;
 
-        CanvasContainer canvasContainer = cnvs.GetComponent<CanvasContainer>();
+        canvasContainer = cnvs.GetComponent<CanvasContainer>();
         dialogAnimator = canvasContainer.dialogAnimator;
         dialogText = canvasContainer.dialogText;
         actionFeedbackController = canvasContainer.actionFeedback;
@@ -108,6 +108,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
 
         _sm = scene;
+        canvasContainer.map.LoadMap(_sm.mapName);
+        canvasContainer.map.SetPlayerPosition(SceneManager.GetActiveScene().name);
 
         PlayerSetPos();
 
@@ -326,22 +328,22 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (!playerController.aim)
+        if (playerController.playerHealth.health > 0 && !playerController.attacking && !playerController.aim && !playerController.reloading && !playerController.healing && !playerController.moveBack && !gui.fade)
         {
-            if (Input.GetButtonDown("Submit"))
+            if (Input.GetButtonDown("Submit") && !inventory.active && npcToInteract != null)
             {
-                if (npcToInteract != null && !inventory.active && playerController.playerHealth.health > 0 && !playerController.attacking && !playerController.aim && !playerController.reloading && !playerController.healing && !playerController.moveBack && !gui.fade)
-                {
-                    npcToInteract.Talk();
-                    //actionFeedbackController.SetFeedback(false, "");
-                }
+                npcToInteract.Talk();
+                //actionFeedbackController.SetFeedback(false, "");
             }
 
-            if (Input.GetButtonDown("ToggleInventory") && playerController.playerHealth.health > 0 && !gui.fade && !cutScene && !playerController.attacking && !playerController.aim && !playerController.reloading && !playerController.healing && !playerController.moveBack)
+            if (Input.GetButtonDown("ToggleInventory"))
             {
                 inventory.ToggleInventory();
             }
-
+            if (Input.GetButtonDown("ToggleMap") && !inventory.active)
+            {
+                canvasContainer.map.ToggleMap();
+            }
         }
     }
 

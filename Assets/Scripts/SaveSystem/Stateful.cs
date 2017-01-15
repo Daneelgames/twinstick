@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
 public class Stateful : MonoBehaviour
 {
-
     public bool activeOnStart = true;
     public InteractiveObject interactive;
     public List<string> boolsToSave = new List<string>();
@@ -16,7 +16,7 @@ public class Stateful : MonoBehaviour
     public List<MeshRenderer> meshes;
     public List<SkinnedMeshRenderer> skinnedMeshes;
     public SceneBgm sceneBgm;
-
+    public Image mapMarkerImg;
     void Awake()
     {
         string mtRecieverName = "";

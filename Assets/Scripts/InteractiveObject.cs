@@ -53,14 +53,13 @@ public class InteractiveObject : MonoBehaviour
 
     public bool inDialog = false;
     public Stateful stateful;
-
     public bool canInteract = false;
-
     public GameObject cameraAnchor;
     public GameObject light;
-
     public bool camFade = false;
-
+    public List<string> mapMarkers;
+    public string mapDoorMarker;
+    public string mapPuzzleMarker;
 
     public void Talk()
     {
@@ -138,6 +137,11 @@ public class InteractiveObject : MonoBehaviour
         GameManager.instance.camAnim.transform.SetParent(cameraAnchor.transform);
         GameManager.instance.gui.Fade("Game");
         dgtPuzzle.StartPuzzle(this);
+        
+        if (mapPuzzleMarker != "")
+        {
+            GameManager.instance.canvasContainer.map.SetMarkerActive(mapPuzzleMarker);
+        }
         yield return new WaitForSecondsRealtime(1f);
         camFade = false;
     }
@@ -258,6 +262,11 @@ public class InteractiveObject : MonoBehaviour
         Time.timeScale = 0f;
         // screen fade
         GameManager.instance.gui.Fade("Black");
+
+        if (mapDoorMarker != "")
+        {
+            GameManager.instance.canvasContainer.map.SetMarkerActive(mapDoorMarker);
+        }
         if (doorSound)
         {
             if (!cameraAnchor)
@@ -319,7 +328,10 @@ public class InteractiveObject : MonoBehaviour
                 messageTransmitter.SendMessage();
             }
             */
-
+            if (mapMarkers[activeDialogIndex] != null)
+            {
+                GameManager.instance.canvasContainer.map.SetMarkerActive(mapMarkers[activeDialogIndex]);
+            }
             if (activeDialogIndex < dialogues.Count - 1 && !locker) //loop last dialog
                 activeDialogIndex += 1;
 
