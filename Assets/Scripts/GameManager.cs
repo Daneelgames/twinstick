@@ -98,6 +98,7 @@ public class GameManager : MonoBehaviour
         canvasContainer.SetRenderCamera();
     }
 
+
     public void InitializeScene(SceneDetails scene)
     {
         startCampfire = GameObject.Find(characterSpawnerName).GetComponent<CampfireController>();
@@ -109,7 +110,8 @@ public class GameManager : MonoBehaviour
 
         _sm = scene;
         canvasContainer.map.LoadMap(_sm.mapName);
-        canvasContainer.map.SetPlayerPosition(SceneManager.GetActiveScene().name);
+        if (_sm.mapName != "")
+            canvasContainer.map.SetPlayerPosition(SceneManager.GetActiveScene().name);
 
         PlayerSetPos();
 
@@ -342,7 +344,8 @@ public class GameManager : MonoBehaviour
             }
             if (Input.GetButtonDown("ToggleMap") && !inventory.active)
             {
-                canvasContainer.map.ToggleMap();
+                if (StateManager.instance.GetMap(_sm.mapName))
+                    canvasContainer.map.ToggleMap();
             }
         }
     }

@@ -13,7 +13,7 @@ public class MusicPlayerController : MonoBehaviour
         print (c + "; au clip is " + activeAu.clip);
         foreach (AudioSource j in au)
         {
-            if (!j.clip)
+            if (j != activeAu)
             {
                 activeAu = j;
                 activeAu.clip = c;

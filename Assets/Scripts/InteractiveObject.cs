@@ -137,7 +137,7 @@ public class InteractiveObject : MonoBehaviour
         GameManager.instance.camAnim.transform.SetParent(cameraAnchor.transform);
         GameManager.instance.gui.Fade("Game");
         dgtPuzzle.StartPuzzle(this);
-        
+
         if (mapPuzzleMarker != "")
         {
             GameManager.instance.canvasContainer.map.SetMarkerActive(mapPuzzleMarker);
@@ -222,6 +222,8 @@ public class InteractiveObject : MonoBehaviour
         else
         {
             csToStart.StartCs();
+            canInteract = false;
+            GameManager.instance.NpcToInteract(null, "");
         }
     }
 
@@ -328,7 +330,7 @@ public class InteractiveObject : MonoBehaviour
                 messageTransmitter.SendMessage();
             }
             */
-            if (mapMarkers.Count >= activeDialogIndex)
+            if (mapMarkers.Count > activeDialogIndex)
             {
                 GameManager.instance.canvasContainer.map.SetMarkerActive(mapMarkers[activeDialogIndex]);
             }

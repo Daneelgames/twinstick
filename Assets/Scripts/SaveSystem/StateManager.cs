@@ -185,7 +185,16 @@ public class StateManager : MonoBehaviour
             }
         }
     }
-
+    public bool GetMap(string mn)
+    {
+        string mapName = mn + "Inventory";
+        foreach (string i in questItems)
+        {
+            if (i == mapName)
+                return true;
+        }
+        return false;
+    }
     public void SetMobDead(string mobName)
     {
         bool dbl = false;
