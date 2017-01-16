@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
     public MainAudioController gmAu;
     public MusicPlayerController musicController;
     public CanvasContainer canvasContainer;
+    bool sessionStarted = false;
     void Awake()
     {
         if (instance == null)
@@ -101,6 +102,12 @@ public class GameManager : MonoBehaviour
 
     public void InitializeScene(SceneDetails scene)
     {
+        _sm = scene;
+        if (!sessionStarted)
+        {
+            characterSpawnerName = _sm.spawner;
+            sessionStarted = true;
+        }
         startCampfire = GameObject.Find(characterSpawnerName).GetComponent<CampfireController>();
 
         playerController.playerHealth.SetHealth(StateManager.instance.playerHealth);
@@ -108,7 +115,6 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 1;
 
-        _sm = scene;
         canvasContainer.map.LoadMap(_sm.mapName);
         if (_sm.mapName != "")
             canvasContainer.map.SetPlayerPosition(SceneManager.GetActiveScene().name);

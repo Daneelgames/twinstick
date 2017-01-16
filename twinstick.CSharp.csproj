@@ -78,15 +78,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Free asset\Pixelation\Example\Scripts\ImageEffectBase.cs" />
+    <Compile Include="Assets\Free asset\Pixelation\Example\Scripts\Plane.cs" />
+    <Compile Include="Assets\Free asset\Pixelation\Example\Scripts\PointLight.cs" />
+    <Compile Include="Assets\Free asset\Pixelation\PsxShaders\Billboard\billboard.cs" />
+    <Compile Include="Assets\Free asset\Pixelation\PsxShaders\imageEffects\cPrecision.cs" />
+    <Compile Include="Assets\Free asset\Pixelation\Scripts\Chunky.cs" />
+    <Compile Include="Assets\Free asset\Pixelation\Scripts\Pixelation.cs" />
     <Compile Include="Assets\MapMarkersList.cs" />
     <Compile Include="Assets\MusicPlayerController.cs" />
-    <Compile Include="Assets\Pixelation\Example\Scripts\ImageEffectBase.cs" />
-    <Compile Include="Assets\Pixelation\Example\Scripts\Plane.cs" />
-    <Compile Include="Assets\Pixelation\Example\Scripts\PointLight.cs" />
-    <Compile Include="Assets\Pixelation\PsxShaders\Billboard\billboard.cs" />
-    <Compile Include="Assets\Pixelation\PsxShaders\imageEffects\cPrecision.cs" />
-    <Compile Include="Assets\Pixelation\Scripts\Chunky.cs" />
-    <Compile Include="Assets\Pixelation\Scripts\Pixelation.cs" />
     <Compile Include="Assets\Scripts\ActionFeedbackController.cs" />
     <Compile Include="Assets\Scripts\AttackRangeController.cs" />
     <Compile Include="Assets\Scripts\BulletController.cs" />
@@ -132,22 +132,22 @@
     <Compile Include="Assets\Scripts\WeaponController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Pixelation\PsxShaders\Reflective\psx-unlit-add.shader" />
-    <None Include="Assets\Pixelation\PsxShaders\Reflective\psx-unlit-mult.shader" />
-    <None Include="Assets\Pixelation\PsxShaders\Reflective\psx-unlit_noambient-add.shader" />
-    <None Include="Assets\Pixelation\PsxShaders\Reflective\psx-unlit_noambient-mult.shader" />
-    <None Include="Assets\Pixelation\PsxShaders\Reflective\psx-vertexlit-add.shader" />
-    <None Include="Assets\Pixelation\PsxShaders\Reflective\psx-vertexlit-mult.shader" />
-    <None Include="Assets\Pixelation\PsxShaders\Resources\cPrecision.shader" />
-    <None Include="Assets\Pixelation\PsxShaders\Trasparent\psx-trasparent-unlit-noambient.shader" />
-    <None Include="Assets\Pixelation\PsxShaders\Trasparent\psx-trasparent-unlit.shader" />
-    <None Include="Assets\Pixelation\PsxShaders\Trasparent\psx-trasparent-vertexlit.shader" />
-    <None Include="Assets\Pixelation\PsxShaders\psx-unlit.shader" />
-    <None Include="Assets\Pixelation\PsxShaders\psx-unlit_noambient.shader" />
-    <None Include="Assets\Pixelation\PsxShaders\psx-vertexlit.shader" />
-    <None Include="Assets\Pixelation\Readme.txt" />
-    <None Include="Assets\Pixelation\Shaders\Chunky.shader" />
-    <None Include="Assets\Pixelation\Shaders\Pixelation.shader" />
+    <None Include="Assets\Free asset\Pixelation\PsxShaders\Reflective\psx-unlit-add.shader" />
+    <None Include="Assets\Free asset\Pixelation\PsxShaders\Reflective\psx-unlit-mult.shader" />
+    <None Include="Assets\Free asset\Pixelation\PsxShaders\Reflective\psx-unlit_noambient-add.shader" />
+    <None Include="Assets\Free asset\Pixelation\PsxShaders\Reflective\psx-unlit_noambient-mult.shader" />
+    <None Include="Assets\Free asset\Pixelation\PsxShaders\Reflective\psx-vertexlit-add.shader" />
+    <None Include="Assets\Free asset\Pixelation\PsxShaders\Reflective\psx-vertexlit-mult.shader" />
+    <None Include="Assets\Free asset\Pixelation\PsxShaders\Resources\cPrecision.shader" />
+    <None Include="Assets\Free asset\Pixelation\PsxShaders\Trasparent\psx-trasparent-unlit-noambient.shader" />
+    <None Include="Assets\Free asset\Pixelation\PsxShaders\Trasparent\psx-trasparent-unlit.shader" />
+    <None Include="Assets\Free asset\Pixelation\PsxShaders\Trasparent\psx-trasparent-vertexlit.shader" />
+    <None Include="Assets\Free asset\Pixelation\PsxShaders\psx-unlit.shader" />
+    <None Include="Assets\Free asset\Pixelation\PsxShaders\psx-unlit_noambient.shader" />
+    <None Include="Assets\Free asset\Pixelation\PsxShaders\psx-vertexlit.shader" />
+    <None Include="Assets\Free asset\Pixelation\Readme.txt" />
+    <None Include="Assets\Free asset\Pixelation\Shaders\Chunky.shader" />
+    <None Include="Assets\Free asset\Pixelation\Shaders\Pixelation.shader" />
     <None Include="Assets\Standard Assets\Effects\AmbientOcclusion\Resources\AmbientOcclusion.cginc" />
     <None Include="Assets\Standard Assets\Effects\AmbientOcclusion\Resources\AmbientOcclusion.shader" />
     <None Include="Assets\Standard Assets\Effects\AntiAliasing\FXAA\Resources\FXAA.shader" />

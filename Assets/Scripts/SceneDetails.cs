@@ -5,6 +5,7 @@ using UnityEngine.Audio;
 
 public class SceneDetails : MonoBehaviour {
 
+    public string spawner;
     public float cameraMinX = -5f;
     public float cameraMaxX = 5f;
     public AudioMixerSnapshot activeSnapshot;
