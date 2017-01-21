@@ -191,4 +191,9 @@ public class MobMovement : MonoBehaviour
         rb.isKinematic = true;
         mainCollider.enabled = false;
     }
+
+    public void StepSetSpeed(float sp)
+    {
+        speed = sp;
+    }
 }

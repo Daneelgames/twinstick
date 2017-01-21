@@ -6,6 +6,8 @@ public class CharacterAnimationEvents : MonoBehaviour
 {
 
     public PlayerMovement pm;
+    public MobMovement mm;
+    public float mobStepCooldown = 0.2f;
     public List<StepController> steps;
     public List<AudioClip> audioClips;
     public List<AudioClip> meleeAttackClips;
@@ -23,9 +25,13 @@ public class CharacterAnimationEvents : MonoBehaviour
 
             StartCoroutine("ReduceSpeedWhileStepping", t);
         }
+        else if (mm)
+        {
+            StartCoroutine("ReduceSpeedWhileStepping", mobStepCooldown);
+        }
         if (steps[leg])
         {
-            steps[leg].Step();
+            steps[leg].StepRaycast();
         }
     }
 
@@ -36,9 +42,21 @@ public class CharacterAnimationEvents : MonoBehaviour
 
     IEnumerator ReduceSpeedWhileStepping(float t)
     {
-        pm.SetMaxSpeed(0.6f);
+        float mobSpeed = 0;
+        if (pm)
+            pm.SetMaxSpeed(0.6f);
+        else if (mm)
+        {
+            mobSpeed = mm.speed;
+            mm.StepSetSpeed(mobSpeed / 4);
+        }
         yield return new WaitForSeconds(t);
-        pm.SetMaxSpeed(1f);
+        if (pm)
+            pm.SetMaxSpeed(1f);
+        else if (mm)
+        {
+            mm.StepSetSpeed(mobSpeed);
+        }
     }
 
     public void MeleeAttack()

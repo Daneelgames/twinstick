@@ -12,7 +12,7 @@ public class StepController : MonoBehaviour
             cooldown -= Time.deltaTime;
     }
 
-    public void Step()
+    public void StepRaycast()
     {
         if (cooldown <= 0)
         {
