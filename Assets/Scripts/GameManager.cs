@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     public MusicPlayerController musicController;
     public CanvasContainer canvasContainer;
     bool sessionStarted = false;
+    CameraZoneController activeCamera;
     void Awake()
     {
         if (instance == null)
@@ -201,6 +202,15 @@ public class GameManager : MonoBehaviour
 
         playerController.SetFlashlight(StateManager.instance.GetFlashlight());
         playerController.playerHealth.health = StateManager.instance.playerHealth;
+    }
+
+    public void SetActiveCamera(CameraZoneController zone)
+    {
+        if (activeCamera)
+            activeCamera.active = false;
+
+        activeCamera = zone;
+        activeCamera.active = true;
     }
 
     public void SendMessages(bool needToFadeIn) // CALL IN MIDDLE OF SCENE

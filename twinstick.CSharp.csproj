@@ -78,6 +78,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CameraZoneController.cs" />
     <Compile Include="Assets\Free asset\Pixelation\Example\Scripts\ImageEffectBase.cs" />
     <Compile Include="Assets\Free asset\Pixelation\Example\Scripts\Plane.cs" />
     <Compile Include="Assets\Free asset\Pixelation\Example\Scripts\PointLight.cs" />
