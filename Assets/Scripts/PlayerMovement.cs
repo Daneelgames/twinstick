@@ -199,7 +199,7 @@ public class PlayerMovement : MonoBehaviour
                 healing = true;
                 GameManager.instance.gui.reloadController.StartReload(Random.Range(-30f, 30f), 0);
             }
-            
+
         }
     }
 
@@ -240,37 +240,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload && !playerHealth.invisible && !moveBack && !attacking)
         {
-            /* OLD MOVEMENT
-            movement.Set(inputH, 0f, inputV);
-            movement = movement.normalized * curSpeed * Time.deltaTime;
-            rb.MovePosition(transform.position + movement);
-            */
+            //Vector3 m = transform.forward * inputV * speed * Time.deltaTime;
+            //rb.MovePosition(rb.position + m);
 
-            movement.Set(inputH, 0f, inputV);
-            //movement = transform.TransformDirection(movement.normalized) * curSpeed;
-            movement = movement.normalized * curSpeed;
-            movement.y = rb.velocity.y;
+            float turn = inputH * 120f * Time.deltaTime;
+            Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
+            rb.MoveRotation(rb.rotation * turnRotation);
 
-            Quaternion rot = rb.rotation;
-            rot.eulerAngles = new Vector3(0, rb.rotation.eulerAngles.y, 0);
-            rb.rotation = rot;
-            /*
-            slerpMovement = Vector3.Slerp(rb.velocity, movement, 0.075f);
-            slerpMovement.y = rb.velocity.y;
-            */
-            rb.velocity = movement;
+            if (inputH != 0 && inputV == 0)
+                anim.SetBool("LegsTurn", true);
+            else if (inputH == 0 || inputV != 0)
+                anim.SetBool("LegsTurn", false);
 
-            if (inputH != 0 || inputV != 0)
-            {
-                Vector3 playerToTarget = (transform.position + movement) - transform.position;
 
-                playerToTarget.y = transform.position.y;
-
-                Quaternion newRotation = Quaternion.LookRotation(playerToTarget);
-                newRotation = Quaternion.Slerp(newRotation, transform.rotation, turnSpeed * Time.deltaTime);
-                newRotation.eulerAngles = new Vector3(0, newRotation.eulerAngles.y, 0);
-                rb.MoveRotation(newRotation);
-            }
+            rb.velocity = transform.forward * inputV * speed * 50 * Time.deltaTime;
 
             if (Input.GetButton("Run"))
             {
@@ -284,6 +267,26 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetFloat("Speed", animSpeed);
                 speed = maxSpeed;
             }
+            /*
+                movement.Set(inputH, 0f, inputV);
+                movement = movement.normalized * curSpeed;
+                movement.y = rb.velocity.y;
+
+                Quaternion rot = rb.rotation;
+                rot.eulerAngles = new Vector3(0, rb.rotation.eulerAngles.y, 0);
+                rb.rotation = rot;
+                rb.velocity = movement;
+
+                if (inputH != 0 || inputV != 0)
+                {
+                    Vector3 playerToTarget = (transform.position + movement) - transform.position;
+                    playerToTarget.y = transform.position.y;
+                    Quaternion newRotation = Quaternion.LookRotation(playerToTarget);
+                    newRotation = Quaternion.Slerp(newRotation, transform.rotation, turnSpeed * Time.deltaTime);
+                    newRotation.eulerAngles = new Vector3(0, newRotation.eulerAngles.y, 0);
+                    rb.MoveRotation(newRotation);
+                }
+            */
         }
         else
         {
@@ -294,7 +297,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Animate()
     {
-        if (inputH != 0 || inputV != 0)
+        if (inputV != 0)
         {
             if (!Input.GetButton("Aim") && !attacking && !moveBack && !reloading && !healing)
                 anim.SetBool("Move", true);
@@ -397,10 +400,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-//            print("ik false");
+            //            print("ik false");
             ikController.SetTarget(ikController.lookPos, false);
             anim.SetBool("Aim", false);
-            anim.SetBool("LegsTurn", false);
+            if (inputH == 0)
+                anim.SetBool("LegsTurn", false);
             aim = false;
         }
     }
