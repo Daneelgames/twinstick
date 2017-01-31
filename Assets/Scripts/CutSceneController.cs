@@ -41,10 +41,10 @@ public class CutSceneController : MonoBehaviour
         GameManager.instance.gui.Fade("Game");
         GameManager.instance.CutScenePlay(false);
 
-        GameManager.instance.SetActiveCamera(null);
         GameManager.instance.camAnim.transform.position = GameManager.instance.cameraHolder.transform.position;
         GameManager.instance.camAnim.transform.SetParent(GameManager.instance.cameraHolder.transform);
         GameManager.instance.camAnim.transform.rotation = Quaternion.identity;
+        GameManager.instance.SetActiveCamera(null);
 
         stateful.ObjectActive(false);
         gameObject.SetActive(false);

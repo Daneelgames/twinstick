@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public List<WeaponController> weapons = new List<WeaponController>();
     public WeaponController weaponController;
     public HealthController playerHealth;
-    public float turnSpeed = 45f;
+    public float turnSpeed = 120f;
 
     public LayerMask aimLayers;
 
@@ -242,8 +242,15 @@ public class PlayerMovement : MonoBehaviour
         {
             //Vector3 m = transform.forward * inputV * speed * Time.deltaTime;
             //rb.MovePosition(rb.position + m);
-
-            float turn = inputH * 120f * Time.deltaTime;
+            float turn = 0;
+            if (inputV == 0)
+            {
+                turn = inputH * turnSpeed * Time.deltaTime;
+            }
+            else
+            {
+                turn = inputH * turnSpeed / 2 * Time.deltaTime;
+            }
             Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
             rb.MoveRotation(rb.rotation * turnRotation);
 
@@ -257,15 +264,32 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetButton("Run"))
             {
-                float animSpeed = Mathf.Lerp(anim.GetFloat("Speed"), 1, 0.1f);
-                anim.SetFloat("Speed", animSpeed);
-                speed = maxSpeed * 2.5f;
+                if (inputV > 0)
+                {
+                    float animSpeed = Mathf.Lerp(anim.GetFloat("Speed"), 1, 0.1f);
+                    anim.SetFloat("Speed", animSpeed);
+                    speed = maxSpeed * 2.5f;
+                }
+                else
+                {
+                    anim.SetFloat("Speed", -1);
+                    speed = maxSpeed * 0.75f;
+                }
             }
             else
             {
-                float animSpeed = Mathf.Lerp(anim.GetFloat("Speed"), 0, 0.1f);
+                float animSpeed = 0;
+                if (inputV < 0)
+                {
+                    animSpeed = Mathf.Lerp(anim.GetFloat("Speed"), -1, 0.1f);
+                    speed = maxSpeed * 0.75f;
+                }
+                else
+                {
+                    animSpeed = Mathf.Lerp(anim.GetFloat("Speed"), 0, 0.1f);
+                    speed = maxSpeed;
+                }
                 anim.SetFloat("Speed", animSpeed);
-                speed = maxSpeed;
             }
             /*
                 movement.Set(inputH, 0f, inputV);

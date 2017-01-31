@@ -209,12 +209,14 @@ public class GameManager : MonoBehaviour
         if (activeCamera)
             activeCamera.active = false;
         if (zone)
+        {
             activeCamera = zone;
-        activeCamera.active = true;
+            activeCamera.active = true;
 
-        cameraHolder.transform.SetParent(activeCamera.camAnchor.transform);
-        cameraHolder.transform.localPosition = Vector3.zero;
-        cameraHolder.transform.localEulerAngles = Vector3.zero;
+            cameraHolder.transform.SetParent(activeCamera.camAnchor.transform);
+            cameraHolder.transform.localPosition = Vector3.zero;
+            cameraHolder.transform.localEulerAngles = Vector3.zero;
+        }
     }
 
     public void SendMessages(bool needToFadeIn) // CALL IN MIDDLE OF SCENE
@@ -415,6 +417,9 @@ public class GameManager : MonoBehaviour
             i.SavePosition();
         }
 
+        cameraHolder.transform.SetParent(transform);
+        cameraHolder.transform.localPosition = Vector3.zero;
+        cameraHolder.transform.localEulerAngles = Vector3.zero;
 
         characterSpawnerName = spawnerName;
         StateManager.instance.SetSpawner(spawnerName);
