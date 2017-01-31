@@ -4,8 +4,7 @@ using System.Collections;
 public class CameraZoneController : MonoBehaviour
 {
     public GameObject camAnchor;
-    public bool followX = false;
-    public bool followY = false;
+    public bool follow = false;
     public bool active = false;
 
     void OnTriggerEnter(Collider col)
@@ -18,15 +17,14 @@ public class CameraZoneController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (active)
+        if (active && follow)
         {
-            if (followX)
+            if (GameManager.instance.playerController != null && !GameManager.instance.cutScene)
             {
-                // look at player on x
-            }
-            if (followY)
-            {
-                // look at player on y
+                float posX = Mathf.Lerp(camAnchor.transform.position.x, GameManager.instance.playerController.cameraFocus.transform.position.x, 0.1f);
+                float posY = Mathf.Lerp(camAnchor.transform.position.y, GameManager.instance.playerController.cameraFocus.transform.position.y + 1, 0.1f);
+                float posZ = Mathf.Lerp(camAnchor.transform.position.z, GameManager.instance.playerController.cameraFocus.transform.position.z, 0.1f);
+                camAnchor.transform.LookAt(new Vector3(posX, posY, posZ));
             }
         }
     }
