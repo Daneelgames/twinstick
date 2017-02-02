@@ -259,8 +259,9 @@ public class PlayerMovement : MonoBehaviour
             else if (inputH == 0 || inputV != 0)
                 anim.SetBool("LegsTurn", false);
 
-
-            rb.velocity = transform.forward * inputV * speed * 50 * Time.deltaTime;
+            Vector3 newVel = transform.forward * inputV * speed * 50 * Time.deltaTime;
+            newVel = new Vector3(newVel.x, rb.velocity.y, newVel.z);
+            rb.velocity = newVel;
 
             if (Input.GetButton("Run"))
             {
