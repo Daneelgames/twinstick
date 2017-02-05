@@ -78,7 +78,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CameraZoneController.cs" />
     <Compile Include="Assets\Free asset\Pixelation\Example\Scripts\ImageEffectBase.cs" />
     <Compile Include="Assets\Free asset\Pixelation\Example\Scripts\Plane.cs" />
     <Compile Include="Assets\Free asset\Pixelation\Example\Scripts\PointLight.cs" />
@@ -86,12 +85,11 @@
     <Compile Include="Assets\Free asset\Pixelation\PsxShaders\imageEffects\cPrecision.cs" />
     <Compile Include="Assets\Free asset\Pixelation\Scripts\Chunky.cs" />
     <Compile Include="Assets\Free asset\Pixelation\Scripts\Pixelation.cs" />
-    <Compile Include="Assets\MapMarkersList.cs" />
-    <Compile Include="Assets\MusicPlayerController.cs" />
     <Compile Include="Assets\Scripts\ActionFeedbackController.cs" />
     <Compile Include="Assets\Scripts\AttackRangeController.cs" />
     <Compile Include="Assets\Scripts\BulletController.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\CameraZoneController.cs" />
     <Compile Include="Assets\Scripts\CampfireController.cs" />
     <Compile Include="Assets\Scripts\CanvasContainer.cs" />
     <Compile Include="Assets\Scripts\CharacterAnimationEvents.cs" />
@@ -113,10 +111,12 @@
     <Compile Include="Assets\Scripts\InventoryItemsList.cs" />
     <Compile Include="Assets\Scripts\MainAudioController.cs" />
     <Compile Include="Assets\Scripts\MapController.cs" />
+    <Compile Include="Assets\Scripts\MapMarkersList.cs" />
     <Compile Include="Assets\Scripts\MessageReciever.cs" />
     <Compile Include="Assets\Scripts\MessageTransmitter.cs" />
     <Compile Include="Assets\Scripts\MobMovement.cs" />
     <Compile Include="Assets\Scripts\MobSpawnerController.cs" />
+    <Compile Include="Assets\Scripts\MusicPlayerController.cs" />
     <Compile Include="Assets\Scripts\NpcController.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\RandomWalkerAi.cs" />

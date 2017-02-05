@@ -33,7 +33,11 @@ public class PlayerMovement : MonoBehaviour
     public bool attacking = false;
     public bool reloading = false;
     public bool healing = false;
+
+    public Stateful targetEnemy;
     public bool aim = false;
+    public bool autoAim = false;
+    public float maxAimDistance = 5f;
 
     float flashlightCooldown = 0f;
     public GameObject flashlight;
@@ -238,7 +242,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        if (!Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload && !playerHealth.invisible && !moveBack && !attacking)
+        if (!GameManager.instance.gui.reloadController.reload && !playerHealth.invisible && !moveBack && !attacking)
         {
             //Vector3 m = transform.forward * inputV * speed * Time.deltaTime;
             //rb.MovePosition(rb.position + m);
@@ -249,69 +253,87 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                turn = inputH * turnSpeed / 2 * Time.deltaTime;
+                if (aim)
+                    turn = inputH * turnSpeed * Time.deltaTime;
+                else
+                    turn = inputH * turnSpeed / 2 * Time.deltaTime;
             }
             Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
             rb.MoveRotation(rb.rotation * turnRotation);
 
-            if (inputH != 0 && inputV == 0)
-                anim.SetBool("LegsTurn", true);
-            else if (inputH == 0 || inputV != 0)
-                anim.SetBool("LegsTurn", false);
-
-            Vector3 newVel = transform.forward * inputV * speed * 50 * Time.deltaTime;
-            newVel = new Vector3(newVel.x, rb.velocity.y, newVel.z);
-            rb.velocity = newVel;
-
-            if (Input.GetButton("Run"))
+            if (aim)
             {
-                if (inputV > 0)
-                {
-                    float animSpeed = Mathf.Lerp(anim.GetFloat("Speed"), 1, 0.1f);
-                    anim.SetFloat("Speed", animSpeed);
-                    speed = maxSpeed * 2.5f;
-                }
+                if (inputH != 0)
+                    anim.SetBool("LegsTurn", true);
                 else
-                {
-                    anim.SetFloat("Speed", -1);
-                    speed = maxSpeed * 0.75f;
-                }
+                    anim.SetBool("LegsTurn", false);
             }
             else
             {
-                float animSpeed = 0;
-                if (inputV < 0)
+                if (inputH != 0 && inputV == 0)
+                    anim.SetBool("LegsTurn", true);
+                else if (inputH == 0 || inputV != 0)
                 {
-                    animSpeed = Mathf.Lerp(anim.GetFloat("Speed"), -1, 0.1f);
-                    speed = maxSpeed * 0.75f;
+                    anim.SetBool("LegsTurn", false);
+                }
+            }
+
+            if (!aim)
+            {
+                Vector3 newVel = transform.forward * inputV * speed * 50 * Time.deltaTime;
+                newVel = new Vector3(newVel.x, rb.velocity.y, newVel.z);
+                rb.velocity = newVel;
+
+                if (Input.GetButton("Run"))
+                {
+                    if (inputV > 0)
+                    {
+                        float animSpeed = Mathf.Lerp(anim.GetFloat("Speed"), 1, 0.1f);
+                        anim.SetFloat("Speed", animSpeed);
+                        speed = maxSpeed * 2.5f;
+                    }
+                    else
+                    {
+                        anim.SetFloat("Speed", -1);
+                        speed = maxSpeed * 0.75f;
+                    }
                 }
                 else
                 {
-                    animSpeed = Mathf.Lerp(anim.GetFloat("Speed"), 0, 0.1f);
-                    speed = maxSpeed;
+                    float animSpeed = 0;
+                    if (inputV < 0)
+                    {
+                        animSpeed = Mathf.Lerp(anim.GetFloat("Speed"), -1, 0.1f);
+                        speed = maxSpeed * 0.75f;
+                    }
+                    else
+                    {
+                        animSpeed = Mathf.Lerp(anim.GetFloat("Speed"), 0, 0.1f);
+                        speed = maxSpeed;
+                    }
+                    anim.SetFloat("Speed", animSpeed);
                 }
-                anim.SetFloat("Speed", animSpeed);
+                /*
+                    movement.Set(inputH, 0f, inputV);
+                    movement = movement.normalized * curSpeed;
+                    movement.y = rb.velocity.y;
+
+                    Quaternion rot = rb.rotation;
+                    rot.eulerAngles = new Vector3(0, rb.rotation.eulerAngles.y, 0);
+                    rb.rotation = rot;
+                    rb.velocity = movement;
+
+                    if (inputH != 0 || inputV != 0)
+                    {
+                        Vector3 playerToTarget = (transform.position + movement) - transform.position;
+                        playerToTarget.y = transform.position.y;
+                        Quaternion newRotation = Quaternion.LookRotation(playerToTarget);
+                        newRotation = Quaternion.Slerp(newRotation, transform.rotation, turnSpeed * Time.deltaTime);
+                        newRotation.eulerAngles = new Vector3(0, newRotation.eulerAngles.y, 0);
+                        rb.MoveRotation(newRotation);
+                    }
+                */
             }
-            /*
-                movement.Set(inputH, 0f, inputV);
-                movement = movement.normalized * curSpeed;
-                movement.y = rb.velocity.y;
-
-                Quaternion rot = rb.rotation;
-                rot.eulerAngles = new Vector3(0, rb.rotation.eulerAngles.y, 0);
-                rb.rotation = rot;
-                rb.velocity = movement;
-
-                if (inputH != 0 || inputV != 0)
-                {
-                    Vector3 playerToTarget = (transform.position + movement) - transform.position;
-                    playerToTarget.y = transform.position.y;
-                    Quaternion newRotation = Quaternion.LookRotation(playerToTarget);
-                    newRotation = Quaternion.Slerp(newRotation, transform.rotation, turnSpeed * Time.deltaTime);
-                    newRotation.eulerAngles = new Vector3(0, newRotation.eulerAngles.y, 0);
-                    rb.MoveRotation(newRotation);
-                }
-            */
         }
         else
         {
@@ -324,7 +346,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (inputV != 0)
         {
-            if (!Input.GetButton("Aim") && !attacking && !moveBack && !reloading && !healing)
+            if (!aim && !attacking && !moveBack && !reloading && !healing)
                 anim.SetBool("Move", true);
             else
                 anim.SetBool("Move", false);
@@ -360,6 +382,26 @@ public class PlayerMovement : MonoBehaviour
         {
             if (weaponController != null)
                 weaponController.curCooldown = 0.5f;
+
+            //Auto aim to closest enemy
+            targetEnemy = null;
+            float closestTarger = maxAimDistance;
+            foreach (Stateful st in GameManager.instance.statefulObjectsOnscene)
+            {
+                if (st.gameObject.activeInHierarchy && st.tag == "Mob" && st.mobController.health.health > 0)
+                {
+                    float d = Vector3.Distance(transform.position, st.transform.position);
+                    if (d < closestTarger) // max aim 
+                    {
+                        targetEnemy = st;
+                        closestTarger = d;
+                    }
+                }
+            }
+            if (targetEnemy)
+            {
+                autoAim = true;
+            }
         }
 
         if (Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload && Time.timeScale > 0 && !moveBack)
@@ -367,70 +409,85 @@ public class PlayerMovement : MonoBehaviour
             if (GameManager.instance.activeWeapon != "")
             {
                 anim.SetBool("Aim", true);
-            }
-            /*
-            Vector2 mousePosition = Input.mousePosition;
-            Vector2 normalized = new Vector2(mousePosition.x / Screen.width, mousePosition.y / Screen.height);
-            Ray camRay = GameManager.instance.mainCam.ScreenPointToRay(GameManager.instance.mainCam.ViewportToScreenPoint(normalized));
-            */
-
-            if (!attacking)
-            {
-                Ray camRay = GameManager.instance.mainCam.ScreenPointToRay(Input.mousePosition);
-
-                RaycastHit floorHit;
-
-                if (Physics.Raycast(camRay, out floorHit, 30f, aimLayers))
+                aim = true;
+                /*
+                    Vector2 mousePosition = Input.mousePosition;
+                    Vector2 normalized = new Vector2(mousePosition.x / Screen.width, mousePosition.y / Screen.height);
+                    Ray camRay = GameManager.instance.mainCam.ScreenPointToRay(GameManager.instance.mainCam.ViewportToScreenPoint(normalized));
+                */
+                if (!attacking)
                 {
-
-                    if (weaponController != null && weaponController.shotHolder)
+                    if (!targetEnemy && !autoAim)
                     {
-                        line.SetPosition(0, weaponController.shotHolder.transform.position);
-                        line.SetPosition(1, floorHit.point);
-                    }
-
-                    // if (weaponController /* || weaponController.weaponAmmoType != WeaponController.Type.Melee*/)
-                    ikController.SetTarget(floorHit.point, true);
-                    Vector3 playerToMouse = floorHit.point - transform.position;
-
-                    aimTarget = floorHit.point;
-
-                    playerToMouse.y = 0f;
-
-                    aim = true;
-
-                    Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-                    newRotation = Quaternion.Slerp(newRotation, transform.rotation, turnSpeed * Time.deltaTime);
-                    float difference = Mathf.Abs(Mathf.RoundToInt(newRotation.eulerAngles.y) - rotateY);
-                    //print(difference);
-                    if (difference > 4)
-                    {
-                        rb.MoveRotation(newRotation);
-                        anim.SetBool("LegsTurn", true);
+                        Vector3 fwd = transform.TransformDirection(Vector3.forward);
+                        Debug.DrawRay(weaponController.transform.position, fwd * 50, Color.green);
+                        RaycastHit objHit;
+                        if (Physics.Raycast(transform.position, fwd, out objHit, 50))
+                        {
+                            aimTarget = objHit.point;
+                        }
                     }
                     else
                     {
-                        anim.SetBool("LegsTurn", false);
-                    }
-                    rotateY = Mathf.RoundToInt(transform.eulerAngles.y);
+                        if (weaponController != null && weaponController.shotHolder)
+                        {
+                            line.SetPosition(0, weaponController.shotHolder.transform.position);
+                            line.SetPosition(1, targetEnemy.transform.position);
+                        }
 
-                }
-                else
-                {
-                    print("ik false");
-                    ikController.SetTarget(ikController.lookPos, false);
-                    aim = false;
+                        //get mob half here
+                        Vector3 _target = new Vector3(targetEnemy.transform.position.x, targetEnemy.transform.position.y + targetEnemy.mobCollider.bounds.size.y * 0.75f, targetEnemy.transform.position.z);
+                        ikController.SetTarget(_target, true);
+                        Vector3 playerToMouse = _target - transform.position;
+
+                        aimTarget = _target;
+                        playerToMouse.y = 0f;
+
+                        Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
+                        newRotation = Quaternion.Slerp(newRotation, transform.rotation, turnSpeed * Time.deltaTime);
+                        float difference = Mathf.Abs(Mathf.RoundToInt(newRotation.eulerAngles.y) - rotateY);
+                        //print(difference);
+                        if (difference > 4 && difference < 6)
+                        {
+                            rb.MoveRotation(newRotation);
+                            //anim.SetBool("LegsTurn", true);
+                        }
+                        /*
+                        else if (difference <= 4)
+                        {
+                            anim.SetBool("LegsTurn", false);
+                        }
+                        */
+                        else if (difference >= 6)
+                        {
+                            autoAim = false;
+                            //anim.SetBool("LegsTurn", false);
+                        }
+                        rotateY = Mathf.RoundToInt(transform.eulerAngles.y);
+                    }
                 }
             }
         }
         else
         {
-            //            print("ik false");
+            //print("ik false");
             ikController.SetTarget(ikController.lookPos, false);
             anim.SetBool("Aim", false);
             if (inputH == 0)
                 anim.SetBool("LegsTurn", false);
             aim = false;
+            autoAim = false;
+        }
+
+        if (!Input.GetButton("Aim"))
+        {
+            //print("ik false");
+            ikController.SetTarget(ikController.lookPos, false);
+            anim.SetBool("Aim", false);
+            if (inputH == 0)
+                anim.SetBool("LegsTurn", false);
+            aim = false;
+            autoAim = false;
         }
     }
 

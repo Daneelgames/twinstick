@@ -13,6 +13,7 @@ public class Stateful : MonoBehaviour
     public MessageReciever mr;
     float audioNewVolume = 0;
     public MobMovement mobController;
+    public Collider mobCollider;
     public List<MeshRenderer> meshes;
     public List<SkinnedMeshRenderer> skinnedMeshes;
     public SceneBgm sceneBgm;
