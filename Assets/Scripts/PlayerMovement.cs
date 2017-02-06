@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     public bool reloading = false;
     public bool healing = false;
 
+    public bool quickTurn = false;
     public Stateful targetEnemy;
     public bool aim = false;
     public bool autoAim = false;
@@ -242,7 +243,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        if (!GameManager.instance.gui.reloadController.reload && !playerHealth.invisible && !moveBack && !attacking)
+        if (quickTurn)
+        {
+            transform.Rotate(Vector3.up * 360f * Time.deltaTime);
+        }
+        if (!GameManager.instance.gui.reloadController.reload && !playerHealth.invisible && !moveBack && !attacking && !quickTurn)
         {
             //Vector3 m = transform.forward * inputV * speed * Time.deltaTime;
             //rb.MovePosition(rb.position + m);
@@ -263,6 +268,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (aim)
             {
+                rb.velocity = Vector3.zero; // character don't move if aiming
                 if (inputH != 0)
                     anim.SetBool("LegsTurn", true);
                 else
@@ -283,6 +289,11 @@ public class PlayerMovement : MonoBehaviour
                 Vector3 newVel = transform.forward * inputV * speed * 50 * Time.deltaTime;
                 newVel = new Vector3(newVel.x, rb.velocity.y, newVel.z);
                 rb.velocity = newVel;
+
+                if (Input.GetAxisRaw("Vertical") < 0 && Input.GetButtonDown("Run"))
+                {
+                    StartCoroutine("QuickTurn");
+                }
 
                 if (Input.GetButton("Run"))
                 {
@@ -337,11 +348,16 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            rb.velocity = Vector3.zero; // character don't move if aiming or reloading
+            rb.velocity = Vector3.zero; // character don't move if reloading
         }
     }
 
-
+    IEnumerator QuickTurn()
+    {
+        quickTurn = true;
+        yield return new WaitForSeconds(0.5f);
+        quickTurn = false;
+    }
     void Animate()
     {
         if (inputV != 0)
@@ -355,6 +371,11 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetBool("Move", false);
             rb.velocity = Vector3.zero;
+        }
+        if (quickTurn)
+        {
+            anim.SetBool("Move", false);
+            anim.SetBool("LegsTurn", true);
         }
     }
 

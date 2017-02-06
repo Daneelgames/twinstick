@@ -103,10 +103,12 @@ public class GameManager : MonoBehaviour
 
     public void InitializeScene(SceneDetails scene)
     {
+        print(scene.name);
         _sm = scene;
         if (!sessionStarted)
         {
-            characterSpawnerName = _sm.spawner;
+            if (StateManager.instance.playerSpawner == "")
+                characterSpawnerName = _sm.spawner;
             sessionStarted = true;
         }
         startCampfire = GameObject.Find(characterSpawnerName).GetComponent<CampfireController>();
@@ -352,6 +354,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+
         if (playerController.playerHealth.health > 0 && !playerController.attacking && !playerController.aim && !playerController.reloading && !playerController.healing && !playerController.moveBack && !gui.fade)
         {
             if (Input.GetButtonDown("Submit") && !inventory.active && npcToInteract != null)
