@@ -253,7 +253,7 @@ ModelImporter:
       name: character@aimPistol
       takeName: armature|armatureAction
       firstFrame: 110
-      lastFrame: 190
+      lastFrame: 160
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

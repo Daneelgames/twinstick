@@ -26,7 +26,7 @@ public class WeaponController : MonoBehaviour
     public ParticleSystem.EmissionModule bloodSplatterEmission;
     public AudioSource au;
     public AudioClip noAmmoClip;
-    public List<AudioClip> meleeAttackClips;
+    public List<AudioClip> attackClips;
     /* TEST AIMING
     public LineRenderer line;
 
@@ -71,7 +71,7 @@ public class WeaponController : MonoBehaviour
             if (!h.masterHealth.invisible && h.masterHealth.health > 0)
             {
                 au.pitch = Random.Range(0.75f, 1.25f);
-                au.PlayOneShot(meleeAttackClips[Random.Range(0, meleeAttackClips.Count)]);
+                au.PlayOneShot(attackClips[Random.Range(0, attackClips.Count)]);
                 h.Damage(meleeDamage);
             }
         }
@@ -97,6 +97,8 @@ public class WeaponController : MonoBehaviour
                     {
                         GameObject newBullet = Instantiate(bullets[i], shotHolder.transform.position, Quaternion.identity) as GameObject;
                         BulletController newBulletController = newBullet.GetComponent<BulletController>();
+                        au.pitch = Random.Range(0.75f, 1.25f);
+                        au.PlayOneShot(attackClips[Random.Range(0, attackClips.Count)]);
 
                         newBulletController.SetDirection(target);
                     }
