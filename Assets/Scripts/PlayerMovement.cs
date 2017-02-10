@@ -66,6 +66,10 @@ public class PlayerMovement : MonoBehaviour
                 Move();
                 Aiming();
             }
+            if (weaponController != null)
+            {
+                Attacking();
+            }
         }
     }
 
@@ -81,7 +85,6 @@ public class PlayerMovement : MonoBehaviour
             if (weaponController != null)
             {
                 Reloading();
-                Attacking();
             }
             Animate();
         }
@@ -127,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetTrigger("Shoot");
                 attacking = true;
                 StartCoroutine("AttackingEnd", weaponController.cooldownTime);
-                weaponController.Attack(aimTarget);
+                weaponController.Attack();
             }
         }
     }
@@ -400,7 +403,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 anim.SetBool("Aim", true);
                 aim = true;
-                Debug.DrawRay(weaponController.shotHolder.transform.position, weaponController.shotHolder.transform.TransformDirection(Vector3.forward) * 50, Color.green);
+                Debug.DrawRay(weaponController.shotHolder.transform.position, weaponController.shotHolder.transform.TransformDirection(Vector3.forward) * 50f, Color.green);
                 /*
                     Vector2 mousePosition = Input.mousePosition;
                     Vector2 normalized = new Vector2(mousePosition.x / Screen.width, mousePosition.y / Screen.height);
@@ -412,7 +415,7 @@ public class PlayerMovement : MonoBehaviour
                     {
                         Vector3 fwd = weaponController.shotHolder.transform.TransformDirection(Vector3.forward);
                         RaycastHit objHit;
-                        if (Physics.Raycast(weaponController.shotHolder.transform.position, fwd, out objHit, 50))
+                        if (Physics.Raycast(weaponController.shotHolder.transform.position, fwd, out objHit, maxAimDistance))
                         {
                             aimTarget = objHit.point;
                         }
@@ -426,7 +429,7 @@ public class PlayerMovement : MonoBehaviour
                         }
 
                         //get mob half here
-                        Vector3 _target = new Vector3(targetEnemy.transform.position.x, targetEnemy.transform.position.y + targetEnemy.mobCollider.bounds.size.y * 0.75f, targetEnemy.transform.position.z);
+                        Vector3 _target = new Vector3(targetEnemy.transform.position.x, targetEnemy.transform.position.y, targetEnemy.transform.position.z);
                         ikController.SetTarget(_target, true);
                         Vector3 playerToMouse = _target - transform.position;
 

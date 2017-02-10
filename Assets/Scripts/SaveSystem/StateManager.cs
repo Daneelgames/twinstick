@@ -19,7 +19,7 @@ public class StateManager : MonoBehaviour
 
     public string sceneSaved;
     public string playerSpawner;
-    public int playerHealth = 10;
+    public float playerHealth = 10;
     public string activeWeapon;
     public bool flashlight = false;
     public List<string> questItems = new List<string>();
@@ -328,7 +328,7 @@ public class StateManager : MonoBehaviour
         painkillers -= 1;
     }
 
-    public void SetPlayerHealth(int amount)
+    public void SetPlayerHealth(float amount)
     {
         playerHealth = amount;
     }
@@ -484,7 +484,7 @@ class GameState
 
     public string sceneSaved;
     public string playerSpawner;
-    public int playerHealth = 100;
+    public float playerHealth = 100;
     public string activeWeapon;
     public List<string> questItems;
     public List<int> ammoInWeapons;

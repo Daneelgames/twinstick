@@ -18,7 +18,7 @@ public class WeaponController : MonoBehaviour
     public GameObject shotHolder;
 
     public bool dangerous = false;
-    public int meleeDamage = 1;
+    public float damage = 1;
     public List<GameObject> bullets;
 
     public Type weaponAmmoType = Type.Bullet;
@@ -27,6 +27,10 @@ public class WeaponController : MonoBehaviour
     public AudioSource au;
     public AudioClip noAmmoClip;
     public List<AudioClip> attackClips;
+    public GameObject shotParticles;
+    public GameObject shotSolidParticles;
+    public GameObject shotMobParticles;
+    public LayerMask attackMask;
     /* TEST AIMING
     public LineRenderer line;
 
@@ -72,7 +76,7 @@ public class WeaponController : MonoBehaviour
             {
                 au.pitch = Random.Range(0.75f, 1.25f);
                 au.PlayOneShot(attackClips[Random.Range(0, attackClips.Count)]);
-                h.Damage(meleeDamage);
+                h.Damage(damage + Random.Range(-damage / 4, damage / 4));
             }
         }
     }
@@ -83,7 +87,7 @@ public class WeaponController : MonoBehaviour
         bloodSplatterEmission.rate = 0;
     }
 
-    public void Attack(Vector3 target)
+    public void Attack()
     {
         if (curCooldown <= 0)
         {
@@ -94,8 +98,25 @@ public class WeaponController : MonoBehaviour
                     ammo -= 1;
                     StateManager.instance.UseBullet(this);
                     curCooldown = cooldownTime;
-                    
-                    // SHOT
+
+                    Instantiate(shotParticles, shotHolder.transform.position, Quaternion.identity);
+                    Vector3 fwd = shotHolder.transform.TransformDirection(Vector3.forward);
+                    RaycastHit objHit;
+                    if (Physics.Raycast(shotHolder.transform.position, fwd, out objHit, GameManager.instance.playerController.maxAimDistance, attackMask))
+                    {
+                        print(objHit.collider.gameObject.name);
+                        if (objHit.collider.gameObject.tag == "Solid")
+                        {
+                            if (!objHit.collider.isTrigger)
+                                Instantiate(shotSolidParticles, objHit.point, Quaternion.identity);
+                        }
+                        if (objHit.collider.gameObject.tag == "HealthCollider")
+                        {
+                            if (!objHit.collider.isTrigger)
+                                Instantiate(shotMobParticles, objHit.point, Quaternion.identity);
+                            objHit.collider.gameObject.GetComponent<HealthCollider>().masterHealth.Damage(damage + Random.Range(-damage / 4, damage / 4));
+                        }
+                    }
 
                     au.pitch = Random.Range(0.75f, 1.25f);
                     au.PlayOneShot(attackClips[Random.Range(0, attackClips.Count)]);

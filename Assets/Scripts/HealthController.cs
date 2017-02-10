@@ -6,7 +6,7 @@ public class HealthController : MonoBehaviour
 {
 
     public int maxHealth = 1;
-    public int health = 1;
+    public float health = 1;
 
     public bool player = false;
 
@@ -24,7 +24,7 @@ public class HealthController : MonoBehaviour
         invisible = invs;
     }
 
-    public void SetHealth(int amount)
+    public void SetHealth(float amount)
     {
         health = amount;
     }
@@ -35,7 +35,7 @@ public class HealthController : MonoBehaviour
             au.Play();
     }
 
-    public void Damage(int dmg)
+    public void Damage(float dmg)
     {
         if (dmg > 0 && health > 0)
         {

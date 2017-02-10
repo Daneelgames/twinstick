@@ -8,7 +8,7 @@ public class HealthCollider : MonoBehaviour {
     public bool dangerous = false;
     public HealthController masterHealth;
 
-    public void Damage(int amount)
+    public void Damage(float amount)
     {
         masterHealth.Damage(amount);
     }
