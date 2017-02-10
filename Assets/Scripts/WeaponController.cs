@@ -92,16 +92,13 @@ public class WeaponController : MonoBehaviour
                 if (ammo > 0)
                 {
                     ammo -= 1;
+                    StateManager.instance.UseBullet(this);
                     curCooldown = cooldownTime;
-                    for (int i = 0; i < bullets.Count; i++)
-                    {
-                        GameObject newBullet = Instantiate(bullets[i], shotHolder.transform.position, Quaternion.identity) as GameObject;
-                        BulletController newBulletController = newBullet.GetComponent<BulletController>();
-                        au.pitch = Random.Range(0.75f, 1.25f);
-                        au.PlayOneShot(attackClips[Random.Range(0, attackClips.Count)]);
+                    
+                    // SHOT
 
-                        newBulletController.SetDirection(target);
-                    }
+                    au.pitch = Random.Range(0.75f, 1.25f);
+                    au.PlayOneShot(attackClips[Random.Range(0, attackClips.Count)]);
                 }
                 else
                 {

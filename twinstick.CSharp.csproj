@@ -78,6 +78,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ActiveIfHaveItems.cs" />
     <Compile Include="Assets\Free asset\Pixelation\Example\Scripts\ImageEffectBase.cs" />
     <Compile Include="Assets\Free asset\Pixelation\Example\Scripts\Plane.cs" />
     <Compile Include="Assets\Free asset\Pixelation\Example\Scripts\PointLight.cs" />
@@ -85,9 +86,9 @@
     <Compile Include="Assets\Free asset\Pixelation\PsxShaders\imageEffects\cPrecision.cs" />
     <Compile Include="Assets\Free asset\Pixelation\Scripts\Chunky.cs" />
     <Compile Include="Assets\Free asset\Pixelation\Scripts\Pixelation.cs" />
+    <Compile Include="Assets\RandomMaterialCutoff.cs" />
     <Compile Include="Assets\Scripts\ActionFeedbackController.cs" />
     <Compile Include="Assets\Scripts\AttackRangeController.cs" />
-    <Compile Include="Assets\Scripts\BulletController.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\CameraZoneController.cs" />
     <Compile Include="Assets\Scripts\CampfireController.cs" />

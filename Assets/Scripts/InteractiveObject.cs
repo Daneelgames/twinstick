@@ -191,7 +191,8 @@ public class InteractiveObject : MonoBehaviour
 
         if (dgtPuzzle.complete)
         {
-            stateful.ObjectActive(false);
+            if (stateful)
+                stateful.ObjectActive(false);
             gameObject.SetActive(false);
         }
     }
@@ -253,7 +254,8 @@ public class InteractiveObject : MonoBehaviour
         SendMessage(true);
         if (!active)
         {
-            stateful.ObjectActive(false);
+            if (stateful)
+                stateful.ObjectActive(false);
             gameObject.SetActive(false);
         }
         //yield return new WaitForSecondsRealtime(1f);
@@ -392,7 +394,8 @@ public class InteractiveObject : MonoBehaviour
                 else
                 {
                     SendMessage(false);
-                    stateful.ObjectActive(false);
+                    if (stateful)
+                        stateful.ObjectActive(false);
                     gameObject.SetActive(false);
                     if (hint)
                         hint.SetActive(true);
@@ -426,7 +429,8 @@ public class InteractiveObject : MonoBehaviour
                 else
                 {
                     SendMessage(false);
-                    stateful.ObjectActive(false);
+                    if (stateful)
+                        stateful.ObjectActive(false);
                     gameObject.SetActive(false);
                     if (hint)
                         hint.SetActive(true);

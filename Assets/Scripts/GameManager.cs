@@ -28,8 +28,6 @@ public class GameManager : MonoBehaviour
     public GameObject playerPrefab;
 
     public CampfireController startCampfire;
-    public int bullets = 50;
-    public int shells = 20;
     public string activeWeapon;
 
     public InteractiveObject npcToInteract = null;
@@ -250,16 +248,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Reload(WeaponController wpn, int amount)
+    {
+        StateManager.instance.Reload(playerController.weapons.IndexOf(wpn), amount);
+    }
     public void GetValuesFromSaveFile()
     {
-        if (StateManager.instance.playerAmmo.Count > 0)
+        if (StateManager.instance.ammoInWeapons.Count > 0)
         {
-            bullets = StateManager.instance.playerAmmo[0];
-
-            if (StateManager.instance.playerAmmo.Count > 1)
-                shells = StateManager.instance.playerAmmo[1];
+            for (int i = 1; i < StateManager.instance.ammoInWeapons.Count; i ++)
+            {
+                playerController.weapons[i].ammo = StateManager.instance.ammoInWeapons[i];
+            }
         }
-
 
         // get spawner on save
         if (StateManager.instance.playerSpawner != null)
@@ -393,19 +394,6 @@ public class GameManager : MonoBehaviour
         StateManager.instance.SetActiveWeapon(weaponName);
     }
 
-    public void SetAmmo(WeaponController.Type type, int amount)
-    {
-        switch (type)
-        {
-            case WeaponController.Type.Bullet:
-                bullets += amount;
-                break;
-
-            case WeaponController.Type.Shell:
-                shells += amount;
-                break;
-        }
-    }
 
     public void PointerOverMenu(bool entered)
     {

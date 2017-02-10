@@ -23,6 +23,7 @@ public class InventoryControllerGUI : MonoBehaviour {
     public Text itemNameText;
     public Text itemDescriptionText;
     public Text painkillersAmountText;
+    public Text revolverBulletsAmountText;
     public List<GameObject> arrows;
     public List<string> names = new List<string>();
     public List<string> descriptions = new List<string>();
@@ -116,6 +117,7 @@ public class InventoryControllerGUI : MonoBehaviour {
                     cursorAt = 0;
                     cursotAtGlobal = 0;
                     painkillersAmountText.text = StateManager.instance.painkillers + "";
+                    revolverBulletsAmountText.text = StateManager.instance.revolverBullets + "";
                 }
             }
         }

@@ -55,7 +55,7 @@ public class ReloadGui : MonoBehaviour
         {
             WeaponController weaponController = pm.weaponController;
             weaponController.Reload(reloadAmount);
-            GameManager.instance.SetAmmo(weaponController.weaponAmmoType, -reloadAmount);
+            GameManager.instance.Reload(weaponController, reloadAmount);
         }
         else
         {

@@ -23,8 +23,9 @@ public class StateManager : MonoBehaviour
     public string activeWeapon;
     public bool flashlight = false;
     public List<string> questItems = new List<string>();
-    public List<int> playerAmmo = new List<int>();
+    public List<int> ammoInWeapons = new List<int>();
     public int painkillers = 0;
+    public int revolverBullets = 0;
 
     public List<string> statefulObjectsAnimators = new List<string>();
     public List<Vector3> statefulPositions = new List<Vector3>();
@@ -72,6 +73,23 @@ public class StateManager : MonoBehaviour
         return false;
     }
 
+    public void Reload(int wpn, int amount)
+    {
+        switch (GameManager.instance.playerController.weapons[wpn].name)
+        {
+            case "RevolverWeaponInventory":
+                revolverBullets -= amount;
+                break;
+        }
+        ammoInWeapons[wpn] += amount;
+    }
+    public void UseBullet(WeaponController wpn)
+    {
+        foreach (WeaponController j in GameManager.instance.playerController.weapons)
+        {
+            ammoInWeapons[GameManager.instance.playerController.weapons.IndexOf(wpn)] -= 1;
+        }
+    }
     public string GetRecieverName(string n)
     {
         if (statefulObjects.Count > 0)
@@ -281,7 +299,15 @@ public class StateManager : MonoBehaviour
 
     public void AddItem(string item)
     {
-        if (item != "Painkillers")
+        if (item == "Painkillers")
+        {
+            painkillers += 1;
+        }
+        else if (item == "RevolverBullet")
+        {
+            revolverBullets += 1;
+        }
+        else
         {
             bool alreadyHave = false;
             foreach (string i in questItems)
@@ -294,10 +320,6 @@ public class StateManager : MonoBehaviour
             }
             if (!alreadyHave)
                 questItems.Add(item);
-        }
-        else if (item == "Painkillers")
-        {
-            painkillers += 1;
         }
     }
 
@@ -313,15 +335,32 @@ public class StateManager : MonoBehaviour
 
     public bool HaveItem(string item)
     {
-        foreach (string i in questItems)
+        if (item == "Painkillers")
         {
-            if (i == item)
-            {
-                questItems.Remove(item);
+            if (painkillers > 0)
                 return true;
-            }
+            else
+                return false;
         }
-        return false;
+        else if (item == "RevolverBullet")
+        {
+            if (revolverBullets > 0)
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            foreach (string i in questItems)
+            {
+                if (i == item)
+                {
+                    questItems.Remove(item);
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     public void RemoveItem(string item)
@@ -370,6 +409,7 @@ public class StateManager : MonoBehaviour
         data.activeWeapon = activeWeapon;
         data.questItems = new List<string>(questItems);
         data.painkillers = painkillers;
+        data.revolverBullets = revolverBullets;
         data.flashlight = flashlight;
 
         data.statefulObjectsAnimators = new List<string>(statefulObjectsAnimators);
@@ -384,7 +424,7 @@ public class StateManager : MonoBehaviour
 
         data.messages = new List<string>(messages);
 
-        data.playerAmmo = new List<int>(playerAmmo);
+        data.ammoInWeapons = new List<int>(ammoInWeapons);
 
         bf.Serialize(file, data);
         file.Close();
@@ -411,8 +451,9 @@ public class StateManager : MonoBehaviour
             playerHealth = data.playerHealth;
             activeWeapon = data.activeWeapon;
             questItems = new List<string>(data.questItems);
-            playerAmmo = new List<int>(data.playerAmmo);
+            ammoInWeapons = new List<int>(data.ammoInWeapons);
             painkillers = data.painkillers;
+            revolverBullets = data.revolverBullets;
             flashlight = data.flashlight;
 
             statefulObjectsAnimators = new List<string>(data.statefulObjectsAnimators);
@@ -446,8 +487,9 @@ class GameState
     public int playerHealth = 100;
     public string activeWeapon;
     public List<string> questItems;
-    public List<int> playerAmmo;
+    public List<int> ammoInWeapons;
     public int painkillers = 0;
+    public int revolverBullets = 0;
     public bool flashlight;
 
     public List<string> statefulObjectsAnimators = new List<string>();

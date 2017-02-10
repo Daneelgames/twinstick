@@ -119,23 +119,8 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && aim && weaponController.curCooldown <= 0 && !moveBack && !reloading)
         {
             bool canShoot = false;
-
-            switch (weaponController.weaponAmmoType)
-            {
-                case WeaponController.Type.Bullet:
-                    if (GameManager.instance.bullets > 0 && weaponController.ammo > 0)
-                        canShoot = true;
-                    break;
-
-                case WeaponController.Type.Shell:
-                    if (GameManager.instance.shells > 0 && weaponController.ammo > 0)
-                        canShoot = true;
-                    break;
-
-                case WeaponController.Type.Melee:
-                    canShoot = true;
-                    break;
-            }
+            if (weaponController.ammo > 0)
+                canShoot = true;
 
             if (canShoot)
             {
@@ -159,34 +144,18 @@ public class PlayerMovement : MonoBehaviour
         {
             if (weaponController.curCooldown <= 0 && weaponController.ammo < weaponController.ammoMax && !GameManager.instance.gui.reloadController.reload && !moveBack)
             {
-
                 bool canReload = false;
                 int reloadAmount = weaponController.ammoMax - weaponController.ammo;
 
-                switch (weaponController.weaponAmmoType)
+                if (weaponController.name == "RevolverWeaponInventory" && StateManager.instance.revolverBullets > 0)
                 {
-                    case WeaponController.Type.Bullet:
-                        if (GameManager.instance.bullets > 0)
-                        {
-                            canReload = true;
-                            if (reloadAmount > GameManager.instance.bullets)
-                                reloadAmount = GameManager.instance.bullets;
-                        }
-                        else
-                            canReload = false;
-                        break;
-
-                    case WeaponController.Type.Shell:
-                        if (GameManager.instance.shells > 0)
-                        {
-                            canReload = true;
-                            if (reloadAmount > GameManager.instance.shells)
-                                reloadAmount = GameManager.instance.shells;
-                        }
-                        else
-                            canReload = false;
-                        break;
+                    canReload = true;
+                    if (reloadAmount > StateManager.instance.revolverBullets)
+                        reloadAmount = StateManager.instance.revolverBullets;
                 }
+                else
+                    canReload = false;
+
                 if (canReload)
                 {
                     ReloadWeapon(reloadAmount);
@@ -431,6 +400,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 anim.SetBool("Aim", true);
                 aim = true;
+                Debug.DrawRay(weaponController.shotHolder.transform.position, weaponController.shotHolder.transform.TransformDirection(Vector3.forward) * 50, Color.green);
                 /*
                     Vector2 mousePosition = Input.mousePosition;
                     Vector2 normalized = new Vector2(mousePosition.x / Screen.width, mousePosition.y / Screen.height);
@@ -440,10 +410,9 @@ public class PlayerMovement : MonoBehaviour
                 {
                     if (!targetEnemy && !autoAim)
                     {
-                        Vector3 fwd = transform.TransformDirection(Vector3.forward);
-                        Debug.DrawRay(weaponController.transform.position, fwd * 50, Color.green);
+                        Vector3 fwd = weaponController.shotHolder.transform.TransformDirection(Vector3.forward);
                         RaycastHit objHit;
-                        if (Physics.Raycast(transform.position, fwd, out objHit, 50))
+                        if (Physics.Raycast(weaponController.shotHolder.transform.position, fwd, out objHit, 50))
                         {
                             aimTarget = objHit.point;
                         }
