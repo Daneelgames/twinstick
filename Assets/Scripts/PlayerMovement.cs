@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     public bool healing = false;
 
     public bool quickTurn = false;
-    public Stateful targetEnemy;
+    public Collider targetCollider;
     public bool aim = false;
     public bool autoAim = false;
     public float maxAimDistance = 5f;
@@ -377,7 +377,7 @@ public class PlayerMovement : MonoBehaviour
                 weaponController.curCooldown = 0.5f;
 
             //Auto aim to closest enemy
-            targetEnemy = null;
+            targetCollider = null;
             float closestTarger = maxAimDistance;
             foreach (Stateful st in GameManager.instance.statefulObjectsOnscene)
             {
@@ -386,12 +386,12 @@ public class PlayerMovement : MonoBehaviour
                     float d = Vector3.Distance(transform.position, st.transform.position);
                     if (d < closestTarger) // max aim 
                     {
-                        targetEnemy = st;
+                        targetCollider = st.mobController.aimCollder;
                         closestTarger = d;
                     }
                 }
             }
-            if (targetEnemy)
+            if (targetCollider)
             {
                 autoAim = true;
             }
@@ -411,7 +411,7 @@ public class PlayerMovement : MonoBehaviour
                 */
                 if (!attacking)
                 {
-                    if (!targetEnemy && !autoAim)
+                    if (!targetCollider && !autoAim)
                     {
                         Vector3 fwd = weaponController.shotHolder.transform.TransformDirection(Vector3.forward);
                         RaycastHit objHit;
@@ -425,11 +425,11 @@ public class PlayerMovement : MonoBehaviour
                         if (weaponController != null && weaponController.shotHolder)
                         {
                             line.SetPosition(0, weaponController.shotHolder.transform.position);
-                            line.SetPosition(1, targetEnemy.transform.position);
+                            line.SetPosition(1, targetCollider.transform.position);
                         }
 
                         //get mob half here
-                        Vector3 _target = new Vector3(targetEnemy.transform.position.x, targetEnemy.transform.position.y, targetEnemy.transform.position.z);
+                        Vector3 _target = new Vector3(targetCollider.transform.position.x, targetCollider.transform.position.y, targetCollider.transform.position.z);
                         ikController.SetTarget(_target, true);
                         Vector3 playerToMouse = _target - transform.position;
 

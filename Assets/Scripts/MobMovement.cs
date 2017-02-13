@@ -34,6 +34,7 @@ public class MobMovement : MonoBehaviour
 
     public Stateful stateful;
     public HealthController health;
+    public Collider aimCollder;
 
     // Use this for initialization
     void Start()
