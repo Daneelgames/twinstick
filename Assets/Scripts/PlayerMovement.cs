@@ -130,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetTrigger("Shoot");
                 attacking = true;
                 StartCoroutine("AttackingEnd", weaponController.cooldownTime);
-                weaponController.Attack();
+                weaponController.Attack(aimTarget);
             }
         }
     }
@@ -403,7 +403,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 anim.SetBool("Aim", true);
                 aim = true;
-                Debug.DrawRay(weaponController.shotHolder.transform.position, weaponController.shotHolder.transform.TransformDirection(Vector3.forward) * 50f, Color.green);
+                Debug.DrawLine(weaponController.shotHolder.transform.position, weaponController.shotHolder.transform.TransformDirection(Vector3.forward) * 50f, Color.green);
                 /*
                     Vector2 mousePosition = Input.mousePosition;
                     Vector2 normalized = new Vector2(mousePosition.x / Screen.width, mousePosition.y / Screen.height);
@@ -428,7 +428,7 @@ public class PlayerMovement : MonoBehaviour
                             line.SetPosition(1, targetCollider.transform.position);
                         }
 
-                        //get mob half here
+                        //aim
                         Vector3 _target = new Vector3(targetCollider.transform.position.x, targetCollider.transform.position.y, targetCollider.transform.position.z);
                         ikController.SetTarget(_target, true);
                         Vector3 playerToMouse = _target - transform.position;

@@ -76,7 +76,7 @@ public class WeaponController : MonoBehaviour
             {
                 au.pitch = Random.Range(0.75f, 1.25f);
                 au.PlayOneShot(attackClips[Random.Range(0, attackClips.Count)]);
-                h.Damage(damage + Random.Range(-damage / 4, damage / 4));
+                h.Damage(damage + Random.Range(-damage / 4, damage / 4), weaponAmmoType);
             }
         }
     }
@@ -87,7 +87,7 @@ public class WeaponController : MonoBehaviour
         bloodSplatterEmission.rate = 0;
     }
 
-    public void Attack()
+    public void Attack(Vector3 target)
     {
         if (curCooldown <= 0)
         {
@@ -100,7 +100,8 @@ public class WeaponController : MonoBehaviour
                     curCooldown = cooldownTime;
 
                     Instantiate(shotParticles, shotHolder.transform.position, Quaternion.identity);
-                    Vector3 fwd = shotHolder.transform.TransformDirection(Vector3.forward);
+                    //Vector3 fwd = shotHolder.transform.TransformDirection(Vector3.forward);
+                    Vector3 fwd = target - shotHolder.transform.position;
                     RaycastHit objHit;
                     if (Physics.Raycast(shotHolder.transform.position, fwd, out objHit, GameManager.instance.playerController.maxAimDistance, attackMask))
                     {
