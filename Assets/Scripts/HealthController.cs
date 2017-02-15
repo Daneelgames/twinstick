@@ -18,6 +18,7 @@ public class HealthController : MonoBehaviour
     public AudioSource au;
     public List<AudioClip> hurtClips;
     public List<AudioClip> deathClips;
+    public BreakableObject breakableObj;
 
     public void SetInvisible(bool invs)
     {
@@ -99,6 +100,8 @@ public class HealthController : MonoBehaviour
                 mobController.Dead();
             anim.SetTrigger("Dead");
             anim.SetBool("Dead.persist", true);
+            if (breakableObj)
+                breakableObj.Break();
         }
     }
 

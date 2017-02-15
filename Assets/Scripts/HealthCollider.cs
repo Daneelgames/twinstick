@@ -20,8 +20,11 @@ public class HealthCollider : MonoBehaviour
                 break;
             }
         }
+        print(canHurt);
         if (canHurt)
+        {
             masterHealth.Damage(amount);
+        }
     }
 
     void OnTriggerEnter(Collider coll)

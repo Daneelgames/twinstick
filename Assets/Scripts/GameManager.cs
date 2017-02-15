@@ -191,11 +191,6 @@ public class GameManager : MonoBehaviour
         float posX = Mathf.Lerp(cameraHolder.transform.position.x, playerInGame.transform.position.x, 5f);
         float posY = Mathf.Lerp(cameraHolder.transform.position.y, playerInGame.transform.position.y + 3, 5f);
 
-        if (posX > _sm.cameraMaxX)
-            posX = _sm.cameraMaxX;
-        if (posX < _sm.cameraMinX)
-            posX = _sm.cameraMinX;
-
         cameraHolder.transform.position = new Vector3(posX, posY, cameraHolder.transform.position.z);
         cameraHolder.transform.LookAt(new Vector3(posX, posY - 2f, playerInGame.transform.position.z));
         SetActiveWeapon(StateManager.instance.activeWeapon);

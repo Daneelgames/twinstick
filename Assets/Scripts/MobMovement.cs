@@ -147,7 +147,7 @@ public class MobMovement : MonoBehaviour
             //move mob
             float distance = Vector3.Distance(transform.position, GameManager.instance.playerInGame.transform.position);
             float rotationOffset = Mathf.Abs(newRotation.eulerAngles.y - transform.rotation.eulerAngles.y);
-           // print (rotationOffset);
+            // print (rotationOffset);
             if (distance > stopDistance && rotationOffset < 0.3f)
                 rb.velocity = movement;
             else
@@ -175,7 +175,8 @@ public class MobMovement : MonoBehaviour
     {
         mobState = State.Dead;
         stateful.MobDead();
-        StartCoroutine("KinematicAfterTime");
+        if (rb && mainCollider)
+            StartCoroutine("KinematicAfterTime");
     }
 
     public void DeadOnStart()

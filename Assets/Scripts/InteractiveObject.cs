@@ -353,8 +353,32 @@ public class InteractiveObject : MonoBehaviour
             if (!door && !savePoint)
                 Time.timeScale = 1;
 
+            if (locker && activeDialogIndex == 0 && keyName == "") // open door if no key needed
+            {
+                if (objToActivate)
+                    objToActivate.SetActive(true);
+                if (lockerSound)
+                {
+                    if (!cameraAnchor)
+                        GameManager.instance.playerController.au.Play(lockerSound);
+                    else
+                        GameManager.instance.gmAu.au.PlayOneShot(lockerSound);
+                }
+                if (cameraAnchor)
+                    StartCoroutine("ResetCamera", false);
+                else
+                {
+                    SendMessage(false);
+                    if (stateful)
+                        stateful.ObjectActive(false);
+                    gameObject.SetActive(false);
+                    if (hint)
+                        hint.SetActive(true);
+                    return;
+                }
+            }
 
-            if (locker && activeDialogIndex == 1) // door opened
+            if (locker && activeDialogIndex == 1) // door opened if have key
             {
                 GameManager.instance.NpcToInteract(null, "");
 
