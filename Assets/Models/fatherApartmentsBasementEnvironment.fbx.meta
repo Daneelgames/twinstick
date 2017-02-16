@@ -11,27 +11,120 @@ ModelImporter:
     100006: BasementStairEnterWall.001
     100008: BasementStairGridMetalFloor
     100010: //RootNode
+    100012: Armature
+    100014: BasementHoleInTheFloor
+    100016: Bone
+    100018: Bone.001
+    100020: Bone.002
+    100022: Bone.003
+    100024: Bone.004
+    100026: Bone.005
+    100028: Bone.006
+    100030: Bone.007
+    100032: Bone.008
+    100034: Bone.008_end
+    100036: Bone.009
+    100038: Bone.009_end
+    100040: Bone.010
+    100042: Bone.010_end
+    100044: Bone.011
+    100046: Bone.011_end
+    100048: Bone.012
+    100050: Bone.012_end
+    100052: Bone.013
+    100054: Bone.013_end
+    100056: Bone.014
+    100058: Bone.014_end
+    100060: Bone.015
+    100062: Bone.015_end
+    100064: Bone.016
+    100066: Bone.016_end
+    100068: Bone.017
+    100070: Bone.017_end
+    100072: Bone.018
+    100074: Bone.018_end
+    100076: Bone.019
+    100078: Bone.019_end
+    100080: Bone.020
+    100082: Bone.020_end
+    100084: pipeThin
+    100086: pipeTurn
+    100088: pipeWide
     400000: BasementLightLamp
     400002: BasementStairEnter
     400004: BasementStairEnterFloor
     400006: BasementStairEnterWall.001
     400008: BasementStairGridMetalFloor
     400010: //RootNode
+    400012: Armature
+    400014: BasementHoleInTheFloor
+    400016: Bone
+    400018: Bone.001
+    400020: Bone.002
+    400022: Bone.003
+    400024: Bone.004
+    400026: Bone.005
+    400028: Bone.006
+    400030: Bone.007
+    400032: Bone.008
+    400034: Bone.008_end
+    400036: Bone.009
+    400038: Bone.009_end
+    400040: Bone.010
+    400042: Bone.010_end
+    400044: Bone.011
+    400046: Bone.011_end
+    400048: Bone.012
+    400050: Bone.012_end
+    400052: Bone.013
+    400054: Bone.013_end
+    400056: Bone.014
+    400058: Bone.014_end
+    400060: Bone.015
+    400062: Bone.015_end
+    400064: Bone.016
+    400066: Bone.016_end
+    400068: Bone.017
+    400070: Bone.017_end
+    400072: Bone.018
+    400074: Bone.018_end
+    400076: Bone.019
+    400078: Bone.019_end
+    400080: Bone.020
+    400082: Bone.020_end
+    400084: pipeThin
+    400086: pipeTurn
+    400088: pipeWide
     2300000: BasementLightLamp
     2300002: BasementStairEnter
     2300004: BasementStairEnterFloor
     2300006: BasementStairEnterWall.001
     2300008: BasementStairGridMetalFloor
+    2300010: BasementHoleInTheFloor
+    2300012: pipeThin
+    2300014: pipeTurn
+    2300016: pipeWide
     3300000: BasementLightLamp
     3300002: BasementStairEnter
     3300004: BasementStairEnterFloor
     3300006: BasementStairEnterWall.001
     3300008: BasementStairGridMetalFloor
+    3300010: BasementHoleInTheFloor
+    3300012: pipeThin
+    3300014: pipeTurn
+    3300016: pipeWide
     4300000: BasementStairGridMetalFloor
     4300002: BasementStairEnterWall.001
     4300004: BasementLightLamp
     4300006: BasementStairEnterFloor
     4300008: BasementStairEnter
+    4300010: BasementHoleInTheFloor
+    4300012: pipeThin
+    4300014: pipeTurn
+    4300016: pipeWide
+    7400000: BasementHoleIdle
+    9500000: //RootNode
+    13700000: BasementHoleInTheFloor
   materials:
     importMaterials: 0
     materialName: 0
@@ -46,13 +139,131 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: BasementHoleIdle
+      takeName: Armature|ArmatureAction
+      firstFrame: 0
+      lastFrame: 220
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Bone
+        weight: 1
+      - path: Armature/Bone/Bone.009
+        weight: 1
+      - path: Armature/Bone/Bone.009/Bone.009_end
+        weight: 1
+      - path: Armature/Bone/Bone.010
+        weight: 1
+      - path: Armature/Bone/Bone.010/Bone.010_end
+        weight: 1
+      - path: Armature/Bone/Bone.011
+        weight: 1
+      - path: Armature/Bone/Bone.011/Bone.011_end
+        weight: 1
+      - path: Armature/Bone/Bone.012
+        weight: 1
+      - path: Armature/Bone/Bone.012/Bone.012_end
+        weight: 1
+      - path: Armature/Bone/Bone.013
+        weight: 1
+      - path: Armature/Bone/Bone.013/Bone.013_end
+        weight: 1
+      - path: Armature/Bone/Bone.014
+        weight: 1
+      - path: Armature/Bone/Bone.014/Bone.014_end
+        weight: 1
+      - path: Armature/Bone/Bone.015
+        weight: 1
+      - path: Armature/Bone/Bone.015/Bone.015_end
+        weight: 1
+      - path: Armature/Bone/Bone.016
+        weight: 1
+      - path: Armature/Bone/Bone.016/Bone.016_end
+        weight: 1
+      - path: Armature/Bone/Bone.017
+        weight: 1
+      - path: Armature/Bone/Bone.017/Bone.017_end
+        weight: 1
+      - path: Armature/Bone/Bone.018
+        weight: 1
+      - path: Armature/Bone/Bone.018/Bone.018_end
+        weight: 1
+      - path: Armature/Bone/Bone.019
+        weight: 1
+      - path: Armature/Bone/Bone.019/Bone.019_end
+        weight: 1
+      - path: Armature/Bone/Bone.020
+        weight: 1
+      - path: Armature/Bone/Bone.020/Bone.020_end
+        weight: 1
+      - path: Armature/Bone.001
+        weight: 1
+      - path: Armature/Bone.001/Bone.002
+        weight: 1
+      - path: Armature/Bone.001/Bone.002/Bone.003
+        weight: 1
+      - path: Armature/Bone.001/Bone.002/Bone.003/Bone.004
+        weight: 1
+      - path: Armature/Bone.001/Bone.002/Bone.003/Bone.004/Bone.005
+        weight: 1
+      - path: Armature/Bone.001/Bone.002/Bone.003/Bone.004/Bone.005/Bone.006
+        weight: 1
+      - path: Armature/Bone.001/Bone.002/Bone.003/Bone.004/Bone.005/Bone.006/Bone.007
+        weight: 1
+      - path: Armature/Bone.001/Bone.002/Bone.003/Bone.004/Bone.005/Bone.006/Bone.007/Bone.008
+        weight: 1
+      - path: Armature/Bone.001/Bone.002/Bone.003/Bone.004/Bone.005/Bone.006/Bone.007/Bone.008/Bone.008_end
+        weight: 1
+      - path: BasementHoleInTheFloor
+        weight: 1
+      - path: BasementLightLamp
+        weight: 1
+      - path: BasementStairEnter
+        weight: 1
+      - path: BasementStairEnterFloor
+        weight: 1
+      - path: BasementStairEnterWall.001
+        weight: 1
+      - path: BasementStairGridMetalFloor
+        weight: 1
+      - path: pipeThin
+        weight: 1
+      - path: pipeTurn
+        weight: 1
+      - path: pipeWide
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -78,6 +289,7 @@ ModelImporter:
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
+    serializedVersion: 2
     human: []
     skeleton: []
     armTwist: 0.5
@@ -88,9 +300,12 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
