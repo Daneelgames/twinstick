@@ -1,29 +1,15 @@
 fileFormatVersion: 2
-guid: a31ce9ab8b8f8124a88420709d9a29ca
-timeCreated: 1487179058
+guid: 9158d9e0de50b124bad642875b5783a4
+timeCreated: 1487682482
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Cylinder
-    100004: handLeft.000
-    100006: handLeft.001
     400000: //RootNode
-    400002: Cylinder
-    400004: handLeft.000
-    400006: handLeft.001
     2300000: //RootNode
-    2300002: Cylinder
-    2300004: handLeft.000
-    2300006: handLeft.001
     3300000: //RootNode
-    3300002: Cylinder
-    3300004: handLeft.000
-    3300006: handLeft.001
-    4300000: Cylinder
-    4300002: handLeft.000
-    4300004: handLeft.001
+    4300000: BezierCurve
   materials:
     importMaterials: 0
     materialName: 0
@@ -84,7 +70,7 @@ ModelImporter:
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
-    skeletonHasParents: 0
+    skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
   humanoidOversampling: 1
