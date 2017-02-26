@@ -237,6 +237,8 @@ public class InteractiveObject : MonoBehaviour
             au.Stop();
         GameManager.instance.SetMonstersActive(true);
 
+        if (objToActivate)
+            objToActivate.SetActive(true);
         if (hint)
             hint.SetActive(true);
 

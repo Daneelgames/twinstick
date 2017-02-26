@@ -50,6 +50,47 @@ ModelImporter:
     100084: pipeThin
     100086: pipeTurn
     100088: pipeWide
+    100090: LightShape.001
+    100092: BasementWallWithHole
+    100094: Bone 1
+    100096: Bone.001 1
+    100098: Bone.002 1
+    100100: Bone.003 1
+    100102: Bone.004 1
+    100104: Bone.005 1
+    100106: Bone.006 1
+    100108: Bone.007 1
+    100110: Bone.008 1
+    100112: Bone.008_end 1
+    100114: Bone.009 1
+    100116: Bone.009_end 1
+    100118: Bone.010 1
+    100120: Bone.010_end 1
+    100122: Bone.011 1
+    100124: Bone.011_end 1
+    100126: Bone.012 1
+    100128: Bone.012_end 1
+    100130: Bone.013 1
+    100132: Bone.013_end 1
+    100134: Bone.014 1
+    100136: Bone.014_end 1
+    100138: Bone.015 1
+    100140: Bone.015_end 1
+    100142: Bone.016 1
+    100144: Bone.016_end 1
+    100146: Bone.017 1
+    100148: Bone.017_end 1
+    100150: Bone.018 1
+    100152: Bone.018_end 1
+    100154: Bone.019 1
+    100156: Bone.019_end 1
+    100158: Bone.020 1
+    100160: Bone.020_end 1
+    100162: TunnelCap
+    100164: TunnelCapLock
+    100166: TunnelCapValve
+    100168: TunnelRing
+    100170: wallHoleArmature
     400000: BasementLightLamp
     400002: BasementStairEnter
     400004: BasementStairEnterFloor
@@ -95,6 +136,47 @@ ModelImporter:
     400084: pipeThin
     400086: pipeTurn
     400088: pipeWide
+    400090: LightShape.001
+    400092: BasementWallWithHole
+    400094: Bone 1
+    400096: Bone.001 1
+    400098: Bone.002 1
+    400100: Bone.003 1
+    400102: Bone.004 1
+    400104: Bone.005 1
+    400106: Bone.006 1
+    400108: Bone.007 1
+    400110: Bone.008 1
+    400112: Bone.008_end 1
+    400114: Bone.009 1
+    400116: Bone.009_end 1
+    400118: Bone.010 1
+    400120: Bone.010_end 1
+    400122: Bone.011 1
+    400124: Bone.011_end 1
+    400126: Bone.012 1
+    400128: Bone.012_end 1
+    400130: Bone.013 1
+    400132: Bone.013_end 1
+    400134: Bone.014 1
+    400136: Bone.014_end 1
+    400138: Bone.015 1
+    400140: Bone.015_end 1
+    400142: Bone.016 1
+    400144: Bone.016_end 1
+    400146: Bone.017 1
+    400148: Bone.017_end 1
+    400150: Bone.018 1
+    400152: Bone.018_end 1
+    400154: Bone.019 1
+    400156: Bone.019_end 1
+    400158: Bone.020 1
+    400160: Bone.020_end 1
+    400162: TunnelCap
+    400164: TunnelCapLock
+    400166: TunnelCapValve
+    400168: TunnelRing
+    400170: wallHoleArmature
     2300000: BasementLightLamp
     2300002: BasementStairEnter
     2300004: BasementStairEnterFloor
@@ -104,6 +186,11 @@ ModelImporter:
     2300012: pipeThin
     2300014: pipeTurn
     2300016: pipeWide
+    2300018: LightShape.001
+    2300020: TunnelCap
+    2300022: TunnelCapLock
+    2300024: TunnelCapValve
+    2300026: TunnelRing
     3300000: BasementLightLamp
     3300002: BasementStairEnter
     3300004: BasementStairEnterFloor
@@ -113,6 +200,11 @@ ModelImporter:
     3300012: pipeThin
     3300014: pipeTurn
     3300016: pipeWide
+    3300018: LightShape.001
+    3300020: TunnelCap
+    3300022: TunnelCapLock
+    3300024: TunnelCapValve
+    3300026: TunnelRing
     4300000: BasementStairGridMetalFloor
     4300002: BasementStairEnterWall.001
     4300004: BasementLightLamp
@@ -122,9 +214,17 @@ ModelImporter:
     4300012: pipeThin
     4300014: pipeTurn
     4300016: pipeWide
+    4300018: LightShape.001
+    4300020: TunnelCapLock
+    4300022: TunnelRing
+    4300024: TunnelCapValve
+    4300026: TunnelCap
+    4300028: BasementWallWithHole
     7400000: BasementHoleIdle
+    7400002: wallHoleArmature|ArmatureAction
     9500000: //RootNode
     13700000: BasementHoleInTheFloor
+    13700002: BasementWallWithHole
   materials:
     importMaterials: 0
     materialName: 0
@@ -147,8 +247,8 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: BasementHoleIdle
-      takeName: Armature|ArmatureAction
+      name: wallHoleArmature|ArmatureAction
+      takeName: wallHoleArmature|ArmatureAction
       firstFrame: 0
       lastFrame: 220
       wrapMode: 0

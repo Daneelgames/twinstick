@@ -357,9 +357,11 @@ public class PlayerMovement : MonoBehaviour
         {
             if (j.name == weaponName)
             {
+                print (weaponName);
                 j.gameObject.SetActive(true);
                 weaponController = j;
                 anim.SetFloat("WeaponIndex", weapons.IndexOf(j) * 1.0f);
+                break;
             }
             else
             {
@@ -403,7 +405,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 anim.SetBool("Aim", true);
                 aim = true;
-                Debug.DrawLine(weaponController.shotHolder.transform.position, weaponController.shotHolder.transform.TransformDirection(Vector3.forward) * 50f, Color.green);
+                if (weaponController.shotHolder)
+                    Debug.DrawLine(weaponController.shotHolder.transform.position, weaponController.shotHolder.transform.TransformDirection(Vector3.forward) * 50f, Color.green);
                 /*
                     Vector2 mousePosition = Input.mousePosition;
                     Vector2 normalized = new Vector2(mousePosition.x / Screen.width, mousePosition.y / Screen.height);
