@@ -4,7 +4,7 @@ using System.Collections;
 public class StepController : MonoBehaviour
 {
     public StepsList sl;
-    float cooldown = 0.2f;
+    float cooldown = 0.15f;
 
     void Update()
     {
@@ -18,9 +18,9 @@ public class StepController : MonoBehaviour
         {
             RaycastHit hit;
 
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.2f, 1 << 9))
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.3f, 1 << 9))
             {
-                cooldown = 0.3f;
+                cooldown = 0.15f;
                 sl.PlayStep(hit.collider.tag);
             }
         }

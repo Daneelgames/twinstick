@@ -122,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && aim && weaponController.curCooldown <= 0 && !moveBack && !reloading)
         {
             bool canShoot = false;
-            if (weaponController.ammo > 0)
+            if (weaponController.ammo > 0 || weaponController.weaponAmmoType == WeaponController.Type.Melee)
                 canShoot = true;
 
             if (canShoot)
@@ -357,7 +357,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (j.name == weaponName)
             {
-                print (weaponName);
+                print(weaponName);
                 j.gameObject.SetActive(true);
                 weaponController = j;
                 anim.SetFloat("WeaponIndex", weapons.IndexOf(j) * 1.0f);
@@ -416,9 +416,20 @@ public class PlayerMovement : MonoBehaviour
                 {
                     if (!targetCollider && !autoAim)
                     {
-                        Vector3 fwd = weaponController.shotHolder.transform.TransformDirection(Vector3.forward);
+                        Vector3 fwd;
+                        Vector3 aimPos;
+                        if (weaponController.weaponAmmoType == WeaponController.Type.Melee)
+                        {
+                            fwd = transform.TransformDirection(Vector3.forward);
+                            aimPos = transform.position;
+                        }
+                        else
+                        {
+                            fwd = weaponController.shotHolder.transform.TransformDirection(Vector3.forward);
+                            aimPos = weaponController.shotHolder.transform.position;
+                        }
                         RaycastHit objHit;
-                        if (Physics.Raycast(weaponController.shotHolder.transform.position, fwd, out objHit, maxAimDistance))
+                        if (Physics.Raycast(aimPos, fwd, out objHit, maxAimDistance))
                         {
                             aimTarget = objHit.point;
                         }
