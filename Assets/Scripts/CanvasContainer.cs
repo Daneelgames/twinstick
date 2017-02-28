@@ -23,7 +23,7 @@ public class CanvasContainer : MonoBehaviour
     public void SetRenderCamera()
     {
         cnvs.renderMode = RenderMode.ScreenSpaceCamera;
-        cnvs.worldCamera = Camera.main;
+        cnvs.worldCamera = Camera.main.transform.Find("CanvasCamera").GetComponent<Camera>();
         cnvs.planeDistance = 0.25f;
     }
 }

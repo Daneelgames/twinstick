@@ -353,6 +353,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetWeapon(string weaponName)
     {
+        bool wcFound = false;
         foreach (WeaponController j in weapons)
         {
             if (j.name == weaponName)
@@ -360,13 +361,14 @@ public class PlayerMovement : MonoBehaviour
                 print(weaponName);
                 j.gameObject.SetActive(true);
                 weaponController = j;
+                wcFound = true;
                 anim.SetFloat("WeaponIndex", weapons.IndexOf(j) * 1.0f);
-                break;
             }
             else
             {
                 j.gameObject.SetActive(false);
-                weaponController = null;
+                if (!wcFound)
+                    weaponController = null;
             }
         }
     }

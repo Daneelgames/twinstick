@@ -40,7 +40,7 @@ public class MobMovement : MonoBehaviour
     void Start()
     {
         InvokeRepeating("CheckDistanceToPlayer", 0f, 0.5f);
-        InvokeRepeating("SetNextAttack", 1f, 1f);
+        InvokeRepeating("SetNextAttack", 0f, 1f);
     }
 
     void Update()
