@@ -49,9 +49,7 @@ public class HealthController : MonoBehaviour
                 {
                     health = 0;
                     if (mobController)
-                        au.Stop();
-                    if (deathClips.Count > 0)
-                        au.PlayOneShot(deathClips[Random.Range(0, deathClips.Count)]);
+                        mobController.Dead();
                     Death();
                 }
                 else
@@ -86,7 +84,7 @@ public class HealthController : MonoBehaviour
             invisible = false;
     }
 
-    void Death()
+    public void Death()
     {
         if (player)
         {
@@ -97,12 +95,20 @@ public class HealthController : MonoBehaviour
         else
         {
             if (mobController)
-                mobController.Dead();
+                au.Stop();
+            if (deathClips.Count > 0)
+                au.PlayOneShot(deathClips[Random.Range(0, deathClips.Count)]);
             anim.SetTrigger("Dead");
             anim.SetBool("Dead.persist", true);
             if (breakableObj)
                 breakableObj.Break();
         }
+    }
+
+    public void StopSound()
+    {
+        if (mobController)
+            au.Stop();
     }
 
     void DestroyObject()

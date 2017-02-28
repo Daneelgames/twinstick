@@ -174,6 +174,7 @@ public class MobMovement : MonoBehaviour
     public void Dead()
     {
         mobState = State.Dead;
+        health.Death();
         stateful.MobDead();
         if (rb && mainCollider)
             StartCoroutine("KinematicAfterTime");

@@ -46,6 +46,7 @@ public class Stateful : MonoBehaviour
         {
             if (StateManager.instance.GetMobDead(gameObject.name)) // if mob is dead
             {
+                mobController.health.StopSound();
                 mobController.Dead();
             }
         }
