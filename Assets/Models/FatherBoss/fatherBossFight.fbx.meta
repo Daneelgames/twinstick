@@ -1,0 +1,1087 @@
+fileFormatVersion: 2
+guid: 4685cb3ceb9226a4fb66bff8848dd18b
+timeCreated: 1489665937
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: armConstrain.L
+    100002: armConstrain.L_end
+    100004: armConstrain.R
+    100006: armConstrain.R_end
+    100008: ArmIK.L
+    100010: ArmIK.R
+    100012: Ass
+    100014: Ass_end
+    100016: Bone
+    100018: chest
+    100020: chest.001
+    100022: chest.002
+    100024: chest.003
+    100026: chest.004
+    100028: chest.004_end
+    100030: chest.005
+    100032: chest.006
+    100034: chest.006_end
+    100036: Cube
+    100038: fat_1
+    100040: fat_1.004
+    100042: fat_1.004_end
+    100044: fat_1_end
+    100046: fat_2
+    100048: fat_2_end
+    100050: fat_3
+    100052: fat_3_end
+    100054: fat_4
+    100056: fat_4_end
+    100058: fat_6
+    100060: fat_6_end
+    100062: fat_7
+    100064: fat_7_end
+    100066: fat_8
+    100068: fat_8_end
+    100070: fat_9
+    100072: fat_9_end
+    100074: //RootNode
+    100076: foot.L
+    100078: foot.L_end
+    100080: foot.R
+    100082: foot.R_end
+    100084: forearm.L
+    100086: forearm.L_end
+    100088: forearm.R
+    100090: forearm.R_end
+    100092: hand.L
+    100094: hand.L_end
+    100096: hand.R
+    100098: hand.R_end
+    100100: hips
+    100102: kneeConstrain.L
+    100104: kneeConstrain.L_end
+    100106: kneeConstrain.R
+    100108: kneeConstrain.R_end
+    100110: LegIK.L
+    100112: LegIK.R
+    100114: metarig
+    100116: shin.L
+    100118: shin.L_end
+    100120: shin.R
+    100122: shin.R_end
+    100124: shoulder.L
+    100126: shoulder.R
+    100128: spine
+    100130: spine.001
+    100132: spine.002
+    100134: spine.003
+    100136: thigh.L
+    100138: thigh.R
+    100140: upper_arm.L
+    100142: upper_arm.R
+    400000: armConstrain.L
+    400002: armConstrain.L_end
+    400004: armConstrain.R
+    400006: armConstrain.R_end
+    400008: ArmIK.L
+    400010: ArmIK.R
+    400012: Ass
+    400014: Ass_end
+    400016: Bone
+    400018: chest
+    400020: chest.001
+    400022: chest.002
+    400024: chest.003
+    400026: chest.004
+    400028: chest.004_end
+    400030: chest.005
+    400032: chest.006
+    400034: chest.006_end
+    400036: Cube
+    400038: fat_1
+    400040: fat_1.004
+    400042: fat_1.004_end
+    400044: fat_1_end
+    400046: fat_2
+    400048: fat_2_end
+    400050: fat_3
+    400052: fat_3_end
+    400054: fat_4
+    400056: fat_4_end
+    400058: fat_6
+    400060: fat_6_end
+    400062: fat_7
+    400064: fat_7_end
+    400066: fat_8
+    400068: fat_8_end
+    400070: fat_9
+    400072: fat_9_end
+    400074: //RootNode
+    400076: foot.L
+    400078: foot.L_end
+    400080: foot.R
+    400082: foot.R_end
+    400084: forearm.L
+    400086: forearm.L_end
+    400088: forearm.R
+    400090: forearm.R_end
+    400092: hand.L
+    400094: hand.L_end
+    400096: hand.R
+    400098: hand.R_end
+    400100: hips
+    400102: kneeConstrain.L
+    400104: kneeConstrain.L_end
+    400106: kneeConstrain.R
+    400108: kneeConstrain.R_end
+    400110: LegIK.L
+    400112: LegIK.R
+    400114: metarig
+    400116: shin.L
+    400118: shin.L_end
+    400120: shin.R
+    400122: shin.R_end
+    400124: shoulder.L
+    400126: shoulder.R
+    400128: spine
+    400130: spine.001
+    400132: spine.002
+    400134: spine.003
+    400136: thigh.L
+    400138: thigh.R
+    400140: upper_arm.L
+    400142: upper_arm.R
+    4300000: Cube
+    7400000: fatherBoss@layIdle
+    7400002: fatherBoss@attackMouth
+    7400004: fatherBoss@move
+    7400006: fatherBoss@turn
+    7400008: fatherBoss@turnStart
+    9500000: //RootNode
+    13700000: Cube
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: fatherBoss@layIdle
+      takeName: metarig|metarigAction.001
+      firstFrame: 20
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: metarig
+        weight: 1
+      - path: metarig/armConstrain.L
+        weight: 1
+      - path: metarig/armConstrain.L/armConstrain.L_end
+        weight: 1
+      - path: metarig/armConstrain.R
+        weight: 1
+      - path: metarig/armConstrain.R/armConstrain.R_end
+        weight: 1
+      - path: metarig/ArmIK.L
+        weight: 1
+      - path: metarig/ArmIK.L/hand.L
+        weight: 1
+      - path: metarig/ArmIK.L/hand.L/hand.L_end
+        weight: 1
+      - path: metarig/ArmIK.R
+        weight: 1
+      - path: metarig/ArmIK.R/hand.R
+        weight: 1
+      - path: metarig/ArmIK.R/hand.R/hand.R_end
+        weight: 1
+      - path: metarig/Bone
+        weight: 1
+      - path: metarig/Bone/hips
+        weight: 1
+      - path: metarig/Bone/hips/Ass
+        weight: 1
+      - path: metarig/Bone/hips/Ass/Ass_end
+        weight: 1
+      - path: metarig/Bone/hips/fat_1
+        weight: 1
+      - path: metarig/Bone/hips/fat_1/fat_1_end
+        weight: 1
+      - path: metarig/Bone/hips/fat_9
+        weight: 1
+      - path: metarig/Bone/hips/fat_9/fat_9_end
+        weight: 1
+      - path: metarig/Bone/hips/spine
+        weight: 1
+      - path: metarig/Bone/hips/spine/fat_2
+        weight: 1
+      - path: metarig/Bone/hips/spine/fat_2/fat_2_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_3
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_3/fat_3_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_8
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_8/fat_8_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/fat_4
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/fat_4/fat_4_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.003
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.003/chest.004
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.003/chest.004/chest.004_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.005
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.005/chest.006
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.005/chest.006/chest.006_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/fat_6
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/fat_6/fat_6_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L/upper_arm.L
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L/upper_arm.L/forearm.L
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L/upper_arm.L/forearm.L/forearm.L_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R/upper_arm.R
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R/upper_arm.R/forearm.R
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R/upper_arm.R/forearm.R/forearm.R_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_1.004
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_1.004/fat_1.004_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_7
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_7/fat_7_end
+        weight: 1
+      - path: metarig/Bone/thigh.L
+        weight: 1
+      - path: metarig/Bone/thigh.L/shin.L
+        weight: 1
+      - path: metarig/Bone/thigh.L/shin.L/shin.L_end
+        weight: 1
+      - path: metarig/Bone/thigh.R
+        weight: 1
+      - path: metarig/Bone/thigh.R/shin.R
+        weight: 1
+      - path: metarig/Bone/thigh.R/shin.R/shin.R_end
+        weight: 1
+      - path: metarig/kneeConstrain.L
+        weight: 1
+      - path: metarig/kneeConstrain.L/kneeConstrain.L_end
+        weight: 1
+      - path: metarig/kneeConstrain.R
+        weight: 1
+      - path: metarig/kneeConstrain.R/kneeConstrain.R_end
+        weight: 1
+      - path: metarig/LegIK.L
+        weight: 1
+      - path: metarig/LegIK.L/foot.L
+        weight: 1
+      - path: metarig/LegIK.L/foot.L/foot.L_end
+        weight: 1
+      - path: metarig/LegIK.R
+        weight: 1
+      - path: metarig/LegIK.R/foot.R
+        weight: 1
+      - path: metarig/LegIK.R/foot.R/foot.R_end
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: fatherBoss@attackMouth
+      takeName: metarig|metarigAction.001
+      firstFrame: 120
+      lastFrame: 140
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: metarig
+        weight: 1
+      - path: metarig/armConstrain.L
+        weight: 1
+      - path: metarig/armConstrain.L/armConstrain.L_end
+        weight: 1
+      - path: metarig/armConstrain.R
+        weight: 1
+      - path: metarig/armConstrain.R/armConstrain.R_end
+        weight: 1
+      - path: metarig/ArmIK.L
+        weight: 1
+      - path: metarig/ArmIK.L/hand.L
+        weight: 1
+      - path: metarig/ArmIK.L/hand.L/hand.L_end
+        weight: 1
+      - path: metarig/ArmIK.R
+        weight: 1
+      - path: metarig/ArmIK.R/hand.R
+        weight: 1
+      - path: metarig/ArmIK.R/hand.R/hand.R_end
+        weight: 1
+      - path: metarig/Bone
+        weight: 1
+      - path: metarig/Bone/hips
+        weight: 1
+      - path: metarig/Bone/hips/Ass
+        weight: 1
+      - path: metarig/Bone/hips/Ass/Ass_end
+        weight: 1
+      - path: metarig/Bone/hips/fat_1
+        weight: 1
+      - path: metarig/Bone/hips/fat_1/fat_1_end
+        weight: 1
+      - path: metarig/Bone/hips/fat_9
+        weight: 1
+      - path: metarig/Bone/hips/fat_9/fat_9_end
+        weight: 1
+      - path: metarig/Bone/hips/spine
+        weight: 1
+      - path: metarig/Bone/hips/spine/fat_2
+        weight: 1
+      - path: metarig/Bone/hips/spine/fat_2/fat_2_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_3
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_3/fat_3_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_8
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_8/fat_8_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/fat_4
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/fat_4/fat_4_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.003
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.003/chest.004
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.003/chest.004/chest.004_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.005
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.005/chest.006
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.005/chest.006/chest.006_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/fat_6
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/fat_6/fat_6_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L/upper_arm.L
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L/upper_arm.L/forearm.L
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L/upper_arm.L/forearm.L/forearm.L_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R/upper_arm.R
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R/upper_arm.R/forearm.R
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R/upper_arm.R/forearm.R/forearm.R_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_1.004
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_1.004/fat_1.004_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_7
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_7/fat_7_end
+        weight: 1
+      - path: metarig/Bone/thigh.L
+        weight: 1
+      - path: metarig/Bone/thigh.L/shin.L
+        weight: 1
+      - path: metarig/Bone/thigh.L/shin.L/shin.L_end
+        weight: 1
+      - path: metarig/Bone/thigh.R
+        weight: 1
+      - path: metarig/Bone/thigh.R/shin.R
+        weight: 1
+      - path: metarig/Bone/thigh.R/shin.R/shin.R_end
+        weight: 1
+      - path: metarig/kneeConstrain.L
+        weight: 1
+      - path: metarig/kneeConstrain.L/kneeConstrain.L_end
+        weight: 1
+      - path: metarig/kneeConstrain.R
+        weight: 1
+      - path: metarig/kneeConstrain.R/kneeConstrain.R_end
+        weight: 1
+      - path: metarig/LegIK.L
+        weight: 1
+      - path: metarig/LegIK.L/foot.L
+        weight: 1
+      - path: metarig/LegIK.L/foot.L/foot.L_end
+        weight: 1
+      - path: metarig/LegIK.R
+        weight: 1
+      - path: metarig/LegIK.R/foot.R
+        weight: 1
+      - path: metarig/LegIK.R/foot.R/foot.R_end
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: fatherBoss@turn
+      takeName: metarig|metarigAction.001
+      firstFrame: 150
+      lastFrame: 170
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: metarig
+        weight: 1
+      - path: metarig/armConstrain.L
+        weight: 1
+      - path: metarig/armConstrain.L/armConstrain.L_end
+        weight: 1
+      - path: metarig/armConstrain.R
+        weight: 1
+      - path: metarig/armConstrain.R/armConstrain.R_end
+        weight: 1
+      - path: metarig/ArmIK.L
+        weight: 1
+      - path: metarig/ArmIK.L/hand.L
+        weight: 1
+      - path: metarig/ArmIK.L/hand.L/hand.L_end
+        weight: 1
+      - path: metarig/ArmIK.R
+        weight: 1
+      - path: metarig/ArmIK.R/hand.R
+        weight: 1
+      - path: metarig/ArmIK.R/hand.R/hand.R_end
+        weight: 1
+      - path: metarig/Bone
+        weight: 1
+      - path: metarig/Bone/hips
+        weight: 1
+      - path: metarig/Bone/hips/Ass
+        weight: 1
+      - path: metarig/Bone/hips/Ass/Ass_end
+        weight: 1
+      - path: metarig/Bone/hips/fat_1
+        weight: 1
+      - path: metarig/Bone/hips/fat_1/fat_1_end
+        weight: 1
+      - path: metarig/Bone/hips/fat_9
+        weight: 1
+      - path: metarig/Bone/hips/fat_9/fat_9_end
+        weight: 1
+      - path: metarig/Bone/hips/spine
+        weight: 1
+      - path: metarig/Bone/hips/spine/fat_2
+        weight: 1
+      - path: metarig/Bone/hips/spine/fat_2/fat_2_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_3
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_3/fat_3_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_8
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_8/fat_8_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/fat_4
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/fat_4/fat_4_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.003
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.003/chest.004
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.003/chest.004/chest.004_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.005
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.005/chest.006
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.005/chest.006/chest.006_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/fat_6
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/fat_6/fat_6_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L/upper_arm.L
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L/upper_arm.L/forearm.L
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L/upper_arm.L/forearm.L/forearm.L_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R/upper_arm.R
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R/upper_arm.R/forearm.R
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R/upper_arm.R/forearm.R/forearm.R_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_1.004
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_1.004/fat_1.004_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_7
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_7/fat_7_end
+        weight: 1
+      - path: metarig/Bone/thigh.L
+        weight: 1
+      - path: metarig/Bone/thigh.L/shin.L
+        weight: 1
+      - path: metarig/Bone/thigh.L/shin.L/shin.L_end
+        weight: 1
+      - path: metarig/Bone/thigh.R
+        weight: 1
+      - path: metarig/Bone/thigh.R/shin.R
+        weight: 1
+      - path: metarig/Bone/thigh.R/shin.R/shin.R_end
+        weight: 1
+      - path: metarig/kneeConstrain.L
+        weight: 1
+      - path: metarig/kneeConstrain.L/kneeConstrain.L_end
+        weight: 1
+      - path: metarig/kneeConstrain.R
+        weight: 1
+      - path: metarig/kneeConstrain.R/kneeConstrain.R_end
+        weight: 1
+      - path: metarig/LegIK.L
+        weight: 1
+      - path: metarig/LegIK.L/foot.L
+        weight: 1
+      - path: metarig/LegIK.L/foot.L/foot.L_end
+        weight: 1
+      - path: metarig/LegIK.R
+        weight: 1
+      - path: metarig/LegIK.R/foot.R
+        weight: 1
+      - path: metarig/LegIK.R/foot.R/foot.R_end
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: fatherBoss@move
+      takeName: metarig|metarigAction.001
+      firstFrame: 60
+      lastFrame: 110
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: metarig
+        weight: 1
+      - path: metarig/armConstrain.L
+        weight: 1
+      - path: metarig/armConstrain.L/armConstrain.L_end
+        weight: 1
+      - path: metarig/armConstrain.R
+        weight: 1
+      - path: metarig/armConstrain.R/armConstrain.R_end
+        weight: 1
+      - path: metarig/ArmIK.L
+        weight: 1
+      - path: metarig/ArmIK.L/hand.L
+        weight: 1
+      - path: metarig/ArmIK.L/hand.L/hand.L_end
+        weight: 1
+      - path: metarig/ArmIK.R
+        weight: 1
+      - path: metarig/ArmIK.R/hand.R
+        weight: 1
+      - path: metarig/ArmIK.R/hand.R/hand.R_end
+        weight: 1
+      - path: metarig/Bone
+        weight: 1
+      - path: metarig/Bone/hips
+        weight: 1
+      - path: metarig/Bone/hips/Ass
+        weight: 1
+      - path: metarig/Bone/hips/Ass/Ass_end
+        weight: 1
+      - path: metarig/Bone/hips/fat_1
+        weight: 1
+      - path: metarig/Bone/hips/fat_1/fat_1_end
+        weight: 1
+      - path: metarig/Bone/hips/fat_9
+        weight: 1
+      - path: metarig/Bone/hips/fat_9/fat_9_end
+        weight: 1
+      - path: metarig/Bone/hips/spine
+        weight: 1
+      - path: metarig/Bone/hips/spine/fat_2
+        weight: 1
+      - path: metarig/Bone/hips/spine/fat_2/fat_2_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_3
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_3/fat_3_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_8
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_8/fat_8_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/fat_4
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/fat_4/fat_4_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.003
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.003/chest.004
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.003/chest.004/chest.004_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.005
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.005/chest.006
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.005/chest.006/chest.006_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/fat_6
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/fat_6/fat_6_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L/upper_arm.L
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L/upper_arm.L/forearm.L
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L/upper_arm.L/forearm.L/forearm.L_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R/upper_arm.R
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R/upper_arm.R/forearm.R
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R/upper_arm.R/forearm.R/forearm.R_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_1.004
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_1.004/fat_1.004_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_7
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_7/fat_7_end
+        weight: 1
+      - path: metarig/Bone/thigh.L
+        weight: 1
+      - path: metarig/Bone/thigh.L/shin.L
+        weight: 1
+      - path: metarig/Bone/thigh.L/shin.L/shin.L_end
+        weight: 1
+      - path: metarig/Bone/thigh.R
+        weight: 1
+      - path: metarig/Bone/thigh.R/shin.R
+        weight: 1
+      - path: metarig/Bone/thigh.R/shin.R/shin.R_end
+        weight: 1
+      - path: metarig/kneeConstrain.L
+        weight: 1
+      - path: metarig/kneeConstrain.L/kneeConstrain.L_end
+        weight: 1
+      - path: metarig/kneeConstrain.R
+        weight: 1
+      - path: metarig/kneeConstrain.R/kneeConstrain.R_end
+        weight: 1
+      - path: metarig/LegIK.L
+        weight: 1
+      - path: metarig/LegIK.L/foot.L
+        weight: 1
+      - path: metarig/LegIK.L/foot.L/foot.L_end
+        weight: 1
+      - path: metarig/LegIK.R
+        weight: 1
+      - path: metarig/LegIK.R/foot.R
+        weight: 1
+      - path: metarig/LegIK.R/foot.R/foot.R_end
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: fatherBoss@turnStart
+      takeName: metarig|metarigAction.001
+      firstFrame: 140
+      lastFrame: 150
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: metarig
+        weight: 1
+      - path: metarig/armConstrain.L
+        weight: 1
+      - path: metarig/armConstrain.L/armConstrain.L_end
+        weight: 1
+      - path: metarig/armConstrain.R
+        weight: 1
+      - path: metarig/armConstrain.R/armConstrain.R_end
+        weight: 1
+      - path: metarig/ArmIK.L
+        weight: 1
+      - path: metarig/ArmIK.L/hand.L
+        weight: 1
+      - path: metarig/ArmIK.L/hand.L/hand.L_end
+        weight: 1
+      - path: metarig/ArmIK.R
+        weight: 1
+      - path: metarig/ArmIK.R/hand.R
+        weight: 1
+      - path: metarig/ArmIK.R/hand.R/hand.R_end
+        weight: 1
+      - path: metarig/Bone
+        weight: 1
+      - path: metarig/Bone/hips
+        weight: 1
+      - path: metarig/Bone/hips/Ass
+        weight: 1
+      - path: metarig/Bone/hips/Ass/Ass_end
+        weight: 1
+      - path: metarig/Bone/hips/fat_1
+        weight: 1
+      - path: metarig/Bone/hips/fat_1/fat_1_end
+        weight: 1
+      - path: metarig/Bone/hips/fat_9
+        weight: 1
+      - path: metarig/Bone/hips/fat_9/fat_9_end
+        weight: 1
+      - path: metarig/Bone/hips/spine
+        weight: 1
+      - path: metarig/Bone/hips/spine/fat_2
+        weight: 1
+      - path: metarig/Bone/hips/spine/fat_2/fat_2_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_3
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_3/fat_3_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_8
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/fat_8/fat_8_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/fat_4
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/fat_4/fat_4_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.003
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.003/chest.004
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.003/chest.004/chest.004_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.005
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.005/chest.006
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/chest.002/chest.005/chest.006/chest.006_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/fat_6
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/fat_6/fat_6_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L/upper_arm.L
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L/upper_arm.L/forearm.L
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.L/upper_arm.L/forearm.L/forearm.L_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R/upper_arm.R
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R/upper_arm.R/forearm.R
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/chest/chest.001/shoulder.R/upper_arm.R/forearm.R/forearm.R_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_1.004
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_1.004/fat_1.004_end
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_7
+        weight: 1
+      - path: metarig/Bone/hips/spine/spine.001/spine.002/spine.003/fat_7/fat_7_end
+        weight: 1
+      - path: metarig/Bone/thigh.L
+        weight: 1
+      - path: metarig/Bone/thigh.L/shin.L
+        weight: 1
+      - path: metarig/Bone/thigh.L/shin.L/shin.L_end
+        weight: 1
+      - path: metarig/Bone/thigh.R
+        weight: 1
+      - path: metarig/Bone/thigh.R/shin.R
+        weight: 1
+      - path: metarig/Bone/thigh.R/shin.R/shin.R_end
+        weight: 1
+      - path: metarig/kneeConstrain.L
+        weight: 1
+      - path: metarig/kneeConstrain.L/kneeConstrain.L_end
+        weight: 1
+      - path: metarig/kneeConstrain.R
+        weight: 1
+      - path: metarig/kneeConstrain.R/kneeConstrain.R_end
+        weight: 1
+      - path: metarig/LegIK.L
+        weight: 1
+      - path: metarig/LegIK.L/foot.L
+        weight: 1
+      - path: metarig/LegIK.L/foot.L/foot.L_end
+        weight: 1
+      - path: metarig/LegIK.R
+        weight: 1
+      - path: metarig/LegIK.R/foot.R
+        weight: 1
+      - path: metarig/LegIK.R/foot.R/foot.R_end
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
