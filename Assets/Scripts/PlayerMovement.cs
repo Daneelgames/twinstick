@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
     public LineRenderer line;
 
     public GameObject cameraFocus;
+    public bool run = false;
 
     void FixedUpdate()
     {
@@ -274,16 +275,19 @@ public class PlayerMovement : MonoBehaviour
                         float animSpeed = Mathf.Lerp(anim.GetFloat("Speed"), 1, 0.1f);
                         anim.SetFloat("Speed", animSpeed);
                         speed = maxSpeed * 2.5f;
+                        run = true;
                     }
                     else
                     {
                         anim.SetFloat("Speed", -1);
                         speed = maxSpeed * 0.75f;
+                        run = false;
                     }
                 }
                 else
                 {
                     float animSpeed = 0;
+                    run = false;
                     if (inputV < 0)
                     {
                         animSpeed = Mathf.Lerp(anim.GetFloat("Speed"), -1, 0.1f);

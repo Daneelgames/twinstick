@@ -7,7 +7,7 @@ public class FatherBossController : MonoBehaviour
     public float speed = 2f;
     public Rigidbody rb;
     public Animator anim;
-    public enum State { Sleep, Attack, Follow, Reposition, RunAway, Hide };
+    public enum State { Sleep, Attack, Follow, RunAway, Hide };
     public State stateBoss = State.Sleep;
     public bool canAttack = true;
     public float attackTime = 0.5f;
@@ -24,6 +24,7 @@ public class FatherBossController : MonoBehaviour
     }
     public List<Row> rows = new List<Row>();
     public bool playerInRange = false;
+    public bool playerInAttackRange = false;
     public int turnDegrees = 0;
 
     public void PlayerInRange(bool inRange)
@@ -33,7 +34,7 @@ public class FatherBossController : MonoBehaviour
             if (turnDegrees == 0)
             {
                 playerInRange = true;
-                if (stateBoss == State.Sleep || stateBoss == State.Reposition)
+                if (stateBoss == State.Sleep)
                 {
                     stateBoss = State.Follow;
                     anim.SetBool("Move", true);
@@ -43,25 +44,47 @@ public class FatherBossController : MonoBehaviour
         else if (!inRange && stateBoss == State.Follow)
         {
             playerInRange = false;
-            stateBoss = State.Reposition;
+            Reposition();
         }
     }
     public void PlayerInAttackRange(bool inRange)
     {
-        if (inRange && canAttack)
+        if (inRange)
         {
-            if (stateBoss == State.Sleep || stateBoss == State.Reposition || stateBoss == State.Follow)
+            playerInAttackRange = true;
+            if (canAttack)
             {
-                anim.SetTrigger("Attack");
-                StartCoroutine("AttackOver");
-                stateBoss = State.Attack;
+                if (stateBoss == State.Sleep || stateBoss == State.Follow)
+                {
+                    Attack();
+                }
             }
+        }
+        else if (!inRange)
+        {
+            playerInAttackRange = false;
         }
     }
 
+    void Attack()
+    {
+        anim.SetTrigger("Attack");
+        StartCoroutine("AttackOver");
+        stateBoss = State.Attack;
+    }
+    IEnumerator AttackOver()
+    {
+        yield return new WaitForSeconds(attackTime);
+        Reposition();
+        StartCoroutine("Turn", 180);
+    }
+    public void PlayerBehind()
+    {
+        stateBoss = State.Follow;
+        StartCoroutine("Turn", 180);
+    }
     IEnumerator Turn(int td)
     {
-
         turnDegrees = td;
         canAttack = false;
         float t = 0.75f;
@@ -84,12 +107,13 @@ public class FatherBossController : MonoBehaviour
             anim.SetBool("Move", false);
         }
     }
-    IEnumerator AttackOver()
+
+    public void Reposition()
     {
-        yield return new WaitForSeconds(attackTime);
         stateBoss = State.RunAway;
         ChooseNewPosition();
-        StartCoroutine("Turn", 180);
+        if (turnDegrees == 0)
+            anim.SetBool("Move", true);
     }
 
     void ChooseNewPosition()
@@ -172,8 +196,33 @@ public class FatherBossController : MonoBehaviour
         StabilizeDegrees();
         if (stateBoss == State.Follow)
         {
-            Vector3 newVel = transform.forward * speed * 50 * Time.deltaTime;
-            rb.velocity = newVel;
+            if (turnDegrees == 0) // father not turns
+            {
+                Vector3 newVel = transform.forward * speed * 50 * Time.deltaTime;
+                rb.velocity = newVel;
+
+                if (playerInAttackRange)
+                {
+                    Attack();
+                }
+            }
+            else
+            {
+                float turnTo = 0;
+                switch (turnDegrees)
+                {
+                    case 90:
+                        turnTo = 1f;
+                        break;
+                    default:
+                        turnTo = -1f;
+                        break;
+                }
+                rb.velocity = Vector3.zero;
+                float turn = turnTo * 120f * Time.deltaTime;
+                Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
+                rb.MoveRotation(rb.rotation * turnRotation);
+            }
         }
         else if (stateBoss == State.Attack)
         {

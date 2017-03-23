@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FatherBossAttackRangeController : MonoBehaviour
 {
-
     public FatherBossController fbc;
     void OnTriggerEnter(Collider coll)
     {
