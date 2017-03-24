@@ -52,9 +52,7 @@ public class CutSceneController : MonoBehaviour
 
     public void SetCameraPosition(int i)
     {
-        GameManager.instance.camAnim.transform.position = cameraAnchors[i].transform.position;
-        GameManager.instance.camAnim.transform.rotation = cameraAnchors[i].transform.rotation;
-        GameManager.instance.camAnim.transform.SetParent(cameraAnchors[i].transform);
+        GameManager.instance.SetCutSceneCamera(cameraAnchors[i].transform);
     }
 
     public void SetPhrase(string text)

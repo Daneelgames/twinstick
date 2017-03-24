@@ -289,7 +289,7 @@ public class FatherBossController : MonoBehaviour
                     else if (transform.rotation.eulerAngles.y < 200 && transform.rotation.eulerAngles.y > 100) // he runs south
                     {
                         float distance = Mathf.Abs(transform.position.z + 5.5f);
-                        print(distance);
+                        //print(distance);
                         if (distance <= 0.75f)
                         {
                             if (newRow > row)

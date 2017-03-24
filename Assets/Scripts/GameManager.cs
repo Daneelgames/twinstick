@@ -15,10 +15,16 @@ public class GameManager : MonoBehaviour
     public string characterSpawnerName = "StartSpawner";
 
     public bool cutScene = false;
-    public GameObject cameraHolder;
-    public Camera mainCam;
-    public Animator camAnim;
 
+    public List<GameObject> cameraHolders;
+    public GameObject cameraHolder;
+    public List<Camera> mainCams;
+    public Camera mainCam;
+    public List<Animator> camAnims;
+    public Animator camAnim;
+    public AudioListener camListener;
+    public List<AudioListener> camListeners;
+    public List<Camera> renderCameras;
     public GuiController gui;
 
     public GameObject playerInGame;
@@ -103,6 +109,12 @@ public class GameManager : MonoBehaviour
     {
         print(scene.name);
         _sm = scene;
+
+        cameraHolder = cameraHolders[0];
+        camListener = camListeners[0];
+        mainCam = mainCams[0];
+        camAnim = camAnims[0];
+
         if (!sessionStarted)
         {
             if (StateManager.instance.playerSpawner == "")
@@ -187,12 +199,6 @@ public class GameManager : MonoBehaviour
         }
         mainCam.backgroundColor = RenderSettings.fogColor;
 
-        //SET CAM TO PLAYER
-        float posX = Mathf.Lerp(cameraHolder.transform.position.x, playerInGame.transform.position.x, 5f);
-        float posY = Mathf.Lerp(cameraHolder.transform.position.y, playerInGame.transform.position.y + 3, 5f);
-
-        cameraHolder.transform.position = new Vector3(posX, posY, cameraHolder.transform.position.z);
-        cameraHolder.transform.LookAt(new Vector3(posX, posY - 2f, playerInGame.transform.position.z));
         SetActiveWeapon(StateManager.instance.activeWeapon);
 
         playerController.SetFlashlight(StateManager.instance.GetFlashlight());
@@ -201,17 +207,57 @@ public class GameManager : MonoBehaviour
 
     public void SetActiveCamera(CameraZoneController zone)
     {
+
         if (activeCamera)
             activeCamera.active = false;
         if (zone)
         {
             activeCamera = zone;
-            activeCamera.active = true;
 
-            cameraHolder.transform.SetParent(activeCamera.camAnchor.transform);
-            cameraHolder.transform.localPosition = Vector3.zero;
-            cameraHolder.transform.localEulerAngles = Vector3.zero;
+            for (int i = 0; i < 2; i++)
+            {
+                if (cameraHolders[i] != cameraHolder)
+                {
+                    print(cameraHolders[i]);
+                    cameraHolders[i].transform.SetParent(activeCamera.camAnchor.transform); // set new camera position before enabling it
+                    cameraHolders[i].transform.localPosition = Vector3.zero;
+                    cameraHolders[i].transform.localEulerAngles = Vector3.zero;
+
+                    StartCoroutine("ChangeCameraDelayed", i);
+                    break;
+                }
+            }
+            activeCamera.active = true;
         }
+    }
+
+    IEnumerator ChangeCameraDelayed(int index)
+    {
+        yield return new WaitForSeconds(0.01f);
+        cameraHolder.SetActive(false); // set old camera inactive
+        cameraHolder = cameraHolders[index];
+        mainCam = mainCams[index];
+        camAnim = camAnims[index];
+        camListener = camListeners[index];
+        canvasContainer.SetCanvasCam(renderCameras[index]);
+        cameraHolder.SetActive(true); // set new camera active
+        gui.SetHealth();
+    }
+    public void SetCutSceneCamera(Transform _transform)
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            if (cameraHolders[i] != cameraHolder)
+            {
+                cameraHolders[i].transform.position = _transform.position;
+                cameraHolders[i].transform.rotation = _transform.rotation;
+                cameraHolders[i].transform.SetParent(_transform);
+
+                StartCoroutine("ChangeCameraDelayed", i);
+                break;
+            }
+        }
+
     }
 
     public void SendMessages(bool needToFadeIn) // CALL IN MIDDLE OF SCENE
@@ -251,7 +297,7 @@ public class GameManager : MonoBehaviour
     {
         if (StateManager.instance.ammoInWeapons.Count > 0)
         {
-            for (int i = 1; i < StateManager.instance.ammoInWeapons.Count; i ++)
+            for (int i = 1; i < StateManager.instance.ammoInWeapons.Count; i++)
             {
                 playerController.weapons[i].ammo = StateManager.instance.ammoInWeapons[i];
             }
@@ -412,7 +458,21 @@ public class GameManager : MonoBehaviour
 
         ClearStatefulObjectsList();
 
+        ResetCameras();
+
         SceneManager.LoadScene(sceneName);
+    }
+
+    void ResetCameras()
+    {
+        foreach (GameObject go in cameraHolders)
+        {
+            go.transform.SetParent(transform);
+        }
+        cameraHolder = cameraHolders[0];
+        camListener = camListeners[0];
+        mainCam = mainCams[0];
+        camAnim = camAnims[0];
     }
 
     void LoadToNewScene(string sceneName, string spawnerName)
@@ -423,6 +483,7 @@ public class GameManager : MonoBehaviour
         ClearStatefulObjectsList();
 
         print("new scene");
+        ResetCameras();
         SceneManager.LoadScene(sceneName);
     }
 

@@ -78,7 +78,7 @@ public class HealthController : MonoBehaviour
     {
         invisible = true;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
         if (invisible)
             invisible = false;
