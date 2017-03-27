@@ -29,11 +29,11 @@ public class FatherBossController : MonoBehaviour
 
     public void PlayerInRange(bool inRange)
     {
+        playerInRange = inRange;
         if (inRange)
         {
             if (turnDegrees == 0)
             {
-                playerInRange = true;
                 if (stateBoss == State.Sleep)
                 {
                     stateBoss = State.Follow;
@@ -43,12 +43,12 @@ public class FatherBossController : MonoBehaviour
         }
         else if (!inRange && stateBoss == State.Follow)
         {
-            playerInRange = false;
             Reposition();
         }
     }
     public void PlayerInAttackRange(bool inRange)
     {
+        print("player in range is " + inRange);
         if (inRange)
         {
             playerInAttackRange = true;
@@ -60,7 +60,7 @@ public class FatherBossController : MonoBehaviour
                 }
             }
         }
-        else if (!inRange)
+        else
         {
             playerInAttackRange = false;
         }
@@ -105,6 +105,20 @@ public class FatherBossController : MonoBehaviour
         if (stateBoss == State.Sleep)
         {
             anim.SetBool("Move", false);
+        }
+    }
+
+    public void Hurt()
+    {
+        if (stateBoss == State.Sleep)
+        {
+            if (GameManager.instance.playerController.weaponController.weaponAmmoType != WeaponController.Type.Melee)
+            {
+                int random = Random.Range(0, 2);
+                if (random > 0)
+                    StartCoroutine("Turn", 180);
+            }
+            Reposition();
         }
     }
 
@@ -272,6 +286,12 @@ public class FatherBossController : MonoBehaviour
             {
                 Vector3 newVel = transform.forward * speed * 75 * Time.deltaTime;
                 rb.velocity = newVel;
+
+                if (playerInAttackRange)
+                {
+                    Attack();
+                }
+
                 if (row != newRow) // if he didn't found the row yet
                 {
                     if (transform.rotation.eulerAngles.y > 340 || transform.rotation.eulerAngles.y < 40) // he runs north

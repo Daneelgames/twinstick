@@ -7,6 +7,7 @@ public class MobMovement : MonoBehaviour
 
     public enum State { Idle, Chase, Dead };
 
+    public bool boss = false;
     public State mobState = State.Idle;
 
     public float reactionDistance = 10f;
@@ -39,153 +40,183 @@ public class MobMovement : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        InvokeRepeating("CheckDistanceToPlayer", 0f, 0.5f);
-        InvokeRepeating("SetNextAttack", 0f, 1f);
+        if (!boss)
+        {
+            InvokeRepeating("CheckDistanceToPlayer", 0f, 0.5f);
+            InvokeRepeating("SetNextAttack", 0f, 1f);
+        }
     }
 
     void Update()
     {
-        if (mobState != State.Dead)
+        if (!boss)
         {
-            if (attackCooldown > 0)
+            if (mobState != State.Dead)
             {
-                attackCooldown -= Time.deltaTime;
-            }
+                if (attackCooldown > 0)
+                {
+                    attackCooldown -= Time.deltaTime;
+                }
 
-            if (hurtCooldown > 0)
-            {
-                hurtCooldown -= Time.deltaTime;
-            }
+                if (hurtCooldown > 0)
+                {
+                    hurtCooldown -= Time.deltaTime;
+                }
 
-            SetAnimSpeedSmooth();
+                SetAnimSpeedSmooth();
+            }
         }
     }
 
     public void Hurt()
     {
-        hurtCooldown = hurtCooldownMax;
+        if (!boss)
+            hurtCooldown = hurtCooldownMax;
     }
 
     void SetNextAttack()
     {
-        List<int> indexes = new List<int>();
-        for (int i = 0; i < attackRanges.Count; i++)
+        if (!boss)
         {
-            if (attackRanges[i] != false)
+            List<int> indexes = new List<int>();
+            for (int i = 0; i < attackRanges.Count; i++)
             {
-                indexes.Add(i);
+                if (attackRanges[i] != false)
+                {
+                    indexes.Add(i);
+                }
             }
-        }
-        if (indexes.Count > 0)
-        {
-            int maxIndex = indexes.Count;
+            if (indexes.Count > 0)
+            {
+                int maxIndex = indexes.Count;
 
-            nextAttackIndex = indexes[Random.Range(0, maxIndex)];
+                nextAttackIndex = indexes[Random.Range(0, maxIndex)];
+            }
         }
     }
 
     void CheckDistanceToPlayer()
     {
-        if (mobState != State.Dead)
-        {
-            distanceToPlayer = Vector3.Distance(transform.position, GameManager.instance.playerInGame.transform.position);
 
-            if (distanceToPlayer > reactionDistance)
+        if (!boss)
+        {
+            if (mobState != State.Dead)
             {
-                mobState = State.Idle;
-            }
-            else if (distanceToPlayer <= reactionDistance)
-            {
-                mobState = State.Chase;
+                distanceToPlayer = Vector3.Distance(transform.position, GameManager.instance.playerInGame.transform.position);
+
+                if (distanceToPlayer > reactionDistance)
+                {
+                    mobState = State.Idle;
+                }
+                else if (distanceToPlayer <= reactionDistance)
+                {
+                    mobState = State.Chase;
+                }
             }
         }
     }
 
     void FixedUpdate()
     {
-        if (mobState == State.Chase)
+        if (!boss)
         {
-            ChasePlayer();
-        }
-        else
-        {
-            anim.SetFloat("Speed", 0);
+            if (mobState == State.Chase)
+            {
+                ChasePlayer();
+            }
+            else
+            {
+                anim.SetFloat("Speed", 0);
+            }
         }
     }
 
     void ChasePlayer()
     {
-        //Attack
-        if (attackRanges[nextAttackIndex] && attackCooldown <= 0)
+        if (!boss)
         {
-            animNewSpeed = 0;
-            anim.SetTrigger(attackTriggerName[nextAttackIndex]);
-            attackCooldown = attackCooldownMax[nextAttackIndex];
-        }
-        else if (attackCooldown <= 0 && hurtCooldown <= 0)
-        {
-            animNewSpeed = 1;
+            //Attack
+            if (attackRanges[nextAttackIndex] && attackCooldown <= 0)
+            {
+                animNewSpeed = 0;
+                anim.SetTrigger(attackTriggerName[nextAttackIndex]);
+                attackCooldown = attackCooldownMax[nextAttackIndex];
+            }
+            else if (attackCooldown <= 0 && hurtCooldown <= 0)
+            {
+                animNewSpeed = 1;
 
-            // choose movement direction
-            Vector3 movement = GameManager.instance.playerInGame.transform.position - transform.position;
-            movement = movement.normalized * speed;
-            movement.y = rb.velocity.y;
+                // choose movement direction
+                Vector3 movement = GameManager.instance.playerInGame.transform.position - transform.position;
+                movement = movement.normalized * speed;
+                movement.y = rb.velocity.y;
 
-            // rotate
-            Vector3 mobToTarget = (transform.position + movement) - transform.position;
-            mobToTarget.y = transform.position.y;
-            Quaternion newRotation = Quaternion.LookRotation(mobToTarget);
-            newRotation = Quaternion.Slerp(newRotation, transform.rotation, turnSmooth);
-            rb.MoveRotation(newRotation);
+                // rotate
+                Vector3 mobToTarget = (transform.position + movement) - transform.position;
+                mobToTarget.y = transform.position.y;
+                Quaternion newRotation = Quaternion.LookRotation(mobToTarget);
+                newRotation = Quaternion.Slerp(newRotation, transform.rotation, turnSmooth);
+                rb.MoveRotation(newRotation);
 
 
-            //set rotate.y = 0
-            Quaternion rot = rb.rotation;
-            rot.eulerAngles = new Vector3(0, rb.rotation.eulerAngles.y, 0);
-            rb.rotation = rot;
+                //set rotate.y = 0
+                Quaternion rot = rb.rotation;
+                rot.eulerAngles = new Vector3(0, rb.rotation.eulerAngles.y, 0);
+                rb.rotation = rot;
 
-            //move mob
-            float distance = Vector3.Distance(transform.position, GameManager.instance.playerInGame.transform.position);
-            float rotationOffset = Mathf.Abs(newRotation.eulerAngles.y - transform.rotation.eulerAngles.y);
-            // print (rotationOffset);
-            if (distance > stopDistance && rotationOffset < 0.3f)
-                rb.velocity = movement;
+                //move mob
+                float distance = Vector3.Distance(transform.position, GameManager.instance.playerInGame.transform.position);
+                float rotationOffset = Mathf.Abs(newRotation.eulerAngles.y - transform.rotation.eulerAngles.y);
+                // print (rotationOffset);
+                if (distance > stopDistance && rotationOffset < 0.3f)
+                    rb.velocity = movement;
+                else
+                    rb.velocity = Vector3.zero;
+
+            }
             else
+            {
                 rb.velocity = Vector3.zero;
-
-        }
-        else
-        {
-            rb.velocity = Vector3.zero;
+            }
         }
     }
 
     public void PlayerInRange(int index, bool inside)
     {
-        attackRanges[index] = inside;
+        if (!boss)
+            attackRanges[index] = inside;
     }
 
     void SetAnimSpeedSmooth()
     {
-        animSpeed = Mathf.Lerp(animSpeed, animNewSpeed, 0.1f);
-        anim.SetFloat("Speed", animSpeed);
+        if (!boss)
+        {
+            animSpeed = Mathf.Lerp(animSpeed, animNewSpeed, 0.1f);
+            anim.SetFloat("Speed", animSpeed);
+        }
     }
 
     public void Dead()
     {
-        mobState = State.Dead;
-        health.Death();
-        stateful.MobDead();
-        if (rb && mainCollider)
-            StartCoroutine("KinematicAfterTime");
+        if (!boss)
+        {
+            mobState = State.Dead;
+            health.Death();
+            stateful.MobDead();
+            if (rb && mainCollider)
+                StartCoroutine("KinematicAfterTime");
+        }
     }
 
     public void DeadOnStart()
     {
-        health.SetHealth(0);
-        mobState = State.Dead;
-        rb.isKinematic = true;
-        mainCollider.enabled = false;
+        if (!boss)
+        {
+            health.SetHealth(0);
+            mobState = State.Dead;
+            rb.isKinematic = true;
+            mainCollider.enabled = false;
+        }
     }
 
     IEnumerator KinematicAfterTime()
@@ -197,6 +228,7 @@ public class MobMovement : MonoBehaviour
 
     public void StepSetSpeed(float sp)
     {
-        speed = sp;
+        if (!boss)
+            speed = sp;
     }
 }

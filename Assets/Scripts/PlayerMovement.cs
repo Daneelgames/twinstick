@@ -435,7 +435,7 @@ public class PlayerMovement : MonoBehaviour
                             aimPos = weaponController.shotHolder.transform.position;
                         }
                         RaycastHit objHit;
-                        if (Physics.Raycast(aimPos, fwd, out objHit, maxAimDistance))
+                        if (Physics.Raycast(aimPos, fwd, out objHit, maxAimDistance, weaponController.attackMask))
                         {
                             aimTarget = objHit.point;
                         }

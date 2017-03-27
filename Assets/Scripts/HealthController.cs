@@ -7,6 +7,7 @@ public class HealthController : MonoBehaviour
 
     public int maxHealth = 1;
     public float health = 1;
+    public float hurtCooldown = 1f;
 
     public bool player = false;
 
@@ -19,6 +20,7 @@ public class HealthController : MonoBehaviour
     public List<AudioClip> hurtClips;
     public List<AudioClip> deathClips;
     public BreakableObject breakableObj;
+    public FatherBossController fbc;
 
     public void SetInvisible(bool invs)
     {
@@ -32,7 +34,7 @@ public class HealthController : MonoBehaviour
 
     void Start()
     {
-        if (mobController && health > 0)
+        if (au && mobController && health > 0)
             au.Play();
     }
 
@@ -43,7 +45,8 @@ public class HealthController : MonoBehaviour
             if (!invisible)
             {
                 health -= dmg;
-                au.pitch = Random.Range(0.75f, 1.25f);
+                if (au)
+                    au.pitch = Random.Range(0.75f, 1.25f);
 
                 if (health <= 0)
                 {
@@ -55,7 +58,10 @@ public class HealthController : MonoBehaviour
                 else
                 {
                     anim.SetTrigger("Hurt");
-
+                    if (fbc)
+                    {
+                        fbc.Hurt();
+                    }
                     if (mobController)
                         mobController.Hurt();
                     if (hurtClips.Count > 0)
@@ -78,7 +84,7 @@ public class HealthController : MonoBehaviour
     {
         invisible = true;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(hurtCooldown);
 
         if (invisible)
             invisible = false;

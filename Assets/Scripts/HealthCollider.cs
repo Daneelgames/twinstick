@@ -20,9 +20,9 @@ public class HealthCollider : MonoBehaviour
                 break;
             }
         }
-        print(canHurt);
         if (canHurt)
         {
+            print (amount);
             masterHealth.Damage(amount);
         }
     }
