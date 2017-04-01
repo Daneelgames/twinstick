@@ -27,6 +27,9 @@ public class FatherBossController : MonoBehaviour
     public bool playerInAttackRange = false;
     public int turnDegrees = 0;
 
+    public List<FatherBossDeadBodyController> deadBodies;
+    public FatherBossDeadBodyController bodyToHideOn;
+
     public void PlayerInRange(bool inRange)
     {
         playerInRange = inRange;
@@ -83,6 +86,18 @@ public class FatherBossController : MonoBehaviour
         stateBoss = State.Follow;
         StartCoroutine("Turn", 180);
     }
+    IEnumerator HideOnBody(int td)
+    {
+        canAttack = false;
+        bodyToHideOn.DisableBody();
+        anim.SetTrigger("Hide");
+        yield return new WaitForSeconds(2.1f);
+        anim.SetBool("Move", false);
+        canAttack = true;
+        // play hide anim, wait for seconds
+        deadBodies.Remove(bodyToHideOn);
+        bodyToHideOn = null;
+    }
     IEnumerator Turn(int td)
     {
         turnDegrees = td;
@@ -105,6 +120,10 @@ public class FatherBossController : MonoBehaviour
         if (stateBoss == State.Sleep)
         {
             anim.SetBool("Move", false);
+        }
+        else
+        {
+            anim.SetBool("Move", true);
         }
     }
 
@@ -130,19 +149,59 @@ public class FatherBossController : MonoBehaviour
             anim.SetBool("Move", true);
     }
 
+
     void ChooseNewPosition()
     {
-        rowList = new List<int>();
-        for (int i = 0; i < 5; i++)
+        int random = 1;
+        //if (health.health < health.maxHealth / 2 && deadBodies.Count > 0)
+        if (deadBodies.Count > 0)
         {
-            if (i != row)
+            //random = Random.Range(0, 2);
+            if (random == 1) // try to find a dead body
             {
-                //print(i);
-                rowList.Add(i);
+                List<FatherBossDeadBodyController> newBodiesList = new List<FatherBossDeadBodyController>();
+                foreach (FatherBossDeadBodyController i in deadBodies)
+                {
+                    Vector3 iPos = new Vector3(i.transform.position.x, GameManager.instance.playerController.transform.position.y, i.transform.position.z);
+                    if (Vector3.Distance(iPos, GameManager.instance.playerController.transform.position) > 6) // add body to list if it's far enough
+                    {
+                        newBodiesList.Add(i);
+                    }
+                }
+                if (newBodiesList.Count > 13)
+                {
+                    //choose one body
+                    bodyToHideOn = newBodiesList[Random.Range(0, newBodiesList.Count)];
+                    print(newBodiesList.Count);
+                    // choose row
+                    int r = Random.Range(0, 2);
+                    if (r == 0)
+                        newRow = bodyToHideOn.leftRow;
+                    else
+                        newRow = bodyToHideOn.rightRow;
+                }
+                else
+                {
+                    random = 0;
+                    bodyToHideOn = null;
+                }
             }
         }
-        newRow = rowList[Random.Range(0, 4)];
-        newPlace = Random.Range(0, 2);
+
+        if (random == 0) // choose new row to Sleep
+        {
+            rowList = new List<int>();
+            for (int i = 0; i < 5; i++)
+            {
+                if (i != row)
+                {
+                    //print(i);
+                    rowList.Add(i);
+                }
+            }
+            newRow = rowList[Random.Range(0, 4)];
+            newPlace = Random.Range(0, 2);
+        }
     }
     void StabilizeDegrees()
     {
@@ -205,14 +264,30 @@ public class FatherBossController : MonoBehaviour
             }
         }
     }
-    void Update()
+    void FixedUpdate()
     {
         StabilizeDegrees();
+        if (turnDegrees != 0) // father turns
+        {
+            float turnTo = 0;
+            switch (turnDegrees)
+            {
+                case 90:
+                    turnTo = 1f;
+                    break;
+                default:
+                    turnTo = -1f;
+                    break;
+            }
+            float turn = turnTo * 120f * Time.deltaTime;
+            Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
+            rb.MoveRotation(rb.rotation * turnRotation);
+        }
         if (stateBoss == State.Follow)
         {
             if (turnDegrees == 0) // father not turns
             {
-                Vector3 newVel = transform.forward * speed * 50 * Time.deltaTime;
+                Vector3 newVel = transform.forward * speed * 75 * Time.deltaTime;
                 rb.velocity = newVel;
 
                 if (playerInAttackRange)
@@ -220,71 +295,21 @@ public class FatherBossController : MonoBehaviour
                     Attack();
                 }
             }
-            else
-            {
-                float turnTo = 0;
-                switch (turnDegrees)
-                {
-                    case 90:
-                        turnTo = 1f;
-                        break;
-                    default:
-                        turnTo = -1f;
-                        break;
-                }
-                rb.velocity = Vector3.zero;
-                float turn = turnTo * 120f * Time.deltaTime;
-                Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
-                rb.MoveRotation(rb.rotation * turnRotation);
-            }
         }
         else if (stateBoss == State.Attack)
         {
-            Vector3 newVel = transform.forward * speed * 10 * Time.deltaTime;
+            Vector3 newVel = transform.forward * speed * 20 * Time.deltaTime;
             rb.velocity = newVel;
         }
         else if (stateBoss == State.Sleep)
         {
             rb.velocity = Vector3.zero;
-            if (turnDegrees != 0) // father turns
-            {
-                float turnTo = 0;
-                switch (turnDegrees)
-                {
-                    case 90:
-                        turnTo = 1f;
-                        break;
-                    default:
-                        turnTo = -1f;
-                        break;
-                }
-                float turn = turnTo * 120f * Time.deltaTime;
-                Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
-                rb.MoveRotation(rb.rotation * turnRotation);
-            }
         }
         else if (stateBoss == State.RunAway)
         {
-            if (turnDegrees != 0) // father turns
+            if (turnDegrees == 0)  // he run away
             {
-                float turnTo = 0;
-                switch (turnDegrees)
-                {
-                    case 90:
-                        turnTo = 1f;
-                        break;
-                    default:
-                        turnTo = -1f;
-                        break;
-                }
-                rb.velocity = Vector3.zero;
-                float turn = turnTo * 120f * Time.deltaTime;
-                Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
-                rb.MoveRotation(rb.rotation * turnRotation);
-            }
-            else // he run away
-            {
-                Vector3 newVel = transform.forward * speed * 75 * Time.deltaTime;
+                Vector3 newVel = transform.forward * speed * 120 * Time.deltaTime; // he runs away with greater speed
                 rb.velocity = newVel;
 
                 if (playerInAttackRange)
@@ -318,7 +343,7 @@ public class FatherBossController : MonoBehaviour
                                 StartCoroutine("Turn", 90);
                         }
                     }
-                    else if (transform.position.z > 3.4f)
+                    else if (transform.position.z > 3.4f) // he at north, runs to side
                     {
                         float distance = Mathf.Abs(transform.position.x - rows[newRow].places[0].transform.position.x);
                         if (distance < 0.5f)
@@ -329,8 +354,26 @@ public class FatherBossController : MonoBehaviour
                                 StartCoroutine("Turn", -90);
                             row = newRow;
                         }
+                        else if (transform.rotation.eulerAngles.y < 100 && transform.rotation.eulerAngles.y > 80)// check if he runs right
+                        {
+                            // towards the wall ?
+                            float _distance = Mathf.Abs(transform.position.x - rows[4].places[0].transform.position.x);
+                            if (_distance < 0.5f)
+                            {
+                                StartCoroutine("Turn", 90);
+                            }
+                        }
+                        else if (transform.rotation.eulerAngles.y < 280 && transform.rotation.eulerAngles.y > 260)// check if he runs left
+                        {
+                            // towards the wall ?
+                            float _distance = Mathf.Abs(transform.position.x - rows[0].places[0].transform.position.x);
+                            if (_distance < 0.5f)
+                            {
+                                StartCoroutine("Turn", -90);
+                            }
+                        }
                     }
-                    else if (transform.position.z < -5.4f)
+                    else if (transform.position.z < -5.4f)// he at south, runs to side
                     {
                         float distance = Mathf.Abs(transform.position.x - rows[newRow].places[0].transform.position.x);
                         if (distance < 0.5f)
@@ -340,30 +383,91 @@ public class FatherBossController : MonoBehaviour
                             else
                                 StartCoroutine("Turn", 90);
                             row = newRow;
+                        }
+                        else if (transform.rotation.eulerAngles.y < 100 && transform.rotation.eulerAngles.y > 80)// check if he runs right
+                        {
+                            // towards the wall ?
+                            float _distance = Mathf.Abs(transform.position.x - rows[4].places[0].transform.position.x);
+                            if (_distance < 0.5f)
+                            {
+                                StartCoroutine("Turn", -90);
+                            }
+                        }
+                        else if (transform.rotation.eulerAngles.y < 280 && transform.rotation.eulerAngles.y > 260)// check if he runs left
+                        {
+                            // towards the wall ?
+                            float _distance = Mathf.Abs(transform.position.x - rows[0].places[0].transform.position.x);
+                            if (_distance < 0.5f)
+                            {
+                                StartCoroutine("Turn", 90);
+                            }
                         }
                     }
                 }
                 else // he found the row
                 {
-                    float distance = Mathf.Abs(transform.position.z - rows[row].places[newPlace].transform.position.z);
-                    //print (distance);
-                    if (distance < 0.5f)
+                    if (bodyToHideOn != null)
                     {
-                        rb.velocity = Vector3.zero;
-                        place = newPlace;
-                        int r = Random.Range(0, 2);
-                        switch (r)
+                        float distance = Mathf.Abs(transform.position.z - bodyToHideOn.transform.position.z);
+                        if (distance < 0.25f)
                         {
-                            case 0:
-                                anim.SetBool("Move", false);
-                                break;
-                            case 1: // turn
-                                StartCoroutine("Turn", 180);
-                                break;
+                            if (transform.position.x <= bodyToHideOn.transform.position.x) // father at west
+                            {
+                                if (transform.rotation.eulerAngles.y < 190 && transform.rotation.eulerAngles.y > 170) // father at north
+                                {
+                                    StartCoroutine("HideOnBody", -90);
+                                }
+                                else if (transform.rotation.eulerAngles.y < 10 && transform.rotation.eulerAngles.y > 350) // father at south
+                                {
+                                    StartCoroutine("HideOnBody", 90);
+                                }
+                            }
+                            else // father at east
+                            {
+                                if (transform.rotation.eulerAngles.y < 190 && transform.rotation.eulerAngles.y > 170) // father at north
+                                {
+                                    StartCoroutine("HideOnBody", 90);
+                                }
+                                else if (transform.rotation.eulerAngles.y < 10 && transform.rotation.eulerAngles.y > 350) // father at south
+                                {
+                                    StartCoroutine("HideOnBody", -90);
+                                }
+                            }
+                            stateBoss = State.Hide;
                         }
-                        stateBoss = State.Sleep;
+                    }
+                    else // go to sleep place
+                    {
+                        float distance = Mathf.Abs(transform.position.z - rows[row].places[newPlace].transform.position.z);
+                        //print (distance);
+                        if (distance < 0.5f)
+                        {
+                            rb.velocity = Vector3.zero;
+                            place = newPlace;
+                            int r = Random.Range(0, 2);
+                            switch (r)
+                            {
+                                case 0:
+                                    anim.SetBool("Move", false);
+                                    break;
+                                case 1: // turn
+                                    StartCoroutine("Turn", 180);
+                                    break;
+                            }
+                            stateBoss = State.Sleep;
+                        }
                     }
                 }
+            }
+        }
+        else if (stateBoss == State.Hide)
+        {
+            rb.velocity = Vector3.zero;
+
+            if (bodyToHideOn != null)
+            {
+                Vector3 newPos = Vector3.Lerp(transform.position, new Vector3(bodyToHideOn.transform.position.x, transform.position.y, bodyToHideOn.transform.position.z), 0.5f);
+                transform.position = newPos;
             }
         }
     }
