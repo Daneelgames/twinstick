@@ -7,7 +7,7 @@ public class FatherBossController : MonoBehaviour
     public float speed = 2f;
     public Rigidbody rb;
     public Animator anim;
-    public enum State { Sleep, Attack, Follow, RunAway, Hide };
+    public enum State { Sleep, Attack, Follow, RunAway, Hide, HideAttack, HideOver };
     public State stateBoss = State.Sleep;
     public bool canAttack = true;
     public float attackTime = 0.5f;
@@ -61,6 +61,10 @@ public class FatherBossController : MonoBehaviour
                 {
                     Attack();
                 }
+                else if (stateBoss == State.Hide)
+                {
+                    AttackHide();
+                }
             }
         }
         else
@@ -69,6 +73,34 @@ public class FatherBossController : MonoBehaviour
         }
     }
 
+    void AttackHide()
+    {
+        anim.SetTrigger("Attack");
+        StartCoroutine("HideAttackOver");
+
+        //set fathers new row
+        if (transform.position.x < GameManager.instance.playerController.transform.position.x)
+            row = bodyToHideOn.leftRow;
+        else
+            row = bodyToHideOn.rightRow;
+
+        stateBoss = State.HideAttack;
+    }
+    IEnumerator HideAttackOver()
+    {
+        yield return new WaitForSeconds(2.625f); // hide attack time
+        stateBoss = State.HideOver;
+        yield return new WaitForSeconds(1.958f); // hide over time
+        Reposition();
+        bodyToHideOn = null;
+        int random = Random.Range(0, 2);
+        float dg = 0;
+        if (random == 0)
+            dg = 90;
+        else
+            dg = -90;
+        StartCoroutine("Turn", dg);
+    }
     void Attack()
     {
         anim.SetTrigger("Attack");
@@ -96,7 +128,6 @@ public class FatherBossController : MonoBehaviour
         canAttack = true;
         // play hide anim, wait for seconds
         deadBodies.Remove(bodyToHideOn);
-        bodyToHideOn = null;
     }
     IEnumerator Turn(int td)
     {
@@ -148,7 +179,6 @@ public class FatherBossController : MonoBehaviour
         if (turnDegrees == 0)
             anim.SetBool("Move", true);
     }
-
 
     void ChooseNewPosition()
     {
@@ -417,7 +447,7 @@ public class FatherBossController : MonoBehaviour
                                 {
                                     StartCoroutine("HideOnBody", -90);
                                 }
-                                else if (transform.rotation.eulerAngles.y < 10 && transform.rotation.eulerAngles.y > 350) // father at south
+                                else if (transform.rotation.eulerAngles.y < 10 || transform.rotation.eulerAngles.y > 350) // father at south
                                 {
                                     StartCoroutine("HideOnBody", 90);
                                 }
@@ -428,12 +458,13 @@ public class FatherBossController : MonoBehaviour
                                 {
                                     StartCoroutine("HideOnBody", 90);
                                 }
-                                else if (transform.rotation.eulerAngles.y < 10 && transform.rotation.eulerAngles.y > 350) // father at south
+                                else if (transform.rotation.eulerAngles.y < 10 || transform.rotation.eulerAngles.y > 350) // father at south
                                 {
                                     StartCoroutine("HideOnBody", -90);
                                 }
                             }
                             stateBoss = State.Hide;
+                            InvokeRepeating("TurnToPlayer", 0.1f, 0.1f);
                         }
                     }
                     else // go to sleep place
@@ -468,6 +499,30 @@ public class FatherBossController : MonoBehaviour
             {
                 Vector3 newPos = Vector3.Lerp(transform.position, new Vector3(bodyToHideOn.transform.position.x, transform.position.y, bodyToHideOn.transform.position.z), 0.5f);
                 transform.position = newPos;
+            }
+        }
+        else if (stateBoss == State.HideOver)
+        {
+            Vector3 newPos = Vector3.Lerp(transform.position, new Vector3(rows[row].places[0].transform.position.x, transform.position.y, transform.position.z), 0.1f);
+            transform.position = newPos;
+        }
+    }
+
+    void TurnToPlayer()
+    {
+        if (stateBoss == State.Hide)
+        {
+            if (transform.position.x > GameManager.instance.playerController.transform.position.x)
+            {
+                Quaternion turnRotation = Quaternion.identity;
+                turnRotation.eulerAngles = new Vector3(0, 270, 0);
+                transform.rotation = turnRotation;
+            }
+            else
+            {
+                Quaternion turnRotation = Quaternion.identity;
+                turnRotation.eulerAngles = new Vector3(0, 90, 0);
+                transform.rotation = turnRotation;
             }
         }
     }
