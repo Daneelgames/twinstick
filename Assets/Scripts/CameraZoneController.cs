@@ -21,9 +21,9 @@ public class CameraZoneController : MonoBehaviour
         {
             if (GameManager.instance.playerController && !GameManager.instance.playerController.grabTransform && !GameManager.instance.cutScene)
             {
-                float posX = Mathf.Lerp(camAnchor.transform.position.x, GameManager.instance.playerController.cameraFocus.transform.position.x, 0.33f);
-                float posY = Mathf.Lerp(camAnchor.transform.position.y, GameManager.instance.playerController.cameraFocus.transform.position.y + 1, 0.33f);
-                float posZ = Mathf.Lerp(camAnchor.transform.position.z, GameManager.instance.playerController.cameraFocus.transform.position.z, 0.33f);
+                float posX = Mathf.Lerp(camAnchor.transform.position.x, GameManager.instance.playerController.cameraFocus.transform.position.x, 0.66f);
+                float posY = Mathf.Lerp(camAnchor.transform.position.y, GameManager.instance.playerController.cameraFocus.transform.position.y + 1, 0.66f);
+                float posZ = Mathf.Lerp(camAnchor.transform.position.z, GameManager.instance.playerController.cameraFocus.transform.position.z, 0.66f);
                 camAnchor.transform.LookAt(new Vector3(posX, posY, posZ));
             }
         }

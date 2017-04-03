@@ -60,10 +60,12 @@ public class FatherBossController : MonoBehaviour
                 if (stateBoss == State.Sleep || stateBoss == State.Follow)
                 {
                     Attack();
+                    playerInAttackRange = false;
                 }
                 else if (stateBoss == State.Hide)
                 {
-                    AttackHide();
+                    StartCoroutine("HideAttack");
+                    playerInAttackRange = false;
                 }
             }
         }
@@ -73,22 +75,22 @@ public class FatherBossController : MonoBehaviour
         }
     }
 
-    void AttackHide()
+    IEnumerator HideAttack()
     {
+        stateBoss = State.HideAttack;
+        yield return new WaitForSeconds(1); // wait
         anim.SetTrigger("Attack");
-        StartCoroutine("HideAttackOver");
+        yield return new WaitForSeconds(2.625f); // hide attack time
+        StartCoroutine("HideOver");
+    }
 
+    IEnumerator HideOver()
+    {
         //set fathers new row
         if (transform.position.x < GameManager.instance.playerController.transform.position.x)
             row = bodyToHideOn.leftRow;
         else
             row = bodyToHideOn.rightRow;
-
-        stateBoss = State.HideAttack;
-    }
-    IEnumerator HideAttackOver()
-    {
-        yield return new WaitForSeconds(2.625f); // hide attack time
         stateBoss = State.HideOver;
         yield return new WaitForSeconds(1.958f); // hide over time
         Reposition();
@@ -171,6 +173,10 @@ public class FatherBossController : MonoBehaviour
             }
             Reposition();
         }
+        else if (stateBoss == State.Hide)
+        {
+            StartCoroutine("HideOver");
+        }
     }
 
     public void Reposition()
@@ -184,12 +190,12 @@ public class FatherBossController : MonoBehaviour
     void ChooseNewPosition()
     {
         int random = 1;
-        //if (health.health < health.maxHealth / 2 && deadBodies.Count > 0)
-        if (deadBodies.Count > 0)
+        if (health.health < health.maxHealth / 2 && deadBodies.Count > 0)
         {
-            //random = Random.Range(0, 2);
+            random = Random.Range(0, 2);
             if (random == 1) // try to find a dead body
             {
+                print("random is " + random);
                 List<FatherBossDeadBodyController> newBodiesList = new List<FatherBossDeadBodyController>();
                 foreach (FatherBossDeadBodyController i in deadBodies)
                 {
@@ -199,11 +205,11 @@ public class FatherBossController : MonoBehaviour
                         newBodiesList.Add(i);
                     }
                 }
-                if (newBodiesList.Count > 13)
+                print(newBodiesList.Count);
+                if (newBodiesList.Count > 1 && deadBodies.Count > 13)
                 {
                     //choose one body
                     bodyToHideOn = newBodiesList[Random.Range(0, newBodiesList.Count)];
-                    print(newBodiesList.Count);
                     // choose row
                     int r = Random.Range(0, 2);
                     if (r == 0)
@@ -217,6 +223,10 @@ public class FatherBossController : MonoBehaviour
                     bodyToHideOn = null;
                 }
             }
+        }
+        else
+        {
+            random = 0;
         }
 
         if (random == 0) // choose new row to Sleep
@@ -465,6 +475,7 @@ public class FatherBossController : MonoBehaviour
                                 }
                             }
                             stateBoss = State.Hide;
+                            anim.ResetTrigger("Hurt");
                             InvokeRepeating("TurnToPlayer", 0.1f, 0.1f);
                         }
                     }
