@@ -397,7 +397,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        if (playerController.playerHealth.health > 0 && !playerController.attacking && !playerController.aim && !playerController.reloading && !playerController.healing && !playerController.moveBack && !gui.fade)
+        if (playerController.playerHealth.health > 0 && !playerController.attacking && !playerController.aim && !playerController.reloading && !playerController.healing && !playerController.hurt && !gui.fade)
         {
             if (Input.GetButtonDown("Submit") && !inventory.active && npcToInteract != null)
             {

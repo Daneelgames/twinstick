@@ -19,11 +19,11 @@ public class CameraZoneController : MonoBehaviour
     {
         if (active && follow)
         {
-            if (GameManager.instance.playerController != null && !GameManager.instance.cutScene)
+            if (GameManager.instance.playerController && !GameManager.instance.playerController.grabTransform && !GameManager.instance.cutScene)
             {
-                float posX = Mathf.Lerp(camAnchor.transform.position.x, GameManager.instance.playerController.cameraFocus.transform.position.x, 0.1f);
-                float posY = Mathf.Lerp(camAnchor.transform.position.y, GameManager.instance.playerController.cameraFocus.transform.position.y + 1, 0.1f);
-                float posZ = Mathf.Lerp(camAnchor.transform.position.z, GameManager.instance.playerController.cameraFocus.transform.position.z, 0.1f);
+                float posX = Mathf.Lerp(camAnchor.transform.position.x, GameManager.instance.playerController.cameraFocus.transform.position.x, 0.33f);
+                float posY = Mathf.Lerp(camAnchor.transform.position.y, GameManager.instance.playerController.cameraFocus.transform.position.y + 1, 0.33f);
+                float posZ = Mathf.Lerp(camAnchor.transform.position.z, GameManager.instance.playerController.cameraFocus.transform.position.z, 0.33f);
                 camAnchor.transform.LookAt(new Vector3(posX, posY, posZ));
             }
         }

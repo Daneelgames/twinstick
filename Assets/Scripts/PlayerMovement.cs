@@ -29,7 +29,8 @@ public class PlayerMovement : MonoBehaviour
     float inputH = 0;
     float inputV = 0;
 
-    public bool moveBack = false;
+    public bool hurt = false;
+    public Transform grabTransform;
     public bool attacking = false;
     public bool reloading = false;
     public bool healing = false;
@@ -54,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject cameraFocus;
     public bool run = false;
+    public Collider moveCollider;
 
     void FixedUpdate()
     {
@@ -89,6 +91,19 @@ public class PlayerMovement : MonoBehaviour
             }
             Animate();
         }
+
+        if (grabTransform && hurt)
+        {
+            Vector3 newPos = Vector3.Lerp(transform.position, grabTransform.position, 0.33f);
+            transform.position = newPos;
+            transform.localEulerAngles = Vector3.Lerp(transform.localEulerAngles, Vector3.zero, 0.33f);
+        }
+        else if (!grabTransform && !hurt)
+        {
+            Quaternion turnRotation = Quaternion.identity;
+            turnRotation.eulerAngles = new Vector3(0, transform.rotation.eulerAngles.y, 0);
+            transform.rotation = turnRotation;
+        }
     }
 
     void Flashlight()
@@ -96,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         if (flashlightCooldown > 0)
             flashlightCooldown -= Time.deltaTime;
 
-        if (Input.GetButtonDown("Flashlight") && !moveBack && !aim && !reloading && !attacking && flashlightCooldown <= 0)
+        if (Input.GetButtonDown("Flashlight") && !hurt && !aim && !reloading && !attacking && flashlightCooldown <= 0)
         {
             if (StateManager.instance.flashlight)
             {
@@ -120,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Attacking()
     {
-        if (Input.GetButtonDown("Fire1") && aim && weaponController.curCooldown <= 0 && !moveBack && !reloading)
+        if (Input.GetButtonDown("Fire1") && aim && weaponController.curCooldown <= 0 && !hurt && !reloading)
         {
             bool canShoot = false;
             if (weaponController.ammo > 0 || weaponController.weaponAmmoType == WeaponController.Type.Melee)
@@ -146,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetButtonDown("Reload"))
         {
-            if (weaponController.curCooldown <= 0 && weaponController.ammo < weaponController.ammoMax && !GameManager.instance.gui.reloadController.reload && !moveBack)
+            if (weaponController.curCooldown <= 0 && weaponController.ammo < weaponController.ammoMax && !GameManager.instance.gui.reloadController.reload && !hurt)
             {
                 bool canReload = false;
                 int reloadAmount = weaponController.ammoMax - weaponController.ammo;
@@ -170,7 +185,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Healing()
     {
-        if (Input.GetButtonDown("Heal") && !attacking && !healing && !reloading && !moveBack)
+        if (Input.GetButtonDown("Heal") && !attacking && !healing && !reloading && !hurt)
         {
             if (StateManager.instance.painkillers > 0 && playerHealth.health != playerHealth.maxHealth)
             {
@@ -196,18 +211,36 @@ public class PlayerMovement : MonoBehaviour
         healing = false;
     }
 
-
-    public void MoveBack(float moveTime)
+    public void Hurt(float _time, string animBool, Transform _grabTransform)
     {
-        StartCoroutine("MoveBackCoroutine", moveTime);
+        grabTransform = _grabTransform;
+        StartCoroutine(HurtCoroutine(_time, animBool));
+    }
+    IEnumerator HurtCoroutine(float _time, string animBool)
+    {
+        moveCollider.enabled = false;
+        if (grabTransform)
+        {
+            transform.SetParent(grabTransform);
+        }
+        if (animBool != "")
+            anim.SetBool(animBool, true);
+        hurt = true;
+        yield return new WaitForSeconds(_time);
+        if (animBool != "")
+            anim.SetBool(animBool, false);
+        moveCollider.enabled = true;
+        if (grabTransform)
+        {
+            transform.SetParent(GameManager.instance.transform);
+            grabTransform = null;
+            yield return new WaitForSeconds(2.5f); // time to stand up
+            hurt = false;
+        }
+        else
+            hurt = false;
     }
 
-    IEnumerator MoveBackCoroutine(float moveTime)
-    {
-        moveBack = true;
-        yield return new WaitForSeconds(moveTime);
-        moveBack = false;
-    }
 
     public void SetMaxSpeed(float value)
     {
@@ -220,7 +253,7 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.Rotate(Vector3.up * 360f * Time.deltaTime);
         }
-        if (!GameManager.instance.gui.reloadController.reload && !playerHealth.invisible && !moveBack && !attacking && !quickTurn)
+        if (!GameManager.instance.gui.reloadController.reload && !playerHealth.invisible && !hurt && !attacking && !quickTurn)
         {
             //Vector3 m = transform.forward * inputV * speed * Time.deltaTime;
             //rb.MovePosition(rb.position + m);
@@ -236,6 +269,7 @@ public class PlayerMovement : MonoBehaviour
                 else
                     turn = inputH * turnSpeed / 2 * Time.deltaTime;
             }
+
             Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
             rb.MoveRotation(rb.rotation * turnRotation);
 
@@ -338,7 +372,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (inputV != 0)
         {
-            if (!aim && !attacking && !moveBack && !reloading && !healing)
+            if (!aim && !attacking && !hurt && !reloading && !healing)
                 anim.SetBool("Move", true);
             else
                 anim.SetBool("Move", false);
@@ -405,7 +439,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload && Time.timeScale > 0 && !moveBack)
+        if (Input.GetButton("Aim") && !GameManager.instance.gui.reloadController.reload && Time.timeScale > 0 && !hurt && !grabTransform)
         {
             if (GameManager.instance.activeWeapon != "")
             {

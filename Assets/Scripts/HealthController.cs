@@ -4,7 +4,6 @@ using System.Collections;
 
 public class HealthController : MonoBehaviour
 {
-
     public int maxHealth = 1;
     public float health = 1;
     public float hurtCooldown = 1f;
@@ -73,7 +72,7 @@ public class HealthController : MonoBehaviour
 
                 if (player)
                 {
-                    GameManager.instance.playerController.MoveBack(0.75f);
+                    GameManager.instance.playerController.Hurt(0.75f, "", null);
                     GameManager.instance.gui.SetHealth();
                 }
             }
@@ -88,6 +87,36 @@ public class HealthController : MonoBehaviour
 
         if (invisible)
             invisible = false;
+    }
+
+    public void DamageGrab(int dmg, string animBool, float _time, Transform grabTransform)
+    {
+        if (dmg > 0 && health > 0 && !invisible)
+        {
+            if (player)
+            {
+                GameManager.instance.playerController.Hurt(_time, animBool, grabTransform);
+
+                health -= dmg;
+                GameManager.instance.gui.SetHealth();
+
+                if (au)
+                    au.pitch = Random.Range(0.75f, 1.25f);
+
+                if (health <= 0)
+                {
+                    health = 0;
+                    Death();
+                }
+                else
+                {
+                    StartCoroutine("InvisibleFrames");
+                    anim.SetTrigger("Hurt");
+                    if (hurtClips.Count > 0)
+                        au.PlayOneShot(hurtClips[Random.Range(0, hurtClips.Count)]);
+                }
+            }
+        }
     }
 
     public void Death()

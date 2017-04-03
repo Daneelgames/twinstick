@@ -99,6 +99,7 @@ public class FatherBossController : MonoBehaviour
             dg = 90;
         else
             dg = -90;
+        Reposition();
         StartCoroutine("Turn", dg);
     }
     void Attack()
