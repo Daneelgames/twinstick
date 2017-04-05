@@ -7,7 +7,7 @@ public class FatherBossController : MonoBehaviour
     public float speed = 2f;
     public Rigidbody rb;
     public Animator anim;
-    public enum State { Sleep, Attack, Follow, RunAway, Hide, HideAttack, HideOver };
+    public enum State { Sleep, Attack, Follow, RunAway, Hide, HideAttack, HideOver, Death };
     public State stateBoss = State.Sleep;
     public bool canAttack = true;
     public float attackTime = 0.5f;
@@ -29,7 +29,7 @@ public class FatherBossController : MonoBehaviour
 
     public List<FatherBossDeadBodyController> deadBodies;
     public FatherBossDeadBodyController bodyToHideOn;
-
+    public MessageTransmitter _mt;
     public void PlayerInRange(bool inRange)
     {
         playerInRange = inRange;
@@ -177,6 +177,12 @@ public class FatherBossController : MonoBehaviour
         {
             StartCoroutine("HideOver");
         }
+    }
+
+    public void Death()
+    {
+        stateBoss = State.Death;
+        _mt.SendMessage(false);
     }
 
     public void Reposition()

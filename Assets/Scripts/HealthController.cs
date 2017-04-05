@@ -52,6 +52,10 @@ public class HealthController : MonoBehaviour
                     health = 0;
                     if (mobController)
                         mobController.Dead();
+                    if (fbc)
+                    {
+                        fbc.Death();
+                    }
                     Death();
                 }
                 else
@@ -129,10 +133,13 @@ public class HealthController : MonoBehaviour
         }
         else
         {
-            if (mobController)
-                au.Stop();
-            if (deathClips.Count > 0)
-                au.PlayOneShot(deathClips[Random.Range(0, deathClips.Count)]);
+            if (au)
+            {
+                if (mobController)
+                    au.Stop();
+                if (deathClips.Count > 0)
+                    au.PlayOneShot(deathClips[Random.Range(0, deathClips.Count)]);
+            }
             anim.SetTrigger("Dead");
             anim.SetBool("Dead.persist", true);
             if (breakableObj)

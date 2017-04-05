@@ -26,7 +26,6 @@ public class MessageTransmitter : MonoBehaviour {
             StateManager.instance.AddMessage(recieverName);
             StateManager.instance.RemoveTransmitterMessage(recieverName);
             recieverName = "";
-
             GameManager.instance.SendMessages(needToFadeIn);
         }
         else
