@@ -197,7 +197,10 @@ public class GameManager : MonoBehaviour
         {
             gui.Fade("Game");
         }
-        mainCam.backgroundColor = RenderSettings.fogColor;
+        foreach (Camera c in mainCams)
+        {
+            c.backgroundColor = RenderSettings.fogColor;
+        }
 
         SetActiveWeapon(StateManager.instance.activeWeapon);
 
@@ -233,7 +236,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ChangeCameraDelayed(int index)
     {
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSecondsRealtime(0.01f);
         cameraHolder.SetActive(false); // set old camera inactive
         cameraHolder = cameraHolders[index];
         mainCam = mainCams[index];
@@ -369,7 +372,10 @@ public class GameManager : MonoBehaviour
         mainCam.cullingMask ^= (1 << 5);
         playerInGame.SetActive(false);
         gui.Fade("Game");
-        mainCam.backgroundColor = Color.black;
+        foreach (Camera c in mainCams)
+        {
+            c.backgroundColor = Color.black;
+        }
         camAnim.SetBool("PlayerDead", true);
         yield return new WaitForSecondsRealtime(7f);
         gui.Fade("Black");
@@ -505,6 +511,14 @@ public class GameManager : MonoBehaviour
     public void CutScenePlay(bool playing)
     {
         cutScene = playing;
+        if (!playing)
+        {
+            foreach (GameObject ch in cameraHolders)
+            {
+                ch.transform.SetParent(transform);
+            }
+
+        }
 
         if (playerController != null)
             playerController.gameObject.SetActive(!playing);

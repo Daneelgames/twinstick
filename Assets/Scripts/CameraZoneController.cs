@@ -9,7 +9,7 @@ public class CameraZoneController : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "Player")
+        if (col.tag == "Player" && !active)
         {
             GameManager.instance.SetActiveCamera(this);
         }
